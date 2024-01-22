@@ -1,1 +1,1 @@
-export { default } from "./[...catchAll]";
+export { default } from './[...catchAll]'
