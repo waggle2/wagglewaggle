@@ -1,4 +1,4 @@
-import styles from './Content.module.scss'
+import styles from './content.module.scss'
 
 export default function Content() {
   return (

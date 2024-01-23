@@ -3,7 +3,7 @@ import Xmark from '/public/assets/xmark.svg'
 import SubmitText from '/public/assets/submitText.svg'
 import DropdownToggle from '/public/assets/dropdownToggle.svg'
 
-import styles from './NavBar.module.scss'
+import styles from './navbar.module.scss'
 
 export default function NavBar() {
   return (

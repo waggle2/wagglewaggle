@@ -2,7 +2,7 @@
 import RightArrow from '/public/assets/rightArrow.svg'
 import Camera from '/public/assets/camera.svg'
 import Vote from '/public/assets/vote.svg'
-import styles from './Footer.module.scss'
+import styles from './footer.module.scss'
 
 export default function Footer() {
   return (
