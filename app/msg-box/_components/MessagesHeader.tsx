@@ -17,7 +17,7 @@ export default function MessagesHeader({
   return (
     <div className={style.headerDiv}>
       <span className={style.iconSpan} onClick={() => router.back()}>
-        <Image src="/arrow-left.svg" alt="back" width={24} height={24} />
+        <Image src="/arrowLeft.svg" alt="back" width={24} height={24} />
       </span>
       <span>은하수</span>
       <span
