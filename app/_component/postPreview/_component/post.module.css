@@ -94,9 +94,9 @@
 .postInfoWrapper {
   width: max-content;
   display: flex;
+  gap: 4px;
   align-items: center;
 }
 .postInfoWrapper > img {
   fill: #606163;
 }
-/* TODO: 하트 이미지 채우기 안됨 */

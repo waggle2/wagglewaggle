@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  margin: 16px 0;
+  margin: 32px 0;
 }
 .titleContainer {
   display: flex;
@@ -22,4 +22,9 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

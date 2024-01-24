@@ -1,7 +1,9 @@
 import style from './post.module.css'
 import Image from '@/node_modules/next/image'
 
-import heart from '@/public/heart.svg'
+import like from '@/public/like.svg'
+import comment from '@/public/comment.svg'
+import view from '@/public/view.svg'
 
 type Props = {
   profile: {
@@ -43,15 +45,15 @@ export default function Post({ profile, post }: Props) {
       </div>
       <div className={style.postInfoContainer}>
         <div className={style.postInfoWrapper}>
-          <Image src={heart} alt={'likes'} />
+          <Image src={like} alt={'likes'} />
           <span className={style.likes}>{post.likes}</span>
         </div>
         <div className={style.postInfoWrapper}>
-          <Image src={heart} alt={'likes'} />
+          <Image src={comment} alt={'comments'} />
           <span className={style.likes}>{post.likes}</span>
         </div>
         <div className={style.postInfoWrapper}>
-          <Image src={heart} alt={'likes'} />
+          <Image src={view} alt={'views'} />
           <span className={style.likes}>{post.likes}</span>
         </div>
       </div>
