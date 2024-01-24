@@ -6,22 +6,22 @@ import styles from '../styles/navbar.module.scss'
 import { Dispatch, SetStateAction } from 'react'
 
 interface NavBarProps {
-  toggle: boolean
-  setToggle: Dispatch<SetStateAction<boolean>>
+  isToggle: boolean
+  setIsToggle: Dispatch<SetStateAction<boolean>>
 }
-export default function NavBar({ toggle, setToggle }: NavBarProps) {
+export default function NavBar({ isToggle, setIsToggle }: NavBarProps) {
   return (
     <>
       <div className={styles.navBar}>
-        <Xmark />
+        <Xmark width="24" height="24" />
         <div
           className={
-            toggle ? `${styles.category} ${styles.toggled}` : styles.category
+            isToggle ? `${styles.category} ${styles.toggled}` : styles.category
           }
-          onClick={() => setToggle(!toggle)}
+          onClick={() => setIsToggle(!isToggle)}
         >
           <span>짝사랑</span>
-          <DropdownToggle fill={toggle ? '#2fd714' : 'black'} />
+          <DropdownToggle fill={isToggle ? '#2fd714' : 'black'} />
         </div>
         <SubmitText />
       </div>
