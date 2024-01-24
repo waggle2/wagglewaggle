@@ -9,16 +9,29 @@
   background-color: white;
 }
 
-.arrow {
-  left: -4px;
+.iconSpan {
   width: 24px;
   height: 24px;
-  color: #6b6b6b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
 }
 
+.menuIcon {
+  position: relative;
+  left: 10px;
+}
+
+.menu {
+  align-self: center;
+}
+.arrow {
+  left: -4px;
+  color: #6b6b6b;
+}
 .arrow,
 .menu {
-  cursor: pointer;
   position: relative;
   top: 2px;
 }

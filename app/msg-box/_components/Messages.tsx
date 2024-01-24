@@ -5,8 +5,8 @@ export default function Messages() {
   const { messages } = messageRooms[0]
   return (
     <>
-      {messages.map((message) => (
-        <Message message={message} key={message.id} />
+      {messages.map((message, index) => (
+        <Message message={message} key={index} />
       ))}
     </>
   )

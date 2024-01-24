@@ -1,18 +1,28 @@
-import MessageSender from "../_components/MessageSender";
-import Messages from "../_components/Messages";
-import MessagesHeader from "../_components/MessagesHeader";
-import ModalMenu from "../_components/ModalMenu";
-import style from "./page.module.scss";
+'use client'
+import { useState } from 'react'
+import MessageSender from '../_components/MessageSender'
+import Messages from '../_components/Messages'
+import MessagesHeader from '../_components/MessagesHeader'
+import style from './page.module.scss'
+import ModalOption from '../_components/ModalOption'
 
 export default function page() {
+  const [isMenuModalOpen, setMenuModalOpen] = useState(false)
+
   return (
     <div className={style.wrapper}>
-      <MessagesHeader />
+      <MessagesHeader
+        isMenuModalOpen={isMenuModalOpen}
+        setMenuModalOpen={setMenuModalOpen}
+      />
       <div className={style.messagesDiv}>
         <Messages />
       </div>
       <MessageSender />
-      {/* <ModalMenu /> */}
+      <ModalOption
+        isMenuModalOpen={isMenuModalOpen}
+        setMenuModalOpen={setMenuModalOpen}
+      />
     </div>
-  );
+  )
 }
