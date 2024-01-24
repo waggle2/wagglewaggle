@@ -5,7 +5,7 @@ const cx = cs.bind(style)
 type ModalProps = {
   isOpen: boolean
   children: React.ReactNode
-  modalType: 'main' | 'delete' | 'block' | 'report'
+  modalType: 'main' | 'delete' | 'block' | 'report' | 'rules'
   onClose: () => void
 }
 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Modal from './Modal'
 import ModalReport from './ModalReport'
 import ModalCase from './ModalCase'
+import ModalRules from './ModalRules'
 
 export default function ModalOption({
   isMenuModalOpen,
@@ -15,6 +16,7 @@ export default function ModalOption({
   const [isBlockModalOpen, setBlockModalOpen] = useState(false)
   const [isReportModalOpen, setReportModalOpen] = useState(false)
   const [isBlockAfterReport, setBlockAfterReport] = useState(false)
+  const [isRulesModalOpen, setRulesModalOpen] = useState(false)
 
   const openModal = (setModalState: (state: boolean) => void) => {
     setMenuModalOpen(false)
@@ -91,13 +93,23 @@ export default function ModalOption({
           />
         )}
       </Modal>
-
       <Modal
         modalType="report"
         isOpen={isReportModalOpen}
         onClose={() => setReportModalOpen(false)}
       >
-        <ModalReport onAction={handleReport} />
+        <ModalReport
+          onAction={handleReport}
+          onOpenSecondModal={() => setRulesModalOpen(true)}
+        />
+      </Modal>
+
+      <Modal
+        modalType="rules"
+        isOpen={isRulesModalOpen}
+        onClose={() => setRulesModalOpen(false)}
+      >
+        <ModalRules onClose={() => setRulesModalOpen(false)} />
       </Modal>
     </div>
   )

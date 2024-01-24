@@ -25,7 +25,7 @@ export default function MessagesHeader({
         onClick={() => setMenuModalOpen(!isMenuModalOpen)}
       >
         <Image
-          src="/icon-hamburger.svg"
+          src="/iconHamburger.svg"
           alt="menu"
           className={style.menu}
           width={3}

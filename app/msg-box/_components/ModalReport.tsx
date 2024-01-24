@@ -11,7 +11,15 @@ const RuleList = [
   '기타',
 ]
 
-export default function ModalReport({ onAction }: { onAction: () => void }) {
+type ModalReportProps = {
+  onAction: () => void
+  onOpenSecondModal: () => void
+}
+
+export default function ModalReport({
+  onAction,
+  onOpenSecondModal,
+}: ModalReportProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onAction()
@@ -20,7 +28,7 @@ export default function ModalReport({ onAction }: { onAction: () => void }) {
     <form onSubmit={handleSubmit}>
       <div className={style.titleDiv}>
         <h2>사유선택</h2>
-        <div className={style.ruleDiv}>
+        <div className={style.ruleDiv} onClick={onOpenSecondModal}>
           <span>커뮤니티 규칙</span>
           <Image
             src="/arrowRight.svg"
