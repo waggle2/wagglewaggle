@@ -1,8 +1,14 @@
-import styles from './content.module.scss'
-
+'use client'
+import { useState } from 'react'
+import styles from '../styles/content.module.scss'
+import NavBar from './NavBar'
+import Dropdown from './Dropdown'
 export default function Content() {
+  const [toggle, setToggle] = useState(false)
   return (
     <div>
+      <NavBar toggle={toggle} setToggle={setToggle} />
+      {toggle && <Dropdown />}
       <input className={styles.titleInput} placeholder="제목" />
       <div className={styles.infoBox}>
         <span>어떤 말을 듣고싶나요?</span>

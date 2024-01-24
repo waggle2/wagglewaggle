@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  font-size: 17px;
+  left: 0;
+  z-index: 1;
+  padding-top: 60vh;
+  background: rgba(0 0 0 / 15%);
+}
+.items {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.items::-webkit-scrollbar {
+  display: none;
+}
+.item {
+  padding: 21px 0;
+  background: #fff;
+}
+.firstItem {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}

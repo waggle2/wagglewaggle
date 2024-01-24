@@ -1,12 +1,10 @@
-import styles from './page.module.scss'
-import NavBar from './NavBar'
-import Content from './Content'
-import Footer from './Footer'
+import styles from './styles/page.module.scss'
+import Content from './components/Content'
+import Footer from './components/Footer'
 
 export default function Write() {
   return (
     <div className={styles.container}>
-      <NavBar />
       <Content />
       <Footer />
     </div>
