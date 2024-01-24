@@ -3,10 +3,12 @@ import Footer from './_component/common/footer/page'
 import Header from './_component/common/header/page'
 import Image from '@/node_modules/next/image'
 import logo from '../public/logo.svg'
+import recent from '../public/recent.svg'
 import Search from './_component/common/header/_component/Search'
 import Bell from './_component/common/header/_component/Bell'
 import SwipeEvent from './_component/swipeEvent/SwipeEvent'
 import NavTheme from './_component/navTheme/NavTheme'
+import PostPreview from './_component/postPreview/PostPreview'
 
 export default function Home() {
   return (
@@ -17,6 +19,7 @@ export default function Home() {
       />
       <SwipeEvent />
       <NavTheme />
+      <PostPreview title={'따끈따끈 최신글'} href={''} icon={recent} />
       <Footer />
     </main>
   )

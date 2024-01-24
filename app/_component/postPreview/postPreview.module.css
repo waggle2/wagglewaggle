@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  margin: 16px 0;
+}
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+.titleWrapper {
+  display: flex;
+  gap: 4px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
