@@ -9,10 +9,9 @@ export default function PointShop() {
         <>
             <div className={style.header}>
                 <h2 >포인트샵</h2>
+                {/* 포인트샵 이용안내 */}
+                <ShopInfoButton />
             </div>
-
-            {/* 포인트샵 이용안내 */}
-            <ShopInfoButton />
 
             {/* 꾸미기 영역 */}
             <CustomProfile />
