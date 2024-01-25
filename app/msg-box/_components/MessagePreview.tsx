@@ -1,5 +1,4 @@
 import style from '../styles/messagePreview.module.scss'
-import AvatarImage from './AvatarImage'
 
 export default function MessagePreview({
   messageRoom,
@@ -8,9 +7,7 @@ export default function MessagePreview({
 }) {
   return (
     <article className={style.container}>
-      <span className={style.avatar}>
-        <AvatarImage />
-      </span>
+      <span className={style.avatar}></span>
       <div className={style.textDiv}>
         <span className={style.sender}>은하수</span>
         <span className={style.content}>여사친이 완전 못된 사람이네!!</span>
