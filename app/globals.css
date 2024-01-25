@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Pretendard Variable';
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+button {
+  all: unset;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
