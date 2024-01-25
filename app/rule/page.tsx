@@ -1,5 +1,5 @@
 import styles from './styles/page.module.scss'
-import NavBar from './components/NavBar'
+import NavBar from './_components/NavBar'
 export default function Rule() {
   return (
     <div className={styles.container}>
