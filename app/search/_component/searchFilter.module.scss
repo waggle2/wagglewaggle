@@ -1,0 +1,23 @@
+.navBar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 13px 0 21px 0;
+}
+.category {
+  padding: 3px 9px;
+  border: 1px solid #d9d9d9;
+  border-radius: 11px;
+  color: #6b6b6b;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+.toggled {
+  color: #fff;
+  background-color: #2fd714;
+  border: 1px solid #2fd714;
+}

@@ -1,4 +1,5 @@
 import SearchBar from "./_component/SearchBar";
+import SearchResult from "./_component/SearchResult";
 import style from './search.module.scss';
 
 type Props = {
@@ -10,7 +11,8 @@ export default function Search({ searchParams }: Props) {
     return (
         <div className={style.container}>
             <SearchBar q={searchParams.q} />
-            {searchParams.q}에대한 검색결과
+            <SearchResult q={searchParams.q} />
+
         </div>
     )
 }

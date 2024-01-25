@@ -1,9 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Back from '@/app/_components/common/header/_component/Back'
 
 import style from './searchBar.module.scss'
-import BackButton from '@/app/_component/BackButton';
 
 type Props = { q?: string }
 
@@ -29,7 +29,7 @@ export default function SearchBar({ q }: Props) {
 
     return (
         <div className={style.exploreBar}>
-            <BackButton />
+            <Back />
             <input
                 className={style.searchInput}
                 type="text"
