@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid #e3e3e3;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: #ffffff;
+}
+
+.textDiv {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .sender {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .time {
+    font-size: 12px;
+    color: #8c8c8c;
+  }
+  .content {
+    color: #1a1a1a;
+    opacity: 0.8;
+    line-height: 19px;
+    flex-basis: 100%;
+    font-size: 12px;
+    padding-top: 4px;
+  }
+}

@@ -1,0 +1,36 @@
+.headerDiv {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 14px 13px;
+  background-color: white;
+  font-size: 17px;
+}
+
+.iconSpan {
+  cursor: pointer;
+  margin-left: -8px;
+  .leftArrow {
+    position: relative;
+    top: 4px;
+  }
+}
+
+.menuIcon {
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+  padding-inline: 11px;
+}
+
+.arrow {
+  left: -4px;
+  color: #6b6b6b;
+}
+.arrow,
+.menu {
+  position: relative;
+  top: 2px;
+}
