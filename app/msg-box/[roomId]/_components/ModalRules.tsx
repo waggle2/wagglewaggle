@@ -1,11 +1,7 @@
-import style from './styles/modalRules.module.scss'
+import style from '../styles/modalRules.module.scss'
 import Image from 'next/image'
 
-export default function ModalRules({
-  onClose,
-}: {
-  onClose: () => void
-}) {
+export default function ModalRules({ onClose }: { onClose: () => void }) {
   return (
     <article className={style.rulesArticle}>
       <header className={style.header}>

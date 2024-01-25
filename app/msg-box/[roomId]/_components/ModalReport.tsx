@@ -1,5 +1,5 @@
 'use client'
-import style from './styles/modalReport.module.scss'
+import style from '../styles/modalReport.module.scss'
 import RuleListItem from './RuleListItem'
 import Image from 'next/image'
 

@@ -1,4 +1,4 @@
-import style from './styles/messageRooms.module.scss'
+import style from '../styles/messageRooms.module.scss'
 import MessagePreview from './MessagePreview'
 import { messageRooms } from '../mock'
 import Link from 'next/link'

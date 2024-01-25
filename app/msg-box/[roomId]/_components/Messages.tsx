@@ -1,5 +1,5 @@
-import { messageRooms } from '../mock'
-import Message from './Message'
+import { messageRooms } from '../../mock'
+import Message from '../../_components/Message'
 
 export default function Messages() {
   const { messages } = messageRooms[0]

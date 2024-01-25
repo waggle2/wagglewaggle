@@ -1,4 +1,4 @@
-import style from './styles/modalOption.module.scss'
+import style from '../styles/modalOption.module.scss'
 import { useState } from 'react'
 import Modal from './Modal'
 import ModalReport from './ModalReport'

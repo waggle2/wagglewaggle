@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import style from './styles/messagesHeader.module.scss'
+import style from '../styles/messagesHeader.module.scss'
 import Image from 'next/image'
 import cs from 'classnames/bind'
 import { useRouter } from 'next/navigation'

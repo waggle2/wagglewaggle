@@ -1,11 +1,11 @@
-import style from "./styles/message.module.scss";
-import AvatarImage from "./AvatarImage";
+import style from '../styles/message.module.scss'
+import AvatarImage from './AvatarImage'
 
 type Message = {
-  content: string;
-  sender: string;
-  createdAt: string;
-};
+  content: string
+  sender: string
+  createdAt: string
+}
 
 export default function Message({ message }: { message: Message }) {
   return (
@@ -19,5 +19,5 @@ export default function Message({ message }: { message: Message }) {
         <span className={style.content}>{message.content}</span>
       </div>
     </article>
-  );
+  )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import style from './styles/modal.module.scss'
+import style from '../styles/modal.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
 type ModalProps = {

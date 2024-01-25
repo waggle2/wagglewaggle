@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
-import MessageSender from '../_components/MessageSender'
-import Messages from '../_components/Messages'
-import MessagesHeader from '../_components/MessagesHeader'
-import style from './page.module.scss'
-import ModalOption from '../_components/ModalOption'
+import style from './styles/page.module.scss'
+import ModalOption from './_components/ModalOption'
+import MessagesHeader from './_components/MessagesHeader'
+import Messages from './_components/Messages'
+import MessageSender from './_components/MessageSender'
 
 export default function page() {
   const [isMenuModalOpen, setMenuModalOpen] = useState(false)

@@ -1,10 +1,10 @@
-import style from "./styles/messagePreview.module.scss";
-import AvatarImage from "./AvatarImage";
+import style from '../styles/messagePreview.module.scss'
+import AvatarImage from './AvatarImage'
 
 export default function MessagePreview({
   messageRoom,
 }: {
-  messageRoom: object;
+  messageRoom: object
 }) {
   return (
     <article className={style.container}>
@@ -20,5 +20,5 @@ export default function MessagePreview({
         <span className={style.notRead}>3</span>
       </div>
     </article>
-  );
+  )
 }

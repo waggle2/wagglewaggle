@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import style from './styles/messageSender.module.scss'
+import style from '../styles/messageSender.module.scss'
 
 export default function MessageSender() {
   return (

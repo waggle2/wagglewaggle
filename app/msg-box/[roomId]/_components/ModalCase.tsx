@@ -1,4 +1,4 @@
-import style from './styles/modalCase.module.scss'
+import style from '../styles/modalCase.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
 type ModalCaseProps = {
