@@ -1,11 +1,16 @@
 import LogoAndText from './_components/LogoAndText'
+import SignInOrGuestView from './_components/SignInOrGuestView'
 import SignUpButtonGroup from './_components/SignUpButtonGroup'
+import style from './styles/page.module.scss'
 
 export default function page() {
   return (
-    <section>
+    <section className={style.container}>
       <LogoAndText />
-      <SignUpButtonGroup />
+      <div className={style.buttonsWrapper}>
+        <SignUpButtonGroup />
+      </div>
+      <SignInOrGuestView />
     </section>
   )
 }
