@@ -1,7 +1,6 @@
 import style from './postPreview.module.scss'
 
 import Link from '@/node_modules/next/link'
-import Image from '@/node_modules/next/image'
 
 import Post from './_component/Post'
 

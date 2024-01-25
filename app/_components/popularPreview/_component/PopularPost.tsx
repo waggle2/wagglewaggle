@@ -1,5 +1,3 @@
-import Image from '@/node_modules/next/image'
-
 import style from './popularPost.module.scss'
 
 import View from '@/public/assets/view.svg'

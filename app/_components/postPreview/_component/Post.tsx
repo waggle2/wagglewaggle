@@ -1,5 +1,4 @@
 import style from './post.module.scss'
-import Image from '@/node_modules/next/image'
 
 import Like from '@/public/assets/like.svg'
 import Comment from '@/public/assets/comment.svg'
