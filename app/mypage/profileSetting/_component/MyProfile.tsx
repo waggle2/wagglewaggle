@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from '@/node_modules/next/navigation'
-import style from './profileSetting.module.scss'
+import style from './styles/profileSetting.module.scss'
 
 type CustomPreviewProps = {
   selectedEmoji: string

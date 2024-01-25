@@ -1,4 +1,4 @@
-import style from './profileSetting.module.scss'
+import style from './styles/profileSetting.module.scss'
 
 type Item = {
   id: number

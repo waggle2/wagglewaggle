@@ -1,4 +1,4 @@
-import style from './settingNav.module.scss'
+import style from './styles/settingNav.module.scss'
 import Next from '@/public/assets/next.svg'
 import Link from '@/node_modules/next/link'
 type props = {

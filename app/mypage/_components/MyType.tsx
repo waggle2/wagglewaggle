@@ -1,4 +1,4 @@
-import style from './myType.module.scss'
+import style from './styles/myType.module.scss'
 import Type from './Type'
 import Cat from '@/public/assets/cat.svg'
 import Bear from '@/public/assets/bear.svg'

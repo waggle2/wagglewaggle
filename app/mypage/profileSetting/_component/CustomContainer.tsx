@@ -1,4 +1,4 @@
-import style from './profileSetting.module.scss'
+import style from './styles/profileSetting.module.scss'
 import { useEffect, useState } from 'react'
 import ConfirmChange from './ConfirmChange'
 import CustomPreview from './CustomPreview'

@@ -1,4 +1,4 @@
-import style from './type.module.scss'
+import style from './styles/type.module.scss'
 import { ReactNode } from 'react'
 
 type Props = {

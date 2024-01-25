@@ -1,5 +1,5 @@
 'use client'
-import style from './confirmChange.module.scss'
+import style from './styles/confirmChange.module.scss'
 
 type Props = {
   selectedItemsLength: number
