@@ -1,7 +1,9 @@
-import style from '@/app/pointshop/_component/point.module.scss'
+import style from '@/app/pointshop/_component/pointShop.module.scss'
 import { useEffect, useState } from "react"
 import ConfirmChange from './ConfirmChange';
-import PointIcon from './PointIcon';
+import CustomPreview from './CustomPreview';
+import Cart from './Cart';
+import ItemSelection from './ItemSelection';
 
 type Props = {
     selectedTab: string,
@@ -26,15 +28,20 @@ const categoryPriority: CategoryPriority = {
 };
 
 export default function CustomResult({ selectedTab }: Props) {
-    // 확인 모달의 보임 여부를 제어하는 상태
+
+    // 확인 모달의 보임 상태
     const [confirmModal, setConfirmModal] = useState(false);
+
     // 현재 선택된 아이템 카테고리 탭 상태
     const [itemCategoryTab, setItemCategoryTab] = useState('이모지');
+
     // 장바구니 아이템 금액
     const [totalItemPrice, setTotalItemPrice] = useState(0);
-    // 보유 코인
+
+    // 보유 포인트
     const [possessionCoin, setPossessionCoin] = useState(90);
 
+    // 구매시 포인트 잔액
     const pointDifference = possessionCoin - totalItemPrice;
 
     // 프로필 미리보기부분 기본 상태는 유저 프로필데이터의 이미지경로가 될듯??
@@ -43,11 +50,12 @@ export default function CustomResult({ selectedTab }: Props) {
     const [selectedFrame, setSelectedFrame] = useState('/point_shop/frame/프레임샘플.png')
     const [selectedWallpaper, setSelectedWallpaper] = useState('/point_shop/wallpaper/벽지샘플.png')
 
-
-
-    //Test
+    //선태한 아이템
     const [selectedItems, setSelectedItems] = useState<Item[]>([]);
 
+
+
+    //Test 상품들
     const products = [
         {
             id: 0,
@@ -245,153 +253,50 @@ export default function CustomResult({ selectedTab }: Props) {
     };
 
 
-
     // 총 금액 계산
     useEffect(() => {
         const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
         setTotalItemPrice(totalPrice);
     }, [selectedItems])
 
+
     return (
         <>
-            {/* 선택된 동물 꾸미기 미리보기 */}
             {confirmModal && <ConfirmChange
                 pointDifference={pointDifference}
                 selectedItemsLength={selectedItems.length}
                 onConfirmClick={handleConfirmModalClick} />}
 
-            <div className={style.customContainer}>
-                {selectedTab && (
-                    <>
-                        <div className={style.customBackground} >
-                            <div className={style.customFnc}>
-                                <button onClick={handleConfirmModalClick}><img src="/point_shop/ico_check_green.svg" alt="" /></button>
-                                <button onClick={handleRefreshClick} className={style.refreshBtn}><img src="/point_shop/ico_refresh.svg" alt="" /></button>
-                            </div>
-
-                            <div className={style.profileResult}>
-                                <img className={style.emoji} src={selectedEmoji} alt={`${selectedEmoji}`} />
-                                <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
-                                <img className={style.profileBg} src={selectedProfileBg} alt={selectedProfileBg} />
-                                <img className={style.wallPaper} src={selectedWallpaper} alt={selectedWallpaper} />
-                            </div>
-
-                            <div className={style.possessionCoin}>
-                                <PointIcon />
-                                {possessionCoin}
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
+            {/* 선택된 동물 꾸미기 미리보기 */}
+            <CustomPreview
+                selectedTab={selectedTab}
+                selectedEmoji={selectedEmoji}
+                selectedProfileBg={selectedProfileBg}
+                selectedFrame={selectedFrame}
+                selectedWallpaper={selectedWallpaper}
+                possessionCoin={possessionCoin}
+                handleConfirmModalClick={handleConfirmModalClick}
+                handleRefreshClick={handleRefreshClick} />
 
             {/* 장바구니 */}
-            <div className={style.selectedContainer}>
-                <ul className={style.selectedItems}>
-                    {selectedItems && selectedItems.length > 0 ? (
-                        selectedItems.map((item, index) => (
-                            <li key={index} className={style.item}>
-                                <div className={style.selectedImageBox}>
-                                    <img src={item.src} alt="" />
-                                </div>
-                                <div className={style.priceCoin}>
-                                    <PointIcon /> {item.price}
-                                </div>
-                            </li>
-                        ))
-                    ) : (
-                        <li className={style.item}>
-                            <div className={style.selectedImageBox}>
-                                <img src="/아이템.png" alt="" />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {0}
-                            </div>
-                        </li>
-                    )}
-                </ul>
-                <div className={style.totalPriceWrap}>
-                    <div className={style.totalPrice}>
-                        <span>TOTAL</span>
-                        <PointIcon />{totalItemPrice}
-                    </div>
-                </div>
-            </div>
+            <Cart
+                selectedItems={selectedItems}
+                totalItemPrice={totalItemPrice}
+            />
 
             {/* 아이템 선택 */}
-            <div className={style.categoryTabContainer}>
-                <button className={tabCategoryButtonStyle('이모지')} onClick={() => handleCategoryClick('이모지')}>이모지</button>
-                <button className={tabCategoryButtonStyle('프로필 배경')} onClick={() => handleCategoryClick('프로필 배경')}>프로필 배경</button>
-                <button className={tabCategoryButtonStyle('프레임')} onClick={() => handleCategoryClick('프레임')}>프레임</button>
-                <button className={tabCategoryButtonStyle('벽지')} onClick={() => handleCategoryClick('벽지')}>벽지</button>
-            </div>
+            <ItemSelection
+                itemCategoryTab={itemCategoryTab}
+                handleCategoryClick={handleCategoryClick}
+                tabCategoryButtonStyle={tabCategoryButtonStyle}
+                products={products}
+                handleItemClick={handleItemClick}
+                selectedItems={selectedItems}
+            />
 
-            <ul className={style.itemContainer}>
-                {itemCategoryTab === '이모지' && (
-                    products.filter(item => item.category === 'emoji').map((item) => (
-                        <li key={item.id} className={style.item}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
 
-                {itemCategoryTab === '프로필 배경' && (
-                    products.filter(item => item.category === 'profileBg').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
 
-                {itemCategoryTab === '프레임' && (
-                    products.filter(item => item.category === 'frame').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
 
-                {itemCategoryTab === '벽지' && (
-                    products.filter(item => item.category === 'wallpaper').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
-
-            </ul>
         </>
     )
 }
