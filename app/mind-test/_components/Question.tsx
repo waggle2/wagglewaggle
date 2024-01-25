@@ -25,7 +25,6 @@ export default function Question() {
           className={styles.answer}
           onClick={() => {
             router.push('/mind-result')
-            setIsFour(!isFour)
           }}
         >
           {item}
