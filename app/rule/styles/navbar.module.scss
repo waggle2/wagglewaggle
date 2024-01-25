@@ -1,0 +1,10 @@
+.navBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 16px;
+}
+.title {
+  flex-basis: calc(50% + 24px);
+  font-size: 17px;
+}
