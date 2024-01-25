@@ -1,0 +1,38 @@
+.imageBox {
+  padding: 20px;
+  font-size: 13px;
+  background-color: #f7dfaf;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  border-radius: 10px;
+}
+.upload {
+  position: absolute;
+  left: 90%;
+  top: 3%;
+}
+.title {
+  color: #222222;
+  font-size: 22px;
+  font-weight: 700;
+}
+.image {
+  width: 100%;
+  padding: 130px;
+}
+.tagBox {
+  margin: 0 auto;
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 12px;
+}
+.tag {
+  padding: 4px 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+}
