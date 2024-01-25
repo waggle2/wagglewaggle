@@ -1,5 +1,5 @@
 import styles from './styles/page.module.scss'
-import Content from './components/Content'
+import Content from './_components/Content'
 
 export default function Write() {
   return (
