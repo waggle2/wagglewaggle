@@ -2,7 +2,7 @@
 export default function PointIcon() {
 
     return (
-        <img src="/point_shop/coin.svg" alt="" />
+        <img src="/assets/coin.svg" alt="" />
     )
 }
 
