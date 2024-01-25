@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-
-
+import Back from '../../public/ico_search_back.svg'
 export default function BackButton() {
     const router = useRouter();
 
@@ -12,7 +11,7 @@ export default function BackButton() {
     return (
         <button
             onClick={goBack}>
-            <img src="/ico_search_back.svg" alt="" />
+            <Back />
         </button>
     )
 }
