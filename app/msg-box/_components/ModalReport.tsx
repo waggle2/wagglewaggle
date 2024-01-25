@@ -31,10 +31,10 @@ export default function ModalReport({
         <div className={style.ruleDiv} onClick={onOpenSecondModal}>
           <span>커뮤니티 규칙</span>
           <Image
-            src="/arrowRight.svg"
+            src="/assets/rightArrow.svg"
             alt="커뮤니티 규칙보기"
-            width={18}
-            height={18}
+            width={5.75}
+            height={9.99}
           />
         </div>
       </div>

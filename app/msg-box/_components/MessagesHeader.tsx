@@ -17,7 +17,7 @@ export default function MessagesHeader({
   return (
     <div className={style.headerDiv}>
       <span className={style.iconSpan} onClick={() => router.back()}>
-        <Image src="/arrowLeft.svg" alt="back" width={24} height={24} />
+        <Image src="/assets/leftArrow.svg" alt="back" width={24} height={24} />
       </span>
       <span>은하수</span>
       <span
@@ -25,7 +25,7 @@ export default function MessagesHeader({
         onClick={() => setMenuModalOpen(!isMenuModalOpen)}
       >
         <Image
-          src="/iconHamburger.svg"
+          src="/assets/dots.svg"
           alt="menu"
           className={style.menu}
           width={3}
