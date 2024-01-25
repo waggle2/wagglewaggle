@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import Header from '../_components/common/header/page'
 import Title from '../_components/common/header/_component/Title'
 import MyProfile from './profileSetting/_component/MyProfile'
+import MyType from './_components/MyType'
 
 export default function MyPage() {
   const profile = {
@@ -47,7 +48,13 @@ export default function MyPage() {
         selectedFrame={'/point_shop/frame/프레임샘플.png'}
         selectedWallpaper={'/point_shop/wallpaper/벽지샘플.png'}
       />
-      {/* <MyType/> */}
+      <MyType
+        type={'고냥이'}
+        cat={profile.type.cat}
+        bear={profile.type.bear}
+        dog={profile.type.dog}
+        fox={profile.type.fox}
+      />
     </div>
   )
 }
