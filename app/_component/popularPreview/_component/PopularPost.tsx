@@ -2,8 +2,8 @@ import Image from '@/node_modules/next/image'
 
 import style from './popularPost.module.css'
 
-import View from '@/public/view.svg'
-import Comment from '@/public/comment.svg'
+import View from '@/public/assets/view.svg'
+import Comment from '@/public/assets/comment.svg'
 
 type Props = {
   profile: {

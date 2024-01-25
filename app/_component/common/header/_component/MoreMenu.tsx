@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import MoreMenuIcon from '@/public/moreMenu.svg'
+import MoreMenuIcon from '@/public/assets/moreMenu.svg'
 
 export default function MoreMenu() {
   const router = useRouter()

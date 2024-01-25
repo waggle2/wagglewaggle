@@ -1,10 +1,10 @@
 import style from './navTheme.module.css'
 import Theme from './_component/Theme'
-import SingleIcon from '@/./public/single.svg'
-import SomeIcon from '@/./public/some.svg'
-import CoupleIcon from '@/./public/couple.svg'
-import BreakUpIcon from '@/./public/breakUp.svg'
-import AdultIon from '@/./public/adult.svg'
+import SingleIcon from '@/public/assets/single.svg'
+import SomeIcon from '@/public/assets/some.svg'
+import CoupleIcon from '@/public/assets/couple.svg'
+import BreakUpIcon from '@/public/assets/breakUp.svg'
+import AdultIon from '@/public/assets/adult.svg'
 
 export default function NavTheme() {
   return (

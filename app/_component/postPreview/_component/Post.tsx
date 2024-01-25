@@ -1,9 +1,9 @@
 import style from './post.module.css'
 import Image from '@/node_modules/next/image'
 
-import Like from '@/public/like.svg'
-import Comment from '@/public/comment.svg'
-import View from '@/public/view.svg'
+import Like from '@/public/assets/like.svg'
+import Comment from '@/public/assets/comment.svg'
+import View from '@/public/assets/view.svg'
 import { ReactNode } from 'react'
 
 type Props = {

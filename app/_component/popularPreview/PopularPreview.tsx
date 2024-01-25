@@ -1,8 +1,8 @@
 import style from './popularPreview.module.css'
 
 import Link from '@/node_modules/next/link'
-import Popular from '@/public/popular.svg'
-import Next from '@/public/next.svg'
+import Popular from '@/public/assets/popular.svg'
+import Next from '@/public/assets/next.svg'
 import PopularPost from './_component/PopularPost'
 
 export default function PopularPreview() {

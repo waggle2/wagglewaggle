@@ -5,8 +5,8 @@ import Image from '@/node_modules/next/image'
 
 import Post from './_component/Post'
 
-import Next from '@/public/next.svg'
-import TestProfile from '@/public/profile.svg'
+import Next from '@/public/assets/next.svg'
+import TestProfile from '@/public/assets/profile.svg'
 import { ReactNode } from 'react'
 
 type Props = {

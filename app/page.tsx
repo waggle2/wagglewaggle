@@ -1,10 +1,10 @@
 import style from './page.module.css'
 
 import Image from '@/node_modules/next/image'
-import Logo from '../public/logo.svg'
-import Recent from '../public/recent.svg'
-import Lips from '../public/lips.svg'
-import Town from '../public/town.svg'
+import Logo from '../public/assets/logo.svg'
+import Recent from '../public/assets/recent.svg'
+import Lips from '../public/assets/lips.svg'
+import Town from '../public/assets/town.svg'
 
 import Footer from './_component/common/footer/page'
 import Header from './_component/common/header/page'
