@@ -8,5 +8,5 @@ export default function Back() {
   const onClickBack = () => {
     router.back()
   }
-  return <BackIcon />
+  return <BackIcon onClick={onClickBack} />
 }
