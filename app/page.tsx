@@ -6,14 +6,14 @@ import Recent from '../public/assets/recent.svg'
 import Lips from '../public/assets/lips.svg'
 import Town from '../public/assets/town.svg'
 
-import Footer from './_component/common/footer/page'
-import Header from './_component/common/header/page'
-import Search from './_component/common/header/_component/Search'
-import Bell from './_component/common/header/_component/Bell'
-import SwipeEvent from './_component/swipeEvent/SwipeEvent'
-import NavTheme from './_component/navTheme/NavTheme'
-import PopularPreview from './_component/popularPreview/PopularPreview'
-import PostPreview from './_component/postPreview/PostPreview'
+import Footer from './_components/common/footer/page'
+import Header from './_components/common/header/page'
+import Search from './_components/common/header/_component/Search'
+import Bell from './_components/common/header/_component/Bell'
+import SwipeEvent from './_components/swipeEvent/SwipeEvent'
+import NavTheme from './_components/navTheme/NavTheme'
+import PopularPreview from './_components/popularPreview/PopularPreview'
+import PostPreview from './_components/postPreview/PostPreview'
 
 export default function Home() {
   return (
