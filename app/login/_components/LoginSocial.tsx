@@ -1,22 +1,14 @@
-import Image from 'next/image'
 import style from './styles/loginSocial.module.scss'
-
-const iconUrl = ['/iconKakao.svg', '/iconNaver.svg', '/iconGoogle.svg']
+import Kakao from '/public/assets/kakao.svg'
+import Google from '/public/assets/google.svg'
+import Naver from '/public/assets/naver.svg'
 
 export default function LoginSocial() {
   return (
     <div className={style.socialDiv}>
-      {iconUrl.map((url, index) => (
-        <span className={style.socialSpan}>
-          <Image
-            key={index}
-            src={iconUrl[index]}
-            width={48}
-            height={48}
-            alt="social login icon"
-          />
-        </span>
-      ))}
+      <Kakao height={48} width={48} />
+      <Google height={48} width={48} />
+      <Naver height={48} width={48} />
     </div>
   )
 }

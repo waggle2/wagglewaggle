@@ -29,6 +29,7 @@
       box-shadow: 0 0 0 1000px white inset;
     }
     &::placeholder {
+      font-size: 13px;
       color: #444444;
     }
   }
@@ -42,6 +43,7 @@
   border-radius: 6px;
   padding-block: 15px;
   font-size: 15px;
+  text-align: center;
   background: #2fd714;
   color: white;
 }
