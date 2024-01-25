@@ -2,10 +2,13 @@
 
 import { useEffect } from 'react'
 
+import style from './mypage.module.scss'
+
 import Header from '../_components/common/header/page'
 import Title from '../_components/common/header/_component/Title'
 import MyProfile from './profileSetting/_component/MyProfile'
 import MyType from './_components/MyType'
+import SettingNav from './_components/SettingNav'
 
 export default function MyPage() {
   const profile = {
@@ -48,13 +51,22 @@ export default function MyPage() {
         selectedFrame={'/point_shop/frame/프레임샘플.png'}
         selectedWallpaper={'/point_shop/wallpaper/벽지샘플.png'}
       />
-      <MyType
-        type={'고냥이'}
-        cat={profile.type.cat}
-        bear={profile.type.bear}
-        dog={profile.type.dog}
-        fox={profile.type.fox}
-      />
+      <div className={style.paddingContainer}>
+        <MyType
+          type={'고냥이'}
+          cat={profile.type.cat}
+          bear={profile.type.bear}
+          dog={profile.type.dog}
+          fox={profile.type.fox}
+        />
+        <SettingNav
+          nickName={profile.nickname}
+          href={'/mypage/nickNameSetting'}
+          title={'닉네임 설정'}
+        />
+        <SettingNav href={'/mypage/nickNameSetting'} title={'로그아웃'} />
+        <SettingNav href={'/mypage/nickNameSetting'} title={'회원 탈퇴'} />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,4 @@
 .container {
-  height: 256px;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -8,6 +7,7 @@
 }
 .typeTitle {
   padding: 4px;
+  margin-top: 20px;
   color: #444;
   text-align: center;
   font-family: 'Pretendard Variable';
@@ -30,4 +30,5 @@
 .animalWrapper {
   display: flex;
   gap: 40px;
+  margin-bottom: 70px;
 }
