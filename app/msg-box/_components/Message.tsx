@@ -1,5 +1,5 @@
 import style from '../styles/message.module.scss'
-import AvatarImage from './AvatarImage'
+import Avatar from '/public/assets/avatar.svg'
 
 type Message = {
   content: string
@@ -11,7 +11,7 @@ export default function Message({ message }: { message: Message }) {
   return (
     <article className={style.container}>
       <span className={style.avatarSpan}>
-        <AvatarImage />
+        <Avatar width="48" height="48" />
       </span>
       <div className={style.textDiv}>
         <span className={style.sender}>{message.sender}</span>

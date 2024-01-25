@@ -15,7 +15,7 @@ export default function page() {
         isMenuModalOpen={isMenuModalOpen}
         setMenuModalOpen={setMenuModalOpen}
       />
-      <div className={style.messagesDiv}>
+      <div className={style.mainSection}>
         <Messages />
       </div>
       <MessageSender />

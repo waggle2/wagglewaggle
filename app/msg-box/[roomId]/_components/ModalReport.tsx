@@ -1,7 +1,7 @@
 'use client'
 import style from '../styles/modalReport.module.scss'
 import RuleListItem from './RuleListItem'
-import Image from 'next/image'
+import RightArrow from '/public/assets/rightArrow.svg'
 
 const RuleList = [
   '부적절한 표현',
@@ -30,12 +30,7 @@ export default function ModalReport({
         <h2>사유선택</h2>
         <div className={style.ruleDiv} onClick={onOpenSecondModal}>
           <span>커뮤니티 규칙</span>
-          <Image
-            src="/assets/rightArrow.svg"
-            alt="커뮤니티 규칙보기"
-            width={5.75}
-            height={9.99}
-          />
+          <RightArrow width={5.75} height={9.99} />
         </div>
       </div>
       <div className={style.ruleListDiv}>

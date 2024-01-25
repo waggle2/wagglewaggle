@@ -1,8 +1,8 @@
 'use client'
-import Link from 'next/link'
 import style from '../styles/messagesHeader.module.scss'
-import Image from 'next/image'
 import cs from 'classnames/bind'
+import LeftArrow from '/public/assets/leftArrow.svg'
+import Dots from '/public/assets/dots.svg'
 import { useRouter } from 'next/navigation'
 const cx = cs.bind(style)
 
@@ -17,20 +17,14 @@ export default function MessagesHeader({
   return (
     <div className={style.headerDiv}>
       <span className={style.iconSpan} onClick={() => router.back()}>
-        <Image src="/assets/leftArrow.svg" alt="back" width={24} height={24} />
+        <LeftArrow width={24} height={24} className={style.leftArrow} />
       </span>
       <span>은하수</span>
       <span
-        className={cx('iconSpan', 'menuIcon')}
+        className={cx('menuIcon')}
         onClick={() => setMenuModalOpen(!isMenuModalOpen)}
       >
-        <Image
-          src="/assets/dots.svg"
-          alt="menu"
-          className={style.menu}
-          width={3}
-          height={15}
-        />
+        <Dots width={3} height={15} className={style.menu} />
       </span>
     </div>
   )

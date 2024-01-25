@@ -1,5 +1,5 @@
 import style from '../styles/modalRules.module.scss'
-import Image from 'next/image'
+import Xmark from '/public/assets/xmark.svg'
 
 export default function ModalRules({ onClose }: { onClose: () => void }) {
   return (
@@ -7,7 +7,7 @@ export default function ModalRules({ onClose }: { onClose: () => void }) {
       <header className={style.header}>
         <h2>커뮤니티 규칙</h2>
         <button onClick={onClose}>
-          <Image src="/iconClose.svg" alt="close" width={24} height={24} />
+          <Xmark width={24} height={24} />
         </button>
       </header>
       <div className={style.rulesContainer}>

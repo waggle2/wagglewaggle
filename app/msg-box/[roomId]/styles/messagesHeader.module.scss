@@ -2,30 +2,29 @@
   position: sticky;
   top: 0;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   padding-block: 14px 13px;
-  margin-bottom: 17px;
   background-color: white;
+  font-size: 17px;
 }
 
 .iconSpan {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   cursor: pointer;
+  margin-left: -8px;
+  .leftArrow {
+    position: relative;
+    top: 4px;
+  }
 }
 
 .menuIcon {
+  cursor: pointer;
   position: relative;
   left: 10px;
+  padding-inline: 11px;
 }
 
-.menu {
-  align-self: center;
-}
 .arrow {
   left: -4px;
   color: #6b6b6b;
