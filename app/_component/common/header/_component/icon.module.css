@@ -1,0 +1,42 @@
+.back {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/back.svg');
+  border: none;
+  background-color: #fff;
+}
+.bell {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/bell.svg');
+  border: none;
+  background-color: #fff;
+}
+.close {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/close.svg');
+  border: none;
+  background-color: #fff;
+}
+.heart {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/heart.svg');
+  border: none;
+  background-color: #fff;
+}
+.moreMenu {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/more-menu.svg');
+  border: none;
+  background-color: #fff;
+}
+.search {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../../public/search.svg');
+  border: none;
+  background-color: #fff;
+}

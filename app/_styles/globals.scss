@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  font: inherit;
+}
+
+body {
+  font-family: 'Pretendard Variable';
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  all: unset;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
