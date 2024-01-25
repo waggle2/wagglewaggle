@@ -13,6 +13,7 @@ import Bell from './_component/common/header/_component/Bell'
 import SwipeEvent from './_component/swipeEvent/SwipeEvent'
 import NavTheme from './_component/navTheme/NavTheme'
 import PostPreview from './_component/postPreview/PostPreview'
+import PopularPreview from './_component/popularPreview/PopularPreview'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       />
       <SwipeEvent />
       <NavTheme />
+      <PopularPreview />
       <PostPreview title={'따끈따끈 최신글'} href={''} icon={recent} />
       <PostPreview title={'연애 TIP'} href={''} icon={lips} />
       <PostPreview title={'고냥이 마을 이야기'} href={''} icon={town} />

@@ -26,7 +26,7 @@ export default function PostPreview({ title, href, icon }: Props) {
           <Image src={nextIcon} alt={'nav button'} />
         </Link>
       </div>
-      <div className={style.contentContainer}>
+      <div className={style.postContainer}>
         <Post
           profile={{
             image: testProfile,

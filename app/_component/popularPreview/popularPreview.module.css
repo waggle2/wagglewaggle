@@ -25,6 +25,9 @@
 }
 .postContainer {
   display: flex;
-  flex-direction: column;
   gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  white-space: nowrap;
+  position: relative;
 }

@@ -1,5 +1,5 @@
-import Header from '../_component/header/page'
-import Back from '../_component/header/_component/Back'
+import Header from '../_component/common/header/page'
+import Back from '../_component/common/header/_component/Back'
 
 export default function MyPage() {
   return (
