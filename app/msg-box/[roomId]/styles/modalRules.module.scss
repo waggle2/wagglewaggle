@@ -1,0 +1,46 @@
+.header {
+  display: flex;
+  padding-block: 14px;
+  font-size: 15px;
+  height: 48px;
+  h2 {
+    flex: 1;
+    font-size: 17px;
+    text-align: center;
+  }
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+}
+
+.rulesContainer {
+  height: calc(100dvh - 48px);
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.rulesDiv {
+  margin-top: 27px;
+}
+.rulesTitle {
+  margin-bottom: 19px;
+  font-weight: bold;
+}
+.rulesList {
+  line-height: 1.7;
+  text-align: justify;
+  li {
+    display: flex;
+  }
+  li::before {
+    content: '•';
+    margin-right: 8px;
+  }
+}
