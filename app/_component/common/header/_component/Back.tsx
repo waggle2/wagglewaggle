@@ -1,20 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
-import style from './icon.module.css'
+import BackIcon from '@/public/back.svg'
 
-type Props = {
-  children?: ReactNode
-}
-export default function Back({ children }: Props) {
+export default function Back() {
   const router = useRouter()
   const onClickBack = () => {
     router.back()
   }
-  return (
-    <button className={style.back} onClick={onClickBack}>
-      {children}
-    </button>
-  )
+  return <BackIcon />
 }

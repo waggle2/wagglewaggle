@@ -1,21 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
-import style from './icon.module.css'
+import MoreMenuIcon from '@/public/moreMenu.svg'
 
-type Props = {
-  children?: ReactNode
-}
-
-export default function MoreMenu({ children }: Props) {
+export default function MoreMenu() {
   const router = useRouter()
   const clickEvent = () => {
     //event
   }
-  return (
-    <button className={style.moreMenu} onClick={clickEvent}>
-      {children}
-    </button>
-  )
+  return <MoreMenuIcon />
 }

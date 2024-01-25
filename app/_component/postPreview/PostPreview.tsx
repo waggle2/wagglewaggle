@@ -5,13 +5,14 @@ import Image from '@/node_modules/next/image'
 
 import Post from './_component/Post'
 
-import nextIcon from '@/public/next.svg'
-import testProfile from '@/public/profile.svg'
+import Next from '@/public/next.svg'
+import TestProfile from '@/public/profile.svg'
+import { ReactNode } from 'react'
 
 type Props = {
   title: string
   href: string
-  icon: string
+  icon: ReactNode
 }
 
 export default function PostPreview({ title, href, icon }: Props) {
@@ -19,17 +20,17 @@ export default function PostPreview({ title, href, icon }: Props) {
     <section className={style.container}>
       <div className={style.titleContainer}>
         <div className={style.titleWrapper}>
-          <Image src={icon} alt={'nav button'} />
+          {icon}
           <label className={style.title}>{title}</label>
         </div>
         <Link href={href}>
-          <Image src={nextIcon} alt={'nav button'} />
+          <Next />
         </Link>
       </div>
       <div className={style.postContainer}>
         <Post
           profile={{
-            image: testProfile,
+            image: <TestProfile />,
             name: '익명의 누군가',
             category: '수다수다',
             tag: '19',
@@ -46,7 +47,7 @@ export default function PostPreview({ title, href, icon }: Props) {
         />
         <Post
           profile={{
-            image: testProfile,
+            image: <TestProfile />,
             name: '익명의 누군가',
             category: '수다수다',
             tag: '19',
@@ -54,7 +55,7 @@ export default function PostPreview({ title, href, icon }: Props) {
           post={{
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-            서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
             likes: 24,
             comments: 24,
             views: 24,

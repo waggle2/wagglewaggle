@@ -1,9 +1,8 @@
 import style from './popularPreview.module.css'
 
 import Link from '@/node_modules/next/link'
-import Image from '@/node_modules/next/image'
-import popular from '@/public/popular.svg'
-import next from '@/public/next.svg'
+import Popular from '@/public/popular.svg'
+import Next from '@/public/next.svg'
 import PopularPost from './_component/PopularPost'
 
 export default function PopularPreview() {
@@ -11,11 +10,11 @@ export default function PopularPreview() {
     <section className={style.container}>
       <div className={style.titleContainer}>
         <div className={style.titleWrapper}>
-          <Image src={popular} alt={'nav button'} />
+          {<Popular />}
           <label className={style.title}>{'바글바글 인기글'}</label>
         </div>
         <Link href={''}>
-          <Image src={next} alt={'nav button'} />
+          <Next />
         </Link>
       </div>
       <div className={style.postContainer}>

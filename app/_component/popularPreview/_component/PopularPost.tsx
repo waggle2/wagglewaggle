@@ -2,8 +2,8 @@ import Image from '@/node_modules/next/image'
 
 import style from './popularPost.module.css'
 
-import view from '@/public/view.svg'
-import comment from '@/public/comment.svg'
+import View from '@/public/view.svg'
+import Comment from '@/public/comment.svg'
 
 type Props = {
   profile: {
@@ -38,11 +38,11 @@ export default function PopularPost({ profile, post }: Props) {
           <div className={style.name}>{profile.name}</div>
           <div className={style.infoWrapper}>
             <div className={style.info}>
-              <Image src={view} alt={'view count'} />
+              <View />
               {post.views}
             </div>
             <div className={style.info}>
-              <Image src={comment} alt={'comment count'} />
+              <Comment />
               {post.comments}
             </div>
           </div>

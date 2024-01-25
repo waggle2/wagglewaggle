@@ -1,5 +1,4 @@
 .container {
-  width: 100%;
   /* TODO: height 설정해야함 */
   border-radius: 12px;
   border: 1px solid #eaeaea;
@@ -86,7 +85,6 @@
   white-space: normal;
 }
 .postInfoContainer {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0 46px;

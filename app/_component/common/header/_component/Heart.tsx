@@ -1,21 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
-import style from './icon.module.css'
+import HeartIcon from '@/public/heart.svg'
 
-type Props = {
-  children?: ReactNode
-}
-
-export default function Heart({ children }: Props) {
+export default function Heart() {
   const router = useRouter()
   const clickEvent = () => {
     //event
   }
-  return (
-    <button className={style.heart} onClick={clickEvent}>
-      {children}
-    </button>
-  )
+  return <HeartIcon />
 }

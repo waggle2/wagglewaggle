@@ -1,13 +1,14 @@
 import style from './post.module.css'
 import Image from '@/node_modules/next/image'
 
-import like from '@/public/like.svg'
-import comment from '@/public/comment.svg'
-import view from '@/public/view.svg'
+import Like from '@/public/like.svg'
+import Comment from '@/public/comment.svg'
+import View from '@/public/view.svg'
+import { ReactNode } from 'react'
 
 type Props = {
   profile: {
-    image: string
+    image: ReactNode
     name: string
     category: string
     tag: string
@@ -27,9 +28,7 @@ export default function Post({ profile, post }: Props) {
     <div className={style.container}>
       <div className={style.profileContainer}>
         <div className={style.profileWrapper}>
-          <div className={style.profileImageWrapper}>
-            <Image src={profile.image} alt={'profile image'} />
-          </div>
+          <div className={style.profileImageWrapper}>{profile.image}</div>
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>{profile.name}</div>
             <div
@@ -45,15 +44,15 @@ export default function Post({ profile, post }: Props) {
       </div>
       <div className={style.postInfoContainer}>
         <div className={style.postInfoWrapper}>
-          <Image src={like} alt={'likes'} />
+          <Like />
           <span className={style.likes}>{post.likes}</span>
         </div>
         <div className={style.postInfoWrapper}>
-          <Image src={comment} alt={'comments'} />
+          <Comment />
           <span className={style.likes}>{post.likes}</span>
         </div>
         <div className={style.postInfoWrapper}>
-          <Image src={view} alt={'views'} />
+          <View />
           <span className={style.likes}>{post.likes}</span>
         </div>
       </div>
