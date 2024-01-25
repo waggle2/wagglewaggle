@@ -1,4 +1,4 @@
-import style from './page.module.css'
+import style from './page.module.scss'
 
 import Image from '@/node_modules/next/image'
 import Logo from '../public/assets/logo.svg'

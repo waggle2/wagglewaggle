@@ -1,4 +1,4 @@
-import style from './navTheme.module.css'
+import style from './navTheme.module.scss'
 import Theme from './_component/Theme'
 import SingleIcon from '@/public/assets/single.svg'
 import SomeIcon from '@/public/assets/some.svg'

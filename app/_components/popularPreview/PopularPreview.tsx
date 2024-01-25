@@ -1,4 +1,4 @@
-import style from './popularPreview.module.css'
+import style from './popularPreview.module.scss'
 
 import Link from '@/node_modules/next/link'
 import Popular from '@/public/assets/popular.svg'
