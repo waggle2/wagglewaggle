@@ -1,0 +1,34 @@
+.exploreBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  > .backButton {
+  }
+
+  > .searchInput {
+    background: url('/ico_search-outline.svg') no-repeat 13px 50%;
+    width: 93%;
+    height: 34px;
+    padding-left: 40px;
+    border: none;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    font-size: 17px;
+    color: #333;
+    outline: none;
+    &::placeholder {
+      color: #b3b3b3;
+    }
+    &:focus {
+      background: none;
+      padding-left: 13px;
+      border: none;
+      background-color: #f1f1f1;
+      &::placeholder {
+        color: transparent;
+      }
+    }
+  }
+}
