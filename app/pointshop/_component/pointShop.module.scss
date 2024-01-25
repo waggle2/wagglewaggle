@@ -27,9 +27,11 @@
 
 .shopInfo h4 {
   font-size: 0.875rem;
+  margin: 0;
 }
 
 .shopInfo h3 {
+  margin: 0;
   font-size: 1rem;
 }
 
@@ -44,6 +46,7 @@
   > .tabButton {
     border-bottom: 3px solid transparent;
     color: #ccc;
+    text-align: center;
   }
 
   > .active {
