@@ -3,12 +3,14 @@
 import { useEffect } from 'react'
 
 import style from './mypage.module.scss'
+import Next from '@/public/assets/next.svg'
 
 import Header from '../_components/common/header/page'
 import Title from '../_components/common/header/_component/Title'
 import MyProfile from './profileSetting/_component/MyProfile'
 import MyType from './_components/MyType'
 import SettingNav from './_components/SettingNav'
+import PostPreview from '../_components/postPreview/PostPreview'
 
 export default function MyPage() {
   const profile = {
@@ -64,6 +66,8 @@ export default function MyPage() {
           href={'/mypage/nickNameSetting'}
           title={'닉네임 설정'}
         />
+        <PostPreview title={'내가 쓴 글'} href={''} />
+        <PostPreview title={'댓글 단 글'} href={''} />
         <SettingNav href={'/mypage/nickNameSetting'} title={'로그아웃'} />
         <SettingNav href={'/mypage/nickNameSetting'} title={'회원 탈퇴'} />
       </div>

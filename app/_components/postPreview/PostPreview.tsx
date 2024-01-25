@@ -11,7 +11,7 @@ import { ReactNode } from 'react'
 type Props = {
   title: string
   href: string
-  icon: ReactNode
+  icon?: ReactNode
 }
 
 export default function PostPreview({ title, href, icon }: Props) {
