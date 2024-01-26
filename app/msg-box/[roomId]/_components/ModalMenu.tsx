@@ -13,10 +13,10 @@ export default function ModalMenu({
   onDelete,
   onClose,
 }: Props) {
-  const handleBlock = () => onBlock
-  const handleReport = () => onReport
-  const handleDelete = () => onDelete
-  const handleClose = () => onClose
+  const handleBlock = () => onBlock()
+  const handleReport = () => onReport()
+  const handleDelete = () => onDelete()
+  const handleClose = () => onClose()
 
   return (
     <ul className={style.mainList}>

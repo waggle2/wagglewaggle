@@ -1,4 +1,5 @@
-import style from '../styles/modalCollection.module.scss'
+'use client'
+
 import { useState } from 'react'
 import Modal from './Modal'
 import ModalReport from './ModalReport'
@@ -41,7 +42,7 @@ export default function ModalCollection({
     openModal(setBlockModalOpen)
   }
   return (
-    <>
+    <div>
       <Modal
         modalType="main"
         isOpen={isMenuModalOpen}
@@ -108,6 +109,6 @@ export default function ModalCollection({
       >
         <ModalRules onClose={() => setRulesModalOpen(false)} />
       </Modal>
-    </>
+    </div>
   )
 }
