@@ -11,10 +11,10 @@ export default function MyPage({ path }: props) {
   return (
     <Link href={'./mypage'} className={style.container}>
       <div className={style.background}>
-        {path.includes('mypage') ? <ActiveMyPage /> : <MyPageIcon />}
+        {path.includes('/mypage') ? <ActiveMyPage /> : <MyPageIcon />}
       </div>
       <div
-        className={path.includes('mypage') ? style.activeTitle : style.title}
+        className={path.includes('/mypage') ? style.activeTitle : style.title}
       >
         MY
       </div>

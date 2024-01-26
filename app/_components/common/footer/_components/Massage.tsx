@@ -11,10 +11,10 @@ export default function Massage({ path }: props) {
   return (
     <Link href={'./msg-box'} className={style.container}>
       <div className={style.background}>
-        {path.includes('msg-box') ? <ActiveMsg /> : <Msg />}
+        {path.includes('/msg-box') ? <ActiveMsg /> : <Msg />}
       </div>
       <div
-        className={path.includes('msg-box') ? style.activeTitle : style.title}
+        className={path.includes('/msg-box') ? style.activeTitle : style.title}
       >
         쪽지
       </div>
