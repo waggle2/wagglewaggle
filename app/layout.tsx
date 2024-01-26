@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import Footer from './_components/common/footer/page'
 import './_styles/globals.scss'
 import localFont from 'next/font/local'
@@ -42,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={pretendard.className}>
         {children}
         <Footer />
       </body>
