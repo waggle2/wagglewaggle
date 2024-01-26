@@ -14,7 +14,7 @@
     text-align: center;
     font-size: 15px;
     color: #f84646;
-    font-weight: bolder;
+    font-weight: var(--fw-semiBold);
   }
   & > .delete {
     color: rgb(68, 68, 68, 0.6);
