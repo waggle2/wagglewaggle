@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import style from './pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss'
 export default function ShopInfoButton() {
     return (
         < div className={style.shopInfo} >

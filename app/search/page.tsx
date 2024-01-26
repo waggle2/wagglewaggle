@@ -1,6 +1,6 @@
-import SearchBar from "./_component/SearchBar";
-import SearchResult from "./_component/SearchResult";
-import style from './search.module.scss';
+import SearchBar from "./_components/SearchBar";
+import SearchResult from "./_components/SearchResult";
+import style from '@/app/search/_styles/search.module.scss';
 
 type Props = {
     searchParams: { q: string, f?: string, pf?: string };

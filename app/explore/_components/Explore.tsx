@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import style from '@/app/explore/_component/explore.module.scss';
+import style from '@/app/explore/_styles/explore.module.scss';
 import RecordSwitch from './RecordSwitch';
 import { useRouter } from 'next/navigation';
 import Back from '@/app/_components/common/header/_component/Back'

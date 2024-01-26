@@ -1,6 +1,6 @@
 import CategoryDropdown from './CategoryDropdown'
 import SortDropdown from './SortDropdown'
-import style from './dropdown.module.scss'
+import style from '../_styles/dropdown.module.scss'
 
 
 type Props = {

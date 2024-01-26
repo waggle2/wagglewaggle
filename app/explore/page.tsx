@@ -1,4 +1,4 @@
-import Explore from "./_component/Explore";
+import Explore from "./_components/Explore";
 
 
 

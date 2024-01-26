@@ -1,5 +1,5 @@
 // 'use client'
-import style from './searchFilter.module.scss'
+import style from '../_styles/searchFilter.module.scss'
 import DropdownToggle from '/public/assets/dropdownToggle.svg'
 
 type Props = {

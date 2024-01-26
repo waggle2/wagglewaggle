@@ -1,4 +1,4 @@
-import style from './pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss'
 import PointIcon from './PointIcon';
 
 type CustomPreviewProps = {

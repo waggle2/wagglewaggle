@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Back from '@/app/_components/common/header/_component/Back'
 
-import style from './searchBar.module.scss'
+import style from '../_styles/searchBar.module.scss'
 
 type Props = { q?: string }
 

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import style from './searchResult.module.scss'
+import style from '../_styles/searchResult.module.scss'
 import SearchFilter from "./SearchFilter";
 import Post from '@/app/_components/postPreview/_component/Post';
 import TestProfile from '@/public/assets/profile.svg'
