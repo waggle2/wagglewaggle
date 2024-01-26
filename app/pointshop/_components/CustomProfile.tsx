@@ -1,8 +1,8 @@
 'use client'
 
-import style from './pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss'
 import { useEffect, useState } from 'react'
-import CustomResult from '@/app/pointshop/_component/CustomContainer'
+import CustomResult from '@/app/pointshop/_components/CustomContainer'
 
 
 

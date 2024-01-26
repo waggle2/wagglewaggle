@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import style from '@/app/pointshop/_component/pointShop.module.scss'
+import style from '@/app/pointshop/_styles/pointShop.module.scss'
 
 type Props = { children: ReactNode, modal: ReactNode };
 
