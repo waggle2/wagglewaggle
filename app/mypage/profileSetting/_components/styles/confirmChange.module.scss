@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -36,6 +36,11 @@
     height: 52px;
     bottom: 0;
 
+    > .oKButton {
+      width: 100%;
+      background-color: #2fd714;
+      color: #fff;
+    }
     > button {
       border: none;
       width: 50%;

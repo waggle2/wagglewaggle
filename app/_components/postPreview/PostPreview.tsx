@@ -2,7 +2,7 @@ import style from './postPreview.module.scss'
 
 import Link from '@/node_modules/next/link'
 
-import Post from './_component/Post'
+import Post from './_components/Post'
 
 import Next from '@/public/assets/next.svg'
 import TestProfile from '@/public/assets/profile.svg'

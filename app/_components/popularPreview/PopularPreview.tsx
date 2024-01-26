@@ -3,7 +3,7 @@ import style from './popularPreview.module.scss'
 import Link from '@/node_modules/next/link'
 import Popular from '@/public/assets/popular.svg'
 import Next from '@/public/assets/next.svg'
-import PopularPost from './_component/PopularPost'
+import PopularPost from './/PopularPost'
 
 export default function PopularPreview() {
   return (

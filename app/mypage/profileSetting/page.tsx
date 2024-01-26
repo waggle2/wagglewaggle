@@ -1,6 +1,6 @@
 import Header from '@/app/_components/common/header/page'
-import Back from '@/app/_components/common/header/_component/Back'
-import CustomProfile from './_component/CustomProfile'
+import Back from '@/app/_components/common/header/_components/Back'
+import CustomProfile from './_components/CustomProfile'
 
 export default function ProfileSetting() {
   return (
