@@ -1,9 +1,32 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './_styles/globals.scss'
+import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
 
-const inter = Inter({ subsets: ['latin'] })
+const pretendard = localFont({
+  src: [
+    {
+      path: './_styles/fonts/Pretendard-Bold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './_styles/fonts/Pretendard-SemiBold.otf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './_styles/fonts/Pretendard-Medium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './_styles/fonts/Pretendard-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ko">
+      <body className={pretendard.className}>
         <div className={style.container}>{children}</div>
       </body>
     </html>
