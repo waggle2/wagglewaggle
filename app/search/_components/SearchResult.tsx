@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
-import style from '../_styles/searchResult.module.scss'
+import { useState, useEffect } from 'react'
+import style from '../_styles/search.module.scss'
 import SearchFilter from "./SearchFilter";
 import Post from '@/app/_components/postPreview/_component/Post';
 import TestProfile from '@/public/assets/profile.svg'
@@ -40,8 +40,36 @@ export default function SearchResult({ q }: Props) {
     }
 
 
+    useEffect(() => {
+        // .container 클래스를 가진 모든 요소 선택
+        const containers = document.getElementsByClassName(style.searchContainer);
+
+        // Element 타입을 HTMLElement로 형 변환
+        const containerElements = Array.from(containers) as HTMLElement[];
+
+        if (isCategoryToggle || isSortToggle) {
+            // 스크롤 방지 적용
+            containerElements.forEach((container) => {
+                container.style.overflow = 'hidden';
+            });
+        } else {
+            // 스크롤 허용
+            containerElements.forEach((container) => {
+                container.style.overflow = 'unset';
+            });
+        }
+
+        // 컴포넌트가 언마운트 될 때 스크롤을 다시 활성화
+        return () => {
+            containerElements.forEach((container) => {
+                container.style.overflow = 'unset';
+            });
+        };
+    }, [isCategoryToggle, isSortToggle]);
+
+
     return (
-        <div>
+        <>
             <SearchFilter
                 currentCategory={currentCategory}
                 sort={sort}
@@ -50,18 +78,18 @@ export default function SearchResult({ q }: Props) {
                 isSortToggle={isSortToggle}
                 onClickSortToggle={onClickSortToggle}
             />
+            {(isCategoryToggle || isSortToggle) && (
+                <Dropdown
+                    currentCategory={currentCategory}
+                    sort={sort}
+                    isCategoryToggle={isCategoryToggle}
+                    setCurrentCategoryHandler={setCurrentCategoryHandler}
+                    isSortToggle={isSortToggle}
+                    setSortHandler={setSortHandler}
+                />
+            )}
 
             <div className={style.postContainer}>
-                {(isCategoryToggle || isSortToggle) && (
-                    <Dropdown
-                        currentCategory={currentCategory}
-                        sort={sort}
-                        isCategoryToggle={isCategoryToggle}
-                        setCurrentCategoryHandler={setCurrentCategoryHandler}
-                        isSortToggle={isSortToggle}
-                        setSortHandler={setSortHandler}
-                    />
-                )}
                 <Post
                     profile={{
                         image: <TestProfile />,
@@ -148,7 +176,7 @@ export default function SearchResult({ q }: Props) {
                     }}
                 />
             </div>
-        </div>
+        </>
     )
 }
 

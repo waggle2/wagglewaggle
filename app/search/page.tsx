@@ -9,10 +9,9 @@ type Props = {
 export default function Search({ searchParams }: Props) {
 
     return (
-        <div className={style.container}>
+        <div className={style.searchContainer}>
             <SearchBar q={searchParams.q} />
             <SearchResult q={searchParams.q} />
-
         </div>
     )
 }

@@ -2,10 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 16px;
   width: 100%;
   height: 48px;
-  > .backButton {
-  }
 
   > .searchInput {
     background: url('/assets/ico_search-outline.svg') no-repeat 13px 50%;
