@@ -1,13 +1,16 @@
+@import './variables';
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   padding: 0;
-  border: 0;
+  margin: 0;
   font: inherit;
 }
 
 body {
+  background-color: lightgrey;
   font-family: 'Pretendard Variable';
 }
 a {
