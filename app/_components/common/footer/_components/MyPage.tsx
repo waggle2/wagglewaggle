@@ -9,7 +9,7 @@ type props = {
 }
 export default function MyPage({ path }: props) {
   return (
-    <Link href={'./mypage'} className={style.container}>
+    <Link href={'http://localhost:3000/mypage'} className={style.container}>
       <div className={style.background}>
         {path.includes('/mypage') ? <ActiveMyPage /> : <MyPageIcon />}
       </div>
