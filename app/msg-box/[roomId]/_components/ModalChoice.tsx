@@ -1,4 +1,4 @@
-import style from '../styles/modalCase.module.scss'
+import style from '../styles/modalChoice.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
 type ModalCaseProps = {
@@ -10,7 +10,7 @@ type ModalCaseProps = {
   onAction?: (f: Function) => void
 }
 
-export default function ModalCase({
+export default function ModalChoice({
   title,
   nextTitle,
   description,

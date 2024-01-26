@@ -1,11 +1,12 @@
-import style from '../styles/modalOption.module.scss'
+import style from '../styles/modalCollection.module.scss'
 import { useState } from 'react'
 import Modal from './Modal'
 import ModalReport from './ModalReport'
-import ModalCase from './ModalCase'
+import ModalChoice from './ModalChoice'
 import ModalRules from './ModalRules'
+import ModalMenu from './ModalMenu'
 
-export default function ModalOption({
+export default function ModalCollection({
   isMenuModalOpen,
   setMenuModalOpen,
 }: {
@@ -40,22 +41,18 @@ export default function ModalOption({
     openModal(setBlockModalOpen)
   }
   return (
-    <div>
+    <>
       <Modal
         modalType="main"
         isOpen={isMenuModalOpen}
         onClose={() => setMenuModalOpen(false)}
       >
-        <ul className={style.mainList}>
-          <li onClick={() => openModal(setDeleteModalOpen)}>
-            쪽지 내용 전체 삭제
-          </li>
-          <li onClick={() => openModal(setBlockModalOpen)}>차단하기</li>
-          <li onClick={() => openModal(setReportModalOpen)}>신고하기</li>
-          <li className={style.cancel} onClick={() => setMenuModalOpen(false)}>
-            취소
-          </li>
-        </ul>
+        <ModalMenu
+          onBlock={() => openModal(setBlockModalOpen)}
+          onReport={() => openModal(setReportModalOpen)}
+          onDelete={() => openModal(setDeleteModalOpen)}
+          onClose={() => setMenuModalOpen(false)}
+        />
       </Modal>
 
       <Modal
@@ -63,7 +60,7 @@ export default function ModalOption({
         isOpen={isDeleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
       >
-        <ModalCase
+        <ModalChoice
           title="쪽지 내용 전체 삭제할까요?"
           description="삭제시 다시는 복구할 수 없습니다."
           actionButtonName="삭제하기"
@@ -77,7 +74,7 @@ export default function ModalOption({
         onClose={() => setBlockModalOpen(false)}
       >
         {isBlockAfterReport ? (
-          <ModalCase
+          <ModalChoice
             title="신고 접수가 완료 되었습니다."
             nextTitle="상대방을 차단할까요?"
             description="차단 시 다시는 상대방과 쪽지를 주고 받을 수 없습니다."
@@ -85,7 +82,7 @@ export default function ModalOption({
             onClose={() => setBlockModalOpen(false)}
           />
         ) : (
-          <ModalCase
+          <ModalChoice
             title="이 사용자를 차단하시겠습니까?"
             description="차단 시 다시는 상대방과 쪽지를 주고 받을 수 없습니다."
             actionButtonName="차단하기"
@@ -111,6 +108,6 @@ export default function ModalOption({
       >
         <ModalRules onClose={() => setRulesModalOpen(false)} />
       </Modal>
-    </div>
+    </>
   )
 }

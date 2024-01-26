@@ -1,13 +1,11 @@
 'use client'
 import style from '../styles/modalReport.module.scss'
 import RuleListItem from './RuleListItem'
-import RightArrow from '/public/assets/rightArrow.svg'
 
 const RuleList = [
   '부적절한 표현',
-  '불법정보',
-  '개인정보',
   '스팸 & 음란물',
+  '불법정보 & 개인정보',
   '기타',
 ]
 
@@ -27,10 +25,9 @@ export default function ModalReport({
   return (
     <form onSubmit={handleSubmit}>
       <div className={style.titleDiv}>
-        <h2>사유선택</h2>
+        <h2>신고 사유 선택</h2>
         <div className={style.ruleDiv} onClick={onOpenSecondModal}>
           <span>커뮤니티 규칙</span>
-          <RightArrow width={5.75} height={9.99} />
         </div>
       </div>
       <div className={style.ruleListDiv}>

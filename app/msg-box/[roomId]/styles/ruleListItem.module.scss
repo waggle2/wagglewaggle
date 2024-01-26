@@ -1,9 +1,14 @@
 .customCheckbox {
+  cursor: pointer;
   display: inline-block;
   position: relative;
-  padding-left: 56px;
-  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #eff0f0;
+  padding: 15px 12px 15px 48px;
+  background-color: rgb(255, 255, 255, 0.7);
   font-size: 15px;
+  font-weight: bold;
+  color: rgb(68, 68, 68, 0.6);
   user-select: none;
 }
 
@@ -19,13 +24,13 @@
 /* 커스텀 체크박스 디자인 */
 .checkmark {
   position: absolute;
-  top: 0;
-  left: 19px;
-  height: 18px;
-  width: 18px;
-  border: 1.2px solid #d9d9d9;
+  top: 50%;
+  left: 12px;
+  translate: 0 -50%;
+  height: 24px;
+  width: 24px;
+  background: #e6e6e6;
   border-radius: 50%;
-  background-color: white;
 }
 
 /* 마우스가 올라갔을 때 체크박스 스타일 */
@@ -46,13 +51,13 @@
 
 /* 체크 표시 스타일링 */
 .customCheckbox .checkmark:after {
-  left: 6px;
-  top: 2px;
-  width: 5px;
-  height: 9px;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 12px;
   border-style: solid;
-  border-color: #d9d9d9;
-  border-width: 0 1.7px 1.7px 0;
+  border-color: white;
+  border-width: 0 2.5px 2.5px 0;
   transform: rotate(45deg);
 }
 
