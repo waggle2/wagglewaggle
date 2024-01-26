@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+}
+.logo {
+  padding-top: 84px;
+}
+.image {
+  padding: 182px 0;
+  font-size: 12px;
+}
+@mixin button {
+  width: 100%;
+  border-radius: 6px;
+  background-color: #2fd714;
+  color: #fff;
+  font-size: 15px;
+  font-weight: normal;
+  padding: 15px 0;
+  cursor: pointer;
+}
+.startButton {
+  @include button;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+.button {
+  @include button;
+  background-color: #fff;
+  color: #000;
+}
