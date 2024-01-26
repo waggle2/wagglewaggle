@@ -6,7 +6,6 @@ import Recent from '../public/assets/recent.svg'
 import Lips from '../public/assets/lips.svg'
 import Town from '../public/assets/town.svg'
 
-import Footer from './_components/common/footer/page'
 import Header from './_components/common/header/page'
 import Search from './_components/common/header/_components/Search'
 import Bell from './_components/common/header/_components/Bell'
@@ -28,7 +27,6 @@ export default function Home() {
       <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
       <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
       <PostPreview title={'고냥이 마을 이야기'} href={''} icon={<Town />} />
-      <Footer />
     </main>
   )
 }
