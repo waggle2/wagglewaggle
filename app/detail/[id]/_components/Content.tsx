@@ -36,7 +36,6 @@ export default function Content({ title, nickName, content }: ContentProps) {
           <span>12</span>
         </div>
       </div>
-      <div className={styles.boldLine}></div>
     </div>
   )
 }

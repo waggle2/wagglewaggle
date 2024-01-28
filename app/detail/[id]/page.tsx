@@ -17,6 +17,7 @@ export default function Detail() {
         content="아 길거리에서 번호 땄는데 14살 연하야 ㅋ
         서로 연락 자주 해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?"
       />
+      <div className={styles.boldLine}></div>
       <div className={styles.commentInfo}>
         <div>
           <span>댓글</span>
