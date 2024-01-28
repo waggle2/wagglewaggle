@@ -38,7 +38,7 @@ export default function PopularPost({ profile, post }: Props) {
           <div className={style.name}>{profile.name}</div>
           <div className={style.infoWrapper}>
             <div className={style.info}>
-              <View />
+              <View width="15" height="14" />
               {post.views}
             </div>
             <div className={style.info}>
