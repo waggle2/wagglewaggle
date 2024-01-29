@@ -1,5 +1,5 @@
 'use client'
-import style from './confirmChange.module.scss'
+import style from '../_styles/confirmChange.module.scss'
 import Link from 'next/link'
 
 type Props = {

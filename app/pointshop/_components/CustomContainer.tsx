@@ -1,4 +1,4 @@
-import style from '@/app/pointshop/_component/pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss'
 import { useEffect, useState } from "react"
 import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
