@@ -1,6 +1,6 @@
 'use client'
 
-import style from './shopInfo.module.scss'
+import style from '../_styles/shopInfo.module.scss'
 import { useRouter } from 'next/navigation'
 
 export default function ShopInfo() {
