@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import style from '../_styles/search.module.scss'
 import SearchFilter from "./SearchFilter";
-import Post from '@/app/_components/postPreview/_component/Post';
+import Post from '@/app/_components/postPreview/_components/Post';
 import TestProfile from '@/public/assets/profile.svg'
 import Dropdown from './Dropdown';
 
