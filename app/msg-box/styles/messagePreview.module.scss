@@ -3,6 +3,9 @@
   border-radius: 12px;
   padding: 12px;
   background: #ffffff;
+  &.dark {
+    background: rgb(255, 255, 255, 0.6);
+  }
 }
 
 .avatar {

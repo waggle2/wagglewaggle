@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  height: 48px;
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.titleWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  font-family: 'Pretendard Variable';
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.iconWrapper {
+  width: max-content;
+  display: flex;
+  gap: 12px;
+}

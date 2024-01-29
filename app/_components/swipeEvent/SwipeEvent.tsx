@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import style from './swipeEvent.module.css'
+import style from './swipeEvent.module.scss'
 
 export default function SwipeEvent() {
   const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

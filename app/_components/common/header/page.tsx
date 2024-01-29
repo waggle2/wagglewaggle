@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import style from './header.module.css'
+import style from './header.module.scss'
 
 type headerProps = {
   title?: string

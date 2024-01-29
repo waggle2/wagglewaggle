@@ -1,0 +1,16 @@
+.button {
+  cursor: pointer;
+  border-radius: 6px;
+  padding-block: 15px;
+  width: 100%;
+  text-align: center;
+  font-weight: var(--fw-semiBold);
+  &.green {
+    background-color: #2fd714;
+    color: #fff;
+  }
+  &.grey {
+    color: var(--crl-neutral-406);
+    background-color: #e6e6e6;
+  }
+}
