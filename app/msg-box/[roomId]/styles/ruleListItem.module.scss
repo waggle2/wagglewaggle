@@ -1,20 +1,24 @@
-.customCheckbox {
-  cursor: pointer;
-  display: flex;
-  gap: 11px;
-  flex-wrap: wrap;
-  justify-content: center;
+.container {
   position: relative;
-  border-radius: 6px;
-  border: 1px solid #eff0f0;
-  padding-block: 15px;
-  background-color: rgb(255, 255, 255, 0.7);
-  font-size: 15px;
-  font-weight: var(--fw-medium);
-  color: #444444;
-  user-select: none;
-  & > input {
+  cursor: pointer;
+  label {
+    display: block;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    padding-block: 16px;
+    font-size: 15px;
+    border-color: #eaeaea;
+    font-weight: var(--fw-medium);
+    color: #444444;
+    text-align: center;
+  }
+  input {
     display: none;
+  }
+  input:checked ~ label {
+    border-color: #2fd714;
+    color: #2fd714;
   }
 }
 

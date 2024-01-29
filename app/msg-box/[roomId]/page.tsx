@@ -16,10 +16,6 @@ interface Props {
 export default function page({ params }: Props) {
   const [isMenuModalOpen, setMenuModalOpen] = useState(false)
 
-  useEffect(() => {
-    console.log(isMenuModalOpen)
-  }, [isMenuModalOpen])
-
   return (
     <div className={style.wrapper}>
       <Header

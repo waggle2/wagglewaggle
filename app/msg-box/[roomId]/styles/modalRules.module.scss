@@ -1,6 +1,7 @@
 .rulesArticle {
   background-color: #fff;
   position: absolute;
+  z-index: 40;
   box-shadow:
     16px 0 0 #fff,
     -16px 0 0 #fff;
@@ -38,14 +39,17 @@
   margin-top: 27px;
 }
 .rulesTitle {
-  margin-bottom: 19px;
-  font-weight: bold;
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: var(--fw-semiBold);
 }
 .rulesList {
-  line-height: 1.7;
-  text-align: justify;
+  line-height: 25px;
+  font-size: 15px;
+  font-weight: var(--fw-regular);
   li {
     display: flex;
+    width: 96%;
   }
   li::before {
     content: '•';

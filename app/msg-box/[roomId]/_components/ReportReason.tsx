@@ -8,12 +8,12 @@ import Back from '@/app/_components/common/header/_components/Back'
 import Inform from '@/app/_components/common/header/_components/Inform'
 import Button from '@/app/_components/button/Button'
 
-const RuleList = [
-  '부적절한 표현',
-  '심한 비방 & 욕설',
-  '광고성 컨텐츠',
-  '음란성이 포함된 글',
-  '기타',
+const reportCategories = [
+  { id: 'inappropriate', label: '부적절한 표현' },
+  { id: 'abuse', label: '심한 비방 & 욕설' },
+  { id: 'spam', label: '광고성 컨텐츠' },
+  { id: 'pornography', label: '음란성이 포함된 글' },
+  { id: 'others', label: '기타' },
 ]
 
 type Props = {
@@ -22,6 +22,8 @@ type Props = {
 
 export default function ReportReason({ setReportStep }: Props) {
   const [rulesOpen, setRulesOpen] = useState(false)
+  const [checkedEtc, setCheckedEtc] = useState(true)
+  const [selectedCategory, setSelectedCategory] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -45,17 +47,34 @@ export default function ReportReason({ setReportStep }: Props) {
         <h2>신고 사유를 알려주세요</h2>
       </div>
       <div className={style.ruleListDiv}>
-        {RuleList.map((rule, index) => (
-          <RuleListItem content={rule} key={index} index={index} />
+        {reportCategories.map((rule, index) => (
+          <RuleListItem
+            rule={rule}
+            key={index}
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
         ))}
       </div>
 
+      {selectedCategory === 'others' && (
+        <textarea
+          className={style.etcText}
+          placeholder="신고 사유를 작성해주세요."
+          maxLength={300}
+        ></textarea>
+      )}
+
       <div className={style.submitDiv}>
-        <Button
-          mainColor="green"
-          text="신고하기"
-          action={() => setReportStep(2)}
-        />
+        {selectedCategory ? (
+          <Button
+            mainColor="green"
+            text="신고하기"
+            action={() => setReportStep(2)}
+          />
+        ) : (
+          <Button mainColor="grey" text="신고하기" />
+        )}
       </div>
     </form>
   )
