@@ -4,10 +4,13 @@ import style from './styles/loginForm.module.scss'
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
 import { useState } from 'react'
+import Button from '@/app/_components/button/Button'
 
 export default function LoginForm() {
   const [passwordView, setPasswordView] = useState(false)
-
+  const [isTypedAll, setIsTypedAll] = useState(false)
+  const [isRightEmail, setIsRightEmail] = useState(false)
+  const [isRightPassword, setIsRightPassword] = useState(false)
   return (
     <form className={style.loginForm}>
       <div className={style.inputDiv}>
@@ -33,7 +36,22 @@ export default function LoginForm() {
           )}
         </label>
       </div>
-      <button className={style.loginButton}>로그인 하기</button>
+      <div className={style.buttonWrapper}>
+        {isRightEmail ? (
+          <Button mainColor="green" text="로그인 하기" />
+        ) : (
+          <Button
+            mainColor="red"
+            text="존재하지 않는 이메일입니다"
+            isDisabled={true}
+          />
+        )}
+        {isTypedAll ? (
+          <Button mainColor="green" text="로그인 하기" />
+        ) : (
+          <Button mainColor="grey" text="로그인 하기" />
+        )}
+      </div>
     </form>
   )
 }
