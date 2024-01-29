@@ -1,15 +1,18 @@
 import style from '../styles/registerEmail.module.scss'
+import AccountForm from './AccountForm'
 
 interface Props {
-  prevStep: () => void
   nextStep: () => void
 }
 
-export default function RegisterEmail({ prevStep, nextStep }: Props) {
+export default function RegisterEmail({ nextStep }: Props) {
   return (
     <div>
-      <h2>회원가입 단계 2</h2>
-      <button onClick={prevStep}>이전</button>
+      <h2>
+        와글와글의 새 친구로 <br />
+        변신 중이에요
+      </h2>
+      <AccountForm />
       <button onClick={nextStep}>다음</button>
     </div>
   )
