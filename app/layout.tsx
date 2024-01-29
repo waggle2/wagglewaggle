@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Footer from './_components/common/footer/page'
 import './_styles/globals.scss'
 import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
@@ -41,10 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={pretendard.className}>
-        {children}
-        <Footer />
-      </body>
+      <body className={pretendard.className}>{children}</body>
     </html>
   )
 }

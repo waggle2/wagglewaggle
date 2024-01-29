@@ -7,6 +7,7 @@ interface Props {
   mainColor: 'green' | 'grey'
   action?: () => void | undefined
   fontSize?: number
+  borderRadius?: string
 }
 
 export default function Button({
@@ -14,11 +15,12 @@ export default function Button({
   fontSize = 16,
   mainColor,
   action,
+  borderRadius,
 }: Props) {
   return (
     <button
       onClick={action}
-      style={{ fontSize }}
+      style={{ fontSize, borderRadius }}
       className={cx('button', mainColor)}
     >
       {text}
