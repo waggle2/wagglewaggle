@@ -1,10 +1,10 @@
 .container {
   display: flex;
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 8px;
+  padding: 16px 15px 16px 16px;
   background: #ffffff;
   &.dark {
-    background: rgb(255, 255, 255, 0.6);
+    background: #f6f6f6;
   }
 }
 
@@ -22,13 +22,14 @@
   font-size: 15px;
   text-align: justify;
   .sender {
-    color: #222222;
-    font-weight: bold;
+    color: #000000;
+    font-weight: var(--fw-semiBold);
   }
   .content {
     width: 100%;
-    color: #444444;
+    color: #1a1a1a;
     font-size: 13px;
+    font-weight: var(--fw-regular);
   }
 }
 
@@ -46,11 +47,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    width: 17.84px;
+    width: 20px;
     aspect-ratio: 1/1;
     background-color: #2fd714;
-    font-weight: bold;
-    font-size: 12px;
+    font-weight: var(--fw-semiBold);
+    font-size: 11px;
     color: white;
   }
 }
