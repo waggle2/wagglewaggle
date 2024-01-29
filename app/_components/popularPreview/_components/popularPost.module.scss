@@ -19,7 +19,6 @@
   padding: 4px 6px;
   color: #000;
 
-  font-family: 'Pretendard Variable';
   font-size: 11px;
   font-style: normal;
   font-weight: 500;
@@ -34,6 +33,23 @@
 
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #eebfff;
+}
+.tag {
+  width: max-content;
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: #eebfff;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .postWrapper {
   display: flex;
@@ -69,7 +85,11 @@
   height: 100%;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
   justify-content: flex-end;
+  align-items: center;
 }
 .infoContainer {
   display: flex;
@@ -100,4 +120,16 @@
 .infoWrapper {
   display: flex;
   gap: 8px;
+}
+.time {
+  color: #1a1a1a;
+  font-family: 'Pretendard Variable';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.bgAnimal {
+  position: absolute;
+  bottom: 0;
 }

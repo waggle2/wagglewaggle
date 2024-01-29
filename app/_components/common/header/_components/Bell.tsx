@@ -8,5 +8,5 @@ export default function Bell() {
   const clickEvent = () => {
     // router.push(`경로`)
   }
-  return <BellIcon />
+  return <BellIcon fill="none" />
 }

@@ -3,6 +3,8 @@ import modalStyle from '../profileSetting/_components/styles/confirmChange.modul
 import Next from '@/public/assets/next.svg'
 
 import { useEffect, useState } from 'react'
+import Modal from '@/app/_components/common/modal/Modal'
+import Button from '@/app/_components/button/Button'
 
 export default function Logout() {
   const [confirmModal, setConfirmModal] = useState(false)
@@ -26,22 +28,18 @@ export default function Logout() {
   return (
     <>
       {confirmModal && (
-        <div className={modalStyle.modalBackground}>
-          <div className={modalStyle.modal}>
-            <p>정말 로그아웃 할까요?</p>
-            <div className={modalStyle.buttonBox}>
-              <button className={modalStyle.noButton} onClick={logout}>
-                YES
-              </button>
-              <button
-                onClick={handleConfirmModalClick}
-                className={modalStyle.yesButton}
-              >
-                NO
-              </button>
-            </div>
-          </div>
-        </div>
+        <Modal
+          title={'로그아웃'}
+          content={<div className={style.exCode}>로그아웃을 진행할까요?</div>}
+          buttons={[
+            <Button
+              text={'취소'}
+              mainColor={'grey'}
+              action={handleConfirmModalClick}
+            />,
+            <Button text={'로그아웃'} mainColor={'green'} action={logout} />,
+          ]}
+        />
       )}
       <div className={style.container}>
         <div className={style.title}>로그아웃</div>
