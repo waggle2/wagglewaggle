@@ -4,9 +4,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 14px 13px;
+  padding-block: 8px 13px;
   background-color: white;
   font-size: 17px;
+  font-weight: var(--fw-medium);
+  line-height: 1;
 }
 
 .iconSpan {

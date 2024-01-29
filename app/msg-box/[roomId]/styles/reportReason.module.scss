@@ -1,0 +1,72 @@
+.form {
+  position: absolute;
+  width: 100%;
+  box-shadow:
+    16px 0 0 #eff0f0,
+    -16px 0 0 #eff0f0;
+  bottom: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #eff0f0;
+  padding: 44px 0;
+}
+
+.titleDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & h2 {
+    font-size: 20px;
+    font-weight: var(--fw-bold);
+  }
+}
+
+.ruleDiv {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #eff0f0;
+  border-radius: 100vmax;
+  padding: 4px 12px;
+  background: #ffffff;
+  font-weight: var(--fw-medium);
+  font-size: 13px;
+  color: rgb(68, 68, 68, 0.7);
+}
+
+.ruleListDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.etcDiv {
+  margin-top: 24px;
+  padding-inline: 18px;
+}
+
+.submitDiv {
+  display: flex;
+  gap: 8px;
+  text-align: center;
+  margin-top: 12px;
+  button {
+    flex: 1;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding-block: 15px;
+    color: #ff0000;
+    font-size: 15px;
+    font-weight: bolder;
+  }
+  .cancel {
+    background: #e6e6e6;
+    color: var(--crl-neutral-406);
+  }
+  .report {
+    background-color: #ffc3c3;
+    color: #e05858;
+  }
+}

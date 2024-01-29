@@ -1,12 +1,16 @@
 'use client'
 import { useState } from 'react'
 import style from './styles/page.module.scss'
-import ModalOption from './_components/ModalOption'
+import ModalCollection from './_components/ModalCollection'
 import MessagesHeader from './_components/MessagesHeader'
 import Messages from './_components/Messages'
 import MessageSender from './_components/MessageSender'
 
-export default function page() {
+interface Props {
+  params: { roomId: number }
+}
+
+export default function page({ params }: Props) {
   const [isMenuModalOpen, setMenuModalOpen] = useState(false)
 
   return (
@@ -16,10 +20,10 @@ export default function page() {
         setMenuModalOpen={setMenuModalOpen}
       />
       <div className={style.mainSection}>
-        <Messages />
+        <Messages roomId={params.roomId} />
       </div>
       <MessageSender />
-      <ModalOption
+      <ModalCollection
         isMenuModalOpen={isMenuModalOpen}
         setMenuModalOpen={setMenuModalOpen}
       />

@@ -1,13 +1,24 @@
-import { messageRooms } from '../../mock'
-import Message from '../../_components/Message'
+import { messageRooms } from '../../mockTalk'
 import style from '../styles/messages.module.scss'
+import MessagePreview from '../../_components/MessagePreview'
 
-export default function Messages() {
-  const { messages } = messageRooms[0]
+interface Props {
+  roomId: number
+}
+
+export default function Messages({ roomId }: Props) {
+  const messages = messageRooms[roomId]?.messages
   return (
     <div className={style.messagesDiv}>
-      {messages.map((message, index) => (
-        <Message message={message} key={index} />
+      {messages?.map((message, index) => (
+        <MessagePreview
+          key={index}
+          receiver={message.receiver}
+          firstUser={messageRooms[roomId]?.firstUser}
+          sender={message.sender}
+          content={message.content}
+          time={message.createdAt}
+        />
       ))}
     </div>
   )
