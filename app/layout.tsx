@@ -42,8 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.className}>
-        {children}
-        <Footer />
+        <div className={style.container}>{children}</div>
       </body>
     </html>
   )
