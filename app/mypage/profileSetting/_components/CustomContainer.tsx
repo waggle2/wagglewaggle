@@ -1,9 +1,9 @@
-import style from '@/app/pointshop/_component/pointShop.module.scss'
+import style from './styles/profileSetting.module.scss'
 import { useEffect, useState } from 'react'
 import ConfirmChange from './ConfirmChange'
 import CustomPreview from './CustomPreview'
-import Cart from './Cart'
 import ItemSelection from './ItemSelection'
+import EmptyPreview from './EmptyPreview'
 
 type Props = {
   selectedTab: string
@@ -34,15 +34,6 @@ export default function CustomResult({ selectedTab }: Props) {
   // 현재 선택된 아이템 카테고리 탭 상태
   const [itemCategoryTab, setItemCategoryTab] = useState('이모지')
 
-  // 장바구니 아이템 금액
-  const [totalItemPrice, setTotalItemPrice] = useState(0)
-
-  // 보유 포인트
-  const [possessionCoin, setPossessionCoin] = useState(90)
-
-  // 구매시 포인트 잔액
-  const pointDifference = possessionCoin - totalItemPrice
-
   // 프로필 미리보기부분 기본 상태는 유저 프로필데이터의 이미지경로가 될듯??
   const [selectedEmoji, setSelectedEmoji] = useState(
     '/point_shop/emoji/cat_smile.svg',
@@ -59,7 +50,6 @@ export default function CustomResult({ selectedTab }: Props) {
 
   //선태한 아이템
   const [selectedItems, setSelectedItems] = useState<Item[]>([])
-
   //Test 상품들
   const products = [
     {
@@ -187,6 +177,7 @@ export default function CustomResult({ selectedTab }: Props) {
 
   // 구매확인 모달 상태 토글
   const handleConfirmModalClick = () => {
+    if (selectedItems.length <= 0) return
     setConfirmModal(!confirmModal)
   }
 
@@ -264,46 +255,38 @@ export default function CustomResult({ selectedTab }: Props) {
     setSelectedWallpaper('/point_shop/wallpaper/벽지샘플.png')
   }
 
-  // 총 금액 계산
-  useEffect(() => {
-    const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0)
-    setTotalItemPrice(totalPrice)
-  }, [selectedItems])
-
   return (
     <>
       {confirmModal && (
         <ConfirmChange
-          pointDifference={pointDifference}
           selectedItemsLength={selectedItems.length}
           onConfirmClick={handleConfirmModalClick}
         />
       )}
+      {selectedTab === 'cat' ? (
+        <>
+          <CustomPreview
+            selectedTab={selectedTab}
+            selectedEmoji={selectedEmoji}
+            selectedProfileBg={selectedProfileBg}
+            selectedFrame={selectedFrame}
+            selectedWallpaper={selectedWallpaper}
+            handleConfirmModalClick={handleConfirmModalClick}
+            handleRefreshClick={handleRefreshClick}
+          />
 
-      {/* 선택된 동물 꾸미기 미리보기 */}
-      <CustomPreview
-        selectedTab={selectedTab}
-        selectedEmoji={selectedEmoji}
-        selectedProfileBg={selectedProfileBg}
-        selectedFrame={selectedFrame}
-        selectedWallpaper={selectedWallpaper}
-        possessionCoin={possessionCoin}
-        handleConfirmModalClick={handleConfirmModalClick}
-        handleRefreshClick={handleRefreshClick}
-      />
-
-      {/* 장바구니 */}
-      <Cart selectedItems={selectedItems} totalItemPrice={totalItemPrice} />
-
-      {/* 아이템 선택 */}
-      <ItemSelection
-        itemCategoryTab={itemCategoryTab}
-        handleCategoryClick={handleCategoryClick}
-        tabCategoryButtonStyle={tabCategoryButtonStyle}
-        products={products}
-        handleItemClick={handleItemClick}
-        selectedItems={selectedItems}
-      />
+          <ItemSelection
+            itemCategoryTab={itemCategoryTab}
+            handleCategoryClick={handleCategoryClick}
+            tabCategoryButtonStyle={tabCategoryButtonStyle}
+            products={products}
+            handleItemClick={handleItemClick}
+            selectedItems={selectedItems}
+          />
+        </>
+      ) : (
+        <EmptyPreview />
+      )}
     </>
   )
 }

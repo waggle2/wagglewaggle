@@ -1,5 +1,5 @@
 import Link from '@/node_modules/next/link'
-import style from './theme.module.css'
+import style from './theme.module.scss'
 import { ReactNode } from 'react'
 
 type Props = {

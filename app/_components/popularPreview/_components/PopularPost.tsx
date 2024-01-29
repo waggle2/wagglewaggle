@@ -1,6 +1,4 @@
-import Image from '@/node_modules/next/image'
-
-import style from './popularPost.module.css'
+import style from './popularPost.module.scss'
 
 import View from '@/public/assets/view.svg'
 import Comment from '@/public/assets/comment.svg'
