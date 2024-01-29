@@ -8,5 +8,5 @@ export default function Heart() {
   const clickEvent = () => {
     //event
   }
-  return <HeartIcon />
+  return <HeartIcon width="24" height="24" />
 }

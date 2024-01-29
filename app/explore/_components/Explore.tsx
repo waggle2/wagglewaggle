@@ -3,7 +3,7 @@ import { useState } from 'react';
 import style from '@/app/explore/_styles/explore.module.scss';
 import RecordSwitch from './RecordSwitch';
 import { useRouter } from 'next/navigation';
-import Back from '@/app/_components/common/header/_component/Back'
+import Back from '@/app/_components/common/header/_components/Back';
 import Lips from '../../../public/assets/lips.svg'
 import Town from '../../../public/assets/town.svg'
 

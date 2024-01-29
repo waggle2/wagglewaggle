@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Back from '@/app/_components/common/header/_component/Back'
+import Back from '@/app/_components/common/header/_components/Back'
 
 import style from '../_styles/searchBar.module.scss'
 
