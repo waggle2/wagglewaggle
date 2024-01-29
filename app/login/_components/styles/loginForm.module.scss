@@ -1,0 +1,49 @@
+.loginForm {
+  margin-top: 219px;
+}
+
+.inputDiv {
+  margin-bottom: 8px;
+  label {
+    cursor: pointer;
+    display: block;
+    border-radius: 6px;
+    padding: 16px 14px 16px 16px;
+    background: white;
+  }
+  .passwordLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+  }
+  input {
+    border: none;
+    width: 70%;
+    outline: none;
+    background: white;
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
+      box-shadow: 0 0 0 1000px white inset;
+    }
+    &::placeholder {
+      font-size: 13px;
+      color: #444444;
+    }
+  }
+}
+
+.loginButton {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  padding-block: 15px;
+  font-size: 15px;
+  text-align: center;
+  background: #2fd714;
+  color: white;
+}

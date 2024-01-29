@@ -1,0 +1,254 @@
+export interface IMessageRooms {
+  id: number
+  firstUser: string
+  secondUser: string
+  messages: Messages[]
+  createdAt: string
+  updatedAt: string
+  deletedAt: string | null
+}
+
+type Messages = {
+  id: number
+  messageRoomId: number
+  sender: string
+  receiver: string
+  content: string
+  isRead: boolean
+  createdAt: string
+  deletedAt: string | null
+}
+
+export const messageRooms: IMessageRooms[] = [
+  {
+    id: 1,
+    firstUser: '김민수',
+    secondUser: '은하수',
+    messages: [
+      {
+        id: 101,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 102,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 1022,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 101,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 102,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 1022,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 101,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 102,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 1022,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 101,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 102,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 1022,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 101,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 102,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 그니까!!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+      {
+        id: 1022,
+        messageRoomId: 1,
+        sender: 'zㅣ존댕이',
+        receiver: '김민수',
+        content: '여사친 처리 어떻게 하셨어요? ㅠㅠ 레알 궤미친듯 진짜로!',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+    ],
+    createdAt: '2021-10-10',
+    updatedAt: '2021-10-10',
+    deletedAt: null,
+  },
+  {
+    id: 2,
+    firstUser: '이지은',
+    secondUser: '박준혁',
+    messages: [
+      {
+        id: 103,
+        messageRoomId: 2,
+        sender: '이지은',
+        receiver: '박준혁',
+        content: '오늘 저녁에 시간 어때?',
+        isRead: false,
+        createdAt: '2021-11-15T18:30:00',
+        deletedAt: null,
+      },
+      {
+        id: 104,
+        messageRoomId: 2,
+        sender: '박준혁',
+        receiver: '이지은',
+        content: '시간 괜찮아!',
+        isRead: true,
+        createdAt: '2021-11-15T18:45:00',
+        deletedAt: null,
+      },
+      {
+        id: 1042,
+        messageRoomId: 2,
+        sender: '냥블리',
+        receiver: '이지은',
+        content:
+          '엥 여사친이 완전 못된사람이네!! 마짱뜨자 ㅋ 머리채 잡으러 가즈아아아~~!!',
+        isRead: true,
+        createdAt: '2021-11-15T18:45:00',
+        deletedAt: null,
+      },
+    ],
+    createdAt: '2021-11-15',
+    updatedAt: '2021-11-15',
+    deletedAt: null,
+  },
+  {
+    id: 3,
+    firstUser: '김민수',
+    secondUser: '은하수',
+    messages: [
+      {
+        id: 105,
+        messageRoomId: 1,
+        sender: '김민수',
+        receiver: '은하수',
+        content: '여사친이 완전 못된 사람이네!',
+        isRead: true,
+        createdAt: '2021-10-10T10:00:00',
+        deletedAt: null,
+      },
+      {
+        id: 106,
+        messageRoomId: 1,
+        sender: '은하수',
+        receiver: '김민수',
+        content: '아 안돼 ㅠㅠ',
+        isRead: true,
+        createdAt: '2021-10-10T10:02:00',
+        deletedAt: null,
+      },
+    ],
+    createdAt: '2021-10-10',
+    updatedAt: '2021-10-10',
+    deletedAt: null,
+  },
+]

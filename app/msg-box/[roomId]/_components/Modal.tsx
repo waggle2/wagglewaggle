@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef } from 'react'
 import style from '../styles/modal.module.scss'
 import cs from 'classnames/bind'
@@ -46,3 +48,5 @@ export default function Modal({
     </div>
   )
 }
+
+Modal.__isStatic = true
