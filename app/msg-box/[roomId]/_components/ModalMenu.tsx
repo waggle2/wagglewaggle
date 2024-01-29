@@ -20,14 +20,15 @@ export default function ModalMenu({
 
   return (
     <ul className={style.mainList}>
-      <li onClick={handleBlock}>차단하기</li>
-      <li onClick={handleReport}>신고하기</li>
-      <li className={style.delete} onClick={handleDelete}>
-        쪽지 내용 전체 삭제
+      <li className={style.accentText} onClick={handleBlock}>
+        차단하기
       </li>
-      <li className={style.cancel} onClick={handleClose}>
-        취소
+      <li className={style.accentText} onClick={handleReport}>
+        신고하기
       </li>
+      <li onClick={handleDelete}>쪽지 내용 전체 삭제</li>
+      <hr className={style.hr} />
+      <li onClick={handleClose}>취소</li>
     </ul>
   )
 }

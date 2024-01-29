@@ -3,11 +3,16 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import style from '../styles/reportReason.module.scss'
 import RuleListItem from './RuleListItem'
 import ModalRules from './ModalRules'
+import Header from '@/app/_components/common/header/page'
+import Back from '@/app/_components/common/header/_components/Back'
+import Inform from '@/app/_components/common/header/_components/Inform'
+import Button from '@/app/_components/button/Button'
 
 const RuleList = [
   '부적절한 표현',
-  '스팸 & 음란물',
-  '불법정보 & 개인정보',
+  '심한 비방 & 욕설',
+  '광고성 컨텐츠',
+  '음란성이 포함된 글',
   '기타',
 ]
 
@@ -26,11 +31,18 @@ export default function ReportReason({ setReportStep }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
+      <Header
+        isNoneSidePadding={true}
+        leftSection={
+          <span style={{ cursor: 'pointer' }}>
+            <Back />
+          </span>
+        }
+        title="신고"
+        rightSection={[<Inform clickEvent={() => setRulesOpen(true)} />]}
+      />
       <div className={style.titleDiv}>
-        <h2>신고 사유 선택</h2>
-        <div className={style.ruleDiv} onClick={() => setRulesOpen(true)}>
-          <span>커뮤니티 규칙</span>
-        </div>
+        <h2>신고 사유를 알려주세요</h2>
       </div>
       <div className={style.ruleListDiv}>
         {RuleList.map((rule, index) => (
@@ -39,14 +51,11 @@ export default function ReportReason({ setReportStep }: Props) {
       </div>
 
       <div className={style.submitDiv}>
-        <button className={style.cancel}>취소</button>
-        <button
-          className={style.report}
-          type="submit"
-          onClick={() => setReportStep(2)}
-        >
-          신고 접수하기
-        </button>
+        <Button
+          mainColor="green"
+          text="신고하기"
+          action={() => setReportStep(2)}
+        />
       </div>
     </form>
   )

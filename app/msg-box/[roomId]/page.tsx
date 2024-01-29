@@ -1,10 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from './styles/page.module.scss'
 import ModalCollection from './_components/ModalCollection'
-import MessagesHeader from './_components/MessagesHeader'
 import Messages from './_components/Messages'
 import MessageSender from './_components/MessageSender'
+import Header from '@/app/_components/common/header/page'
+import Back from '@/app/_components/common/header/_components/Back'
+import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
+import { Span } from 'next/dist/trace'
 
 interface Props {
   params: { roomId: number }
@@ -13,12 +16,29 @@ interface Props {
 export default function page({ params }: Props) {
   const [isMenuModalOpen, setMenuModalOpen] = useState(false)
 
+  useEffect(() => {
+    console.log(isMenuModalOpen)
+  }, [isMenuModalOpen])
+
   return (
     <div className={style.wrapper}>
-      <MessagesHeader
-        isMenuModalOpen={isMenuModalOpen}
-        setMenuModalOpen={setMenuModalOpen}
+      <Header
+        leftSection={
+          <span style={{ cursor: 'pointer' }}>
+            <Back />
+          </span>
+        }
+        isNoneSidePadding={true}
+        rightSection={[
+          <MoreMenu
+            clickEvent={() => {
+              setMenuModalOpen(!isMenuModalOpen)
+            }}
+          />,
+        ]}
+        title="은하수반짝카와이"
       />
+
       <div className={style.mainSection}>
         <Messages roomId={params.roomId} />
       </div>

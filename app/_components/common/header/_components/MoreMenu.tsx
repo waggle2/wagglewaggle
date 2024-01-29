@@ -1,12 +1,18 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import MoreMenuIcon from '@/public/assets/moreMenu.svg'
+import MoreMenuIcon from '@/public/assets/more-menu.svg'
 
-export default function MoreMenu() {
+interface Props {
+  clickEvent: () => void
+}
+
+export default function MoreMenu({ clickEvent }: Props) {
   const router = useRouter()
-  const clickEvent = () => {
-    //event
-  }
-  return <MoreMenuIcon />
+
+  return (
+    <span onClick={clickEvent}>
+      <MoreMenuIcon />
+    </span>
+  )
 }
