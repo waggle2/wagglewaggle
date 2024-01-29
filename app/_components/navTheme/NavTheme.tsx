@@ -1,5 +1,5 @@
-import style from './navTheme.module.css'
-import Theme from './_component/Theme'
+import style from './navTheme.module.scss'
+import Theme from './_components/Theme'
 import SingleIcon from '@/public/assets/single.svg'
 import SomeIcon from '@/public/assets/some.svg'
 import CoupleIcon from '@/public/assets/couple.svg'

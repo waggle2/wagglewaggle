@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Footer from './_components/common/footer/page'
 import './_styles/globals.scss'
 import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
@@ -39,9 +40,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body className={pretendard.className}>
-        <div className={style.container}>{children}</div>
+        {children}
+        <Footer />
       </body>
     </html>
   )
