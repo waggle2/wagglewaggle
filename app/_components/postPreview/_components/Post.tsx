@@ -51,7 +51,7 @@ export default function Post({ profile, post }: Props) {
           <span className={style.likes}>{post.likes}</span>
         </div>
         <div className={style.postInfoWrapper}>
-          <View />
+          <View width="15" height="14" />
           <span className={style.likes}>{post.likes}</span>
         </div>
       </div>

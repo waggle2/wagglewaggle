@@ -1,0 +1,32 @@
+.buttonSection {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.empathyButton {
+  padding: 6px 12px;
+  border: 1px solid #dff0f0;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  span {
+    font-size: 13px;
+    color: #444444;
+    opacity: 0.7;
+  }
+}
+.selectAnimal {
+  background: #fff;
+  border-radius: 30px;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  z-index: 1;
+  padding: 6px 8px;
+  top: 86%;
+  box-shadow: 0 0 16px #ccc;
+}
