@@ -33,7 +33,6 @@ export default function PopularPost({ profile, post }: Props) {
         <div className={style.content}>{post.content}</div>
       </div>
       <div className={style.postInfoContainer}>
-        <PopularBg className={style.bgAnimal} />
         <div className={style.infoContainer}>
           <div className={style.name}>{profile.name}</div>
           <div className={style.time}>2024-12-01</div>
@@ -49,6 +48,7 @@ export default function PopularPost({ profile, post }: Props) {
           </div>
         </div>
       </div>
+      <PopularBg className={style.bgAnimal} />
     </div>
   )
 }

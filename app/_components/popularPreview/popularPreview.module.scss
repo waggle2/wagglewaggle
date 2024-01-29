@@ -1,6 +1,9 @@
 .container {
   width: 100%;
   margin: 32px 0;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 .titleContainer {
   display: flex;

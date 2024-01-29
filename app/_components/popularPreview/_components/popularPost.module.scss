@@ -87,6 +87,9 @@
   align-items: flex-end;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
+  justify-content: flex-end;
+  align-items: center;
 }
 .infoContainer {
   display: flex;
@@ -127,4 +130,6 @@
   line-height: normal;
 }
 .bgAnimal {
+  position: absolute;
+  bottom: 0;
 }
