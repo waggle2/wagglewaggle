@@ -2,6 +2,7 @@ import style from './popularPost.module.scss'
 
 import View from '@/public/assets/view.svg'
 import Comment from '@/public/assets/comment.svg'
+import PopularBg from '@/public/assets/popularBg.svg'
 
 type Props = {
   profile: {
@@ -25,7 +26,7 @@ export default function PopularPost({ profile, post }: Props) {
     <div className={style.container}>
       <div className={style.categoryWrapper}>
         <span className={style.category}>{profile.category}</span>
-        <span className={style.category}>{profile.tag}</span>
+        <span className={style.tag}>{profile.tag}</span>
       </div>
       <div className={style.postWrapper}>
         <div className={style.title}>{post.title}</div>
@@ -34,6 +35,7 @@ export default function PopularPost({ profile, post }: Props) {
       <div className={style.postInfoContainer}>
         <div className={style.infoContainer}>
           <div className={style.name}>{profile.name}</div>
+          <div className={style.time}>2024-12-01</div>
           <div className={style.infoWrapper}>
             <div className={style.info}>
               <View width="15" height="14" />
@@ -46,6 +48,7 @@ export default function PopularPost({ profile, post }: Props) {
           </div>
         </div>
       </div>
+      <PopularBg className={style.bgAnimal} />
     </div>
   )
 }

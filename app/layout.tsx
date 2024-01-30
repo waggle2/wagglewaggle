@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Footer from './_components/common/footer/page'
 import './_styles/globals.scss'
 import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
