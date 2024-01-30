@@ -1,0 +1,20 @@
+.container {
+  position: absolute;
+  inset: 48px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  text-align: center;
+  & .bigger {
+    margin-block: 8px 16px;
+    line-height: 23px;
+    font-weight: var(--fw-medium);
+  }
+  & .smaller {
+    color: #8c8c8c;
+    font-size: 13px;
+    font-weight: var(--fw-regular);
+  }
+}

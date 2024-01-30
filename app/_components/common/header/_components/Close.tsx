@@ -3,10 +3,16 @@
 import { useRouter } from 'next/navigation'
 import CloseIcon from '@/public/assets/close.svg'
 
-export default function Close() {
+interface Props {
+  clickEvent?: () => void
+}
+
+export default function Close({ clickEvent }: Props) {
   const router = useRouter()
-  const clickEvent = () => {
-    // event
-  }
-  return <CloseIcon />
+
+  return (
+    <span onClick={clickEvent}>
+      <CloseIcon />
+    </span>
+  )
 }
