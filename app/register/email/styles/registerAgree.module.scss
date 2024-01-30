@@ -1,0 +1,18 @@
+.title {
+  margin-block: 51px 241px;
+  color: #000;
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.inputDiv {
+  display: flex;
+  gap: 10px;
+}

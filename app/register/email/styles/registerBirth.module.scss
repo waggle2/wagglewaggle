@@ -13,9 +13,14 @@
   gap: 7px;
   text-align: center;
   input {
-    width: 70%;
+    width: 60%;
     margin-inline: auto;
-    padding-block: 20px;
+    border-radius: 12px;
+    border: 1px solid #d9d9d9;
+    padding-block: 15px;
     outline: none;
+    &::placeholder {
+      text-align: center;
+    }
   }
 }

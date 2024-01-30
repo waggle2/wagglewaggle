@@ -1,8 +1,8 @@
 'use client'
 import { ChangeEvent, useState } from 'react'
-import style from '../styles/BirthSelect.module.scss'
+import style from '../styles/birthSelect.module.scss'
 export default function BirthSelect() {
-  const startYear = 1990
+  const startYear = 1950
   const endYear = 2010
   const [selectedYear, setSelectedYear] = useState('')
 
@@ -27,7 +27,6 @@ export default function BirthSelect() {
       onChange={handleChange}
       className={style.select}
     >
-      <option value="">년도 선택</option>
       {yearOptions}
     </select>
   )

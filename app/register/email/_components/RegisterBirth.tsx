@@ -20,8 +20,8 @@ export default function RegisterBirth({ prevStep, nextStep }: Props) {
       </div>
       <div className={style.inputDiv}>
         <label htmlFor="">성별</label>
-        <input type="text" />
-        <input type="text" />
+        <input type="text" placeholder="남자" />
+        <input type="text" placeholder="여자" />
       </div>
       <Button mainColor="grey" text="시작하기" action={nextStep} />
     </form>
