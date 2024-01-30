@@ -1,22 +1,42 @@
-import { useEffect, useState } from 'react'
-import style from '../styles/ruleListItem.module.scss'
+'use client'
 
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
+import style from '../styles/ruleListItem.module.scss'
+import cs from 'classnames/bind'
+const cx = cs.bind(style)
 interface Props {
-  content: string
-  index: number
+  rule: {
+    id: string
+    label: string
+  }
+  setSelectedCategory: Dispatch<SetStateAction<string>>
+  selectedCategory: string
 }
 
-export default function RuleListItem({ content, index }: Props) {
+export default function RuleListItem({
+  rule,
+  setSelectedCategory,
+  selectedCategory,
+}: Props) {
   return (
-    <label className={style.customCheckbox} htmlFor={content}>
-      <input type="radio" id={content} name="report" />
-      <span className={style.checkmark}></span>
-      <span className={style.textSpan}>{content}</span>
-      {index === 3 && (
-        <label className={style.etcLabel}>
-          <input type="text" placeholder="신고 사유를 작성해주세요." />
-        </label>
-      )}
-    </label>
+    <div className={style.container}>
+      <input
+        type="radio"
+        name="reportCategory"
+        value={rule.id}
+        id={rule.id}
+        checked={selectedCategory === rule.id}
+        onChange={() => {
+          setSelectedCategory(rule.id)
+        }}
+      />
+      <label htmlFor={rule.id}>{rule.label}</label>
+    </div>
   )
 }

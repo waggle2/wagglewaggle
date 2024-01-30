@@ -1,16 +1,29 @@
-import style from '../styles/RegisterBirth.module.scss'
+import Button from '@/app/_components/button/Button'
+import style from '../styles/registerBirth.module.scss'
+import BirthSelect from './BirthSelect'
 
 interface Props {
   prevStep: () => void
+  nextStep: () => void
 }
 
-export default function RegisterBirth({ prevStep }: Props) {
+export default function RegisterBirth({ prevStep, nextStep }: Props) {
   return (
-    <div>
-      <h2>회원가입 단계 3</h2>
-      {/* 회원가입 양식의 마지막 부분 */}
-      <button onClick={prevStep}>이전</button>
-      <button onClick={() => {}}>완료</button>
-    </div>
+    <form className={style.form}>
+      <div className={style.inputDiv}>
+        <label htmlFor="">이름</label>
+        <input type="text" />
+      </div>
+      <div className={style.inputDiv}>
+        <label htmlFor="">출생년도</label>
+        <BirthSelect />
+      </div>
+      <div className={style.inputDiv}>
+        <label htmlFor="">성별</label>
+        <input type="text" />
+        <input type="text" />
+      </div>
+      <Button mainColor="grey" text="시작하기" action={nextStep} />
+    </form>
   )
 }

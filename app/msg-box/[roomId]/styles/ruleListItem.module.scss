@@ -1,76 +1,25 @@
-.customCheckbox {
-  cursor: pointer;
-  display: flex;
-  gap: 11px;
-  flex-wrap: wrap;
+.container {
   position: relative;
-  border-radius: 6px;
-  border: 1px solid #eff0f0;
-  padding: 15px 12px;
-  background-color: rgb(255, 255, 255, 0.7);
-  font-size: 15px;
-  font-weight: var(--fw-semiBold);
-  color: rgb(68, 68, 68, 0.6);
-  user-select: none;
-}
-
-.textSpan {
-  padding-left: 36px;
-}
-
-/* 숨겨진 체크박스 */
-.customCheckbox > input {
-  position: absolute;
-  opacity: 0;
   cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* 커스텀 체크박스 디자인 */
-.checkmark {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  height: 24px;
-  width: 24px;
-  background: #e6e6e6;
-  border-radius: 50%;
-}
-
-/* 마우스가 올라갔을 때 체크박스 스타일 */
-.customCheckbox:hover > input ~ .checkmark {
-  background-color: #2fd714;
-}
-
-/* 체크박스가 체크되었을 때 스타일 */
-.customCheckbox input:checked ~ .checkmark {
-  background-color: #2fd714;
-}
-.customCheckbox input:checked ~ .textSpan {
-  color: #2fd714;
-}
-/* 체크 표시 만들기 */
-.checkmark:after {
-  content: '';
-  position: absolute;
-}
-
-/* 체크 표시 스타일링 */
-.customCheckbox .checkmark:after {
-  left: 8px;
-  top: 4px;
-  width: 8px;
-  height: 12px;
-  border-style: solid;
-  border-color: white;
-  border-width: 0 2.5px 2.5px 0;
-  transform: rotate(45deg);
-}
-
-/* 체크박스가 체크되었을 때 표시 보여주기 */
-.customCheckbox input:checked ~ .checkmark:after {
-  border-color: white;
+  label {
+    display: block;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    padding-block: 16px;
+    font-size: 15px;
+    border-color: #eaeaea;
+    font-weight: var(--fw-medium);
+    color: #444444;
+    text-align: center;
+  }
+  input {
+    display: none;
+  }
+  input:checked ~ label {
+    border-color: #2fd714;
+    color: #2fd714;
+  }
 }
 
 .etcLabel {

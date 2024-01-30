@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100dvh - 56px);
+  padding-block: 80px;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+  input {
+    width: 70%;
+    margin-inline: auto;
+    padding-block: 20px;
+    outline: none;
+  }
+}

@@ -56,12 +56,7 @@ export default function ModalCollection({
     if (type === 'Report') setReportStep(step)
     if (type === 'Delete') setDeleteStep(step)
   }
-  if (reportStep === 1)
-    return (
-      <DarkBgProvider>
-        <ReportReason setReportStep={setReportStep} />
-      </DarkBgProvider>
-    )
+  if (reportStep === 1) return <ReportReason setReportStep={setReportStep} />
   if (reportStep === 2)
     return (
       <DarkBgProvider>
@@ -116,11 +111,7 @@ export default function ModalCollection({
 
   return (
     <div>
-      <Modal
-        modalType="main"
-        isOpen={isMenuModalOpen}
-        onClose={() => setMenuModalOpen(false)}
-      >
+      <Modal isOpen={isMenuModalOpen} onClose={() => setMenuModalOpen(false)}>
         <ModalMenu
           onBlock={() => setBlockStep(1)}
           onReport={() => setReportStep(1)}

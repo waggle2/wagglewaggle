@@ -7,16 +7,10 @@ const cx = cs.bind(style)
 type ModalProps = {
   isOpen: boolean
   children: React.ReactNode
-  modalType: 'main' | 'delete' | 'block' | 'report' | 'rules'
   onClose: () => void
 }
 
-export default function Modal({
-  modalType,
-  isOpen,
-  children,
-  onClose,
-}: ModalProps) {
+export default function Modal({ isOpen, children, onClose }: ModalProps) {
   if (!isOpen) return null
   const modalRef = useRef<HTMLDivElement>(null)
   const modalContentRef = useRef<HTMLDivElement>(null)
@@ -41,8 +35,8 @@ export default function Modal({
   }, [onClose])
 
   return (
-    <div className={cx('modal', modalType)} ref={modalRef}>
-      <div className={cx('modalContent', modalType)} ref={modalContentRef}>
+    <div className={cx('modal')} ref={modalRef}>
+      <div className={cx('modalContent')} ref={modalContentRef}>
         {children}
       </div>
     </div>

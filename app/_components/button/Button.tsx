@@ -4,7 +4,7 @@ const cx = cs.bind(style)
 
 interface Props {
   text: string
-  mainColor: 'green' | 'grey'
+  mainColor: 'green' | 'grey' | 'white'
   action?: () => void | undefined
   fontSize?: number
   borderRadius?: string
