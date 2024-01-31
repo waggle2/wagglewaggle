@@ -3,47 +3,26 @@
 import style from '../styles/accountForm.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
-import { ChangeEvent, useEffect, useState } from 'react'
-import { validate, IErrors } from '@/app/_lib/validate'
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
-
-interface IInputFileds {
-  email: string
-  emailCheck: number | null
-  password: string
-  passwordCheck: string
-}
+import { useEffect, useState } from 'react'
+import useFormInput from '@/app/_hooks/useFormInput'
 
 export default function AccountForm() {
-  const [inputFields, setInputFields] = useState<IInputFileds>({
+  const {
+    inputFields,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+    finishSubmit,
+  } = useFormInput({
     email: '',
-    emailCheck: null,
+    emailCheck: '',
     password: '',
     passwordCheck: '',
   })
-  const [errors, setErrors] = useState<IErrors>({})
-  const [submitting, setSubmitting] = useState(false)
   const [passwordView, setPasswordView] = useState(false)
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-
-    const updatedInputFields = { ...inputFields, [name]: value }
-    setInputFields(updatedInputFields)
-
-    const validationErrors = validate(updatedInputFields)
-    setErrors(validationErrors)
-  }
-
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setSubmitting(true)
-  }
-
-  const finishSubmit = () => {
-    console.log(inputFields)
-  }
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && submitting) {
