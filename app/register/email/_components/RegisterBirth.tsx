@@ -2,7 +2,6 @@ import Button from '@/app/_components/button/Button'
 import style from '../styles/registerBirth.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
-import BirthSelect from './BirthSelect'
 import useFormInput from '@/app/_hooks/useFormInput'
 
 interface Props {
