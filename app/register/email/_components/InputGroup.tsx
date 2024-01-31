@@ -2,7 +2,7 @@
 
 import Button from '@/app/_components/button/Button'
 import style from '../styles/inputGroup.module.scss'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import cs from 'classnames/bind'
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
@@ -14,14 +14,20 @@ interface Props {
   placeholder: string
   isButton?: boolean
   buttonText?: string
+  nameType: 'email' | 'emailCheck' | 'password' | 'passwordCheck'
+  inputValue: string | number | null
+  changeEvent: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function InputGroup({
   title,
   inputType,
   placeholder,
+  nameType,
   isButton = false,
   buttonText,
+  inputValue,
+  changeEvent,
 }: Props) {
   const [submitable, setSubmitable] = useState(false)
   const [passwordView, setPasswordView] = useState(false)
@@ -31,7 +37,12 @@ export default function InputGroup({
       <span className={style.titleSpan}>{title}</span>
       <div className={style.inputDiv}>
         <label className={style.label}>
-          <input type={inputType} placeholder={placeholder} maxLength={20} />
+          <input
+            type={inputType}
+            placeholder={placeholder}
+            maxLength={20}
+            name={nameType}
+          />
           {inputType === 'password' && (
             <span>
               {passwordView ? (
