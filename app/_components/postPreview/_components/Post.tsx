@@ -24,7 +24,7 @@ type Props = {
 
 export default function Post({ profile, post }: Props) {
   return (
-    <div className={style.container}>
+    <>
       <div className={style.profileContainer}>
         <div className={style.profileWrapper}>
           <div className={style.profileImageWrapper}>{profile.image}</div>
@@ -55,6 +55,6 @@ export default function Post({ profile, post }: Props) {
           <span className={style.likes}>{post.likes}</span>
         </div>
       </div>
-    </div>
+    </>
   )
 }
