@@ -3,7 +3,6 @@
 import style from '../styles/accountForm.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
-import InputGroup from './InputGroup'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { validate, IErrors } from '@/app/_lib/validate'
 import View2 from '/public/assets/view2.svg'
