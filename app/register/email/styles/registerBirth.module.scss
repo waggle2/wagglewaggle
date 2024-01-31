@@ -24,3 +24,38 @@
     }
   }
 }
+
+.select {
+  &::-ms-expand {
+    display: none;
+  }
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 60%;
+  margin-inline: auto;
+  outline: none;
+  border-radius: 12px;
+  border: 1px solid #d9d9d9;
+  padding-block: 15px;
+  text-align: center;
+}
+
+.inputDiv.genderDiv {
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    width: 70%;
+    margin-inline: auto;
+    border: 1px solid #999;
+    border-radius: 12px;
+    padding: 20px;
+    &:has(input:checked) {
+      border: 1px solid #2fd714;
+      color: #2fd714;
+    }
+  }
+}
