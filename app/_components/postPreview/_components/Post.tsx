@@ -1,18 +1,24 @@
+import { ReactNode } from 'react'
+
 import style from './post.module.scss'
 
 import Like from '@/public/assets/like.svg'
 import Comment from '@/public/assets/comment.svg'
 import View from '@/public/assets/view.svg'
-import { ReactNode } from 'react'
+import TestProfile from '@/public/assets/profile.svg'
+import Link from '@/node_modules/next/link'
+import formatDate from '@/app/_lib/formatDate'
 
 type Props = {
   profile: {
-    image: ReactNode
+    image?: ReactNode
     name: string
-    category: string
-    tag: string
+    animal?: string
   }
   post: {
+    id: number
+    tag: string
+    category: string
     time: string
     title: string
     content: string
@@ -24,18 +30,20 @@ type Props = {
 
 export default function Post({ profile, post }: Props) {
   return (
-    <>
+    <Link className={style.container} href={''}>
       <div className={style.profileContainer}>
         <div className={style.profileWrapper}>
-          <div className={style.profileImageWrapper}>{profile.image}</div>
+          <div className={style.profileImageWrapper}>
+            {profile.image ? profile.image : <TestProfile />}
+          </div>
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>{profile.name}</div>
             <div
               className={style.category}
-            >{`${profile.category} · ${profile.tag}`}</div>
+            >{`${post.category} · ${post.tag}`}</div>
           </div>
         </div>
-        <div className={style.time}>{post.time}</div>
+        <div className={style.time}>{formatDate(post.time)}</div>
       </div>
       <div className={style.contentContainer}>
         <div className={style.title}>{post.title}</div>
@@ -55,6 +63,6 @@ export default function Post({ profile, post }: Props) {
           <span className={style.likes}>{post.likes}</span>
         </div>
       </div>
-    </>
+    </Link>
   )
 }

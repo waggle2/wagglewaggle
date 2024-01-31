@@ -28,7 +28,7 @@ export default function PostPreview({ title, href, icon }: Props) {
         </Link>
       </div>
       <div className={style.postContainer}>
-        <Posts />
+        <Posts title={title} />
       </div>
     </section>
   )
