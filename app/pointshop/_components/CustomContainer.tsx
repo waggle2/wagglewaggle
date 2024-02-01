@@ -1,9 +1,13 @@
+'use client'
 import style from '../_styles/pointShop.module.scss'
 import { useEffect, useState } from "react"
 import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
 import Cart from './Cart';
 import ItemSelection from './ItemSelection';
+import axios from 'axios';
+
+
 
 type Props = {
   selectedTab: string,
@@ -28,12 +32,28 @@ const categoryPriority: CategoryPriority = {
 };
 
 export default function CustomResult({ selectedTab }: Props) {
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}v1/items`);
+        setItem(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+
+  }, []);
+  console.log(item);
 
   // 확인 모달의 보임 상태
   const [confirmModal, setConfirmModal] = useState(false);
 
   // 현재 선택된 아이템 카테고리 탭 상태
-  const [itemCategoryTab, setItemCategoryTab] = useState('이모지');
+  const [itemCategoryTab, setItemCategoryTab] = useState('emoji');
 
   // 장바구니 아이템 금액
   const [totalItemPrice, setTotalItemPrice] = useState(0);

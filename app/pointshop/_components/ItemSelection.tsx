@@ -1,4 +1,4 @@
-import style from '../_styles/pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss';
 import PointIcon from './PointIcon';
 
 type Item = {
@@ -25,83 +25,43 @@ export default function ItemSelection({
     handleItemClick,
     selectedItems,
 }: ItemSelectionProps) {
+    const renderCategoryButton = (category: string, label: string) => (
+        <button
+            className={tabCategoryButtonStyle(category)}
+            onClick={() => handleCategoryClick(category)}
+        >
+            {label}
+        </button>
+    );
+
+    const renderItemsForCategory = (category: string) => (
+        products.filter(item => item.category === category).map(item => (
+            <li key={item.id} className={category === 'emoji' ? style.item : style.bigItem}
+                onClick={() => handleItemClick(item)}>
+                <div className={style.imageWrap}
+                    style={selectedItems.some(selectedItem => selectedItem.id === item.id) ? { border: '2px solid #7EE36E' } : {}}
+                >
+                    <img src={item.src} alt={item.src} />
+                </div>
+                <div className={style.priceCoin}>
+                    <PointIcon /> {item.price}
+                </div>
+            </li>
+        ))
+    );
+
     return (
         <div>
-            {/* 아이템 선택 */}
             <div className={style.categoryTabContainer}>
-                <button className={tabCategoryButtonStyle('이모지')} onClick={() => handleCategoryClick('이모지')}>이모지</button>
-                <button className={tabCategoryButtonStyle('프로필 배경')} onClick={() => handleCategoryClick('프로필 배경')}>프로필 배경</button>
-                <button className={tabCategoryButtonStyle('프레임')} onClick={() => handleCategoryClick('프레임')}>프레임</button>
-                <button className={tabCategoryButtonStyle('벽지')} onClick={() => handleCategoryClick('벽지')}>벽지</button>
+                {renderCategoryButton('emoji', '이모지')}
+                {renderCategoryButton('profileBg', '프로필 배경')}
+                {renderCategoryButton('frame', '프레임')}
+                {renderCategoryButton('wallpaper', '벽지')}
+
             </div>
-
             <ul className={style.itemContainer}>
-                {itemCategoryTab === '이모지' && (
-                    products.filter(item => item.category === 'emoji').map((item) => (
-                        <li key={item.id} className={style.item}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
-
-                {itemCategoryTab === '프로필 배경' && (
-                    products.filter(item => item.category === 'profileBg').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
-
-                {itemCategoryTab === '프레임' && (
-                    products.filter(item => item.category === 'frame').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
-
-                {itemCategoryTab === '벽지' && (
-                    products.filter(item => item.category === 'wallpaper').map((item) => (
-                        <li key={item.id} className={style.bigItem}
-                            onClick={() => handleItemClick(item)}>
-                            <div className={style.imageWrap}
-                                style={selectedItems.some(selectedItem => selectedItem.id === item.id && selectedItem.category === item.category) ? { border: '2px solid #7EE36E' } : {}}
-                            >
-                                <img src={item.src} alt={item.src} />
-                            </div>
-                            <div className={style.priceCoin}>
-                                <PointIcon /> {item.price}
-                            </div>
-                        </li>
-                    ))
-                )}
-
+                {renderItemsForCategory(itemCategoryTab)}
             </ul>
         </div>
-    )
+    );
 }
-
