@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
 import axios from '@/node_modules/axios/index'
@@ -27,28 +27,35 @@ type postData = {
 //태그, 카테고리 나누기
 //likes 좋아요 누른 유저 , likeNum 좋아요 수
 
-export default function Posts({ title }: props) {
-  const [postPrev, setPostPrev] = useState(Array<postData>)
+export default async function Posts({ title }: props) {
+  let data: postData[] = [
+    {
+      id: 0,
+      animal: '',
+      commentNum: 0,
+      content: '',
+      createdAt: '',
+      imageUrls: '',
+      isAnonymous: true,
+      likeNum: 0,
+      likes: null,
+      tags: ['', ''],
+      title: '',
+    },
+  ]
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2`,
+    )
 
-  useEffect(() => {
-    const fetchData = async () => {
-      'use server'
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2`,
-        )
-        console.log(res.data.posts, 'response')
+    // console.log(res.data.posts, 'response')
+    data = await res.data.posts
+  } catch (err) {
+    console.error(err)
+  }
 
-        setPostPrev(res.data.posts)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchData()
-  }, [])
-
-  return (
-    postPrev &&
+  {
+    /* {postPrev &&
     postPrev.map((info, index) => {
       return (
         <Post
@@ -71,30 +78,34 @@ export default function Posts({ title }: props) {
           }}
         />
       )
-    })
-
-    // <Each<postData>
-    //   of={postPrev}
-    //   render={(post, index) => (
-    //     <Post
-    //       profile={{
-    //         image: undefined,
-    //         name: '',
-    //         animal: undefined,
-    //       }}
-    //       post={{
-    //         id: 0,
-    //         tag: '1',
-    //         category: '',
-    //         time: '',
-    //         title: '',
-    //         content: '',
-    //         likes: 0,
-    //         comments: 0,
-    //         views: 0,
-    //       }}
-    //     />
-    //   )}
-    // />
+    })} */
+  }
+  return (
+    <>
+      {data &&
+        data?.map((info, index: number) => {
+          return (
+            <Post
+              key={index}
+              profile={{
+                image: info.imageUrls,
+                name: 'undefined',
+                animal: info.animal,
+              }}
+              post={{
+                id: info.id,
+                category: info.tags[0],
+                tag: info.tags[1],
+                time: info.createdAt,
+                title: info.title,
+                content: info.content,
+                likes: info.likeNum,
+                comments: info.commentNum,
+                views: 0,
+              }}
+            />
+          )
+        })}
+    </>
   )
 }
