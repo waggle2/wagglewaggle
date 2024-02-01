@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import axios from '@/node_modules/axios/index'
+import Each from '@/app/_lib/each'
 
 import style from './post.module.scss'
 import Post from './Post'
@@ -31,44 +32,69 @@ export default function Posts({ title }: props) {
 
   useEffect(() => {
     const fetchData = async () => {
+      'use server'
       try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2`,
         )
-        console.log(res.data.data, 'response')
+        console.log(res.data.posts, 'response')
 
-        setPostPrev(res.data.data)
+        setPostPrev(res.data.posts)
       } catch (err) {
         console.error(err)
       }
     }
     fetchData()
   }, [])
+
   return (
-    <>
-      {postPrev.map((info, index) => {
-        return (
-          <Post
-            key={index}
-            profile={{
-              image: info.imageUrls,
-              name: 'undefined',
-              animal: info.animal,
-            }}
-            post={{
-              id: info.id,
-              category: info.tags[0],
-              tag: info.tags[1],
-              time: info.createdAt,
-              title: info.title,
-              content: info.content,
-              likes: info.likeNum,
-              comments: info.commentNum,
-              views: 0,
-            }}
-          />
-        )
-      })}
-    </>
+    postPrev &&
+    postPrev.map((info, index) => {
+      return (
+        <Post
+          key={index}
+          profile={{
+            image: info.imageUrls,
+            name: 'undefined',
+            animal: info.animal,
+          }}
+          post={{
+            id: info.id,
+            category: info.tags[0],
+            tag: info.tags[1],
+            time: info.createdAt,
+            title: info.title,
+            content: info.content,
+            likes: info.likeNum,
+            comments: info.commentNum,
+            views: 0,
+          }}
+        />
+      )
+    })
+
+    // <Each<postData>
+    //   of={postPrev}
+    //   render={(post, index) => (
+    //     <Post
+    //       profile={{
+    //         image: undefined,
+    //         name: '',
+    //         animal: undefined,
+    //       }}
+    //       post={{
+    //         id: 0,
+    //         tag: '1',
+    //         category: '',
+    //         time: '',
+    //         title: '',
+    //         content: '',
+    //         likes: 0,
+    //         comments: 0,
+    //         views: 0,
+    //       }}
+    //     />
+    //   )}
+    // />
   )
 }
