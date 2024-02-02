@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import useFormInput, { IInputFileds } from '@/app/_hooks/useFormInput'
 import axios from 'axios'
 import Button from '@/app/_components/button/Button'
-import { checkObject } from '@/app/_lib/validate'
+import { IInputValues, checkObject } from '@/app/_lib/validate'
 
 export const api = axios.create({
   baseURL:
@@ -21,7 +21,7 @@ export const api = axios.create({
 })
 
 interface Props {
-  setUserTotalDatas: Dispatch<SetStateAction<any>>
+  setUserTotalDatas: Dispatch<SetStateAction<IInputValues>>
   userTotalDatas: IInputFileds
   nextStep: () => void
 }
@@ -31,13 +31,20 @@ export default function AccountForm({
   setUserTotalDatas,
   nextStep,
 }: Props) {
-  const { inputFields, errors, submitting, handleChange, handleSubmit } =
-    useFormInput({
-      email: '',
-      emailCheck: '',
-      password: '',
-      passwordCheck: '',
-    })
+  const {
+    inputFields,
+    errors,
+    submitting,
+    handleSubmit,
+    handleChange,
+    passable,
+    setPassable,
+  } = useFormInput({
+    email: '',
+    emailCheck: '',
+    password: '',
+    passwordCheck: '',
+  })
 
   async function sendCheckEmailCode(email: string) {
     try {
@@ -57,15 +64,16 @@ export default function AccountForm({
   }
 
   const [passwordView, setPasswordView] = useState(false)
-  const [passable, setPassable] = useState(false)
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
       setPassable(true)
     }
     if (Object.keys(errors).length === 0 && submitting) {
-      setUserTotalDatas({ userTotalDatas, ...inputFields })
+      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
+      nextStep()
     }
+    return () => setPassable(false)
   }, [errors, submitting])
 
   return (
@@ -93,6 +101,7 @@ export default function AccountForm({
               !errors.email &&
               sendCheckEmailCode(inputFields.email)
             }
+            type="button"
           >
             인증하기
           </button>
@@ -118,6 +127,7 @@ export default function AccountForm({
             onClick={() => {
               if (inputFields.email) getCheckEmailCode(inputFields.email)
             }}
+            type="button"
           >
             인증확인
           </button>
@@ -188,7 +198,6 @@ export default function AccountForm({
         <Button
           mainColor={passable ? 'green' : 'grey'}
           text="계속하기"
-          action={nextStep}
           isDisabled={!passable}
         />
       </form>

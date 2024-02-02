@@ -1,5 +1,11 @@
 import { validate, IErrors } from '@/app/_lib/validate'
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react'
 
 export interface IInputFileds {
   email?: string
@@ -18,6 +24,7 @@ export default function useFormInput(initialValues: IInputFileds) {
   })
   const [errors, setErrors] = useState<IErrors>({})
   const [submitting, setSubmitting] = useState(false)
+  const [passable, setPassable] = useState(false)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -31,16 +38,20 @@ export default function useFormInput(initialValues: IInputFileds) {
     setErrors(validationErrors)
   }
 
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
   }
 
   return {
-    inputFields,
-    errors,
-    submitting,
-    handleSubmit,
-    handleChange,
+    childrenProps: {
+      inputFields,
+      errors,
+      submitting,
+      handleChange,
+      handleSubmit,
+      passable,
+      setPassable,
+    },
   }
 }

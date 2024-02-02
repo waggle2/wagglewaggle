@@ -25,12 +25,13 @@ export default function NameForm({
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
-      return setPassable(true)
+      setPassable(true)
     }
     if (Object.keys(errors).length === 0 && submitting) {
-      return setUserTotalDatas({ userTotalDatas, ...inputFields })
+      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
+      nextStep()
     }
-    return setPassable(false)
+    return () => setPassable(false)
   }, [errors, submitting])
 
   async function checkNickname(nickname: string) {
@@ -72,7 +73,6 @@ export default function NameForm({
         <Button
           mainColor={passable ? 'green' : 'grey'}
           text="계속하기"
-          action={nextStep}
           isDisabled={!passable}
         />
       </form>

@@ -9,6 +9,7 @@ interface Props {
   isDisabled?: boolean
   fontSize?: number
   borderRadius?: string
+  type?: 'submit' | 'button'
 }
 
 export default function Button({

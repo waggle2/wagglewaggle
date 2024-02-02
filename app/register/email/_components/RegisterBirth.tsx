@@ -1,22 +1,32 @@
+'use client'
+
 import Button from '@/app/_components/button/Button'
 import style from '../styles/registerBirth.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
 import useFormInput from '@/app/_hooks/useFormInput'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { IInputValues, checkObject } from '@/app/_lib/validate'
 
 interface Props {
-  prevStep: () => void
   nextStep: () => void
+  userTotalDatas: IInputValues
+  setUserTotalDatas: Dispatch<SetStateAction<IInputValues>>
 }
 
-export default function RegisterBirth({ prevStep, nextStep }: Props) {
+export default function RegisterBirth({
+  nextStep,
+  setUserTotalDatas,
+  userTotalDatas,
+}: Props) {
   const {
     inputFields,
     errors,
     submitting,
     handleSubmit,
     handleChange,
-    finishSubmit,
+    passable,
+    setPassable,
   } = useFormInput({
     realname: '',
     birthYear: '',
@@ -35,8 +45,19 @@ export default function RegisterBirth({ prevStep, nextStep }: Props) {
     )
   }
 
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
+      setPassable(true)
+    }
+    if (Object.keys(errors).length === 0 && submitting) {
+      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
+      nextStep()
+    }
+    return () => setPassable(false)
+  }, [errors, submitting])
+
   return (
-    <form className={style.form}>
+    <form className={style.form} onSubmit={handleSubmit}>
       <div className={style.inputDiv}>
         <label htmlFor="">이름</label>
         <input
@@ -69,7 +90,7 @@ export default function RegisterBirth({ prevStep, nextStep }: Props) {
           <input type="radio" id="woman" name="gender" />
         </label>
       </div>
-      <Button mainColor="grey" text="시작하기" action={nextStep} />
+      <Button mainColor="grey" text="시작하기" />
     </form>
   )
 }
