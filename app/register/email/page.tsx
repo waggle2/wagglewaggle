@@ -3,7 +3,6 @@ import { useState } from 'react'
 import RegisterName from './_components/RegisterName'
 import RegisterEmail from './_components/RegisterEmail'
 import RegisterBirth from './_components/RegisterBirth'
-import RegisterHeader from './_components/RegisterHeader'
 import RegisterAgree from './_components/RegisterAgree'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
@@ -13,9 +12,9 @@ import { useRouter } from 'next/navigation'
 
 export default function page() {
   const [step, setStep] = useState(1)
+  const [userTotalDatas, setUserTotalDatas] = useState({} as any)
   const router = useRouter()
   const nextStep = () => {
-    console.log(step)
     setStep(step + 1)
   }
 
@@ -38,7 +37,11 @@ export default function page() {
             title="이메일로 가입하기"
             rightSection={[<Close clickEvent={() => router.back()} />]}
           />
-          <RegisterEmail nextStep={nextStep} />
+          <RegisterEmail
+            nextStep={nextStep}
+            userTotalDatas={userTotalDatas}
+            setUserTotalDatas={setUserTotalDatas}
+          />
         </>
       )
     case 2:
@@ -54,12 +57,19 @@ export default function page() {
             title="회원가입"
             rightSection={[<Close clickEvent={() => router.back()} />]}
           />
-          <RegisterName prevStep={prevStep} nextStep={nextStep} />
+          <RegisterName
+            userTotalDatas={userTotalDatas}
+            setUserTotalDatas={setUserTotalDatas}
+            nextStep={nextStep}
+          />
         </>
       )
     case 3:
       return (
         <>
+          <button onClick={() => console.log(userTotalDatas)}>
+            토탈 데이터
+          </button>
           <Header
             isNoneSidePadding={true}
             leftSection={

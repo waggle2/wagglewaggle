@@ -1,14 +1,20 @@
-import Button from '@/app/_components/button/Button'
 import style from '../styles/registerName.module.scss'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
 import NameForm from './NameForm'
+import { Dispatch, SetStateAction } from 'react'
+import { IInputValues } from '@/app/_lib/validate'
 
 interface Props {
-  prevStep: () => void
   nextStep: () => void
+  userTotalDatas: IInputValues
+  setUserTotalDatas: Dispatch<SetStateAction<any>>
 }
 
-export default function RegisterName({ prevStep, nextStep }: Props) {
+export default function RegisterName({
+  nextStep,
+  userTotalDatas,
+  setUserTotalDatas,
+}: Props) {
   return (
     <>
       <h2 className={style.title}>
@@ -19,9 +25,12 @@ export default function RegisterName({ prevStep, nextStep }: Props) {
         <BaseAvatar />
       </div>
       <div className={style.formDiv}>
-        <NameForm />
+        <NameForm
+          nextStep={nextStep}
+          userTotalDatas={userTotalDatas}
+          setUserTotalDatas={setUserTotalDatas}
+        />
       </div>
-      <Button mainColor="grey" text="계속하기" action={nextStep} />
     </>
   )
 }

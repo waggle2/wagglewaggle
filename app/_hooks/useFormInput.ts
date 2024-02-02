@@ -1,7 +1,7 @@
 import { validate, IErrors } from '@/app/_lib/validate'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
-interface IInputFileds {
+export interface IInputFileds {
   email?: string
   emailCheck?: string
   password?: string
@@ -36,16 +36,11 @@ export default function useFormInput(initialValues: IInputFileds) {
     setSubmitting(true)
   }
 
-  const finishSubmit = () => {
-    console.log(inputFields)
-  }
-
   return {
     inputFields,
     errors,
     submitting,
     handleSubmit,
     handleChange,
-    finishSubmit,
   }
 }
