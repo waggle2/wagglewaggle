@@ -1,20 +1,19 @@
 'use client'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
-
+TODO: '링크로 접속하지 못하게 조치'
 export default function page() {
   const { snsName } = useParams<{ snsName: string }>()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const sendAuthorizationCode = (code: string) => {
+  const sendAuthorizationCode = (authorizationCode: string) => {
     fetch(
-      `http://ec2-43-201-195-164.ap-northeast-2.compute.amazonaws.com/api/v1/authentication/login/${snsName}`,
+      `http://ec2-43-201-195-164.ap-northeast-2.compute.amazonaws.com/api/v1/authentication/login/${snsName}authorizationCode=${authorizationCode}?`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code }),
       },
     )
       .then((response) => {
