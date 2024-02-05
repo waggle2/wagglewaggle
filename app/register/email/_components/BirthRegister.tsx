@@ -1,38 +1,24 @@
 'use client'
 
 import Button from '@/app/_components/button/Button'
-import style from '../styles/registerBirth.module.scss'
+import style from '../styles/birthRegister.module.scss'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
-import useFormInput from '@/app/_hooks/useFormInput'
-import { Dispatch, SetStateAction, useEffect } from 'react'
-import { IInputValues, checkObject } from '@/app/_lib/validate'
+import { IInputFileds } from '@/app/_hooks/useFormInput'
 
 interface Props {
-  nextStep: () => void
-  userTotalDatas: IInputValues
-  setUserTotalDatas: Dispatch<SetStateAction<IInputValues>>
+  inputFields: IInputFileds
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
-export default function RegisterBirth({
-  nextStep,
-  setUserTotalDatas,
-  userTotalDatas,
+export default function BirthRegister({
+  handleSubmit,
+  inputFields,
+  handleChange,
 }: Props) {
-  const {
-    inputFields,
-    errors,
-    submitting,
-    handleSubmit,
-    handleChange,
-    passable,
-    setPassable,
-  } = useFormInput({
-    realname: '',
-    birthYear: '',
-    gender: '',
-  })
-
   const startYear = 1950
   const endYear = 2010
   const yearOptions = []
@@ -44,17 +30,6 @@ export default function RegisterBirth({
       </option>,
     )
   }
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
-      setPassable(true)
-    }
-    if (Object.keys(errors).length === 0 && submitting) {
-      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
-      nextStep()
-    }
-    return () => setPassable(false)
-  }, [errors, submitting])
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>

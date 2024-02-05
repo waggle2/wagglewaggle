@@ -1,19 +1,6 @@
-export interface IInputValues {
-  email?: string
-  emailCheck?: string
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-}
-export interface IErrors {
-  email?: string
-  emailCheck?: string
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-}
+import { IErrors, IInputFileds } from '../_hooks/useFormInput'
 
-export const validate = (inputValues: IInputValues): IErrors => {
+export const validate = (inputValues: IInputFileds): IErrors => {
   const errors: IErrors = {}
   if (
     inputValues.email &&

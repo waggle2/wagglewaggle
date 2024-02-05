@@ -1,28 +1,42 @@
-import useFormInput from '@/app/_hooks/useFormInput'
+import useFormInput, { IInputFileds } from '@/app/_hooks/useFormInput'
 import { checkObject } from '@/app/_lib/validate'
-import { useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import EmailRegister from './EmailRegister'
+import NameRegister from './NameRegister'
+import BirthRegister from './BirthRegister'
 
 interface Props {
-  children: React.ReactNode
+  formDataType: 'email' | 'name' | 'birth'
+  formDataObject: IInputFileds
+  userTotalDatas: IInputFileds
+  setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
+  nextStep: () => void
 }
 
-export default function FormPresetProvider({ children }: Props) {
+export default function FormPresetProvider({
+  formDataType,
+  formDataObject,
+  userTotalDatas,
+  setUserTotalDatas,
+  nextStep,
+}: Props) {
   const {
-    childrenProps: {
-      inputFields,
-      errors,
-      submitting,
-      handleSubmit,
-      handleChange,
-      passable,
-      setPassable,
-    },
-  } = useFormInput({
-    email: '',
-    emailCheck: '',
-    password: '',
-    passwordCheck: '',
-  })
+    inputFields,
+    errors,
+    submitting,
+    handleSubmit,
+    handleChange,
+    passable,
+    setPassable,
+  } = useFormInput(formDataObject)
+
+  const childrenProps = {
+    inputFields,
+    errors,
+    handleSubmit,
+    handleChange,
+    passable,
+  }
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
@@ -30,10 +44,20 @@ export default function FormPresetProvider({ children }: Props) {
     }
     if (Object.keys(errors).length === 0 && submitting) {
       setUserTotalDatas({ ...userTotalDatas, ...inputFields })
+      setPassable(false)
       nextStep()
     }
     return () => setPassable(false)
   }, [errors, submitting])
 
-  return <>{children}</>
+  switch (formDataType) {
+    case 'email':
+      return <EmailRegister {...childrenProps} />
+    case 'name':
+      return <NameRegister {...childrenProps} />
+    case 'birth':
+      return <BirthRegister {...childrenProps} />
+    default:
+      null
+  }
 }

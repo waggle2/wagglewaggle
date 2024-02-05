@@ -1,11 +1,5 @@
 import { validate, IErrors } from '@/app/_lib/validate'
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
 export interface IInputFileds {
   email?: string
@@ -16,6 +10,14 @@ export interface IInputFileds {
   realname?: string
   birthYear?: string
   gender?: 'man' | 'woman' | ''
+}
+
+export interface IErrors {
+  email?: string
+  emailCheck?: string
+  password?: string
+  passwordCheck?: string
+  nickname?: string
 }
 
 export default function useFormInput(initialValues: IInputFileds) {
@@ -44,14 +46,12 @@ export default function useFormInput(initialValues: IInputFileds) {
   }
 
   return {
-    childrenProps: {
-      inputFields,
-      errors,
-      submitting,
-      handleChange,
-      handleSubmit,
-      passable,
-      setPassable,
-    },
+    inputFields,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+    passable,
+    setPassable,
   }
 }

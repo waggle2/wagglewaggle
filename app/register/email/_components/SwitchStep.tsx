@@ -1,20 +1,18 @@
 'use client'
 
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import RegisterName from './RegisterName'
-import RegisterEmail from './RegisterEmail'
-import RegisterBirth from './RegisterBirth'
 import RegisterAgree from './RegisterAgree'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import Back2 from '/public/assets/back.svg'
 import Close from '@/app/_components/common/header/_components/Close'
 import { useRouter } from 'next/navigation'
-import { IInputValues } from '@/app/_lib/validate'
+import FormPresetProvider from './FormPresetProvider'
+import { IInputFileds } from '@/app/_hooks/useFormInput'
 
 interface Props {
-  userTotalDatas: IInputValues
-  setUserTotalDatas: Dispatch<SetStateAction<IInputValues>>
+  userTotalDatas: IInputFileds
+  setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
 }
 
 export default function SwitchStep({
@@ -49,10 +47,17 @@ export default function SwitchStep({
             title="이메일로 가입하기"
             rightSection={[<Close clickEvent={() => router.back()} />]}
           />
-          <RegisterEmail
+          <FormPresetProvider
+            formDataObject={{
+              email: '',
+              emailCheck: '',
+              password: '',
+              passwordCheck: '',
+            }}
+            formDataType="email"
             nextStep={nextStep}
-            userTotalDatas={userTotalDatas}
             setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
           />
         </>
       )
@@ -72,10 +77,14 @@ export default function SwitchStep({
             title="회원가입"
             rightSection={[<Close clickEvent={() => router.back()} />]}
           />
-          <RegisterName
-            userTotalDatas={userTotalDatas}
-            setUserTotalDatas={setUserTotalDatas}
+          <FormPresetProvider
+            formDataObject={{
+              nickname: '',
+            }}
+            formDataType="name"
             nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
           />
         </>
       )
@@ -95,11 +104,23 @@ export default function SwitchStep({
             title="회원가입"
             rightSection={[<Close clickEvent={() => router.back()} />]}
           />
-          <RegisterBirth
+          <FormPresetProvider
+            formDataObject={{
+              realname: '',
+              birthYear: '',
+              gender: '',
+            }}
+            formDataType="email"
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+
+          {/* <RegisterBirth
             nextStep={nextStep}
             userTotalDatas={userTotalDatas}
             setUserTotalDatas={setUserTotalDatas}
-          />
+          /> */}
         </>
       )
     case 4:
