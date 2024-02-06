@@ -32,8 +32,8 @@ export default function NameRegister({
   return (
     <>
       <h2 className={style.title}>
-        함께할 이름을 <br />
-        적어주세요
+        함께할 이름과 <br />
+        간단한 정보를 입력해주세요
       </h2>
       <div className={style.avatarDiv}>
         <BaseAvatar />
