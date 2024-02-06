@@ -1,4 +1,4 @@
-import { validate, IErrors } from '@/app/_lib/validate'
+import { validate } from '@/app/_lib/validate'
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 export interface IInputFileds {
@@ -7,7 +7,6 @@ export interface IInputFileds {
   password?: string
   passwordCheck?: string
   nickname?: string
-  realname?: string
   birthYear?: string
   gender?: 'man' | 'woman' | ''
 }

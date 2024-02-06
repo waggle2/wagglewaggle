@@ -55,8 +55,6 @@ export default function FormPresetProvider({
       return <EmailRegister {...childrenProps} />
     case 'name':
       return <NameRegister {...childrenProps} />
-    case 'birth':
-      return <BirthRegister {...childrenProps} />
     default:
       null
   }

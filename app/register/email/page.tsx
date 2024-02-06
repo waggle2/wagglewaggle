@@ -1,16 +1,18 @@
 'use client'
 
-import { IInputValues } from '@/app/_lib/validate'
 import SwitchStep from './_components/SwitchStep'
-import { useEffect, useState } from 'react'
-
+import { useState } from 'react'
+import { IInputFileds } from '@/app/_hooks/useFormInput'
+import style from './styles/page.module.scss'
 export default function page() {
-  const [userTotalDatas, setUserTotalDatas] = useState<IInputValues>({})
+  const [userTotalDatas, setUserTotalDatas] = useState<IInputFileds>({})
 
   return (
-    <SwitchStep
-      userTotalDatas={userTotalDatas}
-      setUserTotalDatas={setUserTotalDatas}
-    />
+    <div className={style.container}>
+      <SwitchStep
+        userTotalDatas={userTotalDatas}
+        setUserTotalDatas={setUserTotalDatas}
+      />
+    </div>
   )
 }
