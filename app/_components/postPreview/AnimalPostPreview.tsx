@@ -35,16 +35,13 @@ export default function AnimalPostPreview() {
   const [posts, setPosts] = useState<Array<postData>>()
 
   useEffect(() => {
-    console.log(
-      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal:' + selectedAnimal}`,
-    )
     const fetchData = async () => {
       try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
         )
         const posts = await res.data.data
-        console.log(posts, 'animal')
+        // console.log(posts, 'animal')
         setPosts(posts)
       } catch (err) {
         console.error(err)

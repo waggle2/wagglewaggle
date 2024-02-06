@@ -62,7 +62,7 @@ export default async function Posts({ title }: props) {
     )
 
     data = await res.data.data
-    console.log(data)
+    // console.log(data)
   } catch (err) {
     console.error(err)
   }
