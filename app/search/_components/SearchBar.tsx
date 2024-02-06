@@ -24,7 +24,7 @@ export default function SearchBar({ q }: Props) {
 
     const handleSearch = () => {
         console.log(searchTerm);
-        router.replace(`/search?q=${searchTerm}`);
+        router.push(`/search?q=${searchTerm}`);
     };
 
     return (

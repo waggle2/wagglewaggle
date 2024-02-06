@@ -1,36 +1,85 @@
 .dropdownContainer {
   position: absolute;
+  padding: 0 16px;
   left: 0;
-  top: 104.5px;
+  top: 0;
   width: 100%;
-  height: calc(100% - 104.5px);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  background: rgba(0 0 0 / 15%);
-}
-.items {
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.items::-webkit-scrollbar {
-  display: none;
-}
-.item {
-  cursor: pointer;
-  width: 100%;
-  display: flex;
   justify-content: center;
-  padding: 21px 0;
-  background: #fff;
-}
-.firstItem {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  align-items: center;
+  background: rgba(0 0 0 / 60%);
 }
 
-.selected {
-  color: #2fd714;
-  // font-weight:;
+.filterModal {
+  width: 100%;
+  padding: 20px 16px;
+  background-color: #fff;
+  border-radius: 16px;
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      font-size: 18px;
+      font-weight: var(--fw-semiBold);
+    }
+  }
+  .selectorWrap {
+    padding: 16px 0;
+    border-bottom: 1px solid #f6f6f6;
+    h5 {
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: var(--fw-semiBold);
+    }
+
+    .buttonWrap::-webkit-scrollbar {
+      display: none;
+    }
+    .buttonWrap {
+      overflow: scroll;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      > button {
+        padding: 8px 17px;
+        border: 1px solid #eaeaea;
+        border-radius: 30px;
+        word-break: keep-all;
+      }
+
+      .selected {
+        background-color: #2fd714;
+        border: 1px solid #2fd714;
+        color: #fff;
+        // font-weight:;
+      }
+    }
+  }
 }
+
+// .items {
+//   overflow-y: scroll;
+//   -ms-overflow-style: none;
+//   scrollbar-width: none;
+// }
+// .items::-webkit-scrollbar {
+//   display: none;
+// }
+// .item {
+//   cursor: pointer;
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   padding: 21px 0;
+//   background: #fff;
+// }
+// .firstItem {
+//   border-top-left-radius: 20px;
+//   border-top-right-radius: 20px;
+// }
