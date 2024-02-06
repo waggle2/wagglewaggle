@@ -34,7 +34,11 @@ export default function Post({ profile, post }: Props) {
       <div className={style.profileContainer}>
         <div className={style.profileWrapper}>
           <div className={style.profileImageWrapper}>
-            {profile.image ? profile.image : <TestProfile />}
+            {profile.image ? (
+              profile.image
+            ) : (
+              <TestProfile width={'100%'} height={'100%'} />
+            )}
           </div>
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>{profile.name}</div>

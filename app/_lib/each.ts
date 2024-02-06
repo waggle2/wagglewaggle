@@ -6,6 +6,6 @@ interface props<T> {
 }
 
 const Each = <T>({ render, of }: props<T>): ReactNode =>
-  Children.toArray(of.map((item, index: number) => render(item, index)))
+  Children.toArray(of.map((item, index?: number) => render(item, index)))
 
 export default Each

@@ -16,7 +16,6 @@ import NavEvent from './_components/navEvent/NavEvent'
 import AnimalPostPreview from './_components/postPreview/AnimalPostPreview'
 import TopButton from './_components/button/TopButton'
 import Footer from './_components/common/footer/page'
-import Posts from './_components/postPreview/_components/Posts'
 
 export default function Home() {
   return (

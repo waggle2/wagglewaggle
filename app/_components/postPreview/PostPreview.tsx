@@ -3,7 +3,6 @@ import style from './postPreview.module.scss'
 import Link from '@/node_modules/next/link'
 
 import Next from '@/public/assets/next.svg'
-import TestProfile from '@/public/assets/profile.svg'
 import { ReactNode } from 'react'
 import Posts from './_components/Posts'
 
@@ -26,6 +25,7 @@ export default function PostPreview({ title, href, icon }: Props) {
         </Link>
       </div>
       <div className={style.postContainer}>
+        {/* @ts-expect-error Async Server Component */}
         <Posts title={title} />
       </div>
     </section>

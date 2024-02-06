@@ -1,14 +1,11 @@
-// 'use client'
-
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import axios from '@/node_modules/axios/index'
-import Each from '@/app/_lib/each'
 
-import style from './post.module.scss'
 import Post from './Post'
 
 type props = {
-  title: string
+  title?: string
+  animal?: string
 }
 type postData = {
   id: number
@@ -28,6 +25,8 @@ type postData = {
 //likes 좋아요 누른 유저 , likeNum 좋아요 수
 
 export default async function Posts({ title }: props) {
+  let filter = ''
+  // const selectAnimal = animal ? `&animal=${animal}` : ''
   let data: postData[] = [
     {
       id: 0,
@@ -43,69 +42,56 @@ export default async function Posts({ title }: props) {
       title: '',
     },
   ]
+
+  switch (title) {
+    case '따끈따끈 최신글':
+      filter = ''
+      break
+
+    case '연애 TIP':
+      filter = '&tags=연애'
+      break
+
+    default:
+      break
+  }
+
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2`,
+      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${filter}`,
     )
 
-    // console.log(res.data.posts, 'response')
-    data = await res.data.posts
+    data = await res.data.data
+    console.log(data)
   } catch (err) {
     console.error(err)
   }
 
-  {
-    /* {postPrev &&
-    postPrev.map((info, index) => {
-      return (
-        <Post
-          key={index}
-          profile={{
-            image: info.imageUrls,
-            name: 'undefined',
-            animal: info.animal,
-          }}
-          post={{
-            id: info.id,
-            category: info.tags[0],
-            tag: info.tags[1],
-            time: info.createdAt,
-            title: info.title,
-            content: info.content,
-            likes: info.likeNum,
-            comments: info.commentNum,
-            views: 0,
-          }}
-        />
-      )
-    })} */
-  }
   return (
     <>
-      {data &&
-        data?.map((info, index: number) => {
-          return (
-            <Post
-              key={index}
-              profile={{
-                image: info.imageUrls,
-                name: 'undefined',
-                animal: info.animal,
-              }}
-              post={{
-                id: info.id,
-                category: info.tags[0],
-                tag: info.tags[1],
-                time: info.createdAt,
-                title: info.title,
-                content: info.content,
-                likes: info.likeNum,
-                comments: info.commentNum,
-                views: 0,
-              }}
-            />
-          )
-        })}
+      {data?.map((info, index: number) => {
+        return (
+          <Post
+            key={index}
+            profile={{
+              image: info.imageUrls,
+              name: 'undefined',
+              animal: info.animal,
+            }}
+            post={{
+              id: info.id,
+              category: info.tags[0],
+              tag: info.tags[1],
+              time: info.createdAt,
+              title: info.title,
+              content: info.content,
+              likes: info.likeNum,
+              comments: info.commentNum,
+              views: 0,
+            }}
+          />
+        )
+      })}
     </>
   )
 }

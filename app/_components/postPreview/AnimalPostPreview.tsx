@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 
 import style from './postPreview.module.scss'
 
@@ -10,12 +10,48 @@ import Post from './_components/Post'
 import Button from '../button/Button'
 
 import Next from '@/public/assets/next.svg'
-import TestProfile from '@/public/assets/profile.svg'
+
 import Town from '@/public/assets/town.svg'
+import axios from '@/node_modules/axios/index'
 
-export default function PostPreview() {
-  const [selectedAnimal, setSelectedAnimal] = useState('all')
+import Posts from './_components/Posts'
 
+type postData = {
+  id: number
+  animal?: string
+  commentNum: number
+  content: string
+  createdAt: string
+  imageUrls?: ReactNode
+  isAnonymous: boolean
+  likeNum: number
+  likes: null
+  tags: string[]
+  title: string
+}
+
+export default function AnimalPostPreview() {
+  const [selectedAnimal, setSelectedAnimal] = useState('')
+  const [posts, setPosts] = useState<Array<postData>>()
+
+  useEffect(() => {
+    console.log(
+      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal:' + selectedAnimal}`,
+    )
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
+        )
+        const posts = await res.data.data
+        console.log(posts, 'animal')
+        setPosts(posts)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchData()
+  }, [selectedAnimal])
   const handleAnimalSelect = (animal: string) => {
     setSelectedAnimal(() => animal)
   }
@@ -34,80 +70,69 @@ export default function PostPreview() {
       <div className={style.animalContainer}>
         <Button
           text={'전체'}
-          mainColor={selectedAnimal === 'all' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('all')
+            handleAnimalSelect('')
           }}
         />
         <Button
           text={'고냥이'}
-          mainColor={selectedAnimal === 'cat' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '고양이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('cat')
+            handleAnimalSelect('고양이')
           }}
         />
         <Button
           text={'곰돌이'}
-          mainColor={selectedAnimal === 'bear' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '곰' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('bear')
+            handleAnimalSelect('곰')
           }}
         />
         <Button
           text={'댕댕이'}
-          mainColor={selectedAnimal === 'dog' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '개' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('dog')
+            handleAnimalSelect('개')
           }}
         />
         <Button
           text={'폭스'}
-          mainColor={selectedAnimal === 'fox' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '여우' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('fox')
+            handleAnimalSelect('여우')
           }}
         />
       </div>
       <div className={style.postContainer}>
-        <Post
-          profile={{
-            image: <TestProfile />,
-            name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
-          }}
-          post={{
-            title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-            content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-            likes: 24,
-            comments: 24,
-            views: 24,
-            time: '1분전',
-          }}
-        />
-        <Post
-          profile={{
-            image: <TestProfile />,
-            name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
-          }}
-          post={{
-            title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-            content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-            likes: 24,
-            comments: 24,
-            views: 24,
-            time: '1분전',
-          }}
-        />
+        {posts?.map((info, index: number) => {
+          return (
+            <Post
+              key={index}
+              profile={{
+                image: info.imageUrls,
+                name: 'undefined',
+                animal: info.animal,
+              }}
+              post={{
+                id: info.id,
+                category: info.tags[0],
+                tag: info.tags[1],
+                time: info.createdAt,
+                title: info.title,
+                content: info.content,
+                likes: info.likeNum,
+                comments: info.commentNum,
+                views: 0,
+              }}
+            />
+          )
+        })}
       </div>
     </section>
   )
