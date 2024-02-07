@@ -63,7 +63,7 @@ export default function MyPage() {
         />
         <SettingNav
           nickName={profile.nickname}
-          href={'/mypage/nickNameSetting'}
+          href={'/mypage/1/nickNameModify'}
           title={'닉네임 변경'}
         />
         <SettingNav href={'/mypage/1/postHistory'} title={'내가 작성한 글'} />
