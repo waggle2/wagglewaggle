@@ -3,6 +3,8 @@ import style from '../styles/nameRegister.module.scss'
 import Button from '@/app/_components/button/Button'
 import { api } from './EmailRegister'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
+import Input from '@/app/_components/userForm/Input'
+import InputGroup from '@/app/_components/userForm/InputGroup'
 
 interface Props {
   inputFields: IInputFileds
@@ -40,31 +42,54 @@ export default function NameRegister({
       </div>
       <div className={style.formDiv}>
         <form className={style.form} onSubmit={handleSubmit}>
-          <h3>닉네임</h3>
-          <label htmlFor="nickname">
-            <input
-              type="text"
-              placeholder="이름을 적어주세요"
-              maxLength={10}
-              name="nickname"
-              value={inputFields.nickname}
-              onChange={handleChange}
-            />
-            <Button
-              mainColor={
-                inputFields.nickname && !errors.nickname ? 'green' : 'grey'
-              }
-              text="중복확인"
-              action={() => {
-                inputFields.nickname && checkNickname(inputFields.nickname)
+          <div className={style.inputDiv}>
+            <InputGroup
+              labelText="닉네임"
+              inputProps={{
+                type: 'text',
+                name: 'nickname',
+                onChange: handleChange,
+                value: inputFields.nickname ?? '',
+                placeholder: '이름을 적어주세요',
+                maxLength: 12,
               }}
-              isDisabled={!(inputFields.nickname && !errors.nickname)}
+              buttonProps={{
+                text: '중복확인',
+                active: !!(inputFields.nickname && !errors.nickname),
+                inactive: !(inputFields.nickname && !errors.nickname),
+                onClick: () => {
+                  inputFields.nickname && checkNickname(inputFields.nickname)
+                },
+                type: 'button',
+              }}
+              errorMessage={errors.nickname}
+              description="특수문자 제외, 4~12자로 입력해주세요."
             />
-          </label>
-          <span className={style.description}>
-            2~10자의 이름을 사용해주세요
-          </span>
-          {errors.nickname && <p style={{ color: 'red' }}>{errors.nickname}</p>}
+          </div>
+          <div className={style.inputDiv}>
+            <InputGroup
+              labelText="출생년도"
+              inputProps={{
+                type: 'text',
+                name: 'birthYear',
+                onChange: handleChange,
+                value: inputFields.birthYear ?? '',
+                placeholder: '출생년도를 입력해주세요',
+                maxLength: 4,
+              }}
+              errorMessage={errors.birthYear}
+              description="응답하신 출생년도는 공개되지 않습니다."
+            />
+          </div>
+          <div className={style.inputDiv}>
+            <h3>성별</h3>
+            <label htmlFor="man">
+              <input type="radio" id="man" name="gender" />
+            </label>
+            <label htmlFor="woman">
+              <input type="radio" id="woman" name="gender" />
+            </label>
+          </div>
           <Button
             mainColor={passable ? 'green' : 'grey'}
             text="계속하기"
