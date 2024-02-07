@@ -2,11 +2,9 @@ import style from './postPreview.module.scss'
 
 import Link from '@/node_modules/next/link'
 
-import Post from './_components/Post'
-
 import Next from '@/public/assets/next.svg'
-import TestProfile from '@/public/assets/profile.svg'
 import { ReactNode } from 'react'
+import Posts from './_components/Posts'
 
 type Props = {
   title: string
@@ -27,40 +25,8 @@ export default function PostPreview({ title, href, icon }: Props) {
         </Link>
       </div>
       <div className={style.postContainer}>
-        <Post
-          profile={{
-            image: <TestProfile />,
-            name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
-          }}
-          post={{
-            title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-            content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-            likes: 24,
-            comments: 24,
-            views: 24,
-            time: '1분전',
-          }}
-        />
-        <Post
-          profile={{
-            image: <TestProfile />,
-            name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
-          }}
-          post={{
-            title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-            content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-            likes: 24,
-            comments: 24,
-            views: 24,
-            time: '1분전',
-          }}
-        />
+        {/* @ts-expect-error Async Server Component */}
+        <Posts title={title} />
       </div>
     </section>
   )

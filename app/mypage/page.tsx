@@ -46,7 +46,7 @@ export default function MyPage() {
   }
 
   return (
-    <div>
+    <>
       <Header leftSection={<Title title={'마이페이지'} />} />
       <MyProfile
         selectedEmoji={`/point_shop/emoji/cat_smile.svg`}
@@ -72,6 +72,6 @@ export default function MyPage() {
         <Logout />
         <SettingNav href={'/mypage/withdraw'} title={'회원 탈퇴'} />
       </div>
-    </div>
+    </>
   )
 }
