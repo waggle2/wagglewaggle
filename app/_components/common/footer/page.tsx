@@ -12,7 +12,7 @@ import PointShop from './_components/PointShop'
 export default function Footer() {
   const pathname = usePathname()
 
-  console.log(pathname, 'name')
+  // console.log(pathname, 'name')
   return (
     <footer className={style.container}>
       <Home path={pathname} />

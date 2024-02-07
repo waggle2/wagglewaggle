@@ -31,7 +31,6 @@ export default function Home() {
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
         <NavEvent href={'./'} img={<TestAD />} />
         <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
-
         <AnimalPostPreview />
         <TopButton />
       </main>
