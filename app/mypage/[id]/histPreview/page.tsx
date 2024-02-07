@@ -14,10 +14,11 @@ export default function HistPreview() {
           profile={{
             image: <TestProfile />,
             name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
           }}
           post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
               서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
@@ -31,13 +32,14 @@ export default function HistPreview() {
           profile={{
             image: <TestProfile />,
             name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
           }}
           post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-            서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
             likes: 24,
             comments: 24,
             views: 24,
@@ -48,13 +50,14 @@ export default function HistPreview() {
           profile={{
             image: <TestProfile />,
             name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
           }}
           post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-          서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
             likes: 24,
             comments: 24,
             views: 24,
@@ -65,13 +68,14 @@ export default function HistPreview() {
           profile={{
             image: <TestProfile />,
             name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
           }}
           post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-        서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
             likes: 24,
             comments: 24,
             views: 24,
@@ -82,13 +86,32 @@ export default function HistPreview() {
           profile={{
             image: <TestProfile />,
             name: '익명의 누군가',
-            category: '수다수다',
-            tag: '19',
           }}
           post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
             title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
             content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-      서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
+            likes: 24,
+            comments: 24,
+            views: 24,
+            time: '1분전',
+          }}
+        />
+        <Post
+          profile={{
+            image: <TestProfile />,
+            name: '익명의 누군가',
+          }}
+          post={{
+            id: 1,
+            tag: '19',
+            category: '수다수다',
+            title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
+            content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
+              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
             likes: 24,
             comments: 24,
             views: 24,

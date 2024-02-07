@@ -1,17 +1,13 @@
-'use client'
-
-import { useEffect } from 'react'
-
 import style from './mypage.module.scss'
-import Next from '@/public/assets/next.svg'
 
 import Header from '../_components/common/header/page'
 import Title from '../_components/common/header/_components/Title'
-import MyProfile from './profileSetting/_components/MyProfile'
-import MyType from './_components/MyType'
-import SettingNav from './_components/SettingNav'
-import PostPreview from '../_components/postPreview/PostPreview'
-import Logout from './_components/Logout'
+import MyProfile from './[id]/profileSetting/_components/MyProfile'
+import MyType from './[id]/_components/MyType'
+import SettingNav from './[id]/_components/SettingNav'
+import Search from '../_components/common/header/_components/Search'
+import Bell from '../_components/common/header/_components/Bell'
+import Footer from '../_components/common/footer/page'
 
 export default function MyPage() {
   const profile = {
@@ -46,8 +42,11 @@ export default function MyPage() {
   }
 
   return (
-    <>
-      <Header leftSection={<Title title={'마이페이지'} />} />
+    <div className={style.container}>
+      <Header
+        leftSection={<Title title={'MY'} />}
+        rightSection={[<Search />, <Bell />]}
+      />
       <MyProfile
         selectedEmoji={`/point_shop/emoji/cat_smile.svg`}
         selectedProfileBg={'/point_shop/profile_background/프로필배경1.svg'}
@@ -65,13 +64,18 @@ export default function MyPage() {
         <SettingNav
           nickName={profile.nickname}
           href={'/mypage/nickNameSetting'}
-          title={'닉네임 설정'}
+          title={'닉네임 변경'}
         />
-        <PostPreview title={'내가 쓴 글'} href={'/mypage/histPreview'} />
-        <PostPreview title={'댓글 단 글'} href={''} />
-        <Logout />
-        <SettingNav href={'/mypage/withdraw'} title={'회원 탈퇴'} />
+        <SettingNav href={'/'} title={'내가 작성한 글'} />
+        <SettingNav href={'/'} title={'내가 댓글 단 글'} />
       </div>
-    </>
+      <div className={style.separationBar} />
+      <div className={style.paddingContainer}>
+        <SettingNav href={'/'} title={'회원 정보 수정'} />
+        <SettingNav href={'/'} title={'건의사항'} />
+        <SettingNav href={'/'} title={'계정 설정'} />
+      </div>
+      <Footer />
+    </div>
   )
 }

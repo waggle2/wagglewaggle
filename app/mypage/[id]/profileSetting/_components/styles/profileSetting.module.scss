@@ -59,8 +59,7 @@
 
 // 선택 아이템 착용 미리보기
 .customContainer {
-  padding: 1rem;
-  background-color: #f0f0f0;
+  padding: 8px 16px;
 }
 
 .customBackground {
@@ -130,7 +129,14 @@
     border-radius: 12px;
   }
   > .setting {
-    background-color: unset;
+    background-color: rgba(#fff, 0.5);
+    width: 24px;
+    height: 24px;
+    > img {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
   }
 }
 
