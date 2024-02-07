@@ -1,11 +1,18 @@
 import { ChangeEventHandler } from 'react'
 import style from './input.module.scss'
 
-type props = {
+type inputTextProps = {
   placeholder: string
   warning?: string
   text: string
   onChange: ChangeEventHandler<HTMLInputElement>
+  type?: string
+  title?: string
+}
+
+type disabledTextProps = {
+  text?: string
+  title?: string
 }
 
 export default function InputText({
@@ -13,17 +20,28 @@ export default function InputText({
   warning,
   onChange,
   text,
-}: props) {
+  type,
+  title,
+}: inputTextProps) {
   return (
-    <>
+    <div className={style.wrapper}>
+      <p className={style.title}>{title}</p>
       <input
         className={style.input}
-        type="text"
+        type={type ? type : 'text'}
         placeholder={placeholder}
         onChange={onChange}
-        value={text}
+        defaultValue={text}
       />
       {warning && <div className={style.errorText}>{warning}</div>}
-    </>
+    </div>
+  )
+}
+export function DisabledText({ text, title }: disabledTextProps) {
+  return (
+    <div className={style.wrapper}>
+      <p className={style.title}>{title}</p>
+      <input className={style.disabledText} type="text" defaultValue={text} />
+    </div>
   )
 }

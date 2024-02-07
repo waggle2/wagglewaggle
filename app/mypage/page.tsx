@@ -73,11 +73,15 @@ export default function MyPage() {
         />
       </div>
       <div className={style.separationBar} />
-      <div className={style.paddingContainer}>
-        <SettingNav href={'/'} title={'회원 정보 수정'} />
+      <div className={style.settingContainer}>
+        <SettingNav
+          href={'/mypage/1/editInformation'}
+          title={'회원 정보 수정'}
+        />
         <SettingNav href={'/'} title={'건의사항'} />
         <SettingNav href={'/'} title={'계정 설정'} />
       </div>
+
       <Footer />
     </>
   )
