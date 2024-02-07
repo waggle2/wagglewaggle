@@ -3,7 +3,6 @@ import style from '../styles/nameRegister.module.scss'
 import Button from '@/app/_components/button/Button'
 import { api } from './EmailRegister'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
-import Input from '@/app/_components/userForm/Input'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 
 interface Props {
@@ -81,20 +80,41 @@ export default function NameRegister({
               description="응답하신 출생년도는 공개되지 않습니다."
             />
           </div>
-          <div className={style.inputDiv}>
+          <div className={`${style.inputDiv} ${style.select}`}>
             <h3>성별</h3>
-            <label htmlFor="man">
-              <input type="radio" id="man" name="gender" />
-            </label>
-            <label htmlFor="woman">
-              <input type="radio" id="woman" name="gender" />
-            </label>
+            <div className={style.labelWrapper}>
+              <label htmlFor="man">
+                남성
+                <input
+                  type="radio"
+                  id="man"
+                  name="gender"
+                  onChange={handleChange}
+                  value="man"
+                />
+              </label>
+              <label htmlFor="woman">
+                여성
+                <input
+                  type="radio"
+                  id="woman"
+                  name="gender"
+                  onChange={handleChange}
+                  value="woman"
+                />
+              </label>
+            </div>
+            <div className={style.description}>
+              <span>&middot;</span>&nbsp; 응답하신 성별은 공개되지 않습니다.
+            </div>
           </div>
-          <Button
-            mainColor={passable ? 'green' : 'grey'}
-            text="계속하기"
-            isDisabled={!passable}
-          />
+          <div className={style.buttonDiv}>
+            <Button
+              mainColor={passable ? 'green' : 'grey'}
+              text="계속하기"
+              isDisabled={!passable}
+            />
+          </div>
         </form>
       </div>
     </>

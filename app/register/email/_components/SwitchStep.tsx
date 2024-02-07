@@ -16,7 +16,7 @@ export default function SwitchStep({
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(2)
   const router = useRouter()
 
   const nextStep = () => {

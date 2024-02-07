@@ -14,7 +14,7 @@ interface Props {
 
 export default function Button({
   text,
-  fontSize = 16,
+  fontSize = 15,
   mainColor,
   action,
   isDisabled,
