@@ -42,7 +42,7 @@ export default function MyPage() {
   }
 
   return (
-    <div className={style.container}>
+    <>
       <Header
         leftSection={<Title title={'MY'} />}
         rightSection={[<Search />, <Bell />]}
@@ -66,8 +66,11 @@ export default function MyPage() {
           href={'/mypage/nickNameSetting'}
           title={'닉네임 변경'}
         />
-        <SettingNav href={'/'} title={'내가 작성한 글'} />
-        <SettingNav href={'/'} title={'내가 댓글 단 글'} />
+        <SettingNav href={'/mypage/1/postHistory'} title={'내가 작성한 글'} />
+        <SettingNav
+          href={'/mypage/1/commentHistory'}
+          title={'내가 댓글 단 글'}
+        />
       </div>
       <div className={style.separationBar} />
       <div className={style.paddingContainer}>
@@ -76,6 +79,6 @@ export default function MyPage() {
         <SettingNav href={'/'} title={'계정 설정'} />
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
