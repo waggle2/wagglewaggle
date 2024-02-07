@@ -1,4 +1,4 @@
-.dropdownContainer {
+.modalContainer {
   position: absolute;
   padding: 0 16px;
   left: 0;
@@ -10,6 +10,10 @@
   justify-content: center;
   align-items: center;
   background: rgba(0 0 0 / 60%);
+
+  button {
+    cursor: pointer;
+  }
 }
 
 .filterModal {
@@ -26,9 +30,10 @@
       font-weight: var(--fw-semiBold);
     }
   }
+
   .selectorWrap {
     padding: 16px 0;
-    border-bottom: 1px solid #f6f6f6;
+
     h5 {
       margin-bottom: 12px;
       font-size: 12px;
@@ -51,35 +56,40 @@
         border: 1px solid #eaeaea;
         border-radius: 30px;
         word-break: keep-all;
+        font-size: 13px;
+        font-weight: var(--fw-regular);
       }
 
       .selected {
         background-color: #2fd714;
         border: 1px solid #2fd714;
         color: #fff;
-        // font-weight:;
+        font-weight: var(--fw-medium);
       }
     }
   }
-}
 
-// .items {
-//   overflow-y: scroll;
-//   -ms-overflow-style: none;
-//   scrollbar-width: none;
-// }
-// .items::-webkit-scrollbar {
-//   display: none;
-// }
-// .item {
-//   cursor: pointer;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   padding: 21px 0;
-//   background: #fff;
-// }
-// .firstItem {
-//   border-top-left-radius: 20px;
-//   border-top-right-radius: 20px;
-// }
+  .modalFooter {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    > button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      padding: 12px 0;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: var(--fw-medium);
+    }
+    .closeBtn {
+      background-color: #c7c7c7;
+      color: #8c8c8c;
+    }
+    .applyBtn {
+      background-color: #2fd714;
+      color: #fff;
+    }
+  }
+}

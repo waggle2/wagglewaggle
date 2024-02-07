@@ -12,7 +12,7 @@ type Props = {
     setSortHandler: (item: string) => void;
 }
 
-export default function Dropdown({
+export default function FilterModal({
     currentCategory,
     sort,
     isCategoryToggle,
@@ -21,7 +21,7 @@ export default function Dropdown({
     setSortHandler,
 }: Props) {
     return (
-        <div className={style.dropdownContainer}>
+        <div className={style.modalContainer}>
             {isCategoryToggle && (
                 <CategoryDropdown
                     currentCategory={currentCategory}

@@ -53,9 +53,9 @@ export default function CategoryDropdown({ currentCategory, setCurrentCategoryHa
                     </div>
                 </div>
             ))}
-            <div>
-                <button>닫기</button>
-                <button>필터 적용</button>
+            <div className={style.modalFooter}>
+                <button className={style.closeBtn}>닫기</button>
+                <button className={style.applyBtn}>필터 적용</button>
             </div>
         </div>
     );

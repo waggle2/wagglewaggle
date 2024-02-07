@@ -4,7 +4,7 @@ import style from '../_styles/search.module.scss'
 import SearchFilter from "./SearchFilter";
 import Post from '@/app/_components/postPreview/_components/Post';
 import TestProfile from '@/public/assets/profile.svg'
-import Dropdown from './Dropdown';
+import FilterModal from './FilterModal';
 import SearchIcon from '@/public/assets/ico_search-outline.svg'
 
 type Props = { q?: string }
@@ -68,7 +68,7 @@ export default function SearchResult({ q }: Props) {
     // }, [isCategoryToggle, isSortToggle]);
 
     //검색결과 없음 테스트용
-    const [isResult, setIsResult] = useState(false);
+    const [isResult, setIsResult] = useState(true);
 
 
 
@@ -83,7 +83,7 @@ export default function SearchResult({ q }: Props) {
                 onClickSortToggle={onClickSortToggle}
             />
             {(isCategoryToggle || isSortToggle) && (
-                <Dropdown
+                <FilterModal
                     currentCategory={currentCategory}
                     sort={sort}
                     isCategoryToggle={isCategoryToggle}
