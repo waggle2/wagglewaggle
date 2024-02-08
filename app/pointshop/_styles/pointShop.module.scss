@@ -1,8 +1,8 @@
 .container {
   position: relative;
   max-width: 430px;
-  height: 100dvh;
-  margin: 0 auto;
+  height: 100%;
+  padding-bottom: 85px;
   background-color: #fff;
   overflow: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
@@ -16,23 +16,19 @@
   }
 }
 
-.header {
-  padding: 16px 16px 0 16px;
-}
-
-.header > h2 {
-  padding: 0 16px;
-  font-size: 22px;
-  font-weight: bold;
-}
-
 .shopInfo {
-  background-color: #f1f1f1;
-  border-radius: 0.75rem;
-  color: #000;
-  font-weight: bold;
-  padding: 20px;
-  margin: 25px 0;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 20px;
+
+  > a {
+    display: block;
+    background-color: #f1f1f1;
+    border-radius: 0.75rem;
+    color: #000;
+    font-weight: bold;
+    padding: 20px;
+  }
 }
 
 .shopInfo h4 {

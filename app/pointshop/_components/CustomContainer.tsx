@@ -282,10 +282,10 @@ export default function CustomResult({ selectedTab }: Props) {
     setSelectedItems([]);
 
     // 각 상태를 초기 상태로 설정
-    setSelectedEmoji('/point_shop/emoji/cat_smile.svg');
-    setSelectedProfileBg('/point_shop/profile_background/프로필배경1.svg');
-    setSelectedFrame('/point_shop/frame/프레임샘플.png');
-    setSelectedWallpaper('/point_shop/wallpaper/벽지샘플.png');
+    setSelectedEmoji('/assets/point_shop/emoji/cat_smile.svg');
+    setSelectedProfileBg('/assets/point_shop/profile_background/프로필배경1.svg');
+    setSelectedFrame('/assets/point_shop/frame/프레임샘플.png');
+    setSelectedWallpaper('/assets/point_shop/wallpaper/벽지샘플.png');
   };
 
 

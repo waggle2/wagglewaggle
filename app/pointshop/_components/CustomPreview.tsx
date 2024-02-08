@@ -32,8 +32,9 @@ export default function CustomPreview({
                     <>
                         <div className={style.customBackground} >
                             <div className={style.customFnc}>
-                                <button onClick={handleConfirmModalClick}><RefreshIcon /></button>
-                                <button onClick={handleRefreshClick} className={style.refreshBtn}><CheckIcon /></button>
+                                <button onClick={handleRefreshClick} className={style.refreshBtn}><RefreshIcon /></button>
+                                <button onClick={handleConfirmModalClick}>
+                                    <CheckIcon /></button>
                             </div>
 
                             <div className={style.profileResult}>
