@@ -1,41 +1,29 @@
 // 'use client'
 import style from '../_styles/searchFilter.module.scss'
-import DropdownToggle from '/public/assets/dropdownToggle.svg'
+import FilterIcon from '@/public/assets/searchFilter.svg'
 
 type Props = {
-    currentCategory: string,
-    sort: string,
-    isCategoryToggle: boolean,
-    onClickCategoryToggle: () => void,
-    isSortToggle: boolean,
-    onClickSortToggle: () => void,
-
+    onClickModalToggle: () => void,
+    filterLabels: {
+        category: string,
+        talkAbout: string,
+        animalType: string
+    }
 }
 
-export default function SearchFilter({ currentCategory, sort, isCategoryToggle, onClickCategoryToggle, isSortToggle, onClickSortToggle }: Props) {
+
+export default function SearchFilter({ onClickModalToggle, filterLabels }: Props) {
 
 
     return (
-        <div className={style.navBar}>
-            <div
-                className={
-                    isCategoryToggle ? `${style.category} ${style.toggled}` : style.category
-                }
-                onClick={onClickCategoryToggle}
-            >
-                <span>{currentCategory}</span>
-                <DropdownToggle fill={isCategoryToggle ? '#fff' : '#6B6B6B'} />
+        <div className={style.filterNav}>
+            <div className={style.selected}>
+                <span className={!filterLabels.category && !filterLabels.talkAbout && !filterLabels.animalType ? style.active : ''}>전체</span>
+                <span className={filterLabels.category ? style.active : ''}>{filterLabels.category ? filterLabels.category : '카테고리'}</span>
+                <span className={filterLabels.talkAbout ? style.active : ''}>{filterLabels.talkAbout ? filterLabels.talkAbout : '답변유형'}</span>
+                <span className={filterLabels.animalType ? style.active : ''}>{filterLabels.animalType ? filterLabels.animalType : '글쓴이 타입'}</span>
             </div>
-
-            <div
-                className={
-                    isSortToggle ? `${style.category} ${style.toggled}` : style.category
-                }
-                onClick={onClickSortToggle}
-            >
-                <span>{sort}</span>
-                <DropdownToggle fill={isSortToggle ? '#fff' : '#6B6B6B'} />
-            </div>
+            <button onClick={onClickModalToggle}><FilterIcon /></button>
         </div>
     )
 }

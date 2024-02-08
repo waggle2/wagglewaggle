@@ -10,10 +10,10 @@ export default function SwipeEvent() {
   useEffect(() => {
     const div = divRef.current
     const nav = navRef.current
-    console.log('scrollwidth', divRef.current?.scrollWidth)
-    console.log('scrollreft', divRef.current?.scrollLeft)
-    console.log('offsetwidth', divRef.current?.offsetLeft)
-    console.log('children', divRef.current?.children)
+    // console.log('scrollwidth', divRef.current?.scrollWidth)
+    // console.log('scrollreft', divRef.current?.scrollLeft)
+    // console.log('offsetwidth', divRef.current?.offsetLeft)
+    // console.log('children', divRef.current?.children)
     if (!div || !nav) return
 
     const updateSort = (element: HTMLDivElement) => {
@@ -22,7 +22,7 @@ export default function SwipeEvent() {
       const width = element.offsetWidth
       const items = element.children
 
-      console.log(element, 'element')
+      // console.log(element, 'element')
 
       if (scrollLeft <= width) {
         element.prepend(items[items.length - 1])

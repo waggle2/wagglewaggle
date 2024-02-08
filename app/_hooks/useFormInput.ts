@@ -1,13 +1,22 @@
-import { validate, IErrors } from '@/app/_lib/validate'
-import { ChangeEvent, useState } from 'react'
+import { validate } from '@/app/_lib/validate'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-interface IInputFileds {
+export interface IInputFileds {
   email?: string
   emailCheck?: string
   password?: string
   passwordCheck?: string
   nickname?: string
-  realname?: string
+  birthYear?: string
+  gender?: 'man' | 'woman' | ''
+}
+
+export interface IErrors {
+  email?: string
+  emailCheck?: string
+  password?: string
+  passwordCheck?: string
+  nickname?: string
   birthYear?: string
   gender?: 'man' | 'woman' | ''
 }
@@ -31,21 +40,17 @@ export default function useFormInput(initialValues: IInputFileds) {
     setErrors(validationErrors)
   }
 
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
-  }
-
-  const finishSubmit = () => {
-    console.log(inputFields)
   }
 
   return {
     inputFields,
     errors,
     submitting,
-    handleSubmit,
+    setSubmitting,
     handleChange,
-    finishSubmit,
+    handleSubmit,
   }
 }

@@ -1,182 +1,182 @@
 'use client'
 import { useState, useEffect } from 'react'
 import style from '../_styles/search.module.scss'
+
 import SearchFilter from "./SearchFilter";
+import FilterModal from './FilterModal';
 import Post from '@/app/_components/postPreview/_components/Post';
-import TestProfile from '@/public/assets/profile.svg'
-import Dropdown from './Dropdown';
+
+import SearchIcon from '@/public/assets/ico_search-outline.svg'
 
 type Props = { q?: string }
 
 export default function SearchResult({ q }: Props) {
-    const [isCategoryToggle, setIsCategoryToggle] = useState(false);
-    const [isSortToggle, setIsSortToggle] = useState(false);
+    const [isModal, setIsModal] = useState(false);
+    const categories = {
+        category: ['짝사랑', '썸', '연애', '이별', '19'],
+        talkAbout: ['수다수다', '공감해줘', '조언해줘', '골라줘', '꿀팁공유'],
+        animalType: ['고냥이', '곰돌이', '댕댕이', '폭스'],
+    };
 
-    const [currentCategory, setCurrentCategory] = useState('전체');
-    const [sort, setSort] = useState('최신순')
 
-    //카테고리 모달
-    const onClickCategoryToggle = () => {
-        setIsCategoryToggle(!isCategoryToggle);
-        setIsSortToggle(false);
-    }
-
-    //카테고리 선택
-    const setCurrentCategoryHandler = (item: string) => {
-        setCurrentCategory(item);
-        setIsCategoryToggle(!isCategoryToggle);
-    }
-
-    //정렬 모달
-    const onClickSortToggle = () => {
-        setIsSortToggle(!isSortToggle);
-        setIsCategoryToggle(false)
-    }
-
-    //정렬 선택
-    const setSortHandler = (item: string) => {
-        setSort(item);
-        setIsSortToggle(!isSortToggle);
+    //카테고리 모달토글
+    const onClickModalToggle = () => {
+        setIsModal(!isModal);
     }
 
 
-    useEffect(() => {
-        // .container 클래스를 가진 모든 요소 선택
-        const containers = document.getElementsByClassName(style.searchContainer);
+    //검색결과 없음 테스트용
+    const [isResult, setIsResult] = useState(true);
 
-        // Element 타입을 HTMLElement로 형 변환
-        const containerElements = Array.from(containers) as HTMLElement[];
 
-        if (isCategoryToggle || isSortToggle) {
-            // 스크롤 방지 적용
-            containerElements.forEach((container) => {
-                container.style.overflow = 'hidden';
-            });
-        } else {
-            // 스크롤 허용
-            containerElements.forEach((container) => {
-                container.style.overflow = 'unset';
-            });
-        }
+    // 필터링 레이블 상태
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedTalkAbout, setSelectedTalkAbout] = useState('');
+    const [selectedAnimalType, setSelectedAnimalType] = useState('');
 
-        // 컴포넌트가 언마운트 될 때 스크롤을 다시 활성화
-        return () => {
-            containerElements.forEach((container) => {
-                container.style.overflow = 'unset';
-            });
-        };
-    }, [isCategoryToggle, isSortToggle]);
+    // FilterModal에서 필터링 변경하는 부분
+    const handleFilterChange = (category: string, talkAbout: string, animalType: string) => {
+        setSelectedCategory(category);
+        setSelectedTalkAbout(talkAbout);
+        setSelectedAnimalType(animalType);
+        setIsModal(false);
+    };
 
+    // SearchFilter 컴포넌트에 전달할 props
+    const filterLabels = {
+        category: selectedCategory,
+        talkAbout: selectedTalkAbout,
+        animalType: selectedAnimalType,
+    };
+
+    console.log('현재 선택 항목:' + selectedCategory, selectedTalkAbout, selectedAnimalType)
 
     return (
-        <>
-            <SearchFilter
-                currentCategory={currentCategory}
-                sort={sort}
-                isCategoryToggle={isCategoryToggle}
-                onClickCategoryToggle={onClickCategoryToggle}
-                isSortToggle={isSortToggle}
-                onClickSortToggle={onClickSortToggle}
-            />
-            {(isCategoryToggle || isSortToggle) && (
-                <Dropdown
-                    currentCategory={currentCategory}
-                    sort={sort}
-                    isCategoryToggle={isCategoryToggle}
-                    setCurrentCategoryHandler={setCurrentCategoryHandler}
-                    isSortToggle={isSortToggle}
-                    setSortHandler={setSortHandler}
+        <div className={style.searchContainer}>
+
+            {isModal && (
+                <FilterModal
+                    onClickModalToggle={onClickModalToggle}
+                    categories={categories}
+                    onApplyFilter={handleFilterChange}
                 />
             )}
 
-            <div className={style.postContainer}>
-                <Post
-                    profile={{
-                        image: <TestProfile />,
-                        name: '익명의 누군가',
-                        category: '수다수다',
-                        tag: '19',
-                    }}
-                    post={{
-                        title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-                        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-                        likes: 24,
-                        comments: 24,
-                        views: 24,
-                        time: '1분전',
-                    }}
-                />
-                <Post
-                    profile={{
-                        image: <TestProfile />,
-                        name: '익명의 누군가',
-                        category: '수다수다',
-                        tag: '19',
-                    }}
-                    post={{
-                        title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-                        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-                        likes: 24,
-                        comments: 24,
-                        views: 24,
-                        time: '1분전',
-                    }}
-                />
-                <Post
-                    profile={{
-                        image: <TestProfile />,
-                        name: '익명의 누군가',
-                        category: '수다수다',
-                        tag: '19',
-                    }}
-                    post={{
-                        title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-                        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-                        likes: 24,
-                        comments: 24,
-                        views: 24,
-                        time: '1분전',
-                    }}
-                />
-                <Post
-                    profile={{
-                        image: <TestProfile />,
-                        name: '익명의 누군가',
-                        category: '수다수다',
-                        tag: '19',
-                    }}
-                    post={{
-                        title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-                        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-                        likes: 24,
-                        comments: 24,
-                        views: 24,
-                        time: '1분전',
-                    }}
-                />
-                <Post
-                    profile={{
-                        image: <TestProfile />,
-                        name: '익명의 누군가',
-                        category: '수다수다',
-                        tag: '19',
-                    }}
-                    post={{
-                        title: '14살 연하랑 썸타본사람? 나 좀 공감해줘',
-                        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-              서로 연락 자주해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?`,
-                        likes: 24,
-                        comments: 24,
-                        views: 24,
-                        time: '1분전',
-                    }}
-                />
-            </div>
-        </>
+            {isResult ? (
+                <>
+                    <SearchFilter
+                        filterLabels={filterLabels}
+                        onClickModalToggle={onClickModalToggle}
+                    />
+                    <div className={style.postContainer}>
+                        <Post
+                            profile={{
+                                image: '',
+                                name: '익명의 곰',
+                                animal: '곰돌이'
+                            }}
+                            post={{
+                                id: 0,
+                                tag: '19',
+                                category: '수다수다',
+                                time: '2023-11-01',
+                                title: '아 정말 못참겠다',
+                                content:
+                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                likes: 24,
+                                comments: 24,
+                                views: 24,
+                            }}
+                        />
+                        <Post
+                            profile={{
+                                image: '',
+                                name: '익명의 곰',
+                                animal: '곰돌이'
+                            }}
+                            post={{
+                                id: 0,
+                                tag: '19',
+                                category: '수다수다',
+                                time: '2023-11-01',
+                                title: '아 정말 못참겠다',
+                                content:
+                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                likes: 24,
+                                comments: 24,
+                                views: 24,
+                            }}
+                        />
+                        <Post
+                            profile={{
+                                image: '',
+                                name: '익명의 곰',
+                                animal: '곰돌이'
+                            }}
+                            post={{
+                                id: 0,
+                                tag: '19',
+                                category: '수다수다',
+                                time: '2023-11-01',
+                                title: '아 정말 못참겠다',
+                                content:
+                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                likes: 24,
+                                comments: 24,
+                                views: 24,
+                            }}
+                        />
+                        <Post
+                            profile={{
+                                image: '',
+                                name: '익명의 곰',
+                                animal: '곰돌이'
+                            }}
+                            post={{
+                                id: 0,
+                                tag: '19',
+                                category: '수다수다',
+                                time: '2023-11-01',
+                                title: '아 정말 못참겠다',
+                                content:
+                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                likes: 24,
+                                comments: 24,
+                                views: 24,
+                            }}
+                        />
+                        <Post
+                            profile={{
+                                image: '',
+                                name: '익명의 곰',
+                                animal: '곰돌이'
+                            }}
+                            post={{
+                                id: 0,
+                                tag: '19',
+                                category: '수다수다',
+                                time: '2023-11-01',
+                                title: '아 정말 못참겠다',
+                                content:
+                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                likes: 24,
+                                comments: 24,
+                                views: 24,
+                            }}
+                        />
+                    </div>
+                </>
+            ) : (
+                <div className={style.noResultContainer}>
+                    <div className={style.noResultIcon}><SearchIcon /></div>
+                    <p>
+                        ′{q}′<br />
+                        검색결과가 없어요!
+                    </p>
+                </div>
+            )}
+
+        </div>
     )
 }
 
