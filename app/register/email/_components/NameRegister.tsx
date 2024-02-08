@@ -91,6 +91,7 @@ export default function NameRegister({
                   name="gender"
                   onChange={handleChange}
                   value="man"
+                  checked={inputFields.gender === 'man'}
                 />
               </label>
               <label htmlFor="woman">
@@ -101,6 +102,7 @@ export default function NameRegister({
                   name="gender"
                   onChange={handleChange}
                   value="woman"
+                  checked={inputFields.gender === 'woman'}
                 />
               </label>
             </div>

@@ -70,7 +70,14 @@ export default function SwitchStep({
       case 3:
         return (
           <>
-            <RegisterAgree />
+            <FormPresetProvider
+              formDataObject={{}}
+              formDataType="agree"
+              step={step}
+              nextStep={nextStep}
+              setUserTotalDatas={setUserTotalDatas}
+              userTotalDatas={userTotalDatas}
+            />
           </>
         )
       default:
@@ -89,7 +96,13 @@ export default function SwitchStep({
         }
         title="회원가입"
         rightSection={[
-          <button onClick={() => console.log(userTotalDatas)} type="button">
+          <button
+            onClick={() => {
+              console.log('step', step)
+              console.log(userTotalDatas)
+            }}
+            type="button"
+          >
             인증 안해도 넘어가요 인증코드 1234
           </button>,
         ]}

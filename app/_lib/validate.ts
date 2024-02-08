@@ -64,8 +64,9 @@ function validateNickname(nickname: string) {
 
 export function checkObject(obj: any, subObj: any) {
   let result = 0
+
   Object.keys(subObj).forEach((key) => {
-    if (obj[key]?.length === 0) result++
+    if (obj[key] === '' || obj[key] == null) return (result += 1)
   })
   return result === 0 ? true : false
 }

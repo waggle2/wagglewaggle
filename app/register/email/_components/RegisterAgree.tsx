@@ -3,12 +3,24 @@ import Button from '@/app/_components/button/Button'
 import style from '../styles/registerAgree.module.scss'
 import { useRouter } from 'next/navigation'
 import Check from '/public/assets/check.svg'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { IErrors, IInputFileds } from '@/app/_hooks/useFormInput'
+
 interface Props {
-  prevStep: () => void
+  inputFields: IInputFileds
+  errors: IErrors
+  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
+  passable: boolean
 }
 
-export default function RegisterAgree() {
+export default function RegisterAgree({
+  inputFields,
+  errors,
+  handleSubmit,
+  handleChange,
+  passable,
+}: Props) {
   const router = useRouter()
 
   const [agree1, setAgree1] = useState(false)
