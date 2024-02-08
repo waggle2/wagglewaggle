@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  height: 50px;
+  padding: 16px 0;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f6f6f6;
+}
+.title {
+  color: #000;
+  font-family: 'Pretendard Variable';
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+.nick {
+  color: #6b6b6b;
+  text-align: right;
+  font-family: 'Pretendard Variable';
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.navWrapper {
+  display: flex;
+}
+.exCode {
+  padding: 16px 0 20px 0;
+}

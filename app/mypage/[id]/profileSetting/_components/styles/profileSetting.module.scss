@@ -1,0 +1,344 @@
+.container {
+  position: relative;
+  max-width: 430px;
+  height: 100dvh;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.header {
+  padding: 16px 16px 0 16px;
+}
+
+.header > h2 {
+  padding: 0 16px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.shopInfo {
+  background-color: #f1f1f1;
+  border-radius: 0.75rem;
+  color: #000;
+  font-weight: bold;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.shopInfo h4 {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.shopInfo h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.tabContainer {
+  padding: 0 16px;
+  > button {
+    width: 25%;
+    padding-bottom: 10px;
+    transition: all 0.5s;
+    background-color: #fff;
+  }
+
+  > .tabButton {
+    border-bottom: 3px solid transparent;
+    color: #ccc;
+    text-align: center;
+  }
+
+  > .active {
+    border-bottom: 3px solid #2fd714;
+    color: #000;
+    font-weight: bold;
+  }
+}
+
+// 선택 아이템 착용 미리보기
+.customContainer {
+  padding: 8px 16px;
+}
+
+.customBackground {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 215px;
+  border-radius: 12px;
+
+  .profileResult {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+
+    .emoji,
+    .frame,
+    .profileBg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .emoji {
+      transform: translate(-50%, -42%);
+      width: 100px;
+      z-index: 4;
+    }
+    .frame {
+      width: 132px;
+      z-index: 5;
+    }
+    .profileBg {
+      width: 132px;
+      z-index: 3;
+    }
+    .wallPaper {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.customFnc {
+  z-index: 10;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  top: 13px;
+  right: 13px;
+
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  > .setting {
+    background-color: rgba(#fff, 0.5);
+    width: 24px;
+    height: 24px;
+    > img {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+  }
+}
+
+.imageBox {
+  min-width: 137px;
+  min-height: 137px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.possessionCoin {
+  z-index: 11;
+  position: absolute;
+  bottom: 13px;
+  right: 13px;
+  display: flex;
+  gap: 10px;
+  padding: 4px 8px;
+  background-color: #fefefe;
+  border-radius: 34px;
+  font-size: 16px;
+  color: #878787;
+}
+
+// 장바구니 UI
+.selectedContainer {
+  width: 100%;
+  min-height: 185px;
+  background-color: #fff;
+  padding: 20px;
+}
+.selectedItems {
+  display: flex;
+  gap: 8px;
+  // justify-content: space-between;
+
+  .item {
+    width: 24%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    > .selectedImageBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 86px;
+      padding: 18px 11px;
+      background-color: #f5f5f5;
+      border-radius: 12px;
+
+      > img {
+        width: 100%;
+        max-width: 58px;
+      }
+    }
+  }
+}
+
+.priceCoin {
+  > img {
+    height: 12px;
+  }
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.totalPriceWrap {
+  display: flex;
+  justify-content: flex-end;
+
+  .totalPrice {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid #eee;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 14px;
+    color: #878787;
+  }
+}
+
+// 아이템 선택부분
+.categoryTabContainer {
+  background-color: #f0f0f0;
+  padding: 16px 20px 0 20px;
+  display: flex;
+
+  justify-content: center;
+  gap: 4px;
+
+  > button {
+    border-radius: 14px 14px 0 0;
+    padding: 6px 20px;
+    transition: all 0.25s;
+    font-size: 14px;
+    letter-spacing: -0.07em;
+  }
+  > .tabButton {
+    background-color: #fafafa;
+    color: #ccc;
+  }
+
+  > .active {
+    background-color: #fff;
+    color: #444;
+    font-weight: bolder;
+  }
+}
+
+.itemContainer {
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  > .item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 24%;
+    height: auto;
+    padding-bottom: 8px;
+
+    .imageWrap {
+      transition: all 0.25s;
+      border: 2px solid transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 11px;
+      background-color: #f5f5f5;
+      border-radius: 12px;
+      > img {
+        width: 100%;
+        max-width: 58px;
+      }
+    }
+  }
+
+  > .bigItem {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 49%;
+    height: auto;
+    padding-bottom: 8px;
+
+    .imageWrap {
+      transition: all 0.25s;
+      border: 2px solid transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 34px 17px;
+      background-color: #f5f5f5;
+      border-radius: 12px;
+
+      > img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.emptyItemWrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 329px);
+  justify-content: center;
+  gap: 16px;
+}
+.title {
+  color: #606163;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.content {
+  color: #6b6b6b;
+  text-align: center;
+  font-family: 'Pretendard Variable';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

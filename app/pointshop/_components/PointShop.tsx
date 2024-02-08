@@ -1,18 +1,21 @@
 import style from '@/app/pointshop/_styles/pointShop.module.scss'
 import ShopInfoButton from './ShopInfoButton'
 import CustomProfile from './CustomProfile'
+import Header from '@/app/_components/common/header/page'
+import Footer from '@/app/_components/common/footer/page'
+import Title from '@/app/_components/common/header/_components/Title'
 
 export default function PointShop() {
   return (
     <>
-      <div className={style.header}>
-        <h2>포인트샵</h2>
-        {/* 포인트샵 이용안내 */}
+      <Header leftSection={<Title title={'포인트샵'} />} />
+      <div className={style.container}>
         <ShopInfoButton />
-      </div>
 
-      {/* 꾸미기 영역 */}
-      <CustomProfile />
+        {/* 꾸미기 영역 */}
+        <CustomProfile />
+      </div>
+      <Footer />
     </>
   )
 }
