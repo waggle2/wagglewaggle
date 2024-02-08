@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import MoreMenuIcon from '@/public/assets/more-menu.svg'
 
 interface Props {
-  clickEvent: () => void
+  clickEvent?: () => void
 }
 
 export default function MoreMenu({ clickEvent }: Props) {
