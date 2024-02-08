@@ -1,5 +1,4 @@
 import style from './styles/settingNav.module.scss'
-import modalStyle from '../profileSetting/_components/styles/confirmChange.module.scss'
 import Next from '@/public/assets/next.svg'
 
 import { useEffect, useState } from 'react'

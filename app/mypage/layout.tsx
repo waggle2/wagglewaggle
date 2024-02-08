@@ -7,9 +7,9 @@ type props = {
 
 export default function Layout({ children, modal }: props) {
   return (
-    <div>
+    <>
       {children}
       {modal}
-    </div>
+    </>
   )
 }

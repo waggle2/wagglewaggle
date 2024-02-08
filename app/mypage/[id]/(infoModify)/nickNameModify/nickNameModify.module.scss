@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification {
+  margin-top: 40px;
+  color: rgba(#444444, 0.6);
+  font-size: 12px;
+  padding: 8px;
+}

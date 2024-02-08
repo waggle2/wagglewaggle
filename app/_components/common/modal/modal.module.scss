@@ -16,6 +16,8 @@
 
 .modal {
   width: calc(100% - 32px);
+  max-width: 430px;
+  margin: 0 16px;
   padding: 16px;
   background: #ffffff;
   display: flex;
@@ -23,6 +25,7 @@
   min-height: 160px;
   border-radius: 12px;
   overflow: hidden;
+  justify-content: space-between;
   > .title {
     padding-top: 4px;
     color: #1a1a1a;
