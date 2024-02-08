@@ -8,6 +8,7 @@ export default function Input({
   value,
   placeholder,
   maxLength,
+  tabIndex,
 }: IInput) {
   return (
     <input
@@ -18,6 +19,7 @@ export default function Input({
       value={value}
       placeholder={placeholder ?? ''}
       maxLength={maxLength ?? 30}
+      tabIndex={tabIndex ?? 0}
     />
   )
 }

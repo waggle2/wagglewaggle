@@ -51,6 +51,7 @@ export default function NameRegister({
                 value: inputFields.nickname ?? '',
                 placeholder: '이름을 적어주세요',
                 maxLength: 12,
+                tabIndex: 1,
               }}
               buttonProps={{
                 text: '중복확인',
@@ -75,6 +76,7 @@ export default function NameRegister({
                 value: inputFields.birthYear ?? '',
                 placeholder: '출생년도를 입력해주세요',
                 maxLength: 4,
+                tabIndex: 2,
               }}
               errorMessage={errors.birthYear}
               description="응답하신 출생년도는 공개되지 않습니다."
@@ -92,6 +94,7 @@ export default function NameRegister({
                   onChange={handleChange}
                   value="man"
                   checked={inputFields.gender === 'man'}
+                  tabIndex={3}
                 />
               </label>
               <label htmlFor="woman">
@@ -103,6 +106,7 @@ export default function NameRegister({
                   onChange={handleChange}
                   value="woman"
                   checked={inputFields.gender === 'woman'}
+                  tabIndex={4}
                 />
               </label>
             </div>

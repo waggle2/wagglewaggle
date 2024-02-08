@@ -30,7 +30,7 @@ export default function SwitchStep({
   const changeBody = (step: number): ReactNode => {
     switch (step) {
       case 0:
-        router.push('/register')
+        router.replace('/register')
         break
       case 1:
         return (

@@ -70,6 +70,7 @@ export default function EmailForm({
               name: 'email',
               onChange: handleChange,
               value: inputFields.email ?? '',
+              tabIndex: 1,
             }}
             buttonProps={{
               text: '인증하기',
@@ -94,6 +95,7 @@ export default function EmailForm({
               name: 'emailCheck',
               onChange: handleChange,
               value: inputFields.emailCheck ?? '',
+              tabIndex: 2,
             }}
             buttonProps={{
               text: '인증확인',
@@ -116,6 +118,7 @@ export default function EmailForm({
               maxLength: 30,
               name: 'password',
               onChange: handleChange,
+              tabIndex: 3,
               value: inputFields.password ?? '',
             }}
             inputIcon={
@@ -147,6 +150,7 @@ export default function EmailForm({
               name: 'passwordCheck',
               onChange: handleChange,
               value: inputFields.passwordCheck ?? '',
+              tabIndex: 4,
             }}
             inputIcon={
               passwordView ? (
