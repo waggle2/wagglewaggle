@@ -35,11 +35,6 @@ export default function FormPresetProvider({
   const [passable, setPassable] = useState(false)
 
   useEffect(() => {
-    console.log('inputFields', inputFields)
-    console.log('formDataObject', formDataObject)
-  }, [step])
-
-  useEffect(() => {
     if (
       Object.keys(errors).length === 0 &&
       checkObject(inputFields, formDataObject)
