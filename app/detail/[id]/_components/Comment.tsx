@@ -1,7 +1,7 @@
-import MoreMenu from '@/app/_components/common/header/_component/MoreMenu'
 import styles from '../styles/comment.module.scss'
 import Profile from '/public/assets/profile.svg'
 import EmpathyButton from './EmpathyButton'
+import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 
 interface CommentProps {
   nickName: string
