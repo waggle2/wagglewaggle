@@ -76,17 +76,5 @@ export default function FormPresetProvider({
         null
     }
   }
-  return (
-    <>
-      <button
-        onClick={() => {
-          console.log('passable', passable)
-          console.log(checkObject(inputFields, formDataObject))
-        }}
-      >
-        passable
-      </button>
-      {makeBody(formDataType, childrenProps)}
-    </>
-  )
+  return <>{makeBody(formDataType, childrenProps)}</>
 }
