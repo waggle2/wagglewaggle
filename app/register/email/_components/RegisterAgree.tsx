@@ -1,14 +1,88 @@
-import style from '../styles/RegisterAgree.module.scss'
+'use client'
+import Button from '@/app/_components/button/Button'
+import style from '../styles/registerAgree.module.scss'
+import { useRouter } from 'next/navigation'
+import Check from '/public/assets/check.svg'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { IErrors, IInputFileds } from '@/app/_hooks/useFormInput'
 
 interface Props {
-  prevStep: () => void
+  inputFields: IInputFileds
+  errors: IErrors
+  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
+  passable: boolean
 }
 
-export default function RegisterAgree({ prevStep }: Props) {
+export default function RegisterAgree({
+  inputFields,
+  errors,
+  handleSubmit,
+  handleChange,
+  passable,
+}: Props) {
+  const router = useRouter()
+
+  const [agree1, setAgree1] = useState(false)
+  const [agree2, setAgree2] = useState(false)
+
   return (
     <div>
-      <h2>회원가입 단계 4</h2>
-      <button onClick={prevStep}>이전</button>
+      <h2 className={style.title}>
+        와글와글을 시작하기 위해
+        <br />
+        약관에 동의해주세요
+      </h2>
+      <div className={style.areaDiv}>
+        <span className={style.iconSpan} onClick={() => setAgree1(!agree1)}>
+          <Check color={agree1 ? '#2FD714' : '#8C8C8C'} />
+        </span>
+        <span className={style.subTitle}>
+          이용약관 <span className={style.accent}>(필수)</span>
+        </span>
+        <label>
+          <textarea
+            cols={30}
+            rows={6}
+            readOnly
+            value="이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고
+            6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로
+            스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤이용약관
+            어쩌고저쩌고 6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지
+            노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤
+            이용약관 어쩌고저"
+          />
+        </label>
+      </div>
+      <div className={style.areaDiv}>
+        <span className={style.iconSpan} onClick={() => setAgree2(!agree2)}>
+          <Check color={agree2 ? '#2FD714' : '#8C8C8C'} />
+        </span>
+        <span className={style.subTitle}>
+          이용약관 <span className={style.accent}>(필수)</span>
+        </span>
+        <label>
+          <textarea
+            cols={30}
+            rows={6}
+            readOnly
+            value="이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고
+            6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로
+            스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤이용약관
+            어쩌고저쩌고 6줄까지 노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지
+            노출 이후로 스크롤 이용약관 어쩌고저쩌고 6줄까지 노출 이후로 스크롤
+            이용약관 어쩌고저"
+          />
+        </label>
+      </div>
+      <div className={style.buttonDiv}>
+        <Button
+          mainColor={agree1 && agree2 ? 'green' : 'grey'}
+          text="회원가입 완료"
+          isDisabled={!(agree1 && agree2)}
+          action={() => router.push('/')}
+        />
+      </div>
     </div>
   )
 }

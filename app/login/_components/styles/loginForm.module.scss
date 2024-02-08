@@ -35,15 +35,8 @@
   }
 }
 
-.loginButton {
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  border: none;
-  border-radius: 6px;
-  padding-block: 15px;
-  font-size: 15px;
-  text-align: center;
-  background: #2fd714;
-  color: white;
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

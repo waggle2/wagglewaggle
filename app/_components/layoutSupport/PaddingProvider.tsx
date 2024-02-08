@@ -1,4 +1,4 @@
-import style from './PaddingProvider.module.scss'
+import style from './paddingProvider.module.scss'
 export default function PaddingProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
