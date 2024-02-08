@@ -17,22 +17,22 @@ export default function SignUpButtonGroup() {
   const signUpButtonList = [
     {
       class: 'kakao',
-      name: '카카오로 시작하기',
+      name: '카카오로 가입하기',
       clickEvent: () => loginHandler('kakao'),
     },
     {
       class: 'naver',
-      name: '네이버로 시작하기',
+      name: '네이버로 가입하기',
       clickEvent: () => loginHandler('naver'),
     },
     {
       class: 'google',
-      name: '구글로 시작하기',
+      name: '구글로 가입하기',
       clickEvent: () => loginHandler('google'),
     },
     {
       class: 'email',
-      name: '이메일로 시작하기',
+      name: '이메일로 가입하기',
       clickEvent: () => router.push('/register/email'),
     },
   ]

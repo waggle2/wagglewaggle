@@ -17,6 +17,8 @@ export interface IErrors {
   password?: string
   passwordCheck?: string
   nickname?: string
+  birthYear?: string
+  gender?: 'man' | 'woman' | ''
 }
 
 export default function useFormInput(initialValues: IInputFileds) {
@@ -25,7 +27,6 @@ export default function useFormInput(initialValues: IInputFileds) {
   })
   const [errors, setErrors] = useState<IErrors>({})
   const [submitting, setSubmitting] = useState(false)
-  const [passable, setPassable] = useState(false)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -48,9 +49,8 @@ export default function useFormInput(initialValues: IInputFileds) {
     inputFields,
     errors,
     submitting,
+    setSubmitting,
     handleChange,
     handleSubmit,
-    passable,
-    setPassable,
   }
 }

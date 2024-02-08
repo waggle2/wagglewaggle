@@ -31,6 +31,7 @@ export default function SwitchStep({
     switch (step) {
       case 0:
         router.push('/register')
+        break
       case 1:
         return (
           <>
@@ -42,6 +43,7 @@ export default function SwitchStep({
                 passwordCheck: '',
               }}
               formDataType="email"
+              step={step}
               nextStep={nextStep}
               setUserTotalDatas={setUserTotalDatas}
               userTotalDatas={userTotalDatas}
@@ -58,6 +60,7 @@ export default function SwitchStep({
                 gender: '',
               }}
               formDataType="name"
+              step={step}
               nextStep={nextStep}
               setUserTotalDatas={setUserTotalDatas}
               userTotalDatas={userTotalDatas}
@@ -87,7 +90,7 @@ export default function SwitchStep({
         title="회원가입"
         rightSection={[
           <button onClick={() => console.log(userTotalDatas)} type="button">
-            data
+            인증 안해도 넘어가요 인증코드 1234
           </button>,
         ]}
       />

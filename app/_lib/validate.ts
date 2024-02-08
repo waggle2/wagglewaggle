@@ -62,11 +62,10 @@ function validateNickname(nickname: string) {
   return regex.test(nickname)
 }
 
-export function checkObject(obj: any) {
-  for (let key in obj) {
-    if (obj[key] === null || obj[key] === '') {
-      return false
-    }
-  }
-  return true
+export function checkObject(obj: any, subObj: any) {
+  let result = 0
+  Object.keys(subObj).forEach((key) => {
+    if (obj[key]?.length === 0) result++
+  })
+  return result === 0 ? true : false
 }

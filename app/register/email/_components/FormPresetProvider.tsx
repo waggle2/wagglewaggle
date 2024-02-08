@@ -1,16 +1,17 @@
 import useFormInput, { IInputFileds } from '@/app/_hooks/useFormInput'
 import { checkObject } from '@/app/_lib/validate'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import EmailRegister from './EmailRegister'
 import NameRegister from './NameRegister'
 import BirthRegister from './BirthRegister'
 
 interface Props {
-  formDataType: 'email' | 'name' | 'birth'
+  formDataType: 'email' | 'name'
   formDataObject: IInputFileds
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
   nextStep: () => void
+  step: number
 }
 
 export default function FormPresetProvider({
@@ -19,16 +20,29 @@ export default function FormPresetProvider({
   userTotalDatas,
   setUserTotalDatas,
   nextStep,
+  step,
 }: Props) {
-  const {
-    inputFields,
-    errors,
-    submitting,
-    handleSubmit,
-    handleChange,
-    passable,
-    setPassable,
-  } = useFormInput(formDataObject)
+  const { inputFields, errors, submitting, handleSubmit, handleChange } =
+    useFormInput(formDataObject)
+
+  const [passable, setPassable] = useState(false)
+
+  useEffect(() => {
+    setPassable(false)
+  }, [])
+
+  useEffect(() => {
+    if (
+      Object.keys(errors).length === 0 &&
+      checkObject(inputFields, formDataObject)
+    ) {
+      setPassable(true)
+    }
+    if (Object.keys(errors).length === 0 && submitting) {
+      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
+      nextStep()
+    }
+  }, [errors, submitting])
 
   const childrenProps = {
     inputFields,
@@ -37,18 +51,6 @@ export default function FormPresetProvider({
     handleChange,
     passable,
   }
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && checkObject(inputFields)) {
-      setPassable(true)
-    }
-    if (Object.keys(errors).length === 0 && submitting) {
-      setUserTotalDatas({ ...userTotalDatas, ...inputFields })
-      setPassable(false)
-      nextStep()
-    }
-    return () => setPassable(false)
-  }, [errors, submitting])
 
   switch (formDataType) {
     case 'email':

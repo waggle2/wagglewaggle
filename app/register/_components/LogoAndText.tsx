@@ -6,7 +6,7 @@ export default function LogoAndText() {
       <span className={style.logoTextSpan}>
         <Logo2 width={151} height={92} />
       </span>
-      <span>성향으로 시작하는 이야기</span>
+      <span className={style.subTitle}>성향으로 시작하는 이야기</span>
     </div>
   )
 }
