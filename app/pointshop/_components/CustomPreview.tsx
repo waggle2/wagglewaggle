@@ -1,5 +1,7 @@
 import style from '../_styles/pointShop.module.scss'
 import PointIcon from './PointIcon';
+import RefreshIcon from '@/public/assets/ico_refresh.svg'
+import CheckIcon from '@/public/assets/ico_check_green.svg'
 
 type CustomPreviewProps = {
     selectedTab: string;
@@ -30,8 +32,9 @@ export default function CustomPreview({
                     <>
                         <div className={style.customBackground} >
                             <div className={style.customFnc}>
-                                <button onClick={handleConfirmModalClick}><img src="/point_shop/ico_check_green.svg" alt="" /></button>
-                                <button onClick={handleRefreshClick} className={style.refreshBtn}><img src="/point_shop/ico_refresh.svg" alt="" /></button>
+                                <button onClick={handleRefreshClick} className={style.refreshBtn}><RefreshIcon /></button>
+                                <button onClick={handleConfirmModalClick}>
+                                    <CheckIcon /></button>
                             </div>
 
                             <div className={style.profileResult}>
