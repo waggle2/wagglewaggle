@@ -4,17 +4,20 @@ const cx = cs.bind(style)
 
 interface Props {
   text: string
-  mainColor: 'green' | 'grey' | 'white'
-  action?: () => void | undefined
+  mainColor: 'green' | 'grey' | 'red' | 'white'
+  action?: () => void | undefined | Promise<void>
+  isDisabled?: boolean
   fontSize?: number
   borderRadius?: string
+  type?: 'submit' | 'button'
 }
 
 export default function Button({
   text,
-  fontSize = 16,
+  fontSize = 15,
   mainColor,
   action,
+  isDisabled,
   borderRadius,
 }: Props) {
   return (
@@ -22,6 +25,7 @@ export default function Button({
       onClick={action}
       style={{ fontSize, borderRadius }}
       className={cx('button', mainColor)}
+      disabled={isDisabled}
     >
       {text}
     </button>
