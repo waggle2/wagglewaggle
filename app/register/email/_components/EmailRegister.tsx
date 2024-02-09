@@ -11,19 +11,10 @@ import {
   SetStateAction,
   useState,
 } from 'react'
-import { IErrors, IInputFileds } from '@/app/_hooks/useFormInput'
-import axios from 'axios'
+import { IInputFileds } from '@/app/_hooks/useFormInput'
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-
-export const api = axios.create({
-  baseURL:
-    'http://ec2-43-201-195-164.ap-northeast-2.compute.amazonaws.com/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-})
+import api from '@/app/_api/commonApi'
 
 interface Props {
   inputFields: IInputFileds
@@ -51,17 +42,17 @@ export default function EmailForm({
       alert('인증코드가 발송되었습니다.')
     } catch (error) {
       console.error(error)
-      alert('인증코드가 발송에 실패하였습니다.')
+      alert('인증코드 발송에 실패하였습니다.')
     }
   }
 
   async function confirmEmailCode(email: string, emailCheckNumber: string) {
     try {
-      const { data } = await api.post('/users/email-verification/confirm', {
+      const response = await api.post('/users/email-verification/confirm', {
         email,
         verificationCode: Number(emailCheckNumber ?? '') ?? 0,
       })
-      if (!data.verified) {
+      if (!response.verified) {
         setErrors({ ...errors, emailCheck: '인증코드가 일치하지 않습니다.' })
         alert('인증에 실패하였습니다.')
         return
@@ -112,7 +103,7 @@ export default function EmailForm({
                 inputFields.email &&
                 !errors.email &&
                 sendCheckEmailCode(inputFields.email),
-
+              disabled: inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.email}
@@ -150,6 +141,7 @@ export default function EmailForm({
                     inputFields.emailCheck ?? '',
                   )
               },
+              disabled: inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.emailCheck}

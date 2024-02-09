@@ -22,7 +22,14 @@ export default function InputGroup({
   errorMessage,
   description,
 }: Props) {
-  const { text, active, inactive, onClick, type = 'submit' } = buttonProps || {}
+  const {
+    text,
+    active,
+    inactive,
+    onClick,
+    type = 'submit',
+    disabled = false,
+  } = buttonProps || {}
   return (
     <div className={style.container}>
       <h3 className={style.title}>{labelText}</h3>
@@ -35,6 +42,7 @@ export default function InputGroup({
           className={cx('button', { active, inactive })}
           onClick={onClick}
           type={type}
+          disabled={disabled}
         >
           {text}
         </button>

@@ -25,6 +25,10 @@ export const validate = (inputValues: IInputFileds): IErrors => {
   if (inputValues.nickname && !validateNickname(inputValues.nickname)) {
     errors.nickname = '특수문자 제외, 4~12자로 입력해주세요.'
   }
+  if (inputValues.birthYear && !validateBirthYear(inputValues.birthYear)) {
+    errors.birthYear = '출생년도는 숫자 4자리로 입력해주세요.'
+  }
+
   return errors
 }
 
@@ -57,6 +61,11 @@ function validatePassword(password: string) {
 function validateNickname(nickname: string) {
   const regex = /^[가-힣a-zA-Z0-9]{4,12}$/
   return regex.test(nickname)
+}
+
+function validateBirthYear(birthYear: string) {
+  const regex = /^[0-9]{4}$/
+  return regex.test(birthYear)
 }
 
 export function checkObject(obj: any, subObj: any) {

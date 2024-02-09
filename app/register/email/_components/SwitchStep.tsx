@@ -57,6 +57,7 @@ export default function SwitchStep({
             <FormPresetProvider
               formDataObject={{
                 nickname: '',
+                isNicknameChecked: false,
                 birthYear: '',
                 gender: '',
               }}

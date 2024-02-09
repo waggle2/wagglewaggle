@@ -15,4 +15,5 @@ export type IButton = {
   active: boolean
   inactive: boolean
   type?: 'button' | 'submit'
+  disabled?: boolean
 }

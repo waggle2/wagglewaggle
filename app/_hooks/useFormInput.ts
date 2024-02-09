@@ -8,6 +8,7 @@ export interface IInputFileds {
   password?: string
   passwordCheck?: string
   nickname?: string
+  isNicknameChecked?: boolean
   birthYear?: string
   gender?: '남성' | '여성' | ''
 }
