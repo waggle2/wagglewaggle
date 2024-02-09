@@ -1,10 +1,9 @@
-'use client'
 import { ReactNode } from 'react'
 
 import style from './modal.module.scss'
 
 type props = {
-  title: string
+  title: ReactNode
   content: ReactNode
   buttons: ReactNode[]
 }

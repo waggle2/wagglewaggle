@@ -8,6 +8,7 @@ type CustomPreviewProps = {
   selectedProfileBg: string
   selectedFrame: string
   selectedWallpaper: string
+  isSetting?: boolean
 }
 
 export default function MyProfile({
@@ -15,6 +16,7 @@ export default function MyProfile({
   selectedProfileBg,
   selectedFrame,
   selectedWallpaper,
+  isSetting = true,
 }: CustomPreviewProps) {
   const router = useRouter()
 
@@ -25,9 +27,11 @@ export default function MyProfile({
     <div className={style.customContainer}>
       <div className={style.customBackground}>
         <div className={style.customFnc}>
-          <button onClick={navProfileSetting} className={style.setting}>
-            <img src="/assets/setting.svg" alt="navigation profile setting" />
-          </button>
+          {isSetting && (
+            <button onClick={navProfileSetting} className={style.setting}>
+              <img src="/assets/setting.svg" alt="navigation profile setting" />
+            </button>
+          )}
         </div>
 
         <div className={style.profileResult}>

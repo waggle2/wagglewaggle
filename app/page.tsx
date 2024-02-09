@@ -16,6 +16,7 @@ import NavEvent from './_components/navEvent/NavEvent'
 import AnimalPostPreview from './_components/postPreview/AnimalPostPreview'
 import TopButton from './_components/button/TopButton'
 import Footer from './_components/common/footer/page'
+import Link from '@/node_modules/next/link'
 
 export default function Home() {
   return (
@@ -26,12 +27,12 @@ export default function Home() {
           rightSection={[<Search key={'search'} />, <Bell key={'bell'} />]}
         />
         <SwipeEvent />
-        <NavTheme />
+        {/* <NavTheme />
         <PopularPreview />
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
-        <NavEvent href={'./'} img={<TestAD />} />
+        <NavEvent href={'./'} img={<TestAD />} /> */}
         <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
-        <AnimalPostPreview />
+        {/* <AnimalPostPreview /> */}
         <TopButton />
       </main>
       <Footer />
