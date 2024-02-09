@@ -25,7 +25,9 @@ export default function FormPresetProvider({
 }: Props) {
   const {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     submitting,
     setSubmitting,
     handleSubmit,
@@ -53,7 +55,9 @@ export default function FormPresetProvider({
 
   const childrenProps = {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     handleSubmit,
     handleChange,
     passable,

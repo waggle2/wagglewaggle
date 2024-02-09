@@ -4,11 +4,12 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 export interface IInputFileds {
   email?: string
   emailCheck?: string
+  isEmailChecked?: boolean
   password?: string
   passwordCheck?: string
   nickname?: string
   birthYear?: string
-  gender?: 'man' | 'woman' | ''
+  gender?: '남성' | '여성' | ''
 }
 
 export interface IErrors {
@@ -47,7 +48,9 @@ export default function useFormInput(initialValues: IInputFileds) {
 
   return {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     submitting,
     setSubmitting,
     handleChange,

@@ -19,6 +19,9 @@
   border: 1px solid #eff0f0;
   border-radius: 8px;
   padding: 17px 16px;
+  &:has(input:disabled) {
+    background-color: #d9d9d9;
+  }
 }
 
 .button {

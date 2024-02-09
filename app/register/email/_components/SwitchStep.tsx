@@ -39,6 +39,7 @@ export default function SwitchStep({
               formDataObject={{
                 email: '',
                 emailCheck: '',
+                isEmailChecked: false,
                 password: '',
                 passwordCheck: '',
               }}

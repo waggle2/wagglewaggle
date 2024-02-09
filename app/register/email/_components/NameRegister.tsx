@@ -21,10 +21,9 @@ export default function NameRegister({
   passable,
 }: Props) {
   async function checkNickname(nickname: string) {
+    console.log('hi')
     try {
-      const response = await api.post('/users/nickname-check', {
-        nickname: inputFields.nickname,
-      })
+      const response = await api.get(`/users/nickname-check${nickname}`)
       console.log(response)
     } catch (error) {
       console.error(error)
@@ -58,7 +57,7 @@ export default function NameRegister({
                 active: !!(inputFields.nickname && !errors.nickname),
                 inactive: !(inputFields.nickname && !errors.nickname),
                 onClick: () => {
-                  inputFields.nickname && checkNickname(inputFields.nickname)
+                  if (inputFields.nickname) checkNickname(inputFields.nickname)
                 },
                 type: 'button',
               }}
@@ -92,8 +91,8 @@ export default function NameRegister({
                   id="man"
                   name="gender"
                   onChange={handleChange}
-                  value="man"
-                  checked={inputFields.gender === 'man'}
+                  value="남성"
+                  checked={inputFields.gender === '남성'}
                   tabIndex={3}
                 />
               </label>
@@ -104,8 +103,8 @@ export default function NameRegister({
                   id="woman"
                   name="gender"
                   onChange={handleChange}
-                  value="woman"
-                  checked={inputFields.gender === 'woman'}
+                  value="여성"
+                  checked={inputFields.gender === '여성'}
                   tabIndex={4}
                 />
               </label>

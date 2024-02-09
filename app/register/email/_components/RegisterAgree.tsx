@@ -14,18 +14,24 @@ interface Props {
   passable: boolean
 }
 
-export default function RegisterAgree({
-  inputFields,
-  errors,
-  handleSubmit,
-  handleChange,
-  passable,
-}: Props) {
+export default function RegisterAgree({ inputFields }: Props) {
   const router = useRouter()
-
   const [agree1, setAgree1] = useState(false)
   const [agree2, setAgree2] = useState(false)
-
+  const sendTotalDatas = async () => {
+    const { email, password, nickname, birthYear, gender } = inputFields
+    const DEFAULT_BIRTH_YEAR = 1990
+    const body = {
+      authenticationProvider: 'email',
+      email,
+      password,
+      nickname,
+      birthYear: Number(birthYear) ?? DEFAULT_BIRTH_YEAR,
+      gender,
+      primaryAnimal: '곰',
+    }
+    console.log(body, 'body')
+  }
   return (
     <div>
       <h2 className={style.title}>
@@ -80,7 +86,10 @@ export default function RegisterAgree({
           mainColor={agree1 && agree2 ? 'green' : 'grey'}
           text="회원가입 완료"
           isDisabled={!(agree1 && agree2)}
-          action={() => router.push('/')}
+          action={() => {
+            sendTotalDatas()
+            router.push('/')
+          }}
         />
       </div>
     </div>

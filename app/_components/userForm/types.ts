@@ -6,6 +6,7 @@ export type IInput = {
   placeholder?: string
   maxLength?: number
   tabIndex?: number
+  disabled?: boolean
 }
 
 export type IButton = {
