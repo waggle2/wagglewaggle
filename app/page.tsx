@@ -26,14 +26,14 @@ export default function Home() {
           leftSection={<Logo />}
           rightSection={[<Search key={'search'} />, <Bell key={'bell'} />]}
         />
-        <SwipeEvent />
-        {/* <NavTheme />
-        <PopularPreview />
+        {/* <SwipeEvent />
+        <NavTheme />
+        <PopularPreview /> */}
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
-        <NavEvent href={'./'} img={<TestAD />} /> */}
-        <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
-        {/* <AnimalPostPreview /> */}
-        <TopButton />
+        {/* <NavEvent href={'./'} img={<TestAD />} /> */}
+        {/* <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
+        <AnimalPostPreview />
+        <TopButton /> */}
       </main>
       <Footer />
     </>
