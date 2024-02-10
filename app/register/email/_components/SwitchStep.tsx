@@ -97,17 +97,6 @@ export default function SwitchStep({
           </span>
         }
         title="회원가입"
-        rightSection={[
-          <button
-            onClick={() => {
-              console.log('step', step)
-              console.log(userTotalDatas)
-            }}
-            type="button"
-          >
-            인증 안해도 넘어가요 인증코드 1234
-          </button>,
-        ]}
       />
       {changeBody(step)}
     </>
