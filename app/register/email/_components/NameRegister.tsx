@@ -26,7 +26,6 @@ export default function NameRegister({
   passable,
 }: Props) {
   async function checkNickname(nickname: string) {
-    console.log('hi')
     try {
       const response = await api.get(`/users/nickname-check/${nickname}`)
       if (!response.available) {
