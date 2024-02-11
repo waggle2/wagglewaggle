@@ -1,10 +1,10 @@
-import { IInputFileds } from '@/app/_hooks/useFormInput'
 import style from '../styles/nameRegister.module.scss'
 import Button from '@/app/_components/button/Button'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { Dispatch, SetStateAction } from 'react'
 import api from '@/app/_api/commonApi'
+import { IInputFileds } from '@/app/_types/userRegisterTypes'
 
 interface Props {
   inputFields: IInputFileds

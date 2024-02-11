@@ -11,10 +11,10 @@ import {
   SetStateAction,
   useState,
 } from 'react'
-import { IInputFileds } from '@/app/_hooks/useFormInput'
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import api from '@/app/_api/commonApi'
+import { IInputFileds } from '@/app/_types/userRegisterTypes'
 
 interface Props {
   inputFields: IInputFileds

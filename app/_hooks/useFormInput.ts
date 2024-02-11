@@ -1,27 +1,6 @@
 import { validate } from '@/app/_lib/validate'
 import { ChangeEvent, FormEvent, useState } from 'react'
-
-export interface IInputFileds {
-  email?: string
-  emailCheck?: string
-  isEmailChecked?: boolean
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-  isNicknameChecked?: boolean
-  birthYear?: string
-  gender?: '남성' | '여성' | ''
-}
-
-export interface IErrors {
-  email?: string
-  emailCheck?: string
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-  birthYear?: string
-  gender?: 'man' | 'woman' | ''
-}
+import { IErrors, IInputFileds } from '@/app/_types/userRegisterTypes'
 
 export default function useFormInput(initialValues: IInputFileds) {
   const [inputFields, setInputFields] = useState<IInputFileds>({

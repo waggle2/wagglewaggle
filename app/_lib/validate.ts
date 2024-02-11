@@ -1,4 +1,4 @@
-import { IErrors, IInputFileds } from '../_hooks/useFormInput'
+import { IErrors, IInputFileds } from '@/app/_types/userRegisterTypes'
 
 export const validate = (inputValues: IInputFileds): IErrors => {
   const errors: IErrors = {}
