@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './_styles/globals.scss'
 import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
+import QueryProvider from './_components/reactQuery/QueryProvider'
 
 const pretendard = localFont({
   src: [
@@ -41,7 +42,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.className}>
-        <div className={style.container}>{children}</div>
+        <div className={style.container}>
+          <QueryProvider> {children}</QueryProvider>
+        </div>
       </body>
     </html>
   )
