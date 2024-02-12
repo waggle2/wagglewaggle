@@ -6,7 +6,7 @@ import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import { useRouter } from 'next/navigation'
 import FormPresetProvider from './FormPresetProvider'
-import { IInputFileds } from '@/app/_types/userRegisterTypes'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 interface Props {
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>

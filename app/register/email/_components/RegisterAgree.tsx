@@ -4,11 +4,7 @@ import style from '../styles/registerAgree.module.scss'
 import { useRouter } from 'next/navigation'
 import Check from '/public/assets/check.svg'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import {
-  IErrors,
-  IInputFileds,
-  SignUpData,
-} from '@/app/_types/userRegisterTypes'
+import { IErrors, IInputFileds, SignUpData } from '@/app/_types/userFormTypes'
 import { useSignUpUser } from '@/app/_hooks/services/mutations/userRegister'
 
 interface Props {

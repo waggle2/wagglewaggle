@@ -23,6 +23,8 @@ export interface IInputFileds {
   isNicknameChecked?: boolean
   birthYear?: string
   gender?: '남성' | '여성' | ''
+  loginEmail?: string
+  loginPassword?: string
 }
 
 export interface IErrors {
@@ -33,4 +35,29 @@ export interface IErrors {
   nickname?: string
   birthYear?: string
   gender?: 'man' | 'woman' | ''
+}
+
+export type IInput = {
+  type: string
+  name: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
+  placeholder?: string
+  maxLength?: number
+  tabIndex?: number
+  disabled?: boolean
+}
+
+export type IButton = {
+  text: string
+  onClick: () => void
+  active: boolean
+  inactive: boolean
+  type?: 'button' | 'submit'
+  disabled?: boolean
+}
+
+export type ILogin = {
+  email: string
+  password: string
 }

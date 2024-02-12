@@ -1,6 +1,6 @@
 import { validate } from '@/app/_lib/validate'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { IErrors, IInputFileds } from '@/app/_types/userRegisterTypes'
+import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 
 export default function useFormInput(initialValues: IInputFileds) {
   const [inputFields, setInputFields] = useState<IInputFileds>({

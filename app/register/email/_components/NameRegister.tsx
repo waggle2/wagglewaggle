@@ -4,7 +4,7 @@ import BaseAvatar from '/public/assets/baseAvatar.svg'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { Dispatch, SetStateAction } from 'react'
 import api from '@/app/_api/commonApi'
-import { IInputFileds } from '@/app/_types/userRegisterTypes'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 
 interface Props {
   inputFields: IInputFileds

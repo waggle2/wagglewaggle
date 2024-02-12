@@ -1,5 +1,5 @@
 import api from '@/app/_api/commonApi'
-import { SignUpResponse, SignUpData } from '@/app/_types/userRegisterTypes'
+import { SignUpResponse, SignUpData } from '@/app/_types/userFormTypes'
 import { useMutation } from '@tanstack/react-query'
 
 const signUpUser = async (userData: SignUpData): Promise<SignUpResponse> => {
