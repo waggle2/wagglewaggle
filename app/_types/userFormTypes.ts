@@ -37,6 +37,13 @@ export interface IErrors {
   gender?: 'man' | 'woman' | ''
 }
 
+export interface ILoginError {
+  statusCode: number
+  message: string
+  timestamp: string
+  path: string
+}
+
 export type IInput = {
   type: string
   name: string

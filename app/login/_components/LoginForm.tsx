@@ -4,7 +4,7 @@ import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
 import { Dispatch, SetStateAction, useState } from 'react'
 import Button from '@/app/_components/button/Button'
-import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
+import { IErrors, IInputFileds, ILoginError } from '@/app/_types/userFormTypes'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
 
@@ -17,9 +17,7 @@ type Props = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   passable: boolean
 }
-type Error = {
-  statusCode: number
-}
+
 export default function LoginForm({
   inputFields,
   setInputFields,
@@ -44,13 +42,8 @@ export default function LoginForm({
           console.log(data)
         },
         onError: (error) => {
-          const typeError = error as { statusCode?: number }
-          if (typeError.statusCode === 401)
-            setErrors({
-              ...errors,
-              loginPassword: '이메일 혹은 비밀번호가 일치하지 않습니다',
-            })
           console.log('hi')
+          console.log(error)
         },
       })
     } catch (error) {
