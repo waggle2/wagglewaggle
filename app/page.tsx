@@ -17,6 +17,7 @@ import AnimalPostPreview from './_components/postPreview/AnimalPostPreview'
 import TopButton from './_components/button/TopButton'
 import Footer from './_components/common/footer/page'
 import Link from '@/node_modules/next/link'
+import Post from './_components/postPreview/_components/Post'
 
 export default function Home() {
   return (
@@ -26,14 +27,14 @@ export default function Home() {
           leftSection={<Logo />}
           rightSection={[<Search key={'search'} />, <Bell key={'bell'} />]}
         />
-        {/* <SwipeEvent />
+        <SwipeEvent />
         <NavTheme />
-        <PopularPreview /> */}
+        <PopularPreview />
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
-        {/* <NavEvent href={'./'} img={<TestAD />} /> */}
-        {/* <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
+        <NavEvent href={'./'} img={<TestAD />} />
+        <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
         <AnimalPostPreview />
-        <TopButton /> */}
+        <TopButton />
       </main>
       <Footer />
     </>

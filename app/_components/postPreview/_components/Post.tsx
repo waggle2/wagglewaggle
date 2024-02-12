@@ -32,21 +32,19 @@ export default function Post({ profile, post }: Props) {
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
-        <Link href={`http://localhost:3000/profile`}>
-          <div className={style.profileWrapper}>
-            <div className={style.profileImageWrapper}>
-              {profile.image ? (
-                profile.image
-              ) : (
-                <TestProfile width={'100%'} height={'100%'} />
-              )}
-            </div>
-            <div className={style.profileInfoWrapper}>
-              <div className={style.name}>{profile.name}</div>
-              <div
-                className={style.category}
-              >{`${post.category} · ${post.tag}`}</div>
-            </div>
+        <Link href={`http://localhost:3000/profile/1`}>
+          <div className={style.profileImageWrapper}>
+            {profile.image ? (
+              profile.image
+            ) : (
+              <TestProfile width={'100%'} height={'100%'} />
+            )}
+          </div>
+          <div className={style.profileInfoWrapper}>
+            <div className={style.name}>{profile.name}</div>
+            <div
+              className={style.category}
+            >{`${post.category} · ${post.tag}`}</div>
           </div>
         </Link>
         <div className={style.time}>{formatDate(post.time)}</div>

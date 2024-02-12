@@ -27,25 +27,7 @@ export default function PostPreview({ title, href, icon }: Props) {
       </div>
       <div className={style.postContainer}>
         {/* @ts-expect-error Async Server Component */}
-        {/* <Posts title={title} /> */}
-        <Post
-          profile={{
-            image: undefined,
-            name: 'test',
-            animal: undefined,
-          }}
-          post={{
-            id: 0,
-            tag: '',
-            category: '',
-            time: '',
-            title: '',
-            content: '',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
+        <Posts title={title} />
       </div>
     </section>
   )

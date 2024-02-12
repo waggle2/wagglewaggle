@@ -12,7 +12,7 @@ export default function Modal({ title, content, buttons }: props) {
   return (
     <div className={style.modalBackground}>
       <div className={style.modal}>
-        <p className={style.title}>{title}</p>
+        <div className={style.title}>{title}</div>
         {content}
         <div className={style.buttonBox}>{buttons.map((button) => button)}</div>
       </div>

@@ -9,7 +9,11 @@ type props = {
 }
 export default function PointShop({ path }: props) {
   return (
-    <Link href={'http://localhost:3000/pointshop'} className={style.container}>
+    <Link
+      href={'http://localhost:3000/pointshop'}
+      className={style.container}
+      scroll={false}
+    >
       <div className={style.background}>
         {path.includes('/pointshop') ? <ActivePointShop /> : <PointShopIcon />}
       </div>

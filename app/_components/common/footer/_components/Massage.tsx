@@ -9,7 +9,11 @@ type props = {
 }
 export default function Massage({ path }: props) {
   return (
-    <Link href={'http://localhost:3000/msg-box'} className={style.container}>
+    <Link
+      href={'http://localhost:3000/msg-box'}
+      className={style.container}
+      scroll={false}
+    >
       <div className={style.background}>
         {path.includes('/msg-box') ? <ActiveMsg /> : <Msg />}
       </div>

@@ -28,7 +28,7 @@ export default function MyType({ type, cat, bear, dog, fox }: props) {
       <article className={style.typeWrapper}>
         다른 친구들이 바라보는 {'열정냥냥이'}님은 ..
         <br />
-        <p className={style.type}>{type}</p>같아요
+        <span className={style.type}>{type}</span>같아요
       </article>
     </>
   )

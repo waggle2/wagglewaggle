@@ -9,7 +9,11 @@ type props = {
 }
 export default function Home({ path }: props) {
   return (
-    <Link href={'http://localhost:3000/'} className={style.container}>
+    <Link
+      href={'http://localhost:3000/'}
+      className={style.container}
+      scroll={false}
+    >
       <div className={style.background}>
         {path === '/' ? <ActiveHome /> : <HomeIcon />}
       </div>
