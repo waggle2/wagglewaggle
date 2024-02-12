@@ -45,11 +45,12 @@ export default function LoginForm({
         },
         onError: (error) => {
           const typeError = error as { statusCode?: number }
-          if (typeError.statusCode === 404)
+          if (typeError.statusCode === 401)
             setErrors({
               ...errors,
               loginPassword: '이메일 혹은 비밀번호가 일치하지 않습니다',
             })
+          console.log('hi')
         },
       })
     } catch (error) {
