@@ -42,7 +42,6 @@ export default function LoginForm({
           console.log(data)
         },
         onError: (error) => {
-          console.log('hi')
           console.log(error)
         },
       })
