@@ -69,7 +69,7 @@ export default async function Posts({ title }: props) {
 
   return (
     <>
-      {/* {data?.map((info, index: number) => {
+      {data?.map((info, index: number) => {
         return (
           <Post
             key={index}
@@ -91,25 +91,7 @@ export default async function Posts({ title }: props) {
             }}
           />
         )
-      })} */}
-      <Post
-        profile={{
-          image: undefined,
-          name: 'test',
-          animal: undefined,
-        }}
-        post={{
-          id: 0,
-          tag: '',
-          category: '',
-          time: '',
-          title: '',
-          content: '',
-          likes: 0,
-          comments: 0,
-          views: 0,
-        }}
-      />
+      })}
     </>
   )
 }

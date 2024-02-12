@@ -32,7 +32,7 @@ export default function Post({ profile, post }: Props) {
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
-        <Link href={`http://localhost:3000/profile/1`}>
+        <Link href={`http://localhost:3000/profile/1`} scroll={false}>
           <div className={style.profileImageWrapper}>
             {profile.image ? (
               profile.image
