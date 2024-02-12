@@ -119,18 +119,16 @@
   right: 13px;
 
   > button {
+  }
+  > .setting {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 24px;
     height: 24px;
-    background-color: #fff;
     border-radius: 12px;
-  }
-  > .setting {
     background-color: rgba(#fff, 0.5);
-    width: 24px;
-    height: 24px;
+
     > img {
       width: 18px;
       height: 18px;

@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  padding: 16px;
+  border-bottom: 1px solid #f6f6f6;
+}
+.lastItem {
+  padding: 16px;
+}
+.modalContent {
+  padding: 12px 0;
+}

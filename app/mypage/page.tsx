@@ -82,7 +82,7 @@ export default function MyPage() {
           title={'회원 정보 수정'}
         />
         <SettingNav href={'/'} title={'건의사항'} />
-        <SettingNav href={'/'} title={'계정 설정'} />
+        <SettingNav href={'/mypage/1/accountSetting'} title={'계정 설정'} />
       </div>
 
       <Footer />
