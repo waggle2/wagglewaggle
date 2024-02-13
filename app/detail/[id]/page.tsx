@@ -1,11 +1,11 @@
-import Back from '@/app/_components/common/header/_component/Back'
-import Heart from '@/app/_components/common/header/_component/Heart'
-import MoreMenu from '@/app/_components/common/header/_component/MoreMenu'
-import Header from '@/app/_components/common/header/page'
 import styles from './styles/page.module.scss'
 import Content from './_components/Content'
 import Comment from './_components/Comment'
 import Sort from '/public/assets/sort.svg'
+import Header from '@/app/_components/common/header/page'
+import Back from '@/app/_components/common/header/_components/Back'
+import Heart from '@/app/_components/common/header/_components/Heart'
+import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 
 export default function Detail() {
   return (
