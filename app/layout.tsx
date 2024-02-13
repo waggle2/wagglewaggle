@@ -44,9 +44,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={pretendard.className}>
         <div className={style.container}>
-          <QueryProvider>
-            <RecoilRoot>{children}</RecoilRoot>
-          </QueryProvider>
+          <QueryProvider>{children}</QueryProvider>
         </div>
       </body>
     </html>
