@@ -4,7 +4,7 @@ import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
 import { Dispatch, SetStateAction, useState } from 'react'
 import Button from '@/app/_components/button/Button'
-import { IErrors, IInputFileds, ILoginError } from '@/app/_types/userFormTypes'
+import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
 
@@ -39,10 +39,16 @@ export default function LoginForm({
     try {
       mutation.mutate(body, {
         onSuccess: (data) => {
-          console.log(data)
+          setErrors({ ...errors, loginPassword: '' })
         },
         onError: (error) => {
-          console.log(error)
+          const typeError = error as { code?: number; message: string }
+          if (typeError.code === 404) {
+            setErrors({
+              ...errors,
+              loginPassword: '이메일 혹은 비밀번호가 일치하지 않습니다',
+            })
+          }
         },
       })
     } catch (error) {
@@ -95,6 +101,7 @@ export default function LoginForm({
               />
             )
           }
+          errorMessage={errors.loginPassword}
         />
       </div>
       <div className={style.buttonWrapper}>

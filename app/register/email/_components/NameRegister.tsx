@@ -28,7 +28,7 @@ export default function NameRegister({
   async function checkNickname(nickname: string) {
     try {
       const response = await api.get(`/users/nickname-check/${nickname}`)
-      if (!response.available) {
+      if (!response.data.available) {
         alert('중복된 닉네임입니다.')
         setInputFields({ ...inputFields, isNicknameChecked: false })
         setErrors({

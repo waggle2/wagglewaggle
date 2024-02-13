@@ -38,7 +38,6 @@ export default function EmailForm({
   async function sendCheckEmailCode(email: string) {
     try {
       const response = await api.post('/users/email-verification', { email })
-      console.log(response, 'response')
       alert('인증코드가 발송되었습니다.')
     } catch (error) {
       console.error(error)
@@ -52,7 +51,7 @@ export default function EmailForm({
         email,
         verificationCode: Number(emailCheckNumber ?? '') ?? 0,
       })
-      if (!response.verified) {
+      if (!response.data.verified) {
         setErrors({ ...errors, emailCheck: '인증코드가 일치하지 않습니다.' })
         alert('인증에 실패하였습니다.')
         return
