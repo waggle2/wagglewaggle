@@ -1,4 +1,5 @@
 import axios from 'axios'
+import api from './commonApi'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -13,11 +14,26 @@ const customAxios = axios.create({
 
 customAxios.interceptors.response.use(
   (response) => response,
-  (error) =>
+  async (error) => {
+    if (!error.response || !error.response.data) {
+      return Promise.reject(error)
+    }
+
+    const { statusCode } = error.response.data
+    if (statusCode === 401) {
+      const response = await api.get('/authentication/refresh-token')
+      const { statusCode: refreshTokenStatusCode } = response.data
+
+      if (refreshTokenStatusCode === 401) {
+        window.location.href = '/login'
+        return
+      }
+    }
     onError(
       error.response.data.statusCode ?? '',
       error.response.data.message ?? '',
-    ),
+    )
+  },
 )
 
 function onError(code: number, message: string) {

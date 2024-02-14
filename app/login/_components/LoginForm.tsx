@@ -7,6 +7,8 @@ import Button from '@/app/_components/button/Button'
 import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
+import { cookies } from 'next/headers'
+import local from 'next/font/local'
 
 type Props = {
   inputFields: IInputFileds
@@ -38,7 +40,7 @@ export default function LoginForm({
     if (!body.email || !body.password) return alert('모든 항목을 입력해주세요')
     try {
       mutation.mutate(body, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           setErrors({ ...errors, loginPassword: '' })
         },
         onError: (error) => {

@@ -3,7 +3,6 @@ import './_styles/globals.scss'
 import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
 import QueryProvider from './_components/reactQuery/QueryProvider'
-import { RecoilRoot } from 'recoil'
 
 const pretendard = localFont({
   src: [

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import axiosInstance from './config'
+import axiosInstance from './config.ts'
 
 const api = {
   get: async (url: string, config?: AxiosRequestConfig) => {
