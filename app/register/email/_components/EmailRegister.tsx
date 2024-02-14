@@ -40,7 +40,9 @@ export default function EmailForm({
       const response = await api.post('/users/email-verification', { email })
       alert('인증코드가 발송되었습니다.')
     } catch (error) {
+      const { code } = error as { code: number }
       console.error(error)
+      if (code === 400) return alert('이미 가입된 이메일입니다.')
       alert('인증코드 발송에 실패하였습니다.')
     }
   }
