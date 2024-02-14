@@ -4,7 +4,8 @@ import style from '../styles/registerAgree.module.scss'
 import { useRouter } from 'next/navigation'
 import Check from '/public/assets/check.svg'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { IErrors, IInputFileds } from '@/app/_hooks/useFormInput'
+import { IErrors, IInputFileds, SignUpData } from '@/app/_types/userFormTypes'
+import { useSignUpUser } from '@/app/_hooks/services/mutations/userRegister'
 
 interface Props {
   inputFields: IInputFileds
@@ -14,18 +15,32 @@ interface Props {
   passable: boolean
 }
 
-export default function RegisterAgree({
-  inputFields,
-  errors,
-  handleSubmit,
-  handleChange,
-  passable,
-}: Props) {
+export default function RegisterAgree({ inputFields }: Props) {
   const router = useRouter()
-
   const [agree1, setAgree1] = useState(false)
   const [agree2, setAgree2] = useState(false)
-
+  const mutation = useSignUpUser()
+  const sendTotalDatas = async () => {
+    try {
+      const { email, password, nickname, birthYear, gender } = inputFields
+      const DEFAULT_BIRTH_YEAR = 1990
+      if (!(email && password && nickname && birthYear && gender))
+        throw new Error('필수 항목을 입력해주세요')
+      const body: SignUpData = {
+        authenticationProvider: 'email',
+        email,
+        password,
+        nickname,
+        birthYear: Number(birthYear) ?? DEFAULT_BIRTH_YEAR,
+        gender,
+        primaryAnimal: '곰',
+      }
+      mutation.mutate(body)
+    } catch (error) {
+      console.error(error)
+      alert(error)
+    }
+  }
   return (
     <div>
       <h2 className={style.title}>
@@ -80,7 +95,10 @@ export default function RegisterAgree({
           mainColor={agree1 && agree2 ? 'green' : 'grey'}
           text="회원가입 완료"
           isDisabled={!(agree1 && agree2)}
-          action={() => router.push('/')}
+          action={() => {
+            sendTotalDatas()
+            router.push('/')
+          }}
         />
       </div>
     </div>

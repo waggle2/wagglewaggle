@@ -6,7 +6,7 @@ import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import { useRouter } from 'next/navigation'
 import FormPresetProvider from './FormPresetProvider'
-import { IInputFileds } from '@/app/_hooks/useFormInput'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 interface Props {
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
@@ -39,6 +39,7 @@ export default function SwitchStep({
               formDataObject={{
                 email: '',
                 emailCheck: '',
+                isEmailChecked: false,
                 password: '',
                 passwordCheck: '',
               }}
@@ -56,6 +57,7 @@ export default function SwitchStep({
             <FormPresetProvider
               formDataObject={{
                 nickname: '',
+                isNicknameChecked: false,
                 birthYear: '',
                 gender: '',
               }}
@@ -95,17 +97,6 @@ export default function SwitchStep({
           </span>
         }
         title="회원가입"
-        rightSection={[
-          <button
-            onClick={() => {
-              console.log('step', step)
-              console.log(userTotalDatas)
-            }}
-            type="button"
-          >
-            인증 안해도 넘어가요 인증코드 1234
-          </button>,
-        ]}
       />
       {changeBody(step)}
     </>

@@ -1,4 +1,4 @@
-import { IErrors, IInputFileds } from '../_hooks/useFormInput'
+import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 
 export const validate = (inputValues: IInputFileds): IErrors => {
   const errors: IErrors = {}
@@ -21,13 +21,14 @@ export const validate = (inputValues: IInputFileds): IErrors => {
   ) {
     errors.passwordCheck = '비밀번호가 일치하지 않습니다.'
   }
-  if (inputValues.emailCheck && inputValues.emailCheck !== '1234') {
-    errors.emailCheck = '인증번호가 일치하지 않습니다.'
-  }
+
   if (inputValues.nickname && !validateNickname(inputValues.nickname)) {
-    errors.nickname =
-      '닉네임을 한글, 영어, 숫자를 포함하며 길이를 2자 이상 10자 이하로 적어주세요.'
+    errors.nickname = '특수문자 제외, 4~12자로 입력해주세요.'
   }
+  if (inputValues.birthYear && !validateBirthYear(inputValues.birthYear)) {
+    errors.birthYear = '출생년도는 숫자 4자리로 입력해주세요.'
+  }
+
   return errors
 }
 
@@ -58,8 +59,13 @@ function validatePassword(password: string) {
 }
 
 function validateNickname(nickname: string) {
-  const regex = /^[가-힣a-zA-Z0-9]{2,12}$/
+  const regex = /^[가-힣a-zA-Z0-9]{4,12}$/
   return regex.test(nickname)
+}
+
+function validateBirthYear(birthYear: string) {
+  const regex = /^[0-9]{4}$/
+  return regex.test(birthYear)
 }
 
 export function checkObject(obj: any, subObj: any) {

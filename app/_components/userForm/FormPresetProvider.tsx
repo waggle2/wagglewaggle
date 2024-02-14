@@ -1,27 +1,29 @@
 import useFormInput from '@/app/_hooks/useFormInput'
 import { checkObject } from '@/app/_lib/validate'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import EmailRegister from './EmailRegister'
-import NameRegister from './NameRegister'
-import RegisterAgree from './RegisterAgree'
+
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import NameRegister from '@/app/register/email/_components/NameRegister'
+import RegisterAgree from '@/app/register/email/_components/RegisterAgree'
+import EmailRegister from '@/app/register/email/_components/EmailRegister'
+import LoginForm from '@/app/login/_components/LoginForm'
 
 interface Props {
-  formDataType: 'email' | 'name' | 'agree'
+  formDataType: 'email' | 'name' | 'agree' | 'login'
   formDataObject: IInputFileds
-  userTotalDatas: IInputFileds
-  setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
-  nextStep: () => void
-  step: number
+  userTotalDatas?: IInputFileds
+  setUserTotalDatas?: Dispatch<SetStateAction<IInputFileds>>
+  nextStep?: () => void
+  step?: number
 }
 
 export default function FormPresetProvider({
   formDataType,
   formDataObject,
-  userTotalDatas,
-  setUserTotalDatas,
-  nextStep,
-  step,
+  userTotalDatas = {},
+  setUserTotalDatas = () => {},
+  nextStep = () => {},
+  step = 0,
 }: Props) {
   const {
     inputFields,
@@ -71,6 +73,8 @@ export default function FormPresetProvider({
         return <NameRegister {...childrenProps} />
       case 'agree':
         return <RegisterAgree {...childrenProps} />
+      case 'login':
+        return <LoginForm {...childrenProps} />
       default:
         null
     }

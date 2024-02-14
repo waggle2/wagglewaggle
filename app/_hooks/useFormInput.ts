@@ -1,25 +1,6 @@
 import { validate } from '@/app/_lib/validate'
 import { ChangeEvent, FormEvent, useState } from 'react'
-
-export interface IInputFileds {
-  email?: string
-  emailCheck?: string
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-  birthYear?: string
-  gender?: 'man' | 'woman' | ''
-}
-
-export interface IErrors {
-  email?: string
-  emailCheck?: string
-  password?: string
-  passwordCheck?: string
-  nickname?: string
-  birthYear?: string
-  gender?: 'man' | 'woman' | ''
-}
+import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 
 export default function useFormInput(initialValues: IInputFileds) {
   const [inputFields, setInputFields] = useState<IInputFileds>({
@@ -47,7 +28,9 @@ export default function useFormInput(initialValues: IInputFileds) {
 
   return {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     submitting,
     setSubmitting,
     handleChange,
