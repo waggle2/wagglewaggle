@@ -9,7 +9,11 @@ import DogTemplate from './_components/DogTemplate'
 import FoxTemplate from './_components/FoxTemplate'
 import BearTemplate from './_components/BearTemplate'
 
-export default function PopularPreview() {
+import api from '@/app/_api/commonApi'
+
+export default async function PopularPreview() {
+  // const data = await api.get('/hot-posts')
+  // console.log(data, 'data!')
   return (
     <section className={style.container}>
       <div className={style.titleContainer}>
@@ -31,6 +35,7 @@ export default function PopularPreview() {
             animal: '',
           }}
           post={{
+            id: 1,
             time: '2024-12-01',
             title: '아 정말 못참겠디',
             content:
@@ -49,6 +54,7 @@ export default function PopularPreview() {
             animal: '',
           }}
           post={{
+            id: 1,
             time: '2024-12-01',
             title: '아 정말 못참겠디',
             content:
@@ -67,6 +73,7 @@ export default function PopularPreview() {
             animal: '',
           }}
           post={{
+            id: 1,
             time: '2024-12-01',
             title: '아 정말 못참겠디',
             content:
@@ -85,6 +92,7 @@ export default function PopularPreview() {
             animal: '',
           }}
           post={{
+            id: 1,
             time: '2024-12-01',
             title: '아 정말 못참겠디',
             content:
