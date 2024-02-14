@@ -1,10 +1,10 @@
-import useFormInput, { IInputFileds } from '@/app/_hooks/useFormInput'
+import useFormInput from '@/app/_hooks/useFormInput'
 import { checkObject } from '@/app/_lib/validate'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import EmailRegister from './EmailRegister'
 import NameRegister from './NameRegister'
-import BirthRegister from './BirthRegister'
 import RegisterAgree from './RegisterAgree'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 
 interface Props {
   formDataType: 'email' | 'name' | 'agree'
@@ -25,7 +25,9 @@ export default function FormPresetProvider({
 }: Props) {
   const {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     submitting,
     setSubmitting,
     handleSubmit,
@@ -53,7 +55,9 @@ export default function FormPresetProvider({
 
   const childrenProps = {
     inputFields,
+    setInputFields,
     errors,
+    setErrors,
     handleSubmit,
     handleChange,
     passable,

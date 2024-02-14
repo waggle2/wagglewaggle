@@ -22,4 +22,8 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  &:disabled {
+    background-color: #d9d9d9;
+    color: #8c8c8c;
+  }
 }

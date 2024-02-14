@@ -1,13 +1,16 @@
-import { IInputFileds } from '@/app/_hooks/useFormInput'
 import style from '../styles/nameRegister.module.scss'
 import Button from '@/app/_components/button/Button'
-import { api } from './EmailRegister'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
 import InputGroup from '@/app/_components/userForm/InputGroup'
+import { Dispatch, SetStateAction } from 'react'
+import api from '@/app/_api/commonApi'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 
 interface Props {
   inputFields: IInputFileds
+  setInputFields: Dispatch<SetStateAction<IInputFileds>>
   errors: IInputFileds
+  setErrors: Dispatch<SetStateAction<any>>
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   passable: boolean
@@ -15,17 +18,28 @@ interface Props {
 
 export default function NameRegister({
   inputFields,
+  setInputFields,
   handleSubmit,
   handleChange,
   errors,
+  setErrors,
   passable,
 }: Props) {
   async function checkNickname(nickname: string) {
     try {
-      const response = await api.post('/users/nickname-check', {
-        nickname: inputFields.nickname,
-      })
-      console.log(response)
+      const response = await api.get(`/users/nickname-check/${nickname}`)
+      if (!response.data.available) {
+        alert('중복된 닉네임입니다.')
+        setInputFields({ ...inputFields, isNicknameChecked: false })
+        setErrors({
+          ...errors,
+          nickname: '이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.',
+        })
+        return
+      }
+      alert('사용가능한 닉네임입니다.')
+      setInputFields({ ...inputFields, isNicknameChecked: true })
+      setErrors({ ...errors, nickname: '' })
     } catch (error) {
       console.error(error)
     }
@@ -52,14 +66,23 @@ export default function NameRegister({
                 placeholder: '이름을 적어주세요',
                 maxLength: 12,
                 tabIndex: 1,
+                disabled: inputFields.isNicknameChecked,
               }}
               buttonProps={{
-                text: '중복확인',
-                active: !!(inputFields.nickname && !errors.nickname),
-                inactive: !(inputFields.nickname && !errors.nickname),
+                text: inputFields.isNicknameChecked ? '확인완료' : '중복확인',
+                active: !!(
+                  inputFields.nickname &&
+                  !errors.nickname &&
+                  !inputFields.isNicknameChecked
+                ),
+                inactive:
+                  !inputFields.nickname ||
+                  !!errors.nickname ||
+                  !!inputFields.isNicknameChecked,
                 onClick: () => {
-                  inputFields.nickname && checkNickname(inputFields.nickname)
+                  if (inputFields.nickname) checkNickname(inputFields.nickname)
                 },
+                disabled: inputFields.isNicknameChecked,
                 type: 'button',
               }}
               errorMessage={errors.nickname}
@@ -92,8 +115,8 @@ export default function NameRegister({
                   id="man"
                   name="gender"
                   onChange={handleChange}
-                  value="man"
-                  checked={inputFields.gender === 'man'}
+                  value="남성"
+                  checked={inputFields.gender === '남성'}
                   tabIndex={3}
                 />
               </label>
@@ -104,8 +127,8 @@ export default function NameRegister({
                   id="woman"
                   name="gender"
                   onChange={handleChange}
-                  value="woman"
-                  checked={inputFields.gender === 'woman'}
+                  value="여성"
+                  checked={inputFields.gender === '여성'}
                   tabIndex={4}
                 />
               </label>

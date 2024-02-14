@@ -21,7 +21,7 @@
 .animalWrapper {
   width: 100%;
   display: flex;
-  gap: 34px;
+  justify-content: space-between;
 }
 .typeWrapper {
   padding: 16px;

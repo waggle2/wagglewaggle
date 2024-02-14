@@ -7,7 +7,7 @@ const api = {
       const response = await axiosInstance.get(url, config)
       return response.data
     } catch (error) {
-      console.error('Error getting data:', error)
+      throw error
     }
   },
   delete: async (url: string, config?: AxiosRequestConfig) => {
@@ -15,7 +15,7 @@ const api = {
       const response = await axiosInstance.delete(url, config)
       return response.data
     } catch (error) {
-      console.error('Error deleteing data:', error)
+      throw error
     }
   },
   post: async (url: string, data: any, config?: AxiosRequestConfig) => {
@@ -23,7 +23,7 @@ const api = {
       const response = await axiosInstance.post(url, data, config)
       return response.data
     } catch (error) {
-      console.error('Error posting data:', error)
+      throw error
     }
   },
   patch: async (url: string, data: any, config?: AxiosRequestConfig) => {
@@ -31,7 +31,7 @@ const api = {
       const response = await axiosInstance.patch(url, data, config)
       return response.data
     } catch (error) {
-      console.error('Error patching data:', error)
+      throw error
     }
   },
   put: async (url: string, data: any, config?: AxiosRequestConfig) => {
@@ -39,7 +39,7 @@ const api = {
       const response = await axiosInstance.put(url, data, config)
       return response.data
     } catch (error) {
-      console.error('Error putting data:', error)
+      throw error
     }
   },
 }

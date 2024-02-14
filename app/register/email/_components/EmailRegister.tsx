@@ -4,24 +4,23 @@ import cs from 'classnames/bind'
 const cx = cs.bind(style)
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
-import { ChangeEvent, FormEvent, useState } from 'react'
-import { IInputFileds } from '@/app/_hooks/useFormInput'
-import axios from 'axios'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react'
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-
-export const api = axios.create({
-  baseURL:
-    'http://ec2-43-201-195-164.ap-northeast-2.compute.amazonaws.com/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-})
+import api from '@/app/_api/commonApi'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 
 interface Props {
   inputFields: IInputFileds
+  setInputFields: Dispatch<SetStateAction<IInputFileds>>
   errors: IInputFileds
+  setErrors: Dispatch<SetStateAction<any>>
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
   passable: boolean
@@ -29,23 +28,37 @@ interface Props {
 
 export default function EmailForm({
   inputFields,
+  setInputFields,
   errors,
+  setErrors,
   handleSubmit,
   handleChange,
   passable,
 }: Props) {
   async function sendCheckEmailCode(email: string) {
     try {
-      const result = await api.post('/users/email-verification', { email })
-      return result
+      const response = await api.post('/users/email-verification', { email })
+      alert('인증코드가 발송되었습니다.')
     } catch (error) {
       console.error(error)
+      alert('인증코드 발송에 실패하였습니다.')
     }
   }
-  async function getCheckEmailCode(email: string) {
+
+  async function confirmEmailCode(email: string, emailCheckNumber: string) {
     try {
-      const result = await api.post('/users/email-verification', { email })
-      return result
+      const response = await api.post('/users/email-verification/confirm', {
+        email,
+        verificationCode: Number(emailCheckNumber ?? '') ?? 0,
+      })
+      if (!response.data.verified) {
+        setErrors({ ...errors, emailCheck: '인증코드가 일치하지 않습니다.' })
+        alert('인증에 실패하였습니다.')
+        return
+      }
+      setErrors({ ...errors, emailCheck: '' })
+      setInputFields({ ...inputFields, isEmailChecked: true })
+      alert('인증이 완료되었습니다.')
     } catch (error) {
       console.error(error)
     }
@@ -71,15 +84,25 @@ export default function EmailForm({
               onChange: handleChange,
               value: inputFields.email ?? '',
               tabIndex: 1,
+              disabled: inputFields.isEmailChecked,
             }}
             buttonProps={{
-              text: '인증하기',
-              active: !!(inputFields.email && !errors.email),
-              inactive: !!(!inputFields.email || errors.email),
+              text: inputFields.isEmailChecked ? '인증완료' : '인증하기',
+              active: !!(
+                inputFields.email &&
+                !errors.email &&
+                !inputFields.isEmailChecked
+              ),
+              inactive: !!(
+                !inputFields.email ||
+                errors.email ||
+                inputFields.isEmailChecked
+              ),
               onClick: () =>
                 inputFields.email &&
                 !errors.email &&
                 sendCheckEmailCode(inputFields.email),
+              disabled: inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.email}
@@ -96,14 +119,28 @@ export default function EmailForm({
               onChange: handleChange,
               value: inputFields.emailCheck ?? '',
               tabIndex: 2,
+              disabled: inputFields.isEmailChecked,
             }}
             buttonProps={{
-              text: '인증확인',
-              active: !!(inputFields.emailCheck && !errors.emailCheck),
-              inactive: !!(!inputFields.emailCheck || errors.emailCheck),
+              text: inputFields.isEmailChecked ? '인증완료' : '인증확인',
+              active: !!(
+                inputFields.emailCheck &&
+                !errors.emailCheck &&
+                !inputFields.isEmailChecked
+              ),
+              inactive: !!(
+                !inputFields.emailCheck ||
+                errors.emailCheck ||
+                inputFields.isEmailChecked
+              ),
               onClick: () => {
-                if (inputFields.email) getCheckEmailCode(inputFields.email)
+                if (inputFields.email)
+                  confirmEmailCode(
+                    inputFields.email,
+                    inputFields.emailCheck ?? '',
+                  )
               },
+              disabled: inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.emailCheck}

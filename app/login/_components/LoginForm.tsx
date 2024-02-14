@@ -1,56 +1,111 @@
 'use client'
-import Image from 'next/image'
 import style from './styles/loginForm.module.scss'
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Button from '@/app/_components/button/Button'
+import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
+import InputGroup from '@/app/_components/userForm/InputGroup'
+import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
 
-export default function LoginForm() {
+type Props = {
+  inputFields: IInputFileds
+  setInputFields: Dispatch<SetStateAction<IInputFileds>>
+  errors: IErrors
+  setErrors: Dispatch<SetStateAction<any>>
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  passable: boolean
+}
+
+export default function LoginForm({
+  inputFields,
+  setInputFields,
+  errors,
+  setErrors,
+  handleSubmit,
+  handleChange,
+  passable,
+}: Props) {
   const [passwordView, setPasswordView] = useState(false)
-  const [isTypedAll, setIsTypedAll] = useState(false)
-  const [isRightEmail, setIsRightEmail] = useState(false)
-  const [isRightPassword, setIsRightPassword] = useState(false)
+  const mutation = useLoginUser()
+
+  const handleFinish = async () => {
+    const body = {
+      email: inputFields.loginEmail ?? '',
+      password: inputFields.loginPassword ?? '',
+    }
+    if (!body.email || !body.password) return alert('모든 항목을 입력해주세요')
+    try {
+      mutation.mutate(body, {
+        onSuccess: (data) => {
+          setErrors({ ...errors, loginPassword: '' })
+        },
+        onError: (error) => {
+          const typeError = error as { code?: number; message: string }
+          if (typeError.code === 404) {
+            setErrors({
+              ...errors,
+              loginPassword: '이메일 혹은 비밀번호가 일치하지 않습니다',
+            })
+          }
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
-    <form className={style.loginForm}>
+    <form
+      className={style.loginForm}
+      onSubmit={(e) => {
+        handleSubmit(e)
+        handleFinish()
+      }}
+    >
       <div className={style.inputDiv}>
-        <label>
-          <input type="text" placeholder="이메일을 입력해주세요" />
-        </label>
+        <InputGroup
+          isTitle={false}
+          inputProps={{
+            type: 'email',
+            placeholder: '이메일을 입력해주세요',
+            value: inputFields.loginEmail ?? '',
+            onChange: handleChange,
+            name: 'loginEmail',
+          }}
+        />
       </div>
       <div className={style.inputDiv}>
-        <label className={style.passwordLabel}>
-          <input type="password" placeholder="비밀번호를 입력해주세요" />
-          {passwordView ? (
-            <View2
-              onClick={() => setPasswordView(!passwordView)}
-              width={20}
-              height={20}
-            />
-          ) : (
-            <NotView
-              onClick={() => setPasswordView(!passwordView)}
-              width={20}
-              height={20}
-            />
-          )}
-        </label>
+        <InputGroup
+          isTitle={false}
+          inputProps={{
+            type: 'password',
+            placeholder: '비밀번호를 입력해주세요',
+            value: inputFields.loginPassword ?? '',
+            onChange: handleChange,
+            name: 'loginPassword',
+          }}
+          inputIcon={
+            passwordView ? (
+              <View2
+                onClick={() => setPasswordView(!passwordView)}
+                width={20}
+                height={20}
+              />
+            ) : (
+              <NotView
+                onClick={() => setPasswordView(!passwordView)}
+                width={20}
+                height={20}
+              />
+            )
+          }
+          errorMessage={errors.loginPassword}
+        />
       </div>
       <div className={style.buttonWrapper}>
-        {isRightEmail ? (
-          <Button mainColor="green" text="로그인 하기" />
-        ) : (
-          <Button
-            mainColor="red"
-            text="존재하지 않는 이메일입니다"
-            isDisabled={true}
-          />
-        )}
-        {isTypedAll ? (
-          <Button mainColor="green" text="로그인 하기" />
-        ) : (
-          <Button mainColor="grey" text="로그인 하기" />
-        )}
+        <Button mainColor={passable ? 'green' : 'grey'} text="로그인 하기" />
       </div>
     </form>
   )
