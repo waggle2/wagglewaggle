@@ -63,7 +63,7 @@ export default function CustomProfile() {
             <div className={style.tabContainer}>
                 <button className={tabButtonStyle('고양이')} onClick={() => handleTabClick('고양이')}>고냥이</button>
                 <button className={tabButtonStyle('곰')} onClick={() => handleTabClick('곰')}>곰돌이</button>
-                <button className={tabButtonStyle('강아지')} onClick={() => handleTabClick('강아지')}>댕댕이</button>
+                <button className={tabButtonStyle('개')} onClick={() => handleTabClick('개')}>댕댕이</button>
                 <button className={tabButtonStyle('여우')} onClick={() => handleTabClick('여우')}>폭스</button>
             </div>
 

@@ -15,11 +15,12 @@ type ItemData = {
     isOwned: boolean;
 }
 type CartProps = {
+    selectedTab: string;
     selectedItems: ItemData[];
     totalItemPrice: number;
 };
 
-export default function Cart({ selectedItems, totalItemPrice }: CartProps) {
+export default function Cart({ selectedTab, selectedItems, totalItemPrice }: CartProps) {
     return (
         <div>
             {/* 장바구니 */}
@@ -32,7 +33,7 @@ export default function Cart({ selectedItems, totalItemPrice }: CartProps) {
                                     <img src={item.image} alt="" />
                                 </div>
                                 <div className={style.priceCoin}>
-                                    <PointIcon /> {item.price}
+                                    <PointIcon animal={selectedTab} /> {item.price}
                                 </div>
                             </li>
                         ))
@@ -42,7 +43,7 @@ export default function Cart({ selectedItems, totalItemPrice }: CartProps) {
                                 <img src="/아이템.png" alt="" />
                             </div>
                             <div className={style.priceCoin}>
-                                <PointIcon /> {0}
+                                <PointIcon animal={selectedTab} /> {0}
                             </div>
                         </li>
                     )}
@@ -50,7 +51,7 @@ export default function Cart({ selectedItems, totalItemPrice }: CartProps) {
                 <div className={style.totalPriceWrap}>
                     <div className={style.totalPrice}>
                         <span>TOTAL</span>
-                        <PointIcon />{totalItemPrice}
+                        <PointIcon animal={selectedTab} />{totalItemPrice}
                     </div>
                 </div>
             </div>

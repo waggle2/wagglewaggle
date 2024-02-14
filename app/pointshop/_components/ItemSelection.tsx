@@ -16,6 +16,7 @@ type ItemData = {
 }
 
 type ItemSelectionProps = {
+    selectedTab: string;
     selectedItemType: string;
     handleCategoryClick: (selectedItemType: string) => void;
     tabCategoryButtonStyle: (selectedItemType: string) => string;
@@ -25,6 +26,7 @@ type ItemSelectionProps = {
 };
 
 export default function ItemSelection({
+    selectedTab,
     selectedItemType,
     handleCategoryClick,
     tabCategoryButtonStyle,
@@ -52,7 +54,7 @@ export default function ItemSelection({
                     <img src={item.image} alt={item.image} />
                 </div>
                 <div className={style.priceCoin}>
-                    <PointIcon /> {item.price}
+                    <PointIcon animal={selectedTab} /> {item.price}
                 </div>
             </li>
         ))

@@ -45,7 +45,7 @@ export default function CustomPreview({
                             </div>
 
                             <div className={style.possessionCoin}>
-                                <PointIcon />
+                                <PointIcon animal={selectedTab} />
                                 {possessionCoin}
                             </div>
                         </div>

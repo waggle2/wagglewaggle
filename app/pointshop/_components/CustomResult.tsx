@@ -37,7 +37,6 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
   const [confirmModal, setConfirmModal] = useState(false);
 
   // 현재 선택된 아이템 카테고리 탭 상태
-  // const [selectedItemType, setSelectedItemType] = useState('emoji');
 
   // 장바구니 아이템 금액
   const [totalItemPrice, setTotalItemPrice] = useState(0);
@@ -175,12 +174,14 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
 
       {/* 장바구니 */}
       <Cart
+        selectedTab={selectedTab}
         selectedItems={selectedItems}
         totalItemPrice={totalItemPrice}
       />
 
       {/* 아이템 선택 */}
       <ItemSelection
+        selectedTab={selectedTab}
         selectedItemType={selectedItemType}
         handleCategoryClick={handleCategoryClick}
         tabCategoryButtonStyle={tabCategoryButtonStyle}
@@ -188,10 +189,6 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
         handleItemClick={handleItemClick}
         selectedItems={selectedItems}
       />
-
-      {/* {items.map((item, index) => (
-        <div key={index}>{item.name}</div>
-      ))} */}
 
 
     </>
