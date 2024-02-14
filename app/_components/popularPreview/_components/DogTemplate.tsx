@@ -3,28 +3,12 @@ import style from './popularPost.module.scss'
 import View from '@/public/assets/view.svg'
 import Comment from '@/public/assets/comment.svg'
 import DogCover from '@/public/assets/dogCover.svg'
+import { postProps } from '../_types/postType'
+import Link from '@/node_modules/next/link'
 
-type Props = {
-  profile: {
-    image: string
-    name: string
-    category: string
-    tag: string
-    animal: string
-  }
-  post: {
-    time: string
-    title: string
-    content: string
-    likes: number
-    comments: number
-    views: number
-  }
-}
-
-export default function DogTemplate({ profile, post }: Props) {
+export default function DogTemplate({ profile, post }: postProps) {
   return (
-    <div className={style.dogContainer}>
+    <Link className={style.dogContainer} href={`/detail/${post.id}`}>
       <div className={style.categoryWrapper}>
         <span className={style.dogCategory}>{profile.category}</span>
         <span className={style.dogTag}>{profile.tag}</span>
@@ -50,6 +34,6 @@ export default function DogTemplate({ profile, post }: Props) {
         </div>
       </div>
       <DogCover className={style.bgAnimal} />
-    </div>
+    </Link>
   )
 }

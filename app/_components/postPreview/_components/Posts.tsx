@@ -36,7 +36,7 @@ export default async function Posts({ title }: props) {
     const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
     data = await res.data.data
-    console.log(data)
+    // console.log(data)
   } catch (err) {
     console.error(err)
   }

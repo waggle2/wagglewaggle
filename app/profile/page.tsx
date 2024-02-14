@@ -1,10 +1,11 @@
 'use client'
 
-import { redirect } from '@/node_modules/next/navigation'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Profile() {
+  const router = useRouter()
   useEffect(() => {
-    redirect('/')
+    router.back()
   }, [])
 }

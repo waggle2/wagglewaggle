@@ -72,7 +72,7 @@ export default function Post({ profile, post }: Props) {
         </Link>
         <div className={style.time}>{formatDate(post.time)}</div>
       </div>
-      <Link href={''}>
+      <Link href={`/detail/${post.id}`}>
         <div className={style.contentContainer}>
           <div className={style.title}>{post.title}</div>
           <div className={style.content}>{post.content}</div>
