@@ -1,8 +1,11 @@
 'use client'
+import axiosInstance from '@/app/_api/config'
+
+import api from '@/app/_api/commonApi';
 import axios from 'axios';
 import style from '../_styles/pointShop.module.scss'
 import { useEffect, useState } from 'react'
-import CustomResult from '@/app/pointshop/_components/CustomContainer'
+import CustomResult from '@/app/pointshop/_components/CustomResult'
 
 type ItemData = {
     id: number;
@@ -21,20 +24,26 @@ type ItemData = {
 export default function CustomProfile() {
     const [selectedTab, setSelectedTab] = useState('고양이');
     const [items, setItems] = useState<ItemData[]>([]);
+    const [selectedItemType, setSelectedItemType] = useState('emoji');
+
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}v1/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=wallpaper`,);
-                const items = await res.data.data.items
-                setItems(items);
+            const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
+            const requestUrl = `${axiosInstance.defaults.baseURL}${endpoint}`; // 요청 URL 조합
+            console.log('Requesting URL:', requestUrl); // 요청 URL 출력
 
-            } catch (err) {
-                console.error(err);
+            try {
+                const { data } = await axiosInstance.get(endpoint);
+                setItems(data.data.items);
+            } catch (error) {
+                console.error('Error fetching items:', error);
             }
         };
         fetchData();
+        // console.log(items)
 
-    }, [selectedTab]);
+    }, [selectedTab, selectedItemType]);
 
 
     const handleTabClick = (animal: string) => {
@@ -59,7 +68,7 @@ export default function CustomProfile() {
             </div>
 
             {/* 동물 꾸미기 */}
-            <CustomResult selectedTab={selectedTab} />
+            <CustomResult selectedTab={selectedTab} selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} items={items} />
 
         </>
     )

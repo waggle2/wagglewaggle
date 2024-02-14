@@ -1,15 +1,21 @@
 import style from '../_styles/pointShop.module.scss'
 import PointIcon from './PointIcon';
 
-type Item = {
+type ItemData = {
     id: number;
-    src: string;
+    animal: string;
+    itemType: string;
+    name: string;
     price: number;
-    category: 'emoji' | 'profileBg' | 'frame' | 'wallpaper';
-};
-
+    image: string;
+    purchasedCount: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
+    isOwned: boolean;
+}
 type CartProps = {
-    selectedItems: Item[];
+    selectedItems: ItemData[];
     totalItemPrice: number;
 };
 
@@ -23,7 +29,7 @@ export default function Cart({ selectedItems, totalItemPrice }: CartProps) {
                         selectedItems.map((item, index) => (
                             <li key={index} className={style.item}>
                                 <div className={style.selectedImageBox}>
-                                    <img src={item.src} alt="" />
+                                    <img src={item.image} alt="" />
                                 </div>
                                 <div className={style.priceCoin}>
                                     <PointIcon /> {item.price}
