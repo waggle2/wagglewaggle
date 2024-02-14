@@ -7,8 +7,7 @@ import Button from '@/app/_components/button/Button'
 import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
-import { cookies } from 'next/headers'
-import local from 'next/font/local'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   inputFields: IInputFileds
@@ -31,6 +30,7 @@ export default function LoginForm({
 }: Props) {
   const [passwordView, setPasswordView] = useState(false)
   const mutation = useLoginUser()
+  const router = useRouter()
 
   const handleFinish = async () => {
     const body = {
@@ -42,6 +42,7 @@ export default function LoginForm({
       mutation.mutate(body, {
         onSuccess: () => {
           setErrors({ ...errors, loginPassword: '' })
+          router.push('/')
         },
         onError: (error) => {
           const typeError = error as { code?: number; message: string }
