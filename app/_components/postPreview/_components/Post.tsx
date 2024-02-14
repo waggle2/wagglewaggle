@@ -5,7 +5,11 @@ import style from './post.module.scss'
 import Like from '@/public/assets/like.svg'
 import Comment from '@/public/assets/comment.svg'
 import View from '@/public/assets/view.svg'
-import TestProfile from '@/public/assets/profile.svg'
+import FoxDefault from '@/public/assets/fox_default.svg'
+import BearDefault from '@/public/assets/bear_default.svg'
+import DogDefault from '@/public/assets/dog_default.svg'
+import CatDefault from '@/public/assets/cat_default.svg'
+
 import Link from '@/node_modules/next/link'
 import formatDate from '@/app/_lib/formatDate'
 
@@ -14,6 +18,7 @@ type Props = {
     image?: ReactNode
     name: string
     animal?: string
+    isAnonymous: boolean
   }
   post: {
     id: number
@@ -29,19 +34,37 @@ type Props = {
 }
 
 export default function Post({ profile, post }: Props) {
+  let defaultProfile
+  switch (profile.animal) {
+    case '개':
+      defaultProfile = <DogDefault />
+      break
+    case '고양이':
+      defaultProfile = <CatDefault />
+      break
+    case '여우':
+      defaultProfile = <FoxDefault />
+      break
+    case '곰':
+      defaultProfile = <BearDefault />
+      break
+    default:
+  }
+
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
-        <Link href={`/profile/1`} scroll={false}>
-          <div className={style.profileImageWrapper}>
-            {profile.image ? (
-              profile.image
-            ) : (
-              <TestProfile width={'100%'} height={'100%'} />
-            )}
-          </div>
+        <Link
+          href={`http://localhost:3000/profile/1`}
+          scroll={false}
+          className={style.profileWrapper}
+        >
+          {profile.image ? profile.image : defaultProfile}
+
           <div className={style.profileInfoWrapper}>
-            <div className={style.name}>{profile.name}</div>
+            <div className={style.name}>
+              {profile.isAnonymous ? '익명의' + profile.animal : profile.name}
+            </div>
             <div
               className={style.category}
             >{`${post.category} · ${post.tag}`}</div>
