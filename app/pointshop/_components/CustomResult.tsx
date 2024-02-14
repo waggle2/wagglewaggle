@@ -12,7 +12,9 @@ type Props = {
   selectedTab: string,
   items: ItemData[],
   selectedItemType: string,
-  setSelectedItemType: (value: string) => void;
+  setSelectedItemType: (value: string) => void,
+  animalCoin: number
+
 }
 
 type ItemData = {
@@ -30,7 +32,7 @@ type ItemData = {
 }
 
 
-export default function CustomResult({ selectedTab, items, selectedItemType, setSelectedItemType }: Props) {
+export default function CustomResult({ selectedTab, items, selectedItemType, setSelectedItemType, animalCoin }: Props) {
 
 
   // 확인 모달의 보임 상태
@@ -42,7 +44,7 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
   const [totalItemPrice, setTotalItemPrice] = useState(0);
 
   // 보유 포인트
-  const [possessionCoin, setPossessionCoin] = useState(90);
+  const [possessionCoin, setPossessionCoin] = useState(animalCoin);
 
   // 구매시 포인트 잔액
   const pointDifference = possessionCoin - totalItemPrice;
