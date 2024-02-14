@@ -5,7 +5,6 @@ import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
 import Cart from './Cart';
 import ItemSelection from './ItemSelection';
-import axios from 'axios';
 
 
 
@@ -32,22 +31,7 @@ const categoryPriority: CategoryPriority = {
 };
 
 export default function CustomResult({ selectedTab }: Props) {
-  const [item, setItem] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}v1/items`);
-        setItem(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-
-  }, []);
-  console.log(item);
 
   // 확인 모달의 보임 상태
   const [confirmModal, setConfirmModal] = useState(false);
