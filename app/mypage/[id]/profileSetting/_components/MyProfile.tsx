@@ -1,6 +1,4 @@
-'use client'
-
-import { useRouter } from '@/node_modules/next/navigation'
+import Link from '@/node_modules/next/link'
 import style from './styles/profileSetting.module.scss'
 
 type CustomPreviewProps = {
@@ -8,6 +6,7 @@ type CustomPreviewProps = {
   selectedProfileBg: string
   selectedFrame: string
   selectedWallpaper: string
+  isSetting?: boolean
 }
 
 export default function MyProfile({
@@ -15,19 +14,17 @@ export default function MyProfile({
   selectedProfileBg,
   selectedFrame,
   selectedWallpaper,
+  isSetting = true,
 }: CustomPreviewProps) {
-  const router = useRouter()
-
-  const navProfileSetting = () => {
-    router.push('/mypage/profileSetting')
-  }
   return (
     <div className={style.customContainer}>
       <div className={style.customBackground}>
         <div className={style.customFnc}>
-          <button onClick={navProfileSetting} className={style.setting}>
-            <img src="/assets/setting.svg" alt="navigation profile setting" />
-          </button>
+          {isSetting && (
+            <Link href={'/mypage/1/profileSetting'} className={style.setting}>
+              <img src="/assets/setting.svg" alt="navigation profile setting" />
+            </Link>
+          )}
         </div>
 
         <div className={style.profileResult}>

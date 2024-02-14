@@ -8,6 +8,7 @@ import SettingNav from './[id]/_components/SettingNav'
 import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
 import Footer from '../_components/common/footer/page'
+import Link from '@/node_modules/next/link'
 
 export default function MyPage() {
   const profile = {
@@ -47,13 +48,15 @@ export default function MyPage() {
         leftSection={<Title title={'MY'} />}
         rightSection={[<Search />, <Bell />]}
       />
-      <MyProfile
-        selectedEmoji={`/point_shop/emoji/cat_smile.svg`}
-        selectedProfileBg={'/point_shop/profile_background/프로필배경1.svg'}
-        selectedFrame={'/point_shop/frame/프레임샘플.png'}
-        selectedWallpaper={'/point_shop/wallpaper/벽지샘플.png'}
-      />
       <div className={style.paddingContainer}>
+        <MyProfile
+          selectedEmoji={`/assets/point_shop/emoji/cat_smile.svg`}
+          selectedProfileBg={
+            '/assets/point_shop/profile_background/프로필배경1.svg'
+          }
+          selectedFrame={'/assets/point_shop/frame/프레임샘플.png'}
+          selectedWallpaper={'/assets/point_shop/wallpaper/벽지샘플.png'}
+        />
         <MyType
           type={'고냥이'}
           cat={profile.type.cat}
@@ -79,7 +82,7 @@ export default function MyPage() {
           title={'회원 정보 수정'}
         />
         <SettingNav href={'/'} title={'건의사항'} />
-        <SettingNav href={'/'} title={'계정 설정'} />
+        <SettingNav href={'/mypage/1/accountSetting'} title={'계정 설정'} />
       </div>
 
       <Footer />

@@ -2,7 +2,7 @@ import style from './popularPost.module.scss'
 
 import View from '@/public/assets/view.svg'
 import Comment from '@/public/assets/comment.svg'
-import PopularBg from '@/public/assets/popularBg.svg'
+import CatCover from '@/public/assets/catCover.svg'
 
 type Props = {
   profile: {
@@ -10,6 +10,7 @@ type Props = {
     name: string
     category: string
     tag: string
+    animal: string
   }
   post: {
     time: string
@@ -21,12 +22,12 @@ type Props = {
   }
 }
 
-export default function PopularPost({ profile, post }: Props) {
+export default function CatTemplate({ profile, post }: Props) {
   return (
-    <div className={style.container}>
+    <div className={style.catContainer}>
       <div className={style.categoryWrapper}>
-        <span className={style.category}>{profile.category}</span>
-        <span className={style.tag}>{profile.tag}</span>
+        <span className={style.catCategory}>{profile.category}</span>
+        <span className={style.catTag}>{profile.tag}</span>
       </div>
       <div className={style.postWrapper}>
         <div className={style.title}>{post.title}</div>
@@ -48,7 +49,7 @@ export default function PopularPost({ profile, post }: Props) {
           </div>
         </div>
       </div>
-      <PopularBg className={style.bgAnimal} />
+      <CatCover className={style.bgAnimal} />
     </div>
   )
 }

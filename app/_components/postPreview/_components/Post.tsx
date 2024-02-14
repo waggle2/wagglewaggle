@@ -30,9 +30,9 @@ type Props = {
 
 export default function Post({ profile, post }: Props) {
   return (
-    <Link className={style.container} href={''}>
+    <div className={style.container}>
       <div className={style.profileContainer}>
-        <div className={style.profileWrapper}>
+        <Link href={`http://localhost:3000/profile/1`} scroll={false}>
           <div className={style.profileImageWrapper}>
             {profile.image ? (
               profile.image
@@ -46,27 +46,29 @@ export default function Post({ profile, post }: Props) {
               className={style.category}
             >{`${post.category} · ${post.tag}`}</div>
           </div>
-        </div>
+        </Link>
         <div className={style.time}>{formatDate(post.time)}</div>
       </div>
-      <div className={style.contentContainer}>
-        <div className={style.title}>{post.title}</div>
-        <div className={style.content}>{post.content}</div>
-      </div>
-      <div className={style.postInfoContainer}>
-        <div className={style.postInfoWrapper}>
-          <Like />
-          <span className={style.likes}>{post.likes}</span>
+      <Link href={''}>
+        <div className={style.contentContainer}>
+          <div className={style.title}>{post.title}</div>
+          <div className={style.content}>{post.content}</div>
         </div>
-        <div className={style.postInfoWrapper}>
-          <Comment />
-          <span className={style.likes}>{post.likes}</span>
+        <div className={style.postInfoContainer}>
+          <div className={style.postInfoWrapper}>
+            <Like />
+            <span className={style.likes}>{post.likes}</span>
+          </div>
+          <div className={style.postInfoWrapper}>
+            <Comment />
+            <span className={style.likes}>{post.likes}</span>
+          </div>
+          <div className={style.postInfoWrapper}>
+            <View width="15" height="14" />
+            <span className={style.likes}>{post.likes}</span>
+          </div>
         </div>
-        <div className={style.postInfoWrapper}>
-          <View width="15" height="14" />
-          <span className={style.likes}>{post.likes}</span>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }

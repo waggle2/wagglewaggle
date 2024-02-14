@@ -5,6 +5,7 @@ import Link from '@/node_modules/next/link'
 import Next from '@/public/assets/next.svg'
 import { ReactNode } from 'react'
 import Posts from './_components/Posts'
+import Post from './_components/Post'
 
 type Props = {
   title: string
