@@ -10,8 +10,8 @@ import Post from './_components/Post'
 import Button from '../button/Button'
 
 import Next from '@/public/assets/next.svg'
-
 import Town from '@/public/assets/town.svg'
+
 import axios from '@/node_modules/axios/index'
 
 import Posts from './_components/Posts'
@@ -43,6 +43,7 @@ export default function AnimalPostPreview() {
         )
         const posts = await res.data.data
         // console.log(posts, 'animal')
+
         setPosts(posts)
       } catch (err) {
         console.error(err)
@@ -113,20 +114,22 @@ export default function AnimalPostPreview() {
             <Post
               key={index}
               profile={{
-                image: info.imageUrls,
-                name: 'undefined',
-                animal: info.animal,
+                image: null,
+                name: info.author.credential.nickname,
+                animal: info.animalOfAuthor,
+                isAnonymous: info.isAnonymous,
               }}
               post={{
                 id: info.id,
-                category: info.tags[0],
-                tag: info.tags[1],
+                category: info.category,
+                tag: info.tags[0],
                 time: info.createdAt,
                 title: info.title,
                 content: info.content,
-                likes: info.likeNum,
+                // likes: info.likes.length,
+                likes: 0,
                 comments: info.commentNum,
-                views: 0,
+                views: info.views,
               }}
             />
           )
