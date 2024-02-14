@@ -36,16 +36,16 @@ export default function CustomResult({ selectedTab }: Props) {
 
   // 프로필 미리보기부분 기본 상태는 유저 프로필데이터의 이미지경로가 될듯??
   const [selectedEmoji, setSelectedEmoji] = useState(
-    '/point_shop/emoji/cat_smile.svg',
+    '/assets/point_shop/emoji/cat_smile.svg',
   )
   const [selectedProfileBg, setSelectedProfileBg] = useState(
-    '/point_shop/profile_background/프로필배경1.svg',
+    '/assets/point_shop/profile_background/프로필배경1.svg',
   )
   const [selectedFrame, setSelectedFrame] = useState(
-    '/point_shop/frame/프레임샘플.png',
+    '/assets/point_shop/frame/프레임샘플.png',
   )
   const [selectedWallpaper, setSelectedWallpaper] = useState(
-    '/point_shop/wallpaper/벽지샘플.png',
+    '/assets/point_shop/wallpaper/벽지샘플.png',
   )
 
   //선태한 아이템
@@ -54,122 +54,122 @@ export default function CustomResult({ selectedTab }: Props) {
   const products = [
     {
       id: 0,
-      src: `/point_shop/emoji/${selectedTab}_smile.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_smile.svg`,
       price: 10,
       category: 'emoji',
     },
     {
       id: 1,
-      src: `/point_shop/emoji/${selectedTab}_empathy.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_empathy.svg`,
       price: 20,
       category: 'emoji',
     },
     {
       id: 2,
-      src: `/point_shop/emoji/${selectedTab}_angry.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_angry.svg`,
       price: 40,
       category: 'emoji',
     },
     {
       id: 3,
-      src: `/point_shop/emoji/${selectedTab}_panic.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_panic.svg`,
       price: 50,
       category: 'emoji',
     },
     {
       id: 4,
-      src: `/point_shop/emoji/${selectedTab}_disagree.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_disagree.svg`,
       price: 60,
       category: 'emoji',
     },
     {
       id: 5,
-      src: `/point_shop/emoji/${selectedTab}_sad.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_sad.svg`,
       price: 70,
       category: 'emoji',
     },
     {
       id: 6,
-      src: `/point_shop/emoji/${selectedTab}_insidious.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_insidious.svg`,
       price: 10,
       category: 'emoji',
     },
     {
       id: 7,
-      src: `/point_shop/emoji/${selectedTab}_serious.svg`,
+      src: `/assets/point_shop/emoji/${selectedTab}_serious.svg`,
       price: 80,
       category: 'emoji',
     },
     {
       id: 9,
-      src: '/point_shop/profile_background/프로필배경1.svg',
+      src: '/assets/point_shop/profile_background/프로필배경1.svg',
       price: 15,
       category: 'profileBg',
     },
     {
       id: 10,
-      src: '/point_shop/profile_background/프로필배경2.svg',
+      src: '/assets/point_shop/profile_background/프로필배경2.svg',
       price: 25,
       category: 'profileBg',
     },
     {
       id: 11,
-      src: '/point_shop/profile_background/프로필배경3.svg',
+      src: '/assets/point_shop/profile_background/프로필배경3.svg',
       price: 15,
       category: 'profileBg',
     },
     {
       id: 12,
-      src: '/point_shop/profile_background/프로필배경4.svg',
+      src: '/assets/point_shop/profile_background/프로필배경4.svg',
       price: 25,
       category: 'profileBg',
     },
     {
       id: 13,
-      src: '/point_shop/frame/프레임샘플.png',
+      src: '/assets/point_shop/frame/프레임샘플.png',
       price: 30,
       category: 'frame',
     },
     {
       id: 14,
-      src: '/point_shop/frame/프레임샘플2.png',
+      src: '/assets/point_shop/frame/프레임샘플2.png',
       price: 40,
       category: 'frame',
     },
     {
       id: 15,
-      src: '/point_shop/frame/프레임샘플3.png',
+      src: '/assets/point_shop/frame/프레임샘플3.png',
       price: 30,
       category: 'frame',
     },
     {
       id: 16,
-      src: '/point_shop/frame/프레임샘플4.png',
+      src: '/assets/point_shop/frame/프레임샘플4.png',
       price: 40,
       category: 'frame',
     },
 
     {
       id: 17,
-      src: '/point_shop/wallpaper/벽지샘플.png',
+      src: '/assets/point_shop/wallpaper/벽지샘플.png',
       price: 35,
       category: 'wallpaper',
     },
     {
       id: 18,
-      src: '/point_shop/wallpaper/벽지샘플2.png',
+      src: '/assets/point_shop/wallpaper/벽지샘플2.png',
       price: 45,
       category: 'wallpaper',
     },
     {
       id: 19,
-      src: '/point_shop/wallpaper/벽지샘플3.png',
+      src: '/assets/point_shop/wallpaper/벽지샘플3.png',
       price: 35,
       category: 'wallpaper',
     },
     {
       id: 20,
-      src: '/point_shop/wallpaper/벽지샘플4.png',
+      src: '/assets/point_shop/wallpaper/벽지샘플4.png',
       price: 45,
       category: 'wallpaper',
     },
@@ -249,10 +249,12 @@ export default function CustomResult({ selectedTab }: Props) {
     setSelectedItems([])
 
     // 각 상태를 초기 상태로 설정
-    setSelectedEmoji('/point_shop/emoji/cat_smile.svg')
-    setSelectedProfileBg('/point_shop/profile_background/프로필배경1.svg')
-    setSelectedFrame('/point_shop/frame/프레임샘플.png')
-    setSelectedWallpaper('/point_shop/wallpaper/벽지샘플.png')
+    setSelectedEmoji('/assets/point_shop/emoji/cat_smile.svg')
+    setSelectedProfileBg(
+      '/assets/point_shop/profile_background/프로필배경1.svg',
+    )
+    setSelectedFrame('/assets/point_shop/frame/프레임샘플.png')
+    setSelectedWallpaper('/assets/point_shop/wallpaper/벽지샘플.png')
   }
 
   return (

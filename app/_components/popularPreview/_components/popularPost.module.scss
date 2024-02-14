@@ -1,4 +1,4 @@
-.container {
+.catContainer {
   padding: 16px;
   width: 210px;
   height: 240px;
@@ -10,11 +10,47 @@
   display: flex;
   flex-direction: column;
 }
+.dogContainer {
+  padding: 16px;
+  width: 210px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #fce7c0;
+
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.foxContainer {
+  padding: 16px;
+  width: 210px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #ffe1c4;
+
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.bearContainer {
+  padding: 16px;
+  width: 210px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #e0f4ff;
+
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
 .categoryWrapper {
   display: flex;
   gap: 4px;
 }
-.category {
+.catCategory {
   width: max-content;
   padding: 4px 6px;
   color: #000;
@@ -32,10 +68,73 @@
   flex-shrink: 0;
 
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.32);
   border: 1px solid #eebfff;
 }
-.tag {
+.dogCategory {
+  width: max-content;
+  padding: 4px 6px;
+  color: #000;
+
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  display: flex;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid #f0be6b;
+}
+.foxCategory {
+  width: max-content;
+  padding: 4px 6px;
+  color: #000;
+
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  display: flex;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid #ff9f69;
+}
+.bearCategory {
+  width: max-content;
+  padding: 4px 6px;
+  color: #000;
+
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  display: flex;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid #8ad4ff;
+}
+.catTag {
   width: max-content;
   display: flex;
   padding: 4px 6px;
@@ -44,6 +143,54 @@
   gap: 10px;
   border-radius: 4px;
   background: #eebfff;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.dogTag {
+  width: max-content;
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: #f0be6b;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.foxTag {
+  width: max-content;
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: #ff9f69;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.bearTag {
+  width: max-content;
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: #8ad4ff;
   color: #fff;
   font-family: Outfit;
   font-size: 11px;

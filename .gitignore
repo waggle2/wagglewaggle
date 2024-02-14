@@ -2,3 +2,8 @@ node_modules
 .next
 .env
 .env.development
+
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
