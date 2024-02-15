@@ -41,7 +41,7 @@ export default function AnimalPostPreview() {
         const res = await api.get(
           `/posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
         )
-        const posts = await res.data.data
+        const posts = await res.data.data.data
         // console.log(posts, 'animal')
 
         setPosts(posts)
@@ -108,28 +108,28 @@ export default function AnimalPostPreview() {
           }}
         />
       </div>
-      <div className={style.postContainer}>
-        {posts?.map((info, index: number) => {
+      <div className={style.animalPostContainer}>
+        {posts?.map((postData, index: number) => {
           return (
             <Post
               key={index}
               profile={{
                 image: null,
-                name: info.author.credential.nickname,
-                animal: info.animalOfAuthor,
-                isAnonymous: info.isAnonymous,
+                name: postData.author.credential.nickname,
+                animal: postData.animalOfAuthor,
+                isAnonymous: postData.isAnonymous,
               }}
               post={{
-                id: info.id,
-                category: info.category,
-                tag: info.tags[0],
-                time: info.createdAt,
-                title: info.title,
-                content: info.content,
-                // likes: info.likes.length,
+                id: postData.id,
+                category: postData.category,
+                tag: postData.tags[0],
+                time: postData.createdAt,
+                title: postData.title,
+                content: postData.content,
+                // likes: postData.likes.length,
                 likes: 0,
-                comments: info.commentNum,
-                views: info.views,
+                comments: postData.commentNum,
+                views: postData.views,
               }}
             />
           )
