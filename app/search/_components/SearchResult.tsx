@@ -1,4 +1,6 @@
 'use client'
+import axiosInstance from '@/app/_api/config'
+
 import { useState, useEffect } from 'react'
 import style from '../_styles/search.module.scss'
 
@@ -10,7 +12,15 @@ import SearchIcon from '@/public/assets/ico_search-outline.svg'
 
 type Props = { q?: string }
 
+// UI에서 사용하는 동물 타입
+type AnimalTypeUI = '고냥이' | '곰돌이' | '댕댕이' | '폭스';
+
+// 서버에서 요구하는 동물 타입
+type AnimalTypeServer = '고양이' | '곰' | '강아지' | '여우';
+
 export default function SearchResult({ q }: Props) {
+    console.log("검색어: " + q)
+
     const [isModal, setIsModal] = useState(false);
     const categories = {
         category: ['짝사랑', '썸', '연애', '이별', '19'],
@@ -30,9 +40,10 @@ export default function SearchResult({ q }: Props) {
 
 
     // 필터링 레이블 상태
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedTalkAbout, setSelectedTalkAbout] = useState('');
-    const [selectedAnimalType, setSelectedAnimalType] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedTalkAbout, setSelectedTalkAbout] = useState<string | null>(null);
+    const [selectedAnimalType, setSelectedAnimalType] = useState<string | null>(null);
+
 
     // FilterModal에서 필터링 변경하는 부분
     const handleFilterChange = (category: string, talkAbout: string, animalType: string) => {
@@ -49,7 +60,75 @@ export default function SearchResult({ q }: Props) {
         animalType: selectedAnimalType,
     };
 
-    console.log('현재 선택 항목:' + selectedCategory, selectedTalkAbout, selectedAnimalType)
+
+    // animalType과 서버에서 요구하는 값의 매핑
+    const animalTypeMapping: Record<AnimalTypeUI, AnimalTypeServer> = {
+        고냥이: '고양이',
+        곰돌이: '곰',
+        댕댕이: '강아지',
+        폭스: '여우',
+    };
+
+    // 선택된 animalType을 서버 요구 값으로 변환
+    const getServerAnimalType = (selectedAnimalType: AnimalTypeUI) => {
+        // 매핑을 사용하여 변환된 값을 반환
+        return animalTypeMapping[selectedAnimalType] || selectedAnimalType;
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // 선택된 animalType이 null이 아닐 경우에만 변환을 시도합니다.
+            const serverAnimalType = selectedAnimalType ? getServerAnimalType(selectedAnimalType as AnimalTypeUI) : null;
+
+            // const queryParams = new URLSearchParams({
+            //     ...(selectedTalkAbout && { tags: encodeURIComponent(selectedTalkAbout) }),
+            //     ...(selectedCategory && { category: encodeURIComponent(selectedCategory) }),
+            //     ...(q && { text: q }),
+            //     // serverAnimalType이 null이 아닐 경우에만 animal 쿼리 파라미터를 추가합니다.
+            //     ...(serverAnimalType && { animal: encodeURIComponent(serverAnimalType) }),
+            //     page: '1',
+            //     pageSize: '10',
+            // }).toString();
+
+            const queryParams = new URLSearchParams({
+                ...(selectedTalkAbout && { tags: selectedTalkAbout }),
+                ...(selectedCategory && { category: selectedCategory }),
+                ...(q && { text: q }),
+                // serverAnimalType이 null이 아닐 경우에만 animal 쿼리 파라미터를 추가합니다.
+                ...(serverAnimalType && { animal: serverAnimalType }),
+                page: '1',
+                pageSize: '10',
+            }).toString();
+
+            const endpoint = `/posts?${queryParams}`;
+
+            console.log(`요청 URL: ${endpoint}`);
+            try {
+                const resultResponse = await axiosInstance.get(endpoint);
+                console.log(resultResponse.data);
+                // 결과에 따라 isResult 상태를 업데이트 할 수 있습니다.
+                // 예: setIsResult(resultResponse.data.length > 0);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        // selectedAnimalType이 null일 가능성을 고려하여 타입 단언 사용
+        if (selectedAnimalType !== null) {
+            fetchData();
+        }
+        console.log('현재 선택 항목:', selectedCategory, selectedTalkAbout, selectedAnimalType);
+    }, [selectedCategory, selectedTalkAbout, selectedAnimalType]);
+
+    useEffect(() => {
+        setSelectedCategory(null);
+        setSelectedTalkAbout(null);
+        setSelectedAnimalType(null);
+
+    }, [q])
+
+
+
 
     return (
         <div className={style.searchContainer}>
@@ -69,82 +148,6 @@ export default function SearchResult({ q }: Props) {
                         onClickModalToggle={onClickModalToggle}
                     />
                     <div className={style.postContainer}>
-                        <Post
-                            profile={{
-                                image: '',
-                                name: '익명의 곰',
-                                animal: '곰돌이'
-                            }}
-                            post={{
-                                id: 0,
-                                tag: '19',
-                                category: '수다수다',
-                                time: '2023-11-01',
-                                title: '아 정말 못참겠다',
-                                content:
-                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
-                                likes: 24,
-                                comments: 24,
-                                views: 24,
-                            }}
-                        />
-                        <Post
-                            profile={{
-                                image: '',
-                                name: '익명의 곰',
-                                animal: '곰돌이'
-                            }}
-                            post={{
-                                id: 0,
-                                tag: '19',
-                                category: '수다수다',
-                                time: '2023-11-01',
-                                title: '아 정말 못참겠다',
-                                content:
-                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
-                                likes: 24,
-                                comments: 24,
-                                views: 24,
-                            }}
-                        />
-                        <Post
-                            profile={{
-                                image: '',
-                                name: '익명의 곰',
-                                animal: '곰돌이'
-                            }}
-                            post={{
-                                id: 0,
-                                tag: '19',
-                                category: '수다수다',
-                                time: '2023-11-01',
-                                title: '아 정말 못참겠다',
-                                content:
-                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
-                                likes: 24,
-                                comments: 24,
-                                views: 24,
-                            }}
-                        />
-                        <Post
-                            profile={{
-                                image: '',
-                                name: '익명의 곰',
-                                animal: '곰돌이'
-                            }}
-                            post={{
-                                id: 0,
-                                tag: '19',
-                                category: '수다수다',
-                                time: '2023-11-01',
-                                title: '아 정말 못참겠다',
-                                content:
-                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
-                                likes: 24,
-                                comments: 24,
-                                views: 24,
-                            }}
-                        />
                         <Post
                             profile={{
                                 image: '',
