@@ -17,7 +17,55 @@ type props = {
 export default async function Posts({ title }: props) {
   let filter = ''
 
-  let data: postData[] = []
+  let data: postData[] = [
+    {
+      animalOfAuthor: '',
+      author: {
+        id: '',
+        authenticationProvider: '',
+        authorities: [{ id: 0, authorityName: '' }],
+        bearPoints: 0,
+        catPoints: 0,
+        createdAt: '',
+        credential: {
+          birthYear: 0,
+          email: '',
+          gender: '',
+          id: 0,
+          nickname: '',
+          password: '',
+        },
+        currentRefreshToken: '',
+        deletedAt: '',
+        dogPoints: 0,
+        foxPoints: 0,
+
+        isVerified: false,
+        items: [],
+        primaryAnimal: '',
+        profileAnimal: '',
+        profileItems: [],
+        secondAnimal: '',
+        socialId: '',
+        state: '',
+        updatedAt: '',
+      },
+      category: '',
+      commentNum: 0,
+      content: '',
+      createdAt: '',
+      deletedAt: false,
+      id: 0,
+      imageUrls: [],
+      isAnonymous: false,
+      likes: [],
+      preferredResponseAnimal: '',
+      tags: [],
+      title: '',
+      updatedAt: '',
+      views: 0,
+    },
+  ]
 
   switch (title) {
     case '따끈따끈 최신글':
@@ -35,35 +83,35 @@ export default async function Posts({ title }: props) {
   try {
     const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
-    data = await res.data.data
-    // console.log(data)
+    const data = await res.data.data.data
+    console.log(data, 'data')
   } catch (err) {
     console.error(err)
   }
 
   return (
     <>
-      {data?.map((info, index: number) => {
+      {data.map((postData, index: number) => {
         return (
           <Post
             key={index}
             profile={{
               image: null,
-              name: info.author.credential.nickname,
-              animal: info.animalOfAuthor,
-              isAnonymous: info.isAnonymous,
+              name: postData.author.credential.nickname,
+              animal: postData.animalOfAuthor,
+              isAnonymous: postData.isAnonymous,
             }}
             post={{
-              id: info.id,
-              category: info.category,
-              tag: info.tags[0],
-              time: info.createdAt,
-              title: info.title,
-              content: info.content,
-              // likes: info.likes.length,
+              id: postData.id,
+              category: postData.category,
+              tag: postData.tags[0],
+              time: postData.createdAt,
+              title: postData.title,
+              content: postData.content,
+              // likes: postData.likes.length,
               likes: 0,
-              comments: info.commentNum,
-              views: info.views,
+              comments: postData.commentNum,
+              views: postData.views,
             }}
           />
         )
