@@ -170,7 +170,7 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
         selectedProfileBg={selectedProfileBg}
         selectedFrame={selectedFrame}
         selectedWallpaper={selectedWallpaper}
-        possessionCoin={possessionCoin}
+        possessionCoin={animalCoin}
         handleConfirmModalClick={handleConfirmModalClick}
         handleRefreshClick={handleRefreshClick} />
 

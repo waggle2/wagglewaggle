@@ -52,6 +52,7 @@ export default function CustomProfile() {
                 const animalCoinKey = animalKeyMap[selectedTab]; // 선택된 탭에 해당하는 키를 맵에서 찾음
                 const animalCoinData = usersResponse.data.data[animalCoinKey]; // 동적으로 키를 사용하여 데이터 접근
 
+                console.log(itemsResponse.data)
                 setAnimalCoin(animalCoinData);
                 console.log(usersResponse.data)
                 console.log(selectedTab + "코인: " + animalCoin)
@@ -85,6 +86,7 @@ export default function CustomProfile() {
                 <button className={tabButtonStyle('여우')} onClick={() => handleTabClick('여우')}>폭스</button>
             </div>
             {/* 동물 꾸미기 */}
+            {/* <div>{animalCoin}</div> */}
             <CustomResult
                 selectedTab={selectedTab}
                 selectedItemType={selectedItemType}
