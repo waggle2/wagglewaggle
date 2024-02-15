@@ -23,8 +23,11 @@ customAxios.interceptors.response.use(
     if (statusCode === 401) {
       const response = await api.get('/authentication/refresh-token')
       const { statusCode: refreshTokenStatusCode } = response.data
-
-      if (refreshTokenStatusCode === 401) {
+      const { message: refreshTokenMessage } = response.data
+      if (
+        refreshTokenStatusCode === 401 &&
+        refreshTokenMessage === 'Refresh token expired.'
+      ) {
         window.location.href = '/login'
         return
       }
