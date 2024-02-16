@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import axios from '@/node_modules/axios/index'
+import api from '@/app/_api/commonApi'
 
 import Post from './Post'
 import api from '@/app/_api/commonApi'
@@ -20,36 +20,6 @@ export default async function Posts({ title }: props) {
   let data: postData[] = [
     {
       animalOfAuthor: '',
-      author: {
-        id: '',
-        authenticationProvider: '',
-        authorities: [{ id: 0, authorityName: '' }],
-        bearPoints: 0,
-        catPoints: 0,
-        createdAt: '',
-        credential: {
-          birthYear: 0,
-          email: '',
-          gender: '',
-          id: 0,
-          nickname: '',
-          password: '',
-        },
-        currentRefreshToken: '',
-        deletedAt: '',
-        dogPoints: 0,
-        foxPoints: 0,
-
-        isVerified: false,
-        items: [],
-        primaryAnimal: '',
-        profileAnimal: '',
-        profileItems: [],
-        secondAnimal: '',
-        socialId: '',
-        state: '',
-        updatedAt: '',
-      },
       category: '',
       commentNum: 0,
       content: '',
@@ -59,8 +29,7 @@ export default async function Posts({ title }: props) {
       imageUrls: [],
       isAnonymous: false,
       likes: [],
-      preferredResponseAnimal: '',
-      tags: [],
+      tag: '',
       title: '',
       updatedAt: '',
       views: 0,
@@ -83,10 +52,11 @@ export default async function Posts({ title }: props) {
   try {
     const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
-    const data = await res.data.data.data
-    console.log(data, 'data')
+    data = await res.data
+
+    console.log(data, 'post data')
   } catch (err) {
-    console.error(err)
+    console.error(err, 'post error')
   }
 
   return (
@@ -97,14 +67,14 @@ export default async function Posts({ title }: props) {
             key={index}
             profile={{
               image: null,
-              name: postData.author.credential.nickname,
+              name: 'nickname',
               animal: postData.animalOfAuthor,
               isAnonymous: postData.isAnonymous,
             }}
             post={{
               id: postData.id,
               category: postData.category,
-              tag: postData.tags[0],
+              tag: postData.tag,
               time: postData.createdAt,
               title: postData.title,
               content: postData.content,
