@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "emitDecoratorMetadata": true,
+    "allowImportingTsExtensions": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "lib": ["dom", "dom.iterable", "esnext"],
