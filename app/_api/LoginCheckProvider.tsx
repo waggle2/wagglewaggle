@@ -42,7 +42,6 @@ export default function LoginCheckProvider({
       return router.replace('/login')
     }
     if (accessableWithoutLogin.includes(pathname) && isLogin) {
-      console.log('hi')
       alert('로그아웃이 필요합니다.')
       return router.replace('/')
     }
