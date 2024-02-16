@@ -7,6 +7,7 @@ import Button from '@/app/_components/button/Button'
 import { IErrors, IInputFileds } from '@/app/_types/userFormTypes'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { useLoginUser } from '@/app/_hooks/services/mutations/userLogin'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   inputFields: IInputFileds
@@ -29,6 +30,7 @@ export default function LoginForm({
 }: Props) {
   const [passwordView, setPasswordView] = useState(false)
   const mutation = useLoginUser()
+  const router = useRouter()
 
   const handleFinish = async () => {
     const body = {
@@ -38,8 +40,9 @@ export default function LoginForm({
     if (!body.email || !body.password) return alert('모든 항목을 입력해주세요')
     try {
       mutation.mutate(body, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           setErrors({ ...errors, loginPassword: '' })
+          router.replace('/')
         },
         onError: (error) => {
           const typeError = error as { code?: number; message: string }
