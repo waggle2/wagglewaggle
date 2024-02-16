@@ -1,4 +1,3 @@
-'use client'
 import LoginHeader from './_components/LoginHeader'
 import LoginMenu from './_components/LoginMenu'
 import LoginSocial from './_components/LoginSocial'

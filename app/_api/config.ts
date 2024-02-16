@@ -1,4 +1,5 @@
 import axios from 'axios'
+import local from 'next/font/local'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -11,18 +12,28 @@ const customAxios = axios.create({
   withCredentials: true,
 })
 
+const retryPlag = { isRetry: false }
+
 customAxios.interceptors.response.use(
   (response) => response,
-  (error) =>
-    onError(
-      error.response.data.statusCode ?? '',
-      error.response.data.message ?? '',
-    ),
+  async (error) => {
+    const originalRequest = error.config
+    if (error.response.status === 401 && !retryPlag.isRetry) {
+      retryPlag.isRetry = true
+      try {
+        await customAxios.get('/authentication/refresh-token')
+        return customAxios(originalRequest)
+      } catch (refreshError) {
+        return onError(error.response.status, error.response.data.message)
+      }
+    }
+
+    return onError(error.response.status, error.response.data.message)
+  },
 )
 
 function onError(code: number, message: string) {
   const error = { code, message }
   throw error
 }
-
 export default customAxios

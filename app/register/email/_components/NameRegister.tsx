@@ -3,8 +3,8 @@ import Button from '@/app/_components/button/Button'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { Dispatch, SetStateAction } from 'react'
-import api from '@/app/_api/commonApi'
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import api from '@/app/_api/commonApi'
 
 interface Props {
   inputFields: IInputFileds
@@ -28,6 +28,7 @@ export default function NameRegister({
   async function checkNickname(nickname: string) {
     try {
       const response = await api.get(`/users/nickname-check/${nickname}`)
+
       if (!response.data.available) {
         alert('중복된 닉네임입니다.')
         setInputFields({ ...inputFields, isNicknameChecked: false })

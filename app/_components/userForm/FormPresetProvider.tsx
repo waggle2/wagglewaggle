@@ -1,3 +1,4 @@
+'use client'
 import useFormInput from '@/app/_hooks/useFormInput'
 import { checkObject } from '@/app/_lib/validate'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
