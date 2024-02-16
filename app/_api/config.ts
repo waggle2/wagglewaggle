@@ -24,7 +24,6 @@ customAxios.interceptors.response.use(
         await customAxios.get('/authentication/refresh-token')
         return customAxios(originalRequest)
       } catch (refreshError) {
-        localStorage.setItem('isLogin', 'false')
         return onError(error.response.status, error.response.data.message)
       }
     }
