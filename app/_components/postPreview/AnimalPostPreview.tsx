@@ -12,7 +12,7 @@ import Button from '../button/Button'
 import Next from '@/public/assets/next.svg'
 import Town from '@/public/assets/town.svg'
 
-import axios from '@/node_modules/axios/index'
+import api from '@/app/_api/commonApi'
 
 import Posts from './_components/Posts'
 import api from '@/app/_api/commonApi'
@@ -39,9 +39,9 @@ export default function AnimalPostPreview() {
     const fetchData = async () => {
       try {
         const res = await api.get(
-          `/posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
+          `/posts?page=1&pageSize=3${selectedAnimal !== '' ? '&animal=' + selectedAnimal : ''}`,
         )
-        const posts = await res.data.data.data
+        const posts = await res.data
         // console.log(posts, 'animal')
 
         setPosts(posts)
@@ -115,14 +115,15 @@ export default function AnimalPostPreview() {
               key={index}
               profile={{
                 image: null,
-                name: postData.author.credential.nickname,
+                // name: postData.author.credential.nickname,
+                name: 'nickname',
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,
               }}
               post={{
                 id: postData.id,
                 category: postData.category,
-                tag: postData.tags[0],
+                tag: postData.tag,
                 time: postData.createdAt,
                 title: postData.title,
                 content: postData.content,
