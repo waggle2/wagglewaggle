@@ -2,24 +2,52 @@
 
 import style from './nickNameModify.module.scss'
 
-import Button from '@/app/_components/button/Button'
-import InputText from '../_components/InputText'
 import { ChangeEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
+
+import api from '@/app/_api/commonApi'
+
+import Button from '@/app/_components/button/Button'
+import InputText from '../_components/InputText'
 import Modal from '@/app/_components/common/modal/Modal'
 
 export default function NickNameModify() {
   const router = useRouter()
   const [nickName, setNickName] = useState('')
+  const [activeButton, setActiveButton] = useState(false)
   const [warning, setWarning] = useState('')
   const [modalView, setModalView] = useState(false)
-  const regex = /^[가-힣]{0,6}|[a-zA-Z]{0,12}$/
 
-  const handleChangeNickName = (e: ChangeEvent<HTMLInputElement>) => {
+  const regex = /^(?!.*[\sㄱ-ㅎㅏ-ㅣ])[가-힣a-zA-Z0-9]{1,12}$/
+  const specialRegex = /[!@#$%^&*(),.?":{}|<>]/
+
+  const handleSetNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(() => e.target.value)
-    regex.test(e.target.value) && setWarning(() => '')
+
+    if (specialRegex.test(e.target.value)) {
+      setWarning(() => '닉네임은 한글, 영어, 숫자를 조합하여 입력해주세요.')
+      setActiveButton(() => false)
+    }
     if (e.target.value.length > 12) {
       setWarning(() => '최대 글자수를 초과했습니다. 다시 입력해주세요.')
+      setActiveButton(() => false)
+    }
+  }
+
+  const handlePatchNickName = async () => {
+    if (regex.test(nickName)) {
+      try {
+        const data = await api.patch('/users/nickname', { nickName })
+        console.log(data)
+        setModalView(true)
+      } catch (e) {
+        console.error(e, 'patchNickName error')
+        setWarning(() => '중복된? 닉네임입니다. 다시 확인해주세요.')
+        setActiveButton(() => false)
+      }
+    } else {
+      setWarning(() => '사용할 수 없는 닉네임입니다. 다시 확인해주세요.')
+      setActiveButton(() => false)
     }
   }
   return (
@@ -27,7 +55,7 @@ export default function NickNameModify() {
       <InputText
         placeholder={'변경할 닉네임을 적어주세요'}
         warning={warning}
-        onChange={handleChangeNickName}
+        onChange={handleSetNickName}
         text={nickName}
       />
 
@@ -35,16 +63,14 @@ export default function NickNameModify() {
         · 공백없이 최대 한글 6글자, 영문 12자까지 입력 가능합니다.
         <br />· 변경 후 24시간 뒤 재변경이 가능합니다.
       </div>
-      {!!warning ? (
-        <Button text={'변경하기'} mainColor={'grey'} />
-      ) : (
+      {activeButton ? (
         <Button
           text={'변경하기'}
           mainColor={'green'}
-          action={() => {
-            setModalView(true)
-          }}
+          action={handlePatchNickName}
         />
+      ) : (
+        <Button text={'변경하기'} mainColor={'grey'} />
       )}
       {modalView && (
         <Modal
@@ -56,7 +82,6 @@ export default function NickNameModify() {
               mainColor={'green'}
               key={'success'}
               action={() => {
-                setModalView(false)
                 router.replace('/mypage')
               }}
             />,
