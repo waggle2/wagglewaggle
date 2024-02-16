@@ -18,7 +18,6 @@ export default function LoginCheckProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [isLogin, setIsLogin] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const checkIsLogin = async () => {
