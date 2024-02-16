@@ -1,4 +1,5 @@
 import axios from 'axios'
+import local from 'next/font/local'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -23,6 +24,7 @@ customAxios.interceptors.response.use(
         await customAxios.get('/authentication/refresh-token')
         return customAxios(originalRequest)
       } catch (refreshError) {
+        localStorage.setItem('isLogin', 'false')
         return onError(error.response.status, error.response.data.message)
       }
     }
