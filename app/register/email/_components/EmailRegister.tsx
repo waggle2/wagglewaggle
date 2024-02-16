@@ -13,8 +13,8 @@ import {
 } from 'react'
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-import api from '@/app/_api/commonApi'
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import api from '@/app/_api/commonApi'
 
 interface Props {
   inputFields: IInputFileds

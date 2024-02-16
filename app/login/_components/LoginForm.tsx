@@ -42,7 +42,7 @@ export default function LoginForm({
       mutation.mutate(body, {
         onSuccess: () => {
           setErrors({ ...errors, loginPassword: '' })
-          router.push('/')
+          router.replace('/')
         },
         onError: (error) => {
           const typeError = error as { code?: number; message: string }

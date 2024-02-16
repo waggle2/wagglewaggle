@@ -1,5 +1,4 @@
 import axios from 'axios'
-import api from './commonApi'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -12,30 +11,25 @@ const customAxios = axios.create({
   withCredentials: true,
 })
 
+const retryPlag = { isRetry: false }
+
 customAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (!error.response || !error.response.data) {
-      return Promise.reject(error)
-    }
-
-    const { statusCode } = error.response.data
-    if (statusCode === 401) {
-      const response = await api.get('/authentication/refresh-token')
-      const { statusCode: refreshTokenStatusCode } = response.data
-      const { message: refreshTokenMessage } = response.data
-      if (
-        refreshTokenStatusCode === 401 &&
-        refreshTokenMessage === 'Refresh token expired.'
-      ) {
-        window.location.href = '/login'
-        return
+    const originalRequest = error.config
+    if (error.response.status === 401 && !retryPlag.isRetry) {
+      retryPlag.isRetry = true
+      try {
+        await customAxios.get('/authentication/refresh-token')
+        return customAxios(originalRequest)
+      } catch (refreshError) {
+        // alert('로그인이 필요합니다')
+        // window.location.href = '/login'
+        return onError(error.response.status, error.response.data.message)
       }
     }
-    onError(
-      error.response.data.statusCode ?? '',
-      error.response.data.message ?? '',
-    )
+
+    return onError(error.response.status, error.response.data.message)
   },
 )
 
@@ -43,5 +37,4 @@ function onError(code: number, message: string) {
   const error = { code, message }
   throw error
 }
-
 export default customAxios
