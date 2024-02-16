@@ -23,8 +23,6 @@ customAxios.interceptors.response.use(
         await customAxios.get('/authentication/refresh-token')
         return customAxios(originalRequest)
       } catch (refreshError) {
-        // alert('로그인이 필요합니다')
-        // window.location.href = '/login'
         return onError(error.response.status, error.response.data.message)
       }
     }
