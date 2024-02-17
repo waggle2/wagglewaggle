@@ -36,7 +36,7 @@ export default function SearchResult({ q }: Props) {
 
 
     //검색결과 없음 테스트용
-    const [isResult, setIsResult] = useState(true);
+    const [isResult, setIsResult] = useState([]);
 
 
     // 필터링 레이블 상태
@@ -75,20 +75,28 @@ export default function SearchResult({ q }: Props) {
         return animalTypeMapping[selectedAnimalType] || selectedAnimalType;
     };
 
+
+    const onRemoveFilter = (filterType: 'category' | 'talkAbout' | 'animalType') => {
+        switch (filterType) {
+            case 'category':
+                setSelectedCategory(null);
+                break;
+            case 'talkAbout':
+                setSelectedTalkAbout(null);
+                break;
+            case 'animalType':
+                setSelectedAnimalType(null);
+                break;
+            default:
+                break;
+        }
+    };
+
+
     useEffect(() => {
         const fetchData = async () => {
             // 선택된 animalType이 null이 아닐 경우에만 변환을 시도합니다.
             const serverAnimalType = selectedAnimalType ? getServerAnimalType(selectedAnimalType as AnimalTypeUI) : null;
-
-            // const queryParams = new URLSearchParams({
-            //     ...(selectedTalkAbout && { tags: encodeURIComponent(selectedTalkAbout) }),
-            //     ...(selectedCategory && { category: encodeURIComponent(selectedCategory) }),
-            //     ...(q && { text: q }),
-            //     // serverAnimalType이 null이 아닐 경우에만 animal 쿼리 파라미터를 추가합니다.
-            //     ...(serverAnimalType && { animal: encodeURIComponent(serverAnimalType) }),
-            //     page: '1',
-            //     pageSize: '10',
-            // }).toString();
 
             const queryParams = new URLSearchParams({
                 ...(selectedTalkAbout && { tags: selectedTalkAbout }),
@@ -106,10 +114,11 @@ export default function SearchResult({ q }: Props) {
             try {
                 const resultResponse = await axiosInstance.get(endpoint);
                 console.log(resultResponse.data);
-                // 결과에 따라 isResult 상태를 업데이트 할 수 있습니다.
-                // 예: setIsResult(resultResponse.data.length > 0);
+                // 서버 응답이 배열을 포함하는 객체라면, 예: { posts: [...] }
+                setIsResult(resultResponse.data.posts || []);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setIsResult([]); // 오류 발생 시 빈 배열을 설정
             }
         };
 
@@ -144,29 +153,35 @@ export default function SearchResult({ q }: Props) {
             {isResult ? (
                 <>
                     <SearchFilter
+                        isResult={isResult}
                         filterLabels={filterLabels}
                         onClickModalToggle={onClickModalToggle}
+                        onRemoveFilter={onRemoveFilter}
                     />
                     <div className={style.postContainer}>
-                        <Post
-                            profile={{
-                                image: '',
-                                name: '익명의 곰',
-                                animal: '곰돌이'
-                            }}
-                            post={{
-                                id: 0,
-                                tag: '19',
-                                category: '수다수다',
-                                time: '2023-11-01',
-                                title: '아 정말 못참겠다',
-                                content:
-                                    '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
-                                likes: 24,
-                                comments: 24,
-                                views: 24,
-                            }}
-                        />
+                        {isResult.map((index, post) => (
+                            <Post
+                                key={index}
+                                profile={{
+                                    image: '',
+                                    name: '익명의 곰',
+                                    animal: '곰돌이'
+                                }}
+                                post={{
+                                    id: 0,
+                                    tag: '19',
+                                    category: '수다수다',
+                                    time: '2023-11-01',
+                                    title: '아 정말 못참겠다',
+                                    content:
+                                        '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도 한데 그러기엔 좀 아까웡 어쩌구 ...',
+                                    likes: 24,
+                                    comments: 24,
+                                    views: 24,
+                                }}
+                            />
+                        ))}
+
                     </div>
                 </>
             ) : (
