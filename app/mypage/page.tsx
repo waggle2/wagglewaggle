@@ -1,3 +1,5 @@
+'use client'
+
 import style from './mypage.module.scss'
 
 import Header from '../_components/common/header/Header'
@@ -11,17 +13,20 @@ import Footer from '../_components/common/footer/Footer'
 import Link from '@/node_modules/next/link'
 
 import api from '../_api/commonApi'
-import { redirect } from '@/node_modules/next/navigation'
+import { useEffect } from 'react'
 
-export default async function MyPage() {
-  try {
-    const data = await api.get('/users')
-    console.log(data)
-  } catch (e) {
-    console.error(e)
-
-    // redirect('/authReject')
-  }
+export default function MyPage() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get('/users')
+        console.log(res.data, 'mypage')
+      } catch (e) {
+        console.error(e, 'mypageError')
+      }
+    }
+    fetchData()
+  }, [])
   let profile = {
     emoji: '',
     bg: '',

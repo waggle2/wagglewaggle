@@ -10,7 +10,7 @@ type props = {
 export default function MyPage({ path }: props) {
   return (
     <Link
-      href={'http://localhost:3000/login'}
+      href={'http://localhost:3000/mypage'}
       className={style.container}
       scroll={false}
     >
