@@ -42,7 +42,7 @@ export default function AnimalPostPreview() {
           `/posts?page=1&pageSize=3${selectedAnimal !== '' ? '&animal=' + selectedAnimal : ''}`,
         )
         const posts = await res.data
-        // console.log(posts, 'animal')
+        console.log(posts, 'animal')
 
         setPosts(posts)
       } catch (err) {
