@@ -42,7 +42,9 @@ export default function NameRegister({
       setInputFields({ ...inputFields, isNicknameChecked: true })
       setErrors({ ...errors, nickname: '' })
     } catch (error) {
+      alert('서버 문제로 닉네임 중복확인에 실패했습니다.')
       console.error(error)
+      return
     }
   }
   return (

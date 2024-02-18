@@ -1,5 +1,4 @@
 import axios from 'axios'
-import local from 'next/font/local'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -11,6 +10,19 @@ const customAxios = axios.create({
   },
   withCredentials: true,
 })
+
+// customAxios.interceptors.request.use(
+//   (config) => {
+//     if (config.url === '/register') {
+//       config.withCredentials = false
+//     }
+
+//     return config
+//   },
+//   (error) => {
+//     return onError(error.response.status, error.response.data.message)
+//   },
+// )
 
 const retryPlag = { isRetry: false }
 

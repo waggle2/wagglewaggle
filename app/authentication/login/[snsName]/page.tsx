@@ -12,7 +12,7 @@ export default function page() {
   const mutation = useSendAuthorizationCode()
 
   useEffect(() => {
-    const authorizationCode = searchParams.get('codee')
+    const authorizationCode = searchParams.get('code')
 
     if (!authorizationCode) {
       alert('인증이 실패하였습니다.')
@@ -23,12 +23,14 @@ export default function page() {
       { authorizationCode, snsName },
       {
         onSuccess: (response) => {
-          const typeData = response as { code: number }
+          const typeData = response as { code: number; message: string }
           if (typeData.code === 200) {
+            console.log(typeData.message)
             localStorage.setItem('isLogin', 'true')
             router.replace('/')
           }
           if (typeData.code === 302) {
+            console.log(typeData.message)
             router.replace('/register/email?step=2')
           }
         },

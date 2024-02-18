@@ -4,14 +4,14 @@ import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import FormPresetProvider from './FormPresetProvider'
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import FormPresetProvider from '@/app/_components/userForm/FormPresetProvider'
 interface Props {
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
 }
 
-export default function SwitchStep({
+export default function ccccSwitchStep({
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
