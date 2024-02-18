@@ -7,7 +7,7 @@ const signUpUser = async (userData: SignUpData): Promise<SignUpResponse> => {
     const data = await api.post('/authentication', userData)
     return data
   } catch (error) {
-    throw '야호'
+    throw error
   }
 }
 

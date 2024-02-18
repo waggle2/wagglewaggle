@@ -1,10 +1,9 @@
 'use client'
 
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
-import RegisterAgree from './RegisterAgree'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import FormPresetProvider from './FormPresetProvider'
 import { IInputFileds } from '@/app/_types/userFormTypes'
 interface Props {
@@ -16,9 +15,10 @@ export default function SwitchStep({
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
-  const [step, setStep] = useState(1)
   const router = useRouter()
-
+  const searchParams = useSearchParams()
+  const initStep = Number(searchParams.get('step'))
+  const [step, setStep] = useState(initStep ?? 1)
   const nextStep = () => {
     setStep(step + 1)
   }

@@ -1,6 +1,34 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 type ISnsName = 'kakao' | 'naver' | 'google'
 
 export default function useSocialLogin() {
+  const router = useRouter()
+  const signUpButtonList = [
+    {
+      class: 'kakao',
+      name: '카카오로 가입하기',
+      clickEvent: () => loginHandler('kakao'),
+    },
+    {
+      class: 'naver',
+      name: '네이버로 가입하기',
+      clickEvent: () => loginHandler('naver'),
+    },
+    {
+      class: 'google',
+      name: '구글로 가입하기',
+      clickEvent: () => loginHandler('google'),
+    },
+    {
+      class: 'email',
+      name: '이메일로 가입하기',
+      clickEvent: () => router.push('/register/email'),
+    },
+  ]
+
   const restApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
   const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`
@@ -17,17 +45,17 @@ export default function useSocialLogin() {
   const loginHandler = (snsName: ISnsName) => {
     switch (snsName) {
       case 'kakao':
-        window.location.href = kakaoAuthUrl
+        router.push(kakaoAuthUrl)
         break
       case 'naver':
-        window.location.href = naverAuthUrl
+        router.push(naverAuthUrl)
         break
       case 'google':
-        window.location.href = googleAuthUrl
+        router.push(googleAuthUrl)
         break
       default:
         break
     }
   }
-  return { loginHandler }
+  return { signUpButtonList }
 }
