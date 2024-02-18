@@ -77,6 +77,8 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
 
 
   useEffect(() => {
+    setPossessionCoin(animalCoin);
+
     // .container 클래스를 가진 모든 요소 선택
     const containers = document.getElementsByClassName(style.container);
 
@@ -101,7 +103,7 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
         container.style.overflow = 'unset';
       });
     };
-  }, [confirmModal]);
+  }, [confirmModal, animalCoin]);
 
 
   // 아이템 선택 로직
@@ -154,7 +156,7 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
     setTotalItemPrice(totalPrice);
   }, [selectedItems])
 
-  // console.log(items)
+
 
   return (
     <>

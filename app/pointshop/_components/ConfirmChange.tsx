@@ -15,7 +15,7 @@ export default function ConfirmChange({ pointDifference, selectedItemsLength, on
     const applyModalHandler = () => {
         setApplyModal(true);
     }
-
+    console.log('잔돈: ' + pointDifference)
     // 조건1: 상품이 담겨있고, 보유포인트 >= 상품가격 : 구매 최종 확인 모달
     // 조건2: 보유포인트-상품가격 < 0 일때 : 포인트 부족 안내 모달
     // 조건3: 상품이 담겨있지 않을 때 : 상품을 담아주세요 모달
