@@ -9,11 +9,36 @@ import DogTemplate from './_components/DogTemplate'
 import FoxTemplate from './_components/FoxTemplate'
 import BearTemplate from './_components/BearTemplate'
 
+import { postData } from '../postPreview/_types/responseType'
+
 import api from '@/app/_api/commonApi'
 
 export default async function PopularPreview() {
-  // const data = await api.get('/hot-posts')
-  // console.log(data, 'data!')
+  let data: postData[] = [
+    {
+      animalOfAuthor: '',
+      category: '',
+      commentNum: 0,
+      content: '',
+      createdAt: '',
+      deletedAt: false,
+      id: 0,
+      imageUrls: [],
+      isAnonymous: false,
+      likes: [],
+      tag: '',
+      title: '',
+      updatedAt: '',
+      views: 0,
+    },
+  ]
+  try {
+    // data = await api.get('posts/hot-posts?page=1&pageSize=10')
+    console.log(data, 'data!')
+  } catch (err) {
+    console.log(err)
+  }
+
   return (
     <section className={style.container}>
       <div className={style.titleContainer}>
@@ -26,7 +51,29 @@ export default async function PopularPreview() {
         </Link>
       </div>
       <div className={style.postContainer}>
-        <CatTemplate
+        {data?.map((postData: postData, index: number) => {
+          return (
+            <CatTemplate
+              profile={{
+                image: '',
+                name: '',
+                category: '',
+                tag: '',
+                animal: '',
+              }}
+              post={{
+                id: 0,
+                time: '',
+                title: '',
+                content: '',
+                likes: 0,
+                comments: 0,
+                views: 0,
+              }}
+            />
+          )
+        })}
+        {/* <CatTemplate
           profile={{
             image: '',
             name: '익명의 곰',
@@ -101,7 +148,7 @@ export default async function PopularPreview() {
             comments: 0,
             views: 0,
           }}
-        />
+        /> */}
       </div>
     </section>
   )

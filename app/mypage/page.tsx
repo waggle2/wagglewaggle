@@ -16,47 +16,90 @@ import api from '../_api/commonApi'
 import { useEffect } from 'react'
 
 export default function MyPage() {
+  type userData = {
+    bearCoins: number
+    catCoins: number
+    credential: {
+      id: number
+      email: string
+      nickname: string
+      birthYear: number
+      gender: string
+    }
+    dogCoins: number
+    foxCoins: number
+    isVerified: false
+    items: any
+    primaryAnimal: string
+    profileAnimal: string
+    profileItems: []
+    secondAnimal: any
+    socialId: any
+    state: string
+  }
+  let user = {
+    bearCoins: 0,
+    catCoins: 0,
+    credential: {
+      id: 0,
+      email: 'loading',
+      nickname: 'loading',
+      birthYear: 2000,
+      gender: '여성',
+    },
+    dogCoins: 0,
+    foxCoins: 0,
+
+    items: null,
+    primaryAnimal: '고양이',
+    profileAnimal: '고양이',
+    profileItems: [],
+    secondAnimal: null,
+    socialId: null,
+    state: '가입',
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get('/users')
-        console.log(res.data, 'mypage')
+        user = res.data
+        console.log(user, 'mypage')
       } catch (e) {
         console.error(e, 'mypageError')
       }
     }
     fetchData()
   }, [])
-  let profile = {
-    emoji: '',
-    bg: '',
-    frame: '',
-    wallPaper: '',
-    type: {
-      cat: 0,
-      bear: 0,
-      dog: 0,
-      fox: 0,
-    },
-    nickname: '열정열정제이지',
-    posts: {
-      profile: {
-        image: '',
-        name: '익명의 누군가',
-        category: '수다수다',
-        tag: '19',
-      },
-      post: {
-        time: '1분전',
-        title: '14살 연하랑 썸타본 사람? 나 좀 공감해줘',
-        content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ 
-        서로 연락 자주 해서 썸타고 있는거 같긴 한데,,이게 맞는걸까?`,
-        likes: 24,
-        comments: 24,
-        views: 24,
-      },
-    },
-  }
+  // let profile = {
+  //   emoji: '',
+  //   bg: '',
+  //   frame: '',
+  //   wallPaper: '',
+  //   type: {
+  //     cat: 0,
+  //     bear: 0,
+  //     dog: 0,
+  //     fox: 0,
+  //   },
+  //   nickname: '열정열정제이지',
+  //   posts: {
+  //     profile: {
+  //       image: '',
+  //       name: '익명의 누군가',
+  //       category: '수다수다',
+  //       tag: '19',
+  //     },
+  //     post: {
+  //       time: '1분전',
+  //       title: '14살 연하랑 썸타본 사람? 나 좀 공감해줘',
+  //       content: `아 길거리에서 번호 땄는데 14살 연하야 ㅋ
+  //       서로 연락 자주 해서 썸타고 있는거 같긴 한데,,이게 맞는걸까?`,
+  //       likes: 24,
+  //       comments: 24,
+  //       views: 24,
+  //     },
+  //   },
+  // }
 
   return (
     <>
@@ -74,14 +117,14 @@ export default function MyPage() {
           selectedWallpaper={'/assets/point_shop/wallpaper/벽지샘플.png'}
         />
         <MyType
-          type={'고냥이'}
-          cat={profile.type.cat}
-          bear={profile.type.bear}
-          dog={profile.type.dog}
-          fox={profile.type.fox}
+          type={user.primaryAnimal}
+          cat={user.catCoins}
+          bear={user.bearCoins}
+          dog={user.dogCoins}
+          fox={user.foxCoins}
         />
         <SettingNav
-          nickName={profile.nickname}
+          nickName={user.credential.nickname}
           href={'/mypage/nickNameModify'}
           title={'닉네임 변경'}
         />

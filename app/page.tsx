@@ -29,6 +29,7 @@ export default function Home() {
         />
         <SwipeEvent />
         <NavTheme />
+        {/* @ts-expect-error Async Server Component */}
         <PopularPreview />
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
         <NavEvent href={'./'} img={<TestAD />} />
