@@ -29,14 +29,19 @@ export default function useSocialLogin() {
     },
   ]
 
+  function generateState() {
+    return Math.random().toString(36).substring(2, 10)
+  }
+  const randomString = generateState()
+
   const restApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
   const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`
 
   const clientID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
-  const stateString = process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET
+  // const stateString = process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET
   const callbackUrl = process.env.NEXT_PUBLIC_NAVER_CALLBACK_URL
-  const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientID}&response_type=code&redirect_uri=${callbackUrl}&state=${stateString}`
+  const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?client_id=${clientID}&response_type=code&redirect_uri=${callbackUrl}&state=${randomString}`
 
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
   const googleRedirectUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL
@@ -57,5 +62,5 @@ export default function useSocialLogin() {
         break
     }
   }
-  return { signUpButtonList }
+  return { signUpButtonList, randomString }
 }
