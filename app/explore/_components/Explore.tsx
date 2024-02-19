@@ -51,15 +51,19 @@ export default function Explore() {
 
             {showSearchRecords && (
                 <div className={style.searchRecordContainer}>
+                    {searchResults.length > 0 ? (
+                        <ul className={style.searchRecords}>
+                            {searchResults.map((record, index) => (
+                                <li key={index} className={style.record}>
+                                    <span>{record}</span>
+                                    <DeleteButton index={index} onDelete={handleDeleteSearchRecord} />
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <span className={style.noRecord}>최근 검색기록이 없습니다</span>
+                    )}
 
-                    <ul className={style.searchRecords}>
-                        {searchResults.map((record, index) => (
-                            <li key={index} className={style.record}>
-                                <span>{record}</span>
-                                <DeleteButton index={index} onDelete={handleDeleteSearchRecord} />
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             )}
         </div>
