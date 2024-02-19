@@ -3,54 +3,77 @@ import axiosInstance from '@/app/_api/config'
 import {
   selectedTabState,
   selectedItemTypeState,
+  ItemData,
 } from '@/app/_recoil/atoms/pointshopState'
 
-export const fetchItemState = selector({
-  key: 'fetchItemState',
+export const itemsState = selector<ItemData[]>({
+  key: 'itemsState',
   get: async ({ get }) => {
     const selectedTab = get(selectedTabState)
     const selectedItemType = get(selectedItemTypeState)
     const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`
-    const usersEndpoint = `/users`
-    const wearingItemsEndPoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`
-
     try {
-      const [itemsResponse, usersResponse, wearingItemsResponse] =
-        await Promise.all([
-          axiosInstance.get(endpoint),
-          axiosInstance.get(usersEndpoint),
-          axiosInstance.get(wearingItemsEndPoint),
-        ])
+      const response = await axiosInstance.get(endpoint)
+      return response.data.data.items
+    } catch (error) {
+      console.error('아이템 데이터를 가져오는 중 오류 발생:', error)
+      return []
+    }
+  },
+})
 
-      console.log('착용중인 ' + selectedTab + ' 아이템 ⬇︎⬇︎ ')
-      console.log(wearingItemsResponse.data)
-
-      const itemsData = itemsResponse.data.data.items
+export const userCoinsState = selector<number>({
+  key: 'userCoinsState',
+  get: async ({ get }) => {
+    const selectedTab = get(selectedTabState)
+    const endpoint = `/users`
+    try {
+      const response = await axiosInstance.get(endpoint)
       const animalKeyMap = {
         고냥이: 'catCoins',
         곰돌이: 'bearCoins',
         댕댕이: 'dogCoins',
         폭스: 'foxCoins',
       }
-
-      console.log('동물별 아이템 ⬇︎⬇︎ ')
-      console.log(itemsResponse.data.data.items)
-
       const animalCoinKey = animalKeyMap[selectedTab]
-      const animalCoinData = usersResponse.data.data[animalCoinKey]
+      return response.data.data[animalCoinKey]
+    } catch (error) {
+      console.error('사용자 코인 데이터를 가져오는 중 오류 발생:', error)
+      return 0
+    }
+  },
+})
 
-      console.log(selectedTab + ' ' + selectedItemType + ' 아이템 ⬇︎⬇︎ ')
-      console.log(itemsData)
+export const wearingItemsState = selector({
+  key: 'wearingItemsState',
+  get: async ({ get }) => {
+    const selectedTab = get(selectedTabState)
+    const endpoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`
+    try {
+      const response = await axiosInstance.get(endpoint)
+      return response.data.data
+    } catch (error) {
+      console.error('착용 아이템 데이터를 가져오는 중 오류 발생:', error)
+      return {}
+    }
+  },
+})
+
+export const cartItemsState = selector({
+  key: 'cartItemsState',
+  get: async ({ get }) => {
+    const selectedTab = get(selectedTabState)
+    const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`
+
+    try {
+      const response = await axiosInstance.get(endpoint)
       return {
-        items: itemsData,
-        animalCoin: animalCoinData,
+        cartItems: response.data.data.items,
+        totalCoins: response.data.data.totalCoins,
       }
     } catch (error) {
-      console.error('Error fetching data:', error)
-      return {
-        items: [],
-        animalCoin: 0,
-      }
+      console.error('장바구니 데이터를 가져오는 중 오류 발생:', error)
+      return { items: [], totalCoins: 0 }
     }
   },
 })

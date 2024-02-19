@@ -1,9 +1,9 @@
-import React from 'react';
+
 import style from '../_styles/pointShop.module.scss';
 import CustomResult from '@/app/pointshop/_components/CustomResult';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTabState, selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState';
-import { fetchItemState } from '@/app/_recoil/selectors/pointshopState';
+import { itemsState, userCoinsState } from '@/app/_recoil/selectors/pointshopState';
 
 type AnimalTab = '고냥이' | '곰돌이' | '댕댕이' | '폭스';
 
@@ -21,17 +21,14 @@ type ItemData = {
     isOwned: boolean;
 };
 
-type FetchItemResult = {
-    items: ItemData[];
-    animalCoin: number;
-};
+
 
 export default function CustomProfile() {
     const [selectedTab, setSelectedTab] = useRecoilState<AnimalTab>(selectedTabState);
-    const [selectedItemType, setSelectedItemType] = useRecoilState(selectedItemTypeState);
+    const [selectedItemType, setSelectedItemType] = useRecoilState<string>(selectedItemTypeState);
 
-    // selector를 통해 아이템과 동물 코인 정보를 비동기적으로 가져옴
-    const { items, animalCoin } = useRecoilValue<FetchItemResult>(fetchItemState);
+    const items = useRecoilValue(itemsState);
+    const animalCoin = useRecoilValue(userCoinsState);
 
     const handleTabClick = (animal: AnimalTab) => {
         setSelectedTab(animal);
