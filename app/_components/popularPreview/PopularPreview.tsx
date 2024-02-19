@@ -14,30 +14,18 @@ import { postData } from '../postPreview/_types/responseType'
 import api from '@/app/_api/commonApi'
 
 export default async function PopularPreview() {
-  let data: postData[] = [
-    {
-      animalOfAuthor: '',
-      category: '',
-      commentNum: 0,
-      content: '',
-      createdAt: '',
-      deletedAt: false,
-      id: 0,
-      imageUrls: [],
-      isAnonymous: false,
-      likes: [],
-      tag: '',
-      title: '',
-      updatedAt: '',
-      views: 0,
-    },
-  ]
-  try {
-    // data = await api.get('posts/hot-posts?page=1&pageSize=10')
-    console.log(data, 'data!')
-  } catch (err) {
-    console.log(err)
+  const fetchData = async () => {
+    try {
+      const postData: postData[] = await api.get(
+        'posts/hot-posts?page=1&pageSize=10',
+      )
+      console.log(postData, 'data!')
+      return postData
+    } catch (err) {
+      console.log(err)
+    }
   }
+  // const postData = await fetchData()
 
   return (
     <section className={style.container}>
@@ -51,7 +39,7 @@ export default async function PopularPreview() {
         </Link>
       </div>
       <div className={style.postContainer}>
-        {data?.map((postData: postData, index: number) => {
+        {/* {postData?.map((postData: postData, index: number) => {
           return (
             <CatTemplate
               profile={{
@@ -72,7 +60,7 @@ export default async function PopularPreview() {
               }}
             />
           )
-        })}
+        })} */}
         {/* <CatTemplate
           profile={{
             image: '',
