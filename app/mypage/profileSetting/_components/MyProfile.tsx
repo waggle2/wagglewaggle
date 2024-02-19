@@ -21,7 +21,7 @@ export default function MyProfile({
       <div className={style.customBackground}>
         <div className={style.customFnc}>
           {isSetting && (
-            <Link href={'/mypage/1/profileSetting'} className={style.setting}>
+            <Link href={'/mypage/profileSetting'} className={style.setting}>
               <img src="/assets/setting.svg" alt="navigation profile setting" />
             </Link>
           )}

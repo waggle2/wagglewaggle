@@ -17,25 +17,6 @@ type props = {
 export default async function Posts({ title }: props) {
   let filter = ''
 
-  let data: postData[] = [
-    {
-      animalOfAuthor: '',
-      category: '',
-      commentNum: 0,
-      content: '',
-      createdAt: '',
-      deletedAt: false,
-      id: 0,
-      imageUrls: [],
-      isAnonymous: false,
-      likes: [],
-      tag: '',
-      title: '',
-      updatedAt: '',
-      views: 0,
-    },
-  ]
-
   switch (title) {
     case '따끈따끈 최신글':
       filter = ''
@@ -48,20 +29,21 @@ export default async function Posts({ title }: props) {
     default:
       break
   }
+  const fetchData = async () => {
+    try {
+      const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
-  try {
-    const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
-
-    data = await res.data
-
-    // console.log(data, 'post data')
-  } catch (err) {
-    console.error(err, 'post error')
+      console.log(res.data, 'post data')
+      return res.data
+    } catch (err) {
+      console.error(err, 'post error')
+    }
   }
+  const postData = await fetchData()
 
   return (
     <>
-      {data.map((postData, index: number) => {
+      {postData?.map((postData: postData, index: number) => {
         return (
           <Post
             key={index}
