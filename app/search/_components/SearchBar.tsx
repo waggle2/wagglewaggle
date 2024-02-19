@@ -33,7 +33,7 @@ export default function SearchBar({ q }: Props) {
             <input
                 className={style.searchInput}
                 type="text"
-                placeholder="무엇을 검색하실건가요?"
+                placeholder="어떤 이야기를 찾으시나요?"
                 value={searchTerm}
                 onChange={handleSearchInput}
                 onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
