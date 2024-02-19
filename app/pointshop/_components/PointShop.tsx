@@ -5,21 +5,18 @@ import CustomProfile from './CustomProfile'
 import Header from '@/app/_components/common/header/page'
 import Footer from '@/app/_components/common/footer/page'
 import Title from '@/app/_components/common/header/_components/Title'
-import { RecoilRoot } from 'recoil'
 
 export default function PointShop() {
   return (
     <>
-      <RecoilRoot>
-        <Header leftSection={<Title title={'포인트샵'} />} />
-        <div className={style.container}>
-          <ShopInfoButton />
+      <Header leftSection={<Title title={'포인트샵'} />} />
+      <div className={style.container}>
+        <ShopInfoButton />
 
-          {/* 꾸미기 영역 */}
-          <CustomProfile />
-        </div>
-        <Footer />
-      </RecoilRoot>
+        {/* 꾸미기 영역 */}
+        <CustomProfile />
+      </div>
+      <Footer />
     </>
   )
 }

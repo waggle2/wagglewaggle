@@ -34,7 +34,7 @@ export const fetchItemState = selector({
       }
 
       console.log('동물별 아이템 ⬇︎⬇︎ ')
-      console.log(itemsResponse.data)
+      console.log(itemsResponse.data.data.items)
 
       const animalCoinKey = animalKeyMap[selectedTab]
       const animalCoinData = usersResponse.data.data[animalCoinKey]
