@@ -79,30 +79,30 @@ export default function CustomResult({ selectedTab, items, selectedItemType, set
   useEffect(() => {
     setPossessionCoin(animalCoin);
 
-    // .container 클래스를 가진 모든 요소 선택
-    const containers = document.getElementsByClassName(style.container);
+    // // .container 클래스를 가진 모든 요소 선택
+    // const containers = document.getElementsByClassName(style.container);
 
-    // Element 타입을 HTMLElement로 형 변환
-    const containerElements = Array.from(containers) as HTMLElement[];
+    // // Element 타입을 HTMLElement로 형 변환
+    // const containerElements = Array.from(containers) as HTMLElement[];
 
-    if (confirmModal) {
-      // 스크롤 방지 적용
-      containerElements.forEach((container) => {
-        container.style.overflow = 'hidden';
-      });
-    } else {
-      // 스크롤 허용
-      containerElements.forEach((container) => {
-        container.style.overflow = 'unset';
-      });
-    }
+    // if (confirmModal) {
+    //   // 스크롤 방지 적용
+    //   containerElements.forEach((container) => {
+    //     container.style.overflow = 'hidden';
+    //   });
+    // } else {
+    //   // 스크롤 허용
+    //   containerElements.forEach((container) => {
+    //     container.style.overflow = 'unset';
+    //   });
+    // }
 
-    // 컴포넌트가 언마운트 될 때 스크롤을 다시 활성화
-    return () => {
-      containerElements.forEach((container) => {
-        container.style.overflow = 'unset';
-      });
-    };
+    // // 컴포넌트가 언마운트 될 때 스크롤을 다시 활성화
+    // return () => {
+    //   containerElements.forEach((container) => {
+    //     container.style.overflow = 'unset';
+    //   });
+    // };
   }, [confirmModal, animalCoin]);
 
 

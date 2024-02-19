@@ -3,29 +3,36 @@ import axiosInstance from '@/app/_api/config'
 import {
   selectedTabState,
   selectedItemTypeState,
-} from '@/app/_recoil/atoms/pointshopState' // 경로는 실제 상황에 맞게 조정해야 함
+} from '@/app/_recoil/atoms/pointshopState'
 
 export const fetchItemState = selector({
   key: 'fetchItemState',
   get: async ({ get }) => {
-    const selectedTab = get(selectedTabState) // 실제 선택된 탭 상태에서 가져옴
-    const selectedItemType = get(selectedItemTypeState) // 실제 선택된 아이템 타입 상태에서 가져옴
+    const selectedTab = get(selectedTabState)
+    const selectedItemType = get(selectedItemTypeState)
     const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`
     const usersEndpoint = `/users`
+    const wearingItemsEndPoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`
 
     try {
-      const [itemsResponse, usersResponse] = await Promise.all([
-        axiosInstance.get(endpoint),
-        axiosInstance.get(usersEndpoint),
-      ])
+      const [itemsResponse, usersResponse, wearingItemsResponse] =
+        await Promise.all([
+          axiosInstance.get(endpoint),
+          axiosInstance.get(usersEndpoint),
+          axiosInstance.get(wearingItemsEndPoint),
+        ])
+
+      console.log('착용중인 ' + selectedTab + ' 아이템 ⬇︎⬇︎ ')
+      console.log(wearingItemsResponse.data)
 
       const itemsData = itemsResponse.data.data.items
       const animalKeyMap = {
-        고양이: 'catCoins',
-        곰: 'bearCoins',
-        개: 'dogCoins',
-        여우: 'foxCoins',
+        고냥이: 'catCoins',
+        곰돌이: 'bearCoins',
+        댕댕이: 'dogCoins',
+        폭스: 'foxCoins',
       }
+
       console.log('동물별 아이템 ⬇︎⬇︎ ')
       console.log(itemsResponse.data)
 
