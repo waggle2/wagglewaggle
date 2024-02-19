@@ -1,18 +1,20 @@
 'use client'
 
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
-import RegisterAgree from './RegisterAgree'
+import RegisterAgree from '../../register/email/_components/RegisterAgree'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import { useRouter } from 'next/navigation'
-import FormPresetProvider from './FormPresetProvider'
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import FormPresetProvider from './FormPresetProvider'
 interface Props {
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
+  type: 'email' | 'resetPassword'
 }
 
 export default function SwitchStep({
+  type,
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
@@ -27,7 +29,39 @@ export default function SwitchStep({
     setStep(step - 1)
   }
 
-  const changeBody = (step: number): ReactNode => {
+  const changeBodyInResetPassword = (step: number): ReactNode => {
+    switch (step) {
+      case 0:
+        router.replace('/login')
+        break
+      case 1:
+        return (
+          <FormPresetProvider
+            formDataObject={{ email: '', isEmailChecked: false }}
+            formDataType="resetPassword"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      case 2:
+        return (
+          <FormPresetProvider
+            formDataObject={{ password: '', passwordCheck: '' }}
+            formDataType="resetPassword"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      default:
+        return null
+    }
+  }
+
+  const changeBodyInRegisterEmail = (step: number): ReactNode => {
     switch (step) {
       case 0:
         router.replace('/register')
@@ -98,7 +132,7 @@ export default function SwitchStep({
         }
         title="회원가입"
       />
-      {changeBody(step)}
+      {changeBodyInRegisterEmail(step)}
     </>
   )
 }

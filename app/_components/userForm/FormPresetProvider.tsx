@@ -10,7 +10,7 @@ import EmailRegister from '@/app/register/email/_components/EmailRegister'
 import LoginForm from '@/app/login/_components/LoginForm'
 
 interface Props {
-  formDataType: 'email' | 'name' | 'agree' | 'login'
+  formDataType: 'email' | 'name' | 'agree' | 'login' | 'resetPassword'
   formDataObject: IInputFileds
   userTotalDatas?: IInputFileds
   setUserTotalDatas?: Dispatch<SetStateAction<IInputFileds>>
@@ -75,6 +75,8 @@ export default function FormPresetProvider({
       case 'agree':
         return <RegisterAgree {...childrenProps} />
       case 'login':
+        return <LoginForm {...childrenProps} />
+      case 'resetPassword':
         return <LoginForm {...childrenProps} />
       default:
         null
