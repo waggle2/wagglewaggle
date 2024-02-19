@@ -1,12 +1,12 @@
 export interface SignUpData {
   authenticationProvider: 'email' | 'google' | 'kakao' | 'naver'
   socialId?: string
-  email: string
-  password: string
+  email?: string
+  password?: string
   nickname: string
   birthYear: number
   gender: '남성' | '여성'
-  primaryAnimal: '곰' | '여우' | '개' | '고양이'
+  primaryAnimal: '곰돌이' | '폭스' | '댕댕이' | '고냥이'
 }
 
 export interface SignUpResponse {
@@ -20,11 +20,12 @@ export interface IInputFileds {
   password?: string
   passwordCheck?: string
   nickname?: string
-  isNicknameChecked?: boolean
+  isNicknameChecked?: string
   birthYear?: string
   gender?: '남성' | '여성' | ''
   loginEmail?: string
   loginPassword?: string
+  socialId?: string
 }
 
 export interface IErrors {
@@ -61,4 +62,13 @@ export type IButton = {
 export type ILogin = {
   email: string
   password: string
+}
+
+export type ISocialLoginResponse = {
+  code: number
+  message: string
+  data: {
+    socialId: string
+    nickname: string
+  }
 }

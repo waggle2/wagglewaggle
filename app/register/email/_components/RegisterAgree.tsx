@@ -1,31 +1,51 @@
 'use client'
 import Button from '@/app/_components/button/Button'
 import style from '../styles/registerAgree.module.scss'
-import { useRouter } from 'next/navigation'
 import Check from '/public/assets/check.svg'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import { IErrors, IInputFileds, SignUpData } from '@/app/_types/userFormTypes'
 import { useSignUpUser } from '@/app/_hooks/services/mutations/userRegister'
+import { useSearchParams } from 'next/navigation'
 
 interface Props {
   inputFields: IInputFileds
+  setInputFields: Dispatch<SetStateAction<IInputFileds>>
   errors: IErrors
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   passable: boolean
 }
 
-export default function RegisterAgree({ inputFields }: Props) {
-  const router = useRouter()
+export default function RegisterAgree({ inputFields, setInputFields }: Props) {
   const [agree1, setAgree1] = useState(false)
   const [agree2, setAgree2] = useState(false)
+  const searchParams = useSearchParams()
+  const snsName = searchParams.get('social')
+  const socialId = searchParams.get('socialId')
+
+  useEffect(() => {
+    if (socialId) {
+      setInputFields({ ...inputFields, socialId: socialId })
+    }
+  }, [])
+
   const mutation = useSignUpUser()
-  const sendTotalDatas = async () => {
+  const sendTotalDatasNoSocial = async () => {
     try {
       const { email, password, nickname, birthYear, gender } = inputFields
       const DEFAULT_BIRTH_YEAR = 1990
-      if (!(email && password && nickname && birthYear && gender))
-        throw new Error('필수 항목을 입력해주세요')
+      if (!(email && password && nickname && birthYear && gender)) {
+        alert('필수 항목을 입력해주세요')
+        return
+      }
+
       const body: SignUpData = {
         authenticationProvider: 'email',
         email,
@@ -33,7 +53,7 @@ export default function RegisterAgree({ inputFields }: Props) {
         nickname,
         birthYear: Number(birthYear) ?? DEFAULT_BIRTH_YEAR,
         gender,
-        primaryAnimal: '곰',
+        primaryAnimal: '곰돌이',
       }
       mutation.mutate(body)
     } catch (error) {
@@ -41,6 +61,30 @@ export default function RegisterAgree({ inputFields }: Props) {
       alert(error)
     }
   }
+
+  const sendTotalDatasSocial = async () => {
+    try {
+      const { nickname, birthYear, gender } = inputFields
+      const DEFAULT_BIRTH_YEAR = 1990
+      if (!(nickname && birthYear && gender)) {
+        alert('필수 항목을 입력해주세요')
+        return
+      }
+      const body: SignUpData = {
+        authenticationProvider: snsName as 'google' | 'kakao' | 'naver',
+        socialId: socialId as string,
+        nickname,
+        birthYear: Number(birthYear) ?? DEFAULT_BIRTH_YEAR,
+        gender,
+        primaryAnimal: '곰돌이',
+      }
+      mutation.mutate(body)
+    } catch (error) {
+      console.error(error)
+      alert(error)
+    }
+  }
+
   return (
     <div>
       <h2 className={style.title}>
@@ -96,8 +140,8 @@ export default function RegisterAgree({ inputFields }: Props) {
           text="회원가입 완료"
           isDisabled={!(agree1 && agree2)}
           action={() => {
-            sendTotalDatas()
-            router.push('/')
+            if (snsName) sendTotalDatasSocial()
+            else sendTotalDatasNoSocial()
           }}
         />
       </div>

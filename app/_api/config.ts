@@ -11,18 +11,18 @@ const customAxios = axios.create({
   withCredentials: true,
 })
 
-// customAxios.interceptors.request.use(
-//   (config) => {
-//     if (config.url === '/register') {
-//       config.withCredentials = false
-//     }
+customAxios.interceptors.request.use(
+  (config) => {
+    if (window.location.href.includes('register')) {
+      config.withCredentials = false
+    }
 
-//     return config
-//   },
-//   (error) => {
-//     return onError(error.response.status, error.response.data.message)
-//   },
-// )
+    return config
+  },
+  (error) => {
+    return onError(error.response.status, error.response.data.message)
+  },
+)
 
 const retryPlag = { isRetry: false }
 

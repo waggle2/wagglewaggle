@@ -1,30 +1,43 @@
 'use client'
 
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
 import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { IInputFileds } from '@/app/_types/userFormTypes'
 import FormPresetProvider from '@/app/_components/userForm/FormPresetProvider'
 interface Props {
+  type: 'email' | 'resetPassword'
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
+  initStep?: number
 }
 
-export default function ccccSwitchStep({
+export default function SwitchStep({
+  type,
+  initStep = 1,
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initStep = Number(searchParams.get('step'))
-  const [step, setStep] = useState(initStep ?? 1)
+  const isSocial = !!searchParams.get('social')
+  const [step, setStep] = useState(isSocial ? 2 : 1)
+
   const nextStep = () => {
     setStep(step + 1)
   }
 
   const prevStep = () => {
     setStep(step - 1)
+  }
+
+  const goBack = () => {
+    if (isSocial && step === 2) {
+      router.replace('/register')
+      return
+    }
+    prevStep()
   }
 
   const changeBody = (step: number): ReactNode => {
@@ -57,7 +70,7 @@ export default function ccccSwitchStep({
             <FormPresetProvider
               formDataObject={{
                 nickname: '',
-                isNicknameChecked: false,
+                isNicknameChecked: '',
                 birthYear: '',
                 gender: '',
               }}
@@ -93,7 +106,7 @@ export default function ccccSwitchStep({
         isNoneSidePadding={true}
         leftSection={
           <span style={{ cursor: 'pointer' }}>
-            <Back handleBack={prevStep} />
+            <Back handleBack={goBack} />
           </span>
         }
         title="회원가입"
