@@ -38,7 +38,7 @@ export default function SwitchStep({
         return (
           <FormPresetProvider
             formDataObject={{ email: '', isEmailChecked: false }}
-            formDataType="resetPassword"
+            formDataType="emailConfirm"
             step={step}
             nextStep={nextStep}
             setUserTotalDatas={setUserTotalDatas}
@@ -132,7 +132,8 @@ export default function SwitchStep({
         }
         title="회원가입"
       />
-      {changeBodyInRegisterEmail(step)}
+      {type === 'email' && changeBodyInRegisterEmail(step)}
+      {type === 'resetPassword' && changeBodyInResetPassword(step)}
     </>
   )
 }
