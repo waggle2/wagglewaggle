@@ -16,6 +16,11 @@ export type ItemData = {
   isOwned: boolean
 }
 
+export type CartData = {
+  cartItems: ItemData[]
+  totalCoins: number
+}
+
 // 선택된 탭 상태
 export const selectedTabState = atom<AnimalTab>({
   key: 'selectedTabState',

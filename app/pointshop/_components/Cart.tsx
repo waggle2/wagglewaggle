@@ -1,33 +1,23 @@
-import style from '../_styles/pointShop.module.scss'
+import style from '../_styles/pointShop.module.scss';
 import PointIcon from './PointIcon';
+import { ItemData } from '@/app/_recoil/atoms/pointshopState';
 
-type ItemData = {
-    id: number;
-    animal: string;
-    itemType: string;
-    name: string;
-    price: number;
-    image: string;
-    purchasedCount: number;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
-    isOwned: boolean;
-}
+
 type CartProps = {
     selectedTab: string;
-    selectedItems: ItemData[];
+    cartItems: ItemData[];
     totalItemPrice: number;
 };
 
-export default function Cart({ selectedTab, selectedItems, totalItemPrice }: CartProps) {
+export default function Cart({ selectedTab, cartItems, totalItemPrice }: CartProps) {
+
     return (
         <div>
             {/* 장바구니 */}
             <div className={style.selectedContainer}>
                 <ul className={style.selectedItems}>
-                    {selectedItems && selectedItems.length > 0 ? (
-                        selectedItems.map((item, index) => (
+                    {cartItems && cartItems.length > 0 ? (
+                        cartItems.map((item, index) => (
                             <li key={index} className={style.item}>
                                 <div className={style.selectedImageBox}>
                                     <img src={item.image} alt="" />
@@ -58,4 +48,3 @@ export default function Cart({ selectedTab, selectedItems, totalItemPrice }: Car
         </div>
     )
 }
-

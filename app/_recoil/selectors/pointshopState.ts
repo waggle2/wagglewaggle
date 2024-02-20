@@ -4,6 +4,7 @@ import {
   selectedTabState,
   selectedItemTypeState,
   ItemData,
+  CartData,
 } from '@/app/_recoil/atoms/pointshopState'
 
 export const itemsState = selector<ItemData[]>({
@@ -59,7 +60,7 @@ export const wearingItemsState = selector({
   },
 })
 
-export const cartItemsState = selector({
+export const cartItemsState = selector<CartData>({
   key: 'cartItemsState',
   get: async ({ get }) => {
     const selectedTab = get(selectedTabState)
@@ -73,7 +74,7 @@ export const cartItemsState = selector({
       }
     } catch (error) {
       console.error('장바구니 데이터를 가져오는 중 오류 발생:', error)
-      return { items: [], totalCoins: 0 }
+      return { cartItems: [], totalCoins: 0 }
     }
   },
 })
