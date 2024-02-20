@@ -35,6 +35,36 @@ export default function ConfirmEmail({
       },
     })
   }
+
+  async function confirmEmailCode(email: string, emailCheckNumber: string) {
+    mutationConfirmEmail.mutate(
+      { email, emailCheckNumber },
+      {
+        onSuccess: (response) => {
+          if (!response.data.verified) {
+            setErrors({
+              ...errors,
+              emailCheck: '인증코드가 일치하지 않습니다.',
+            })
+            alert('인증에 실패하였습니다.')
+            return
+          }
+          setInputFields({ ...inputFields, isEmailChecked: 'true' })
+        },
+        onError: (error) => {
+          console.error(error)
+          if (error.code === 400) {
+            return setErrors({
+              ...errors,
+              emailCheck: '인증코드가 일치하지 않습니다.',
+            })
+          }
+          alert('인증에 실패하였습니다.')
+        },
+      },
+    )
+  }
+
   return (
     <>
       <h2 className={style.hTitle}>
@@ -58,7 +88,7 @@ export default function ConfirmEmail({
               onChange: handleChange,
               value: inputFields.email ?? '',
               tabIndex: 1,
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
             }}
             buttonProps={{
               text: inputFields.isEmailChecked ? '인증완료' : '인증하기',
@@ -76,7 +106,7 @@ export default function ConfirmEmail({
                 inputFields.email &&
                 !errors.email &&
                 sendCheckEmailCode(inputFields.email),
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.email}
@@ -93,7 +123,7 @@ export default function ConfirmEmail({
               onChange: handleChange,
               value: inputFields.emailCheck ?? '',
               tabIndex: 2,
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
             }}
             buttonProps={{
               text: inputFields.isEmailChecked ? '인증완료' : '인증확인',
@@ -114,7 +144,7 @@ export default function ConfirmEmail({
                     inputFields.emailCheck ?? '',
                   )
               },
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.emailCheck}

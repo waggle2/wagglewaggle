@@ -1,7 +1,5 @@
 'use client'
 import style from '../styles/emailRegister.module.scss'
-import cs from 'classnames/bind'
-const cx = cs.bind(style)
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
 import {
@@ -9,13 +7,11 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
-  use,
   useState,
 } from 'react'
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-import { IErrorResponse, IInputFileds } from '@/app/_types/userFormTypes'
-import api from '@/app/_api/commonApi'
+import { IInputFileds } from '@/app/_types/userFormTypes'
 import {
   useConfirmEmailCode,
   useSendCheckEmailCode,
@@ -234,9 +230,6 @@ export default function EmailForm({
           />
         </div>
       </form>
-      <button onClick={() => console.log(inputFields, 'inputFields')}>
-        inputfields
-      </button>
     </>
   )
 }
