@@ -23,6 +23,7 @@ type ItemSelectionProps = {
     items: ItemData[];
     handleItemClick: (item: ItemData) => void;
     selectedItems: ItemData[];
+    isLoading: boolean;
 };
 
 export default function ItemSelection({
@@ -33,6 +34,7 @@ export default function ItemSelection({
     items,
     handleItemClick,
     selectedItems,
+    isLoading
 }: ItemSelectionProps) {
 
     const renderCategoryButton = (selectedItemType: string, label: string) => (
@@ -45,9 +47,10 @@ export default function ItemSelection({
     );
 
     const renderItemsForCategory = (selectedItemType: string) => (
-        items.filter(item => item.itemType === selectedItemType).map(item => (
+        items.filter(item => item.itemType === selectedItemType).reverse().map(item => (
             <li key={item.id} className={selectedItemType === 'emoji' ? style.item : style.bigItem}
-                onClick={() => handleItemClick(item)}>
+                onClick={() => handleItemClick(item)}
+            >
                 <div className={style.imageWrap}
                     style={selectedItems.some(selectedItem => selectedItem.id === item.id) ? { border: '2px solid #7EE36E' } : {}}
                 >
@@ -68,9 +71,15 @@ export default function ItemSelection({
                 {renderCategoryButton('frame', '프레임')}
                 {renderCategoryButton('wallpaper', '벽지')}
             </div>
-            <ul className={style.itemContainer}>
-                {renderItemsForCategory(selectedItemType)}
-            </ul>
+            {isLoading ? (
+                <div className={style.loadingContainer}>
+                    LOADING
+                </div>
+            ) : (
+                <ul className={style.itemContainer}>
+                    {renderItemsForCategory(selectedItemType)}
+                </ul>
+            )}
         </div>
     );
 }

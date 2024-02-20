@@ -1,148 +1,268 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
-import axiosInstance from '@/app/_api/config';
 import style from '../_styles/pointShop.module.scss';
 import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
 import Cart from './Cart';
 import ItemSelection from './ItemSelection';
-import { cartItemsState } from '@/app/_recoil/selectors/pointshopState';
-import { ItemData, CartData } from '@/app/_recoil/atoms/pointshopState';
+import { AnimalTab, ItemData, CartData } from '@/app/_recoil/atoms/pointshopState';
+import api from '@/app/_api/commonApi'
 
 type Props = {
-  selectedTab: string;
-  items: ItemData[];
+  selectedTab: AnimalTab;
   selectedItemType: string;
   setSelectedItemType: (value: string) => void;
-  animalCoin: number;
 };
 
-const CustomResult = ({
+export default function CustomResult({
   selectedTab,
-  items,
   selectedItemType,
   setSelectedItemType,
-  animalCoin
-}: Props) => {
+}: Props) {
 
   const [confirmModal, setConfirmModal] = useState(false);
-  const cartData = useRecoilValue(cartItemsState);
+  const [wearingItems, setWearingItems] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [cartItems, setCartItems] = useState<ItemData[]>(cartData.cartItems);
-  const [totalCoins, setTotalCoins] = useState<number>(cartData.totalCoins);
-
-
-
-  const [selectedEmoji, setSelectedEmoji] = useState('/assets/point_shop/emoji/cat_smile.svg');
+  const [selectedEmoji, setSelectedEmoji] = useState('/assets/point_shop/emoji/cat_angry.svg');
   const [selectedProfileBg, setSelectedProfileBg] = useState('/assets/point_shop/profile_background/프로필배경1.svg');
   const [selectedFrame, setSelectedFrame] = useState('/assets/point_shop/frame/프레임샘플.png');
   const [selectedWallpaper, setSelectedWallpaper] = useState('/assets/point_shop/wallpaper/벽지샘플.png');
-  const pointDifference = animalCoin - cartData.totalCoins;
 
 
 
-  const queryClient = useQueryClient();
+  const [animalCoins, setAnimalCoins] = useState(0); // 동물 코인 수를 저장할 상태
+  const [items, setItems] = useState([]);
+  const [cartData, setCartData] = useState<CartData>({ cartItems: [], totalCoins: 0 });
+  const pointDifference = animalCoins - cartData.totalCoins;
+
+  const fetchWearingItems = async (selectedTab: string) => {
+    const endpoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`;
+    try {
+      const data = await api.get(endpoint);
+      console.log(data);
+
+      if (data.data === null) {
+        return {
+          emoji: '/assets/point_shop/emoji/cat_angry.svg',
+          profileBg: '/assets/point_shop/profile_background/프로필배경1.svg',
+          frame: '/assets/point_shop/frame/프레임샘플.png',
+          wallpaper: '/assets/point_shop/wallpaper/벽지샘플.png',
+        };
+      }
+      return data.data;
+
+    } catch (error) {
+      console.error('착용 아이템 데이터를 가져오는 중 오류 발생:', error);
+      return {};
+    }
+  };
+
+  useEffect(() => {
+    const loadWearingItems = async () => {
+      const fetchedWearingItems = await fetchWearingItems(selectedTab);
+      setWearingItems(fetchedWearingItems);
+    };
+    loadWearingItems();
+  }, [cartData.cartItems]);
+
+  const fetchItems = async (selectedTab: string, selectedItemType: string) => {
+    const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
+    try {
+      const data = await api.get(endpoint);
+      return data.data.items;
+    } catch (error) {
+      console.error('아이템 데이터를 가져오는 중 오류 발생:', error);
+      return [];
+    }
+  };
+
+  const fetchAnimalCoin = async (selectedTab: AnimalTab) => {
+    const endpoint = `/users`;
+    const animalKeyMap = {
+      고냥이: 'catCoins',
+      곰돌이: 'bearCoins',
+      댕댕이: 'dogCoins',
+      폭스: 'foxCoins',
+    };
+    try {
+      const data = await api.get(endpoint);
+      const animalCoinKey = animalKeyMap[selectedTab];
+      return data.data[animalCoinKey];
+
+    } catch (error) {
+      console.error("동물 코인 정보를 가져오는 데 실패했습니다.", error);
+      return 0;
+    }
+  };
+
+  const fetchCartItems = async (selectedTab: string) => {
+    const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`;
+    try {
+      const data = await api.get(endpoint);
+      return {
+        cartItems: data.data.items,
+        totalCoins: data.data.totalCoins,
+      };
+    } catch (error) {
+      console.error('장바구니 데이터를 가져오는 중 오류 발생:', error);
+      return { cartItems: [], totalCoins: 0 };
+    }
+  };
+
+  useEffect(() => {
+    const fetchItemData = async () => {
+      setIsLoading(true);
+      try {
+        const itemsPromise = fetchItems(selectedTab, selectedItemType);
+        const coinsPromise = fetchAnimalCoin(selectedTab);
+        const [items, coins] = await Promise.all([itemsPromise, coinsPromise]);
+        setItems(items);
+        setAnimalCoins(coins);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchItemData();
+  }, [selectedTab, selectedItemType]);
+
+
+  const handleConfirmModalClick = () => setConfirmModal(!confirmModal);
+  const handleCategoryClick = (itemType: string) => setSelectedItemType(itemType);
+
+  useEffect(() => {
+    const getCartData = async () => {
+      const fetchedCartData = await fetchCartItems(selectedTab);
+      setCartData(fetchedCartData);
+    };
+
+    getCartData();
+  }, [selectedTab]);
+
+
+  // const queryClient = useQueryClient();
+
+  const updateSelectedItemImages = (updatedCartItems: ItemData[]) => {
+    const emojiItem = updatedCartItems.find(item => item.itemType === 'emoji');
+    const backgroundItem = updatedCartItems.find(item => item.itemType === 'background');
+    const frameItem = updatedCartItems.find(item => item.itemType === 'frame');
+    const wallpaperItem = updatedCartItems.find(item => item.itemType === 'wallpaper');
+
+    if (emojiItem) setSelectedEmoji(emojiItem.image);
+    if (backgroundItem) setSelectedProfileBg(backgroundItem.image);
+    if (frameItem) setSelectedFrame(frameItem.image);
+    if (wallpaperItem) setSelectedWallpaper(wallpaperItem.image);
+  };
+
+  const resetSelectedImages = () => {
+    setSelectedEmoji('/assets/point_shop/emoji/cat_angry.svg');
+    setSelectedProfileBg('/assets/point_shop/profile_background/프로필배경1.svg');
+    setSelectedFrame('/assets/point_shop/frame/프레임샘플.png');
+    setSelectedWallpaper('/assets/point_shop/wallpaper/벽지샘플.png');
+  };
+
 
   const addItemMutation = useMutation({
     mutationFn: async ({ itemId, animal }: { itemId: number; animal: string }) => {
-      console.log('Adding item:', itemId, 'for animal:', animal);
-      await axiosInstance.post(`/items/cart/${itemId}?animal=${animal}`);
+      const endpoint = `/items/cart/${itemId}?animal=${animal}`;
+
+      await api.post(endpoint, {});
     },
     onSuccess: async () => {
       console.log('Item added successfully');
-      await queryClient.invalidateQueries({ queryKey: ['cartItemsState'] });
-      const updatedCartData: CartData | undefined = await queryClient.getQueryData(['cartItemsState']);
-      if (updatedCartData && 'cartItems' in updatedCartData && 'totalCoins' in updatedCartData) {
-        setCartItems(updatedCartData.cartItems);
-        setTotalCoins(updatedCartData.totalCoins);
-      }
+      const updatedCartData = await fetchCartItems(selectedTab);
+      setCartData(updatedCartData);
+      updateSelectedItemImages(updatedCartData.cartItems);
     }
   });
 
   const removeItemMutation = useMutation({
     mutationFn: async ({ itemId, animal }: { itemId: number; animal: string }) => {
-      console.log('Removing item:', itemId, 'for animal:', animal);
-      await axiosInstance.delete(`/items/cart/${itemId}?animal=${animal}`);
+      const endpoint = `/items/cart/${itemId}?animal=${animal}`;
+      await api.delete(endpoint);
     },
     onSuccess: async () => {
       console.log('Item removed successfully');
-      await queryClient.invalidateQueries({ queryKey: ['cartItemsState'] });
-      const updatedCartData: CartData | undefined = await queryClient.getQueryData(['cartItemsState']);
-      if (updatedCartData && 'cartItems' in updatedCartData && 'totalCoins' in updatedCartData) {
-        setCartItems(updatedCartData.cartItems);
-        setTotalCoins(updatedCartData.totalCoins);
-      }
+      const updatedCartData = await fetchCartItems(selectedTab);
+      setCartData(updatedCartData);
+      updateSelectedItemImages(updatedCartData.cartItems);
     }
   });
 
-  // 전체 아이템 제거
   const removeAllItemsMutation = useMutation({
-    mutationFn: (animal: string) => {
-      console.log('Removing all items for animal:', animal);
-      return axiosInstance.delete(`/items/cart?animal=${animal}`);
+    mutationFn: async (animal: string) => {
+      const endpoint = `/items/cart?animal=${animal}`;
+      await api.delete(endpoint);
     },
     onSuccess: async () => {
       console.log('All items removed successfully');
-      await queryClient.invalidateQueries({ queryKey: ['cartItemsState'] });
-      const updatedCartData: CartData | undefined = await queryClient.getQueryData(['cartItemsState']);
-      if (updatedCartData && 'cartItems' in updatedCartData && 'totalCoins' in updatedCartData) {
-        setCartItems(updatedCartData.cartItems);
-        setTotalCoins(updatedCartData.totalCoins);
-      }
+      const updatedCartData = await fetchCartItems(selectedTab);
+      setCartData(updatedCartData);
+      resetSelectedImages();
     }
   });
 
-  // 함수들 정의
-  const handleConfirmModalClick = () => setConfirmModal(!confirmModal);
-  const handleCategoryClick = (itemType: string) => setSelectedItemType(itemType);
-  const handleRefreshClick = () => removeAllItemsMutation.mutate(selectedTab);
 
-  const handleItemClick = (item: ItemData) => {
-    // 이미 카트에 같은 itemType의 아이템이 있는지 확인
-    const existingItemIndex = cartItems.findIndex(cartItem => cartItem.itemType === item.itemType);
-    if (existingItemIndex !== -1) {
-      // 같은 itemType의 아이템이 이미 담겨 있다면 제거
-      handleRemoveItemClick(cartItems[existingItemIndex].id);
+
+  const handleItemClick = async (item: ItemData) => {
+    const existingItem = cartData.cartItems.find(cartItem => cartItem.itemType === item.itemType);
+    if (existingItem) {
+      await removeItemMutation.mutateAsync({ itemId: existingItem.id, animal: selectedTab });
     }
-    // 새로운 아이템 추가
     addItemMutation.mutate({ itemId: item.id, animal: selectedTab });
   };
 
-  // 아이템 제거 함수 수정
+
   const handleRemoveItemClick = (itemId: number) => {
     removeItemMutation.mutate({ itemId, animal: selectedTab });
   };
+
+  const handleRefreshClick = () => removeAllItemsMutation.mutate(selectedTab);
+
+
+
+  useEffect(() => {
+    if (confirmModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [confirmModal]);
 
   return (
     <>
       {confirmModal && (
         <ConfirmChange
           pointDifference={pointDifference}
-          selectedItemsLength={cartItems.length}
+          selectedItemsLength={cartData.cartItems.length}
           onConfirmClick={handleConfirmModalClick}
         />
       )}
-
       <CustomPreview
         selectedTab={selectedTab}
         selectedEmoji={selectedEmoji}
         selectedProfileBg={selectedProfileBg}
         selectedFrame={selectedFrame}
         selectedWallpaper={selectedWallpaper}
-        possessionCoin={animalCoin}
+        possessionCoin={animalCoins}
         handleConfirmModalClick={handleConfirmModalClick}
         handleRefreshClick={handleRefreshClick}
       />
-
       <Cart
         selectedTab={selectedTab}
-        cartItems={cartItems}
-        totalItemPrice={totalCoins}
+        cartItems={cartData.cartItems}
+        totalItemPrice={cartData.totalCoins}
+        handleRemoveItemClick={handleRemoveItemClick}
       />
-
       <ItemSelection
         selectedTab={selectedTab}
         selectedItemType={selectedItemType}
@@ -152,10 +272,12 @@ const CustomResult = ({
         }
         items={items}
         handleItemClick={handleItemClick}
-        selectedItems={cartItems}
+        selectedItems={cartData.cartItems}
+        isLoading={isLoading}
       />
+
+
     </>
   );
 };
 
-export default CustomResult;

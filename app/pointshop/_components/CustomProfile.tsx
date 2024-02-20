@@ -1,9 +1,8 @@
 
 import style from '../_styles/pointShop.module.scss';
 import CustomResult from '@/app/pointshop/_components/CustomResult';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { selectedTabState, selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState';
-import { itemsState, userCoinsState } from '@/app/_recoil/selectors/pointshopState';
 
 type AnimalTab = '고냥이' | '곰돌이' | '댕댕이' | '폭스';
 
@@ -27,8 +26,6 @@ export default function CustomProfile() {
     const [selectedTab, setSelectedTab] = useRecoilState<AnimalTab>(selectedTabState);
     const [selectedItemType, setSelectedItemType] = useRecoilState<string>(selectedItemTypeState);
 
-    const items = useRecoilValue(itemsState);
-    const animalCoin = useRecoilValue(userCoinsState);
 
     const handleTabClick = (animal: AnimalTab) => {
         setSelectedTab(animal);
@@ -52,8 +49,6 @@ export default function CustomProfile() {
                 selectedTab={selectedTab}
                 selectedItemType={selectedItemType}
                 setSelectedItemType={setSelectedItemType}
-                items={items}
-                animalCoin={animalCoin}
             />
         </>
     );

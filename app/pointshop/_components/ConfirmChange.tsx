@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import style from '../_styles/confirmChange.module.scss'
 import Link from 'next/link'
+import Modal from '@/app/_components/common/modal/Modal'
 
 type Props = {
     pointDifference: number,
@@ -69,7 +70,6 @@ export default function ConfirmChange({ pointDifference, selectedItemsLength, on
                                 </div>
                             </>
                         )}
-
                     </div>
                 </div>
             );
