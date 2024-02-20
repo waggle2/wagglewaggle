@@ -2,7 +2,11 @@ import { IInputFileds } from '@/app/_types/userFormTypes'
 import style from '../styles/confirmEmail.module.scss'
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-import { useSendCheckEmailCode } from '@/app/_hooks/services/mutations/userRegister'
+import {
+  useConfirmEmailCode,
+  useSendCheckEmailCode,
+} from '@/app/_hooks/services/mutations/userRegister'
+import Button from '@/app/_components/button/Button'
 
 interface Props {
   inputFields: IInputFileds
@@ -24,6 +28,7 @@ export default function ConfirmEmail({
   passable,
 }: Props) {
   const mutationCheckEmail = useSendCheckEmailCode()
+  const mutationConfirmEmail = useConfirmEmailCode()
   async function sendCheckEmailCode(email: string) {
     mutationCheckEmail.mutate(email, {
       onError: (error) => {
@@ -150,6 +155,8 @@ export default function ConfirmEmail({
             errorMessage={errors.emailCheck}
           />
         </div>
+        <Button mainColor="green" text="비밀번호 재설정" />
+        <Button mainColor="white" text="로그인으로 돌아가기" />
       </form>
     </>
   )
