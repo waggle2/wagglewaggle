@@ -32,7 +32,7 @@ export default function SwitchStep({
     setStep(step - 1)
   }
 
-  const changeBodyInResetPassword = (step: number): ReactNode => {
+  const changeBodyInResetPassword = (step: number) => {
     switch (step) {
       case 0:
         router.replace('/login')
@@ -63,8 +63,6 @@ export default function SwitchStep({
         return null
     }
   }
-
-  const changeBodyInRegisterEmail = (step: number): ReactNode => {
   const goBack = () => {
     if (isSocial && step === 2) {
       router.replace('/register')
@@ -73,7 +71,7 @@ export default function SwitchStep({
     prevStep()
   }
 
-  const changeBody = (step: number): ReactNode => {
+  const changeBodyInRegisterEmail = (step: number): ReactNode => {
     switch (step) {
       case 0:
         router.replace('/register')

@@ -63,3 +63,27 @@ export type ILogin = {
   email: string
   password: string
 }
+
+export type IErrorResponse = {
+  code: number
+  message: string
+}
+
+export type IEmailCheck = {
+  email: string
+  emailCheckNumber: string
+}
+
+export type IEmailConfirmResponse = {
+  data: {
+    verified: boolean
+  }
+}
+export type ISocialLoginResponse = {
+  code: number
+  message: string
+  data: {
+    socialId: string
+    nickname: string
+  }
+}
