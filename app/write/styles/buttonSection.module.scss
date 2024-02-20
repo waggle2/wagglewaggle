@@ -1,0 +1,85 @@
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 14px;
+}
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #2fd714;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2fd714;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+.toggleBox {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-weight: normal;
+  font-size: 12px;
+  color: #6b6b6b;
+  justify-content: right;
+  margin: 0 16px 16px 0;
+}
+.tagBox {
+  text-align: left;
+  font-size: 12px;
+  color: #8c8c8c;
+  margin: 16px 0;
+  h6 {
+    margin-bottom: 12px;
+  }
+}
+.tagText {
+  display: flex;
+  gap: 6px;
+  text-align: center;
+  color: #1a1a1a;
+}
+.tag {
+  font-size: 13px;
+  border-radius: 30px;
+  padding: 8px 16px;
+  border: 1px solid #eaeaea;
+  cursor: pointer;
+}
+.selected {
+  background-color: #2fd714;
+  color: #fff;
+}
+.buttonSection {
+  padding: 0 16px;
+}
