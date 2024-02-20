@@ -2,20 +2,41 @@ import Link from '@/node_modules/next/link'
 import style from './styles/profileSetting.module.scss'
 
 type CustomPreviewProps = {
-  selectedEmoji: string
-  selectedProfileBg: string
-  selectedFrame: string
-  selectedWallpaper: string
+  profileAnimal?: string
+  profileItems?: []
   isSetting?: boolean
 }
 
 export default function MyProfile({
-  selectedEmoji,
-  selectedProfileBg,
-  selectedFrame,
-  selectedWallpaper,
+  profileAnimal,
   isSetting = true,
 }: CustomPreviewProps) {
+  const defaultBackground = {
+    frame: '/assets/point_shop/frame/프레임샘플.png',
+    backGround: '/assets/프로필배경_테스트.svg',
+    wallPaper: '/assets/point_shop/wallpaper/벽지샘플.png',
+  }
+  let type
+  switch (profileAnimal) {
+    case '고냥이':
+      type = 'Cat'
+      break
+    case '댕댕이':
+      type = 'Dog'
+      break
+    case '폭스':
+      type = 'Fox'
+      break
+    case '곰돌이':
+      type = 'Bear'
+      break
+
+    default:
+      type = ''
+      break
+  }
+  const defaultProfile = `/assets/default${type}Emoji.svg`
+  const test = `/assets/point_shop/emoji/cat_smile.svg`
   return (
     <div className={style.customContainer}>
       <div className={style.customBackground}>
@@ -28,25 +49,21 @@ export default function MyProfile({
         </div>
 
         <div className={style.profileResult}>
-          <img
-            className={style.emoji}
-            src={selectedEmoji}
-            alt={`${selectedEmoji}`}
-          />
+          <img className={style.emoji} src={defaultProfile} alt={'emoji'} />
           <img
             className={style.frame}
-            src={selectedFrame}
-            alt={selectedFrame}
+            src={defaultBackground.frame}
+            alt={'frame'}
           />
           <img
             className={style.profileBg}
-            src={selectedProfileBg}
-            alt={selectedProfileBg}
+            src={defaultBackground.backGround}
+            alt={'background'}
           />
           <img
             className={style.wallPaper}
-            src={selectedWallpaper}
-            alt={selectedWallpaper}
+            src={defaultBackground.wallPaper}
+            alt={'wallPaper'}
           />
         </div>
       </div>
