@@ -17,7 +17,7 @@ export default function SignUpButtonGroup() {
   const randomString = generateState()
 
   setCookie('randomString', randomString, {
-    maxAge: 10,
+    maxAge: 60 * 5,
   })
 
   const { signUpButtonList } = useSocialLogin(randomString)
