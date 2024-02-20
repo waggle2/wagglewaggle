@@ -26,7 +26,6 @@ const sendAuthorizationCode = async (
 }
 
 export const useSendAuthorizationCode = () => {
-  const router = useRouter()
   return useMutation<
     unknown,
     Error,
@@ -34,29 +33,5 @@ export const useSendAuthorizationCode = () => {
   >({
     mutationFn: ({ authorizationCode, snsName }) =>
       sendAuthorizationCode(authorizationCode, snsName),
-  })
-}
-
-const sendAuthorizationCodeNaver = async (
-  authorizationCode: string,
-  state: string,
-  snsName: string,
-): Promise<any> => {
-  const data = await api.post(`/authentication/login/${snsName}`, {
-    authorizationCode,
-    state,
-  })
-  return data
-}
-
-export const useSendAuthorizationCodeNaver = () => {
-  const router = useRouter()
-  return useMutation<
-    unknown,
-    Error,
-    { authorizationCode: string; snsName: string; state: string }
-  >({
-    mutationFn: ({ authorizationCode, state, snsName }) =>
-      sendAuthorizationCodeNaver(authorizationCode, state, snsName),
   })
 }
