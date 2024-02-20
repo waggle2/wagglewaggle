@@ -1,48 +1,52 @@
-import style from '../history.module.scss'
+'use client'
 
-import Header from '@/app/_components/common/header/Header'
-import Back from '@/app/_components/common/header/_components/Back'
+import api from '@/app/_api/commonApi'
 import Post from '@/app/_components/postPreview/_components/Post'
+import { postData } from '@/app/_components/postPreview/_types/responseType'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function PostHistory() {
+  const [postData, setPostData] = useState<postData[]>()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get('/posts/self?page=1&pageSize=10')
+        console.log(res.data)
+        setPostData(res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchData()
+  }, [])
   return (
     <>
-      <Post
-        profile={{
-          image: undefined,
-          name: '',
-          animal: undefined,
-        }}
-        post={{
-          id: 0,
-          tag: '',
-          category: '',
-          time: '',
-          title: '',
-          content: '',
-          likes: 0,
-          comments: 0,
-          views: 0,
-        }}
-      />
-      <Post
-        profile={{
-          image: undefined,
-          name: '',
-          animal: undefined,
-        }}
-        post={{
-          id: 0,
-          tag: '',
-          category: '',
-          time: '',
-          title: '',
-          content: '',
-          likes: 0,
-          comments: 0,
-          views: 0,
-        }}
-      />
+      {postData?.map((postData: postData, index: number) => {
+        return (
+          <Post
+            profile={{
+              image: undefined,
+              name: postData.author.credential.nickname,
+              animal: postData.animalOfAuthor,
+              isAnonymous: postData.isAnonymous,
+            }}
+            post={{
+              id: postData.id,
+              tag: postData.tag,
+              category: postData.category,
+              time: postData.createdAt,
+              title: postData.title,
+              content: postData.content,
+              likes: postData?.likes,
+              comments: postData.commentNum,
+              views: postData.views,
+            }}
+            key={index}
+          />
+        )
+      })}
     </>
   )
 }

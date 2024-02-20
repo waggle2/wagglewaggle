@@ -33,5 +33,12 @@ type author = {
   createdAt: string
   updatedAt: string
   deletedAt: string | null
-  credential: [Object]
+  credential: credential
+}
+type credential = {
+  birthYear: number
+  email: string
+  gender: string
+  id: number
+  nickname: string
 }

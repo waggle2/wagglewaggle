@@ -23,7 +23,9 @@ export default function NickNameModify() {
 
   const handleSetNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(() => e.target.value)
-
+    if (regex.test(nickName)) {
+      setActiveButton(() => true)
+    }
     if (specialRegex.test(e.target.value)) {
       setWarning(() => '닉네임은 한글, 영어, 숫자를 조합하여 입력해주세요.')
       setActiveButton(() => false)
@@ -39,6 +41,7 @@ export default function NickNameModify() {
       try {
         const data = await api.patch('/users/nickname', { nickName })
         console.log(data)
+        //TODO: 기능 확인
         setModalView(true)
       } catch (e) {
         console.error(e, 'patchNickName error')
