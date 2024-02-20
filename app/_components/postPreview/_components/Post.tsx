@@ -27,7 +27,7 @@ type Props = {
     time: string
     title: string
     content: string
-    likes: number
+    likes?: any[]
     comments: number
     views: number
   }
@@ -55,7 +55,7 @@ export default function Post({ profile, post }: Props) {
     <div className={style.container}>
       <div className={style.profileContainer}>
         <Link
-          href={`http://localhost:3000/profile/1`}
+          href={`http://localhost:3000/profile/${post.id}`}
           scroll={false}
           className={style.profileWrapper}
         >
@@ -80,15 +80,17 @@ export default function Post({ profile, post }: Props) {
         <div className={style.postInfoContainer}>
           <div className={style.postInfoWrapper}>
             <Like />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>
+              {post.likes ? post.likes.length : 0}
+            </span>
           </div>
           <div className={style.postInfoWrapper}>
             <Comment />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>{post.comments}</span>
           </div>
           <div className={style.postInfoWrapper}>
             <View width="15" height="14" />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>{post.views}</span>
           </div>
         </div>
       </Link>
