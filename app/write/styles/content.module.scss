@@ -12,23 +12,20 @@
     @content;
   }
 }
-.container {
-  padding: 16px;
-}
 .titleInput {
   width: 100%;
   font-size: 20px;
-  font-weight: 600;
   border: 0;
   padding: 8px 0;
-  margin-top: 8px;
   margin-bottom: 14px;
   border-bottom: 1px solid #f9f9f9;
   @include placeholder {
     color: #d9d9d9;
   }
 }
-
+.editor {
+  text-align: left;
+}
 .contentBox {
   min-height: 317px;
 }
@@ -45,4 +42,15 @@
   @include placeholder {
     color: #d9d9d9;
   }
+  &:focus {
+    outline: none;
+  }
+  text-align: left;
+}
+.boldLine {
+  height: 0px;
+  border: 6px solid #f6f6f6;
+}
+.inputContainer {
+  padding: 16px;
 }

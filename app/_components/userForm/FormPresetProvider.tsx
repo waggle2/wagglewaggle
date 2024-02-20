@@ -45,12 +45,10 @@ export default function FormPresetProvider({
   } = useFormInput(formDataObject)
 
   const [passable, setPassable] = useState(false)
+  const isCheckObject = checkObject(inputFields, formDataObject)
 
   useEffect(() => {
-    if (
-      Object.keys(errors).length === 0 &&
-      checkObject(inputFields, formDataObject)
-    ) {
+    if (Object.keys(errors).length === 0 && isCheckObject) {
       setPassable(true)
     } else {
       setPassable(false)
@@ -61,7 +59,7 @@ export default function FormPresetProvider({
       nextStep()
     }
     return () => setSubmitting(false)
-  }, [errors, submitting, step])
+  }, [errors, submitting, step, isCheckObject])
 
   const childrenProps = {
     inputFields,

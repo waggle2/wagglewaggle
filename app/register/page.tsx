@@ -3,7 +3,7 @@ import SignInOrGuestView from './_components/SignInOrGuestView'
 import SignUpButtonGroup from './_components/SignUpButtonGroup'
 import style from './styles/page.module.scss'
 
-export default function page() {
+async function page() {
   return (
     <section className={style.container}>
       <LogoAndText />
@@ -14,3 +14,5 @@ export default function page() {
     </section>
   )
 }
+
+export default page

@@ -2,9 +2,10 @@ import style from '../styles/nameRegister.module.scss'
 import Button from '@/app/_components/button/Button'
 import BaseAvatar from '/public/assets/baseAvatar.svg'
 import InputGroup from '@/app/_components/userForm/InputGroup'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { IInputFileds } from '@/app/_types/userFormTypes'
 import api from '@/app/_api/commonApi'
+import { useSearchParams } from 'next/navigation'
 
 interface Props {
   inputFields: IInputFileds
@@ -31,7 +32,7 @@ export default function NameRegister({
 
       if (!response.data.available) {
         alert('중복된 닉네임입니다.')
-        setInputFields({ ...inputFields, isNicknameChecked: false })
+        setInputFields({ ...inputFields, isNicknameChecked: '' })
         setErrors({
           ...errors,
           nickname: '이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.',
@@ -39,12 +40,14 @@ export default function NameRegister({
         return
       }
       alert('사용가능한 닉네임입니다.')
-      setInputFields({ ...inputFields, isNicknameChecked: true })
-      setErrors({ ...errors, nickname: '' })
+      setInputFields({ ...inputFields, isNicknameChecked: 'true' })
     } catch (error) {
+      alert('서버 문제로 닉네임 중복확인에 실패했습니다.')
       console.error(error)
+      return
     }
   }
+
   return (
     <>
       <h2 className={style.title}>
@@ -67,7 +70,7 @@ export default function NameRegister({
                 placeholder: '이름을 적어주세요',
                 maxLength: 12,
                 tabIndex: 1,
-                disabled: inputFields.isNicknameChecked,
+                disabled: !!inputFields.isNicknameChecked,
               }}
               buttonProps={{
                 text: inputFields.isNicknameChecked ? '확인완료' : '중복확인',
@@ -83,7 +86,7 @@ export default function NameRegister({
                 onClick: () => {
                   if (inputFields.nickname) checkNickname(inputFields.nickname)
                 },
-                disabled: inputFields.isNicknameChecked,
+                disabled: !!inputFields.isNicknameChecked,
                 type: 'button',
               }}
               errorMessage={errors.nickname}
