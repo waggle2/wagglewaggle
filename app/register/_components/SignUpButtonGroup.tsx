@@ -7,10 +7,20 @@ import Email from '/public/assets/email.svg'
 import cs from 'classnames/bind'
 import style from '../styles/signUpButtonGroup.module.scss'
 import useSocialLogin from '@/app/_hooks/useSocialLogin'
+import { setCookie } from 'cookies-next'
 const cx = cs.bind(style)
 
 export default function SignUpButtonGroup() {
-  const { signUpButtonList } = useSocialLogin()
+  function generateState() {
+    return Math.random().toString(36).substring(2, 10)
+  }
+  const randomString = generateState()
+
+  setCookie('randomString', randomString, {
+    maxAge: 10,
+  })
+
+  const { signUpButtonList } = useSocialLogin(randomString)
 
   const makeSignUpButton = (index: number) => {
     switch (index) {

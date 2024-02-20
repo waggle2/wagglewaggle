@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 type ISnsName = 'kakao' | 'naver' | 'google'
 
-export default function useSocialLogin() {
+export default function useSocialLogin(randomString: string) {
   const router = useRouter()
   const signUpButtonList = [
     {
@@ -28,12 +28,6 @@ export default function useSocialLogin() {
       clickEvent: () => router.push('/register/email'),
     },
   ]
-
-  function generateState() {
-    return Math.random().toString(36).substring(2, 10)
-  }
-  const randomString = generateState()
-
   const restApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
   const redirectUrl = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`

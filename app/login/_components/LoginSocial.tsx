@@ -4,17 +4,19 @@ import Kakao from '/public/assets/kakao.svg'
 import Google from '/public/assets/google.svg'
 import Naver from '/public/assets/naver.svg'
 import useSocialLogin from '@/app/_hooks/useSocialLogin'
-import { useRecoilState } from 'recoil'
-import { AtomNaverState } from '@/app/_recoil/atoms/socialLogin'
-import { useEffect } from 'react'
+import { setCookie } from 'cookies-next'
 
 export default function LoginSocial() {
-  const { signUpButtonList, randomString } = useSocialLogin()
-  const [, setNaverState] = useRecoilState(AtomNaverState)
+  function generateState() {
+    return Math.random().toString(36).substring(2, 10)
+  }
+  const randomString = generateState()
 
-  useEffect(() => {
-    setNaverState(randomString)
-  }, [])
+  setCookie('randomString', randomString, {
+    maxAge: 10,
+  })
+
+  const { signUpButtonList } = useSocialLogin(randomString)
 
   const makeSignUpButton = (index: number) => {
     switch (index) {
