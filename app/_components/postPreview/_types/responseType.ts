@@ -13,4 +13,25 @@ export type postData = {
   title: string
   updatedAt: string
   views: number
+  author: author
+}
+type author = {
+  id: string
+  authenticationProvider: string
+  socialId: string
+  isVerified: boolean
+  state: string
+  primaryAnimal: string
+  secondAnimal: null
+  profileAnimal: string
+  catCoins: number
+  bearCoins: number
+  dogCoins: number
+  foxCoins: number
+  currentRefreshToken: string
+  items: any
+  createdAt: string
+  updatedAt: string
+  deletedAt: string | null
+  credential: [Object]
 }

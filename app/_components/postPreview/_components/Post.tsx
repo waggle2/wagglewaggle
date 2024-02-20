@@ -59,7 +59,7 @@ export default function Post({ profile, post }: Props) {
           scroll={false}
           className={style.profileWrapper}
         >
-          {profile.image ? profile.image : defaultProfile}
+          {profile.isAnonymous ? profile.image : defaultProfile}
 
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>

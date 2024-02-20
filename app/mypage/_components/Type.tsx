@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 type Props = {
   svg: ReactNode
   title: string
-  count: number
+  count?: number
   active?: boolean
 }
 
