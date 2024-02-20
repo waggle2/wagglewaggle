@@ -37,7 +37,7 @@ export default function SwitchStep({
       case 1:
         return (
           <FormPresetProvider
-            formDataObject={{ email: '', isEmailChecked: false }}
+            formDataObject={{ email: '', isEmailChecked: '' }}
             formDataType="emailConfirm"
             step={step}
             nextStep={nextStep}
@@ -73,7 +73,7 @@ export default function SwitchStep({
               formDataObject={{
                 email: '',
                 emailCheck: '',
-                isEmailChecked: false,
+                isEmailChecked: '',
                 password: '',
                 passwordCheck: '',
               }}

@@ -16,7 +16,7 @@ export interface SignUpResponse {
 export interface IInputFileds {
   email?: string
   emailCheck?: string
-  isEmailChecked?: boolean
+  isEmailChecked?: string
   password?: string
   passwordCheck?: string
   nickname?: string
@@ -61,4 +61,20 @@ export type IButton = {
 export type ILogin = {
   email: string
   password: string
+}
+
+export type IErrorResponse = {
+  code: number
+  message: string
+}
+
+export type IEmailCheck = {
+  email: string
+  emailCheckNumber: string
+}
+
+export type IEmailConfirmResponse = {
+  data: {
+    verified: boolean
+  }
 }
