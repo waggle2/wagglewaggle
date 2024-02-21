@@ -6,6 +6,7 @@ import Dog from '@/public/assets/dog.svg'
 import Fox from '@/public/assets/fox.svg'
 
 type props = {
+  nickName?: string
   primaryAnimal?: string
   cat?: number
   bear?: number
@@ -13,7 +14,14 @@ type props = {
   fox?: number
 }
 
-export default function MyType({ primaryAnimal, cat, bear, dog, fox }: props) {
+export default function MyType({
+  nickName,
+  primaryAnimal,
+  cat,
+  bear,
+  dog,
+  fox,
+}: props) {
   return (
     <>
       <article className={style.container}>
@@ -46,7 +54,7 @@ export default function MyType({ primaryAnimal, cat, bear, dog, fox }: props) {
         </div>
       </article>
       <article className={style.typeWrapper}>
-        다른 친구들이 바라보는 {'열정냥냥이'}님은 ..
+        다른 친구들이 바라보는 {nickName}님은 ..
         <br />
         <span className={style.type}>{primaryAnimal}</span>같아요
       </article>
