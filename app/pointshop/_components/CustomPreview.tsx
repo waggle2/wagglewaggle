@@ -10,7 +10,7 @@ type CustomPreviewProps = {
     selectedFrame: string;
     selectedWallpaper: string;
     possessionCoin: number;
-    handleConfirmModalClick: () => void;
+    confirmModalToggle: () => void;
     handleRefreshClick: () => void;
 };
 
@@ -21,7 +21,7 @@ export default function CustomPreview({
     selectedFrame,
     selectedWallpaper,
     possessionCoin,
-    handleConfirmModalClick,
+    confirmModalToggle,
     handleRefreshClick,
 }: CustomPreviewProps) {
     return (
@@ -33,7 +33,7 @@ export default function CustomPreview({
                         <div className={style.customBackground} >
                             <div className={style.customFnc}>
                                 <button onClick={handleRefreshClick} className={style.refreshBtn}><RefreshIcon /></button>
-                                <button onClick={handleConfirmModalClick}>
+                                <button onClick={confirmModalToggle}>
                                     <CheckIcon /></button>
                             </div>
 

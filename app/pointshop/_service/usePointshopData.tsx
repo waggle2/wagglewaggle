@@ -2,7 +2,7 @@ import api from '@/app/_api/commonApi'
 import { AnimalTab, ItemData, CartData } from '@/app/_recoil/atoms/pointshopState';
 
 //유저가 착용하고 있는 아이템
-export const fetchWearingItems = async (selectedTab: string) => {
+export const fetchWearingItems = async (selectedTab: AnimalTab) => {
   const endpoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`;
   try {
     const data = await api.get(endpoint);
@@ -26,7 +26,7 @@ export const fetchWearingItems = async (selectedTab: string) => {
 };
 
 //유저가 갖고 있는(보유중인) 아이템
-export const fetchPossessionItems = async (selectedTab: string, selectedItemType: string) => {
+export const fetchPossessionItems = async (selectedTab: AnimalTab, selectedItemType: string) => {
   const endpoint = `/items/?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
   try {
     const data = await api.get(endpoint);
@@ -40,7 +40,7 @@ export const fetchPossessionItems = async (selectedTab: string, selectedItemType
 
 
 //동물별 아이템 목록
-export const fetchItems = async (selectedTab: string, selectedItemType: string) => {
+export const fetchItems = async (selectedTab: AnimalTab, selectedItemType: string) => {
   const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
   try {
     const data = await api.get(endpoint);
@@ -77,7 +77,7 @@ export const fetchAnimalCoin = async (selectedTab: AnimalTab) => {
 
 
 //동물별 장바구니 데이터
-export const fetchCartItems = async (selectedTab: string) => {
+export const fetchCartItems = async (selectedTab: AnimalTab) => {
   const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`;
   try {
     const data = await api.get(endpoint);
@@ -90,5 +90,44 @@ export const fetchCartItems = async (selectedTab: string) => {
   } catch (error) {
     console.error('장바구니 데이터를 가져오는 중 오류 발생:', error);
     return { cartItems: [], totalCoins: 0 };
+  }
+};
+
+
+// 동물별 장바구니 전체 아이템 구매 처리
+export const checkoutAnimalCartItems = async (selectedTab: AnimalTab, cartItems: ItemData[]) => {
+  const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`;
+
+  try {
+    const data = await api.patch(endpoint, cartItems);
+    console.log(data.message);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+// 선택한 아이템으로 유저 프로필 업데이트
+export const updateProfileItems = async (animal: AnimalTab, itemIds: number[][]) => {
+  const endpoint = '/items/profile';
+
+  try {
+    const requestBody = {
+      animal,
+      itemIds, // 이중 배열을 직접 사용
+    };
+
+    const data = await api.patch(endpoint, requestBody, {
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log(data.message);
+    return data;
+  } catch (error) {
+    console.error('프로필 아이템 업데이트 중 오류 발생:', error);
   }
 };

@@ -44,7 +44,7 @@ export default function CustomResult({
   const [selectedFrame, setSelectedFrame] = useState('');
   const [selectedWallpaper, setSelectedWallpaper] = useState('');
 
-  const handleConfirmModalClick = () => setConfirmModal(!confirmModal);
+  const confirmModalToggle = () => setConfirmModal(!confirmModal);
   const handleCategoryClick = (itemType: string) => setSelectedItemType(itemType);
 
   //구매 확인 모달 열려있을때 스크롤 방지
@@ -132,7 +132,7 @@ export default function CustomResult({
     loadWearingItems();
     getCartData();
     console.log(`${selectedTab} 장바구니:`, cartData.cartItems)
-
+    updateSelectedItemImages(cartData.cartItems);
   }, [selectedTab]);
 
 
@@ -245,9 +245,10 @@ export default function CustomResult({
     <>
       {confirmModal && (
         <ConfirmChange
+          selectedTab={selectedTab}
+          cartItems={cartData.cartItems}
           pointDifference={pointDifference}
-          selectedItems={cartData.cartItems}
-          onConfirmClick={handleConfirmModalClick}
+          confirmModalToggle={confirmModalToggle}
         />
       )}
       <CustomPreview
@@ -257,7 +258,7 @@ export default function CustomResult({
         selectedFrame={selectedFrame}
         selectedWallpaper={selectedWallpaper}
         possessionCoin={animalCoins}
-        handleConfirmModalClick={handleConfirmModalClick}
+        confirmModalToggle={confirmModalToggle}
         handleRefreshClick={handleRefreshClick}
       />
       <Cart
