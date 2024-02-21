@@ -15,6 +15,7 @@ import Town from '@/public/assets/town.svg'
 import axios from '@/node_modules/axios/index'
 
 import Posts from './_components/Posts'
+import api from '@/app/_api/commonApi'
 
 type postData = {
   id: number
@@ -37,8 +38,8 @@ export default function AnimalPostPreview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
+        const res = await api.get(
+          `/posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
         )
         const posts = await res.data.data
         // console.log(posts, 'animal')

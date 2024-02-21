@@ -1,4 +1,4 @@
-import Header from '../_components/common/header/page'
+import Header from '../_components/common/header/Header'
 import Content from './_components/Content'
 import styles from './styles/page.module.scss'
 import LeftArrow from '/public/assets/leftArrow.svg'

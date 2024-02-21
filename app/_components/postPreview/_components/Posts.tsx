@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import axios from '@/node_modules/axios/index'
 
 import Post from './Post'
+import api from '@/app/_api/commonApi'
 
 type props = {
   title?: string
@@ -57,9 +58,7 @@ export default async function Posts({ title }: props) {
   }
 
   try {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}posts?page=1&pageSize=2${filter}`,
-    )
+    const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
     data = await res.data.data
     // console.log(data)
