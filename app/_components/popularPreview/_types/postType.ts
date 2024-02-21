@@ -1,6 +1,7 @@
 export type postProps = {
   profile: {
-    image: string
+    isAnonymous: boolean
+    image: any[]
     name: string
     category: string
     tag: string
@@ -11,7 +12,7 @@ export type postProps = {
     time: string
     title: string
     content: string
-    likes: number
+    likes: string[] | null
     comments: number
     views: number
   }

@@ -5,19 +5,16 @@ import style from './post.module.scss'
 import Like from '@/public/assets/like.svg'
 import Comment from '@/public/assets/comment.svg'
 import View from '@/public/assets/view.svg'
-import FoxDefault from '@/public/assets/fox_default.svg'
-import BearDefault from '@/public/assets/bear_default.svg'
-import DogDefault from '@/public/assets/dog_default.svg'
-import CatDefault from '@/public/assets/cat_default.svg'
 
 import Link from '@/node_modules/next/link'
 import formatDate from '@/app/_lib/formatDate'
+import Profile from './Profile'
 
 type Props = {
   profile: {
-    image?: ReactNode
+    image?: any[]
     name: string
-    animal?: string
+    animal: string
     isAnonymous: boolean
   }
   post: {
@@ -27,30 +24,13 @@ type Props = {
     time: string
     title: string
     content: string
-    likes?: any[]
+    likes: any[]
     comments: number
     views: number
   }
 }
 
 export default function Post({ profile, post }: Props) {
-  let defaultProfile
-  switch (profile.animal) {
-    case '개':
-      defaultProfile = <DogDefault />
-      break
-    case '고양이':
-      defaultProfile = <CatDefault />
-      break
-    case '여우':
-      defaultProfile = <FoxDefault />
-      break
-    case '곰':
-      defaultProfile = <BearDefault />
-      break
-    default:
-  }
-
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
@@ -59,7 +39,7 @@ export default function Post({ profile, post }: Props) {
           scroll={false}
           className={style.profileWrapper}
         >
-          {profile.isAnonymous ? profile.image : defaultProfile}
+          <Profile isAnonymous={profile.isAnonymous} animal={profile?.animal} />
 
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>

@@ -33,7 +33,7 @@ export default async function Posts({ title }: props) {
     try {
       const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
-      console.log(res.data, 'post data')
+      // console.log(res.data, 'post data')
       return res.data
     } catch (err) {
       console.error(err, 'post error')
@@ -48,8 +48,8 @@ export default async function Posts({ title }: props) {
           <Post
             key={index}
             profile={{
-              image: null,
-              name: 'nickname',
+              image: postData.author.items,
+              name: postData.author.credential.nickname,
               animal: postData.animalOfAuthor,
               isAnonymous: postData.isAnonymous,
             }}
@@ -60,8 +60,7 @@ export default async function Posts({ title }: props) {
               time: postData.createdAt,
               title: postData.title,
               content: postData.content,
-              // likes: postData.likes.length,
-              likes: 0,
+              likes: postData.likes,
               comments: postData.commentNum,
               views: postData.views,
             }}
