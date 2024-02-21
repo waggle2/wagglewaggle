@@ -139,7 +139,7 @@ export default function SwitchStep({
             <Back handleBack={goBack} />
           </span>
         }
-        title="회원가입"
+        title={type === 'email' ? '회원가입' : '비밀번호 재설정'}
       />
       {type === 'email' && changeBodyInRegisterEmail(step)}
       {type === 'resetPassword' && changeBodyInResetPassword(step)}
