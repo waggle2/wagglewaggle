@@ -39,7 +39,7 @@ export default function AnimalPostPreview() {
     const fetchData = async () => {
       try {
         const res = await api.get(
-          `/posts?page=1&pageSize=3${selectedAnimal !== '' ? '&animal=' + selectedAnimal : ''}`,
+          `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
         )
         const posts = await res.data
         console.log(posts, 'animal')
@@ -77,34 +77,34 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'고냥이'}
-          mainColor={selectedAnimal === '고양이' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '고냥이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('고양이')
+            handleAnimalSelect('고냥이')
           }}
         />
         <Button
           text={'곰돌이'}
-          mainColor={selectedAnimal === '곰' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '곰돌이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('곰')
+            handleAnimalSelect('곰돌이')
           }}
         />
         <Button
           text={'댕댕이'}
-          mainColor={selectedAnimal === '개' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '댕댕이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('개')
+            handleAnimalSelect('댕댕이')
           }}
         />
         <Button
           text={'폭스'}
-          mainColor={selectedAnimal === '여우' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '폭스' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('여우')
+            handleAnimalSelect('폭스')
           }}
         />
       </div>
@@ -127,8 +127,7 @@ export default function AnimalPostPreview() {
                 time: postData.createdAt,
                 title: postData.title,
                 content: postData.content,
-                // likes: postData.likes.length,
-                likes: 0,
+                likes: postData.likes,
                 comments: postData.commentNum,
                 views: postData.views,
               }}

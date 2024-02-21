@@ -7,20 +7,12 @@ import Back from '@/app/_components/common/header/_components/Back'
 import Modal from '@/app/_components/common/modal/Modal'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from '@/node_modules/next/link'
 
 export default function AccountSetting() {
-  const [logoutModal, setLogoutModal] = useState(false)
   const [withDrawModal, setWithDrawModal] = useState(false)
   const [withDrawSuccess, setWithDrawSuccess] = useState(false)
   const router = useRouter()
-
-  const viewLogoutModal = () => {
-    setLogoutModal(true)
-  }
-
-  const closeLogoutModal = () => {
-    setLogoutModal(false)
-  }
 
   const handleLogout = () => {
     router.push('/')
@@ -43,34 +35,14 @@ export default function AccountSetting() {
     <>
       <Header leftSection={<Back />} title={'계정 설정'} />
       <div className={style.container}>
-        <div className={style.item} onClick={viewLogoutModal}>
-          로그아웃
-        </div>
+        <Link className={style.item} href={'/mypage/editInformation'}>
+          회원 정보 수정
+        </Link>
+
         <div className={style.lastItem} onClick={viewWithDrawModal}>
           회원 탈퇴
         </div>
-        {logoutModal && (
-          <Modal
-            title={'로그아웃'}
-            content={
-              <div className={style.modalContent}>로그아웃 하시겠습니까?</div>
-            }
-            buttons={[
-              <Button
-                text={'취소'}
-                mainColor={'grey'}
-                key="no"
-                action={closeLogoutModal}
-              />,
-              <Button
-                text={'로그아웃'}
-                mainColor={'green'}
-                key="yes"
-                action={handleLogout}
-              />,
-            ]}
-          />
-        )}
+
         {withDrawModal && (
           <Modal
             title={'정말 탈퇴하시겠어요?'}

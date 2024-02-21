@@ -1,13 +1,8 @@
 export type userResponseData = {
+  authenticationProvider: string
   bearCoins: number
   catCoins: number
-  credential: {
-    id: number
-    email: string
-    nickname: string
-    birthYear: number
-    gender: string
-  }
+  credential: credential
   dogCoins: number
   foxCoins: number
   isVerified: false
@@ -18,4 +13,11 @@ export type userResponseData = {
   secondAnimal: any
   socialId: any
   state: string
+}
+export type credential = {
+  id: number
+  email: string
+  nickname: string
+  birthYear: number
+  gender: string
 }

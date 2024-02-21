@@ -25,8 +25,7 @@ export default function MyPage() {
         const userData = res.data
         console.log(res.data, 'mypage')
         setUserInfo(userData)
-        // return res.data
-      } catch (e) {
+      } catch (e: any) {
         console.error(e, 'mypageError')
       }
     }
@@ -45,6 +44,7 @@ export default function MyPage() {
           profileItems={userInfo?.profileItems}
         />
         <MyType
+          nickName={userInfo?.credential.nickname}
           primaryAnimal={userInfo?.primaryAnimal}
           cat={userInfo?.catCoins}
           bear={userInfo?.bearCoins}
@@ -61,9 +61,9 @@ export default function MyPage() {
       </div>
       <div className={style.separationBar} />
       <div className={style.settingContainer}>
-        <SettingNav href={'/mypage/editInformation'} title={'회원 정보 수정'} />
-        <SettingNav href={'/'} title={'건의사항'} />
+        <SettingNav href={'/mypage/feedback'} title={'건의사항'} />
         <SettingNav href={'/mypage/accountSetting'} title={'계정 설정'} />
+        <SettingNav href={'/mypage/logout'} title={'로그아웃'} />
       </div>
 
       <Footer />
