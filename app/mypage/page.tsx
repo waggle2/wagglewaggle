@@ -1,13 +1,13 @@
 import style from './mypage.module.scss'
 
-import Header from '../_components/common/header/page'
+import Header from '../_components/common/header/Header'
 import Title from '../_components/common/header/_components/Title'
 import MyProfile from './[id]/profileSetting/_components/MyProfile'
 import MyType from './[id]/_components/MyType'
 import SettingNav from './[id]/_components/SettingNav'
 import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
-import Footer from '../_components/common/footer/page'
+import Footer from '../_components/common/footer/Footer'
 import Link from '@/node_modules/next/link'
 
 export default function MyPage() {

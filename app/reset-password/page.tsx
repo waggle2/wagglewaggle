@@ -1,16 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import style from './styles/page.module.scss'
-import { IInputFileds } from '@/app/_types/userFormTypes'
 import SwitchStep from '@/app/_components/userForm/SwitchStep'
+import style from './styles/page.module.scss'
+
 export default function page() {
-  const [userTotalDatas, setUserTotalDatas] = useState<IInputFileds>({})
+  const [userTotalDatas, setUserTotalDatas] = useState({})
 
   return (
     <div className={style.container}>
       <SwitchStep
-        type="email"
+        type="resetPassword"
         userTotalDatas={userTotalDatas}
         setUserTotalDatas={setUserTotalDatas}
       />

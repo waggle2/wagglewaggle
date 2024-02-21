@@ -1,11 +1,12 @@
 import style from './styles/page.module.scss'
 import MessageRooms from './_components/MessageRooms'
-import Header from '../_components/common/header/page'
+import Header from '../_components/common/header/Header'
 export default function page() {
   return (
     <div>
       <Header isNoneSidePadding={true} leftSection={<h2>쪽지</h2>} />
       <div className={style.roomsDiv}>
+        {/* test */}
         <MessageRooms />
       </div>
     </div>

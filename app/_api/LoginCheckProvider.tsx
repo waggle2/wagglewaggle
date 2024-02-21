@@ -11,7 +11,7 @@ const accessableWithLogin = [
   '/send-msg',
   '/write',
 ]
-const accessableWithoutLogin = ['/login', '/register']
+const accessableWithoutLogin = ['/login', '/register', '/reset-password']
 
 export default function LoginCheckProvider({
   children,
