@@ -8,26 +8,28 @@ import FoxTemplate from './FoxTemplate'
 import BearTemplate from './BearTemplate'
 
 export default function PopularPost({ profile, post }: postProps) {
+  //TODO: 여기서 css 누적 로딩 일어나는거 같음 리팩토링에서 수정
+  //The resource <URL> was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
   switch (profile.animal) {
     case '고냥이':
       return (
         <CatTemplate
           profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
+            isAnonymous: profile.isAnonymous,
+            image: profile.image,
+            name: profile.name,
+            category: profile.category,
+            tag: profile.tag,
+            animal: profile.animal,
           }}
           post={{
-            id: 1,
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
+            id: post.id,
+            time: post.time,
+            title: post.title,
+            content: post.content,
+            likes: post.likes,
+            comments: post.comments,
+            views: post.views,
           }}
         />
       )
@@ -35,21 +37,21 @@ export default function PopularPost({ profile, post }: postProps) {
       return (
         <DogTemplate
           profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
+            isAnonymous: profile.isAnonymous,
+            image: profile.image,
+            name: profile.name,
+            category: profile.category,
+            tag: profile.tag,
+            animal: profile.animal,
           }}
           post={{
-            id: 1,
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
+            id: post.id,
+            time: post.time,
+            title: post.title,
+            content: post.content,
+            likes: post.likes,
+            comments: post.comments,
+            views: post.views,
           }}
         />
       )
@@ -57,21 +59,21 @@ export default function PopularPost({ profile, post }: postProps) {
       return (
         <FoxTemplate
           profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
+            isAnonymous: profile.isAnonymous,
+            image: profile.image,
+            name: profile.name,
+            category: profile.category,
+            tag: profile.tag,
+            animal: profile.animal,
           }}
           post={{
-            id: 1,
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
+            id: post.id,
+            time: post.time,
+            title: post.title,
+            content: post.content,
+            likes: post.likes,
+            comments: post.comments,
+            views: post.views,
           }}
         />
       )
@@ -79,46 +81,46 @@ export default function PopularPost({ profile, post }: postProps) {
       return (
         <BearTemplate
           profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
+            isAnonymous: profile.isAnonymous,
+            image: profile.image,
+            name: profile.name,
+            category: profile.category,
+            tag: profile.tag,
+            animal: profile.animal,
           }}
           post={{
-            id: 1,
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
+            id: post.id,
+            time: post.time,
+            title: post.title,
+            content: post.content,
+            likes: post.likes,
+            comments: post.comments,
+            views: post.views,
           }}
         />
       )
 
     default:
-      return (
-        <BearTemplate
-          profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
-          }}
-          post={{
-            id: 1,
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
-      )
+    // return (
+    // <BearTemplate
+    //   profile={{
+    //     isAnonymous: profile.isAnonymous,
+    //     image: [],
+    //     name: 'test',
+    //     category: 'test',
+    //     tag: 'test',
+    //     animal: '곰돌이',
+    //   }}
+    //   post={{
+    //     id: post.id,
+    //     time: post.time,
+    //     title: post.title,
+    //     content: 'test',
+    //     likes: [],
+    //     comments: 0,
+    //     views: 0,
+    //   }}
+    // />
+    // )
   }
 }
