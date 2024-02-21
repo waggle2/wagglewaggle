@@ -1,40 +1,32 @@
-import { IInputFileds } from '@/app/_types/userFormTypes'
+import { IFormProps, IInputFileds } from '@/app/_types/userFormTypes'
 import style from '../styles/confirmEmail.module.scss'
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import {
   useConfirmEmailCode,
   useSendCheckEmailCode,
+  useSendPasswordEmailCode,
 } from '@/app/_hooks/services/mutations/userRegister'
 import Button from '@/app/_components/button/Button'
-
-interface Props {
-  inputFields: IInputFileds
-  setInputFields: Dispatch<SetStateAction<IInputFileds>>
-  errors: IInputFileds
-  setErrors: Dispatch<SetStateAction<any>>
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
-  passable: boolean
-}
+import { useRouter } from 'next/navigation'
 
 export default function ConfirmEmail({
   inputFields,
   setInputFields,
   errors,
   setErrors,
-  handleSubmit,
   handleChange,
+  handleSubmit,
   passable,
-}: Props) {
-  const mutationCheckEmail = useSendCheckEmailCode()
+}: IFormProps) {
+  const router = useRouter()
+  const mutationCheckEmail = useSendPasswordEmailCode()
   const mutationConfirmEmail = useConfirmEmailCode()
   async function sendCheckEmailCode(email: string) {
     mutationCheckEmail.mutate(email, {
       onError: (error) => {
         console.error(error)
-        if (error.code === 400) {
-          return setErrors({ ...errors, email: '이미 가입된 이메일입니다.' })
+        if (error.code === 404) {
+          return setErrors({ ...errors, email: '사용자를 찾을 수 없습니다.' })
         }
         alert('인증코드 발송에 실패하였습니다.')
       },
@@ -51,7 +43,6 @@ export default function ConfirmEmail({
               ...errors,
               emailCheck: '인증코드가 일치하지 않습니다.',
             })
-            alert('인증에 실패하였습니다.')
             return
           }
           setInputFields({ ...inputFields, isEmailChecked: 'true' })
@@ -81,7 +72,7 @@ export default function ConfirmEmail({
         <br />
         비밀번호 재설정 메일을 보내드려요
       </p>
-      <form className={style.form}>
+      <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.inputDiv}>
           <InputGroup
             labelText="이메일"
@@ -155,9 +146,21 @@ export default function ConfirmEmail({
             errorMessage={errors.emailCheck}
           />
         </div>
-        <Button mainColor="green" text="비밀번호 재설정" />
-        <Button mainColor="white" text="로그인으로 돌아가기" />
+        <div className={style.actionButtonDiv}>
+          <Button
+            mainColor={passable ? 'green' : 'grey'}
+            text="비밀번호 재설정"
+            isDisabled={!passable}
+          />
+        </div>
       </form>
+      <div className={style.cancelButtonDiv}>
+        <Button
+          mainColor="white"
+          text="로그인으로 돌아가기"
+          action={() => router.push('/login')}
+        />
+      </div>
     </>
   )
 }

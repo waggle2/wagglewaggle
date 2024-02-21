@@ -165,7 +165,7 @@ export default function EmailForm({
           <InputGroup
             labelText="비밀번호"
             inputProps={{
-              type: 'password',
+              type: passwordView ? 'text' : 'password',
               placeholder: '비밀번호를 입력해주세요',
               maxLength: 30,
               name: 'password',
@@ -196,7 +196,7 @@ export default function EmailForm({
           <InputGroup
             labelText="비밀번호 확인"
             inputProps={{
-              type: 'password',
+              type: passwordView ? 'text' : 'password',
               placeholder: '비밀번호를 입력해주세요',
               maxLength: 30,
               name: 'passwordCheck',

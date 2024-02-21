@@ -5,6 +5,7 @@ import {
   IErrorResponse,
   IEmailCheck,
   IEmailConfirmResponse,
+  IResetPassword,
 } from '@/app/_types/userFormTypes'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -48,6 +49,20 @@ export const useSendCheckEmailCode = () => {
   })
 }
 
+const sendPasswordEmailCode = async (email: string) => {
+  const data = await api.post('/users/email-verification/password', { email })
+  return data
+}
+
+export const useSendPasswordEmailCode = () => {
+  return useMutation<unknown, IErrorResponse, string>({
+    mutationFn: (email: string) => sendPasswordEmailCode(email),
+    onSuccess: () => {
+      alert('인증코드가 발송되었습니다.')
+    },
+  })
+}
+
 const confirmEmailCode = async (email: string, emailCheckNumber: string) => {
   const data = await api.post('/users/email-verification/confirm', {
     email,
@@ -60,5 +75,19 @@ export const useConfirmEmailCode = () => {
   return useMutation<IEmailConfirmResponse, IErrorResponse, IEmailCheck>({
     mutationFn: ({ email, emailCheckNumber }) =>
       confirmEmailCode(email, emailCheckNumber),
+  })
+}
+
+const resetPassword = async (email: string, newPassword: string) => {
+  const data = await api.patch('/authentication/password-reset', {
+    email,
+    newPassword,
+  })
+  return data
+}
+
+export const useResetPassword = () => {
+  return useMutation<unknown, IErrorResponse, IResetPassword>({
+    mutationFn: ({ email, newPassword }) => resetPassword(email, newPassword),
   })
 }

@@ -1,5 +1,5 @@
+import { IInput } from '@/app/_types/userFormTypes'
 import style from './styles/input.module.scss'
-import { IInput } from './types'
 
 export default function Input({
   type,

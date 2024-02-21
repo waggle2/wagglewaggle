@@ -1,3 +1,5 @@
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
+
 export interface SignUpData {
   authenticationProvider: 'email' | 'google' | 'kakao' | 'naver'
   socialId?: string
@@ -64,6 +66,11 @@ export type ILogin = {
   password: string
 }
 
+export type IResetPassword = {
+  email: string
+  newPassword: string
+}
+
 export type IErrorResponse = {
   code: number
   message: string
@@ -86,4 +93,14 @@ export type ISocialLoginResponse = {
     socialId: string
     nickname: string
   }
+}
+
+export type IFormProps = {
+  inputFields: IInputFileds
+  setInputFields: Dispatch<SetStateAction<IInputFileds>>
+  errors: IInputFileds
+  setErrors: Dispatch<SetStateAction<any>>
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  passable: boolean
 }

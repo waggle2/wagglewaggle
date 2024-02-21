@@ -15,7 +15,6 @@ interface Props {
 
 export default function SwitchStep({
   type,
-  initStep = 1,
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
