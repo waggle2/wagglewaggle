@@ -1,4 +1,4 @@
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import style from '../styles/modalRules.module.scss'
 import Xmark from '/public/assets/xmark.svg'
 import Close from '@/app/_components/common/header/_components/Close'

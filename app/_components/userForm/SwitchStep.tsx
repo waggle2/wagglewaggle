@@ -1,7 +1,7 @@
 'use client'
 
 import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { IInputFileds } from '@/app/_types/userFormTypes'

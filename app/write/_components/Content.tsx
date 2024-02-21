@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import styles from '../styles/content.module.scss'
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import LeftArrow from '/public/assets/leftArrow.svg'
 import SubmitText from '/public/assets/submitText.svg'
 import ButtonSection from './ButtonSection'

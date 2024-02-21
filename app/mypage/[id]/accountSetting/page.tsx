@@ -2,7 +2,7 @@
 
 import style from './accountSetting.module.scss'
 import Button from '@/app/_components/button/Button'
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
 import Modal from '@/app/_components/common/modal/Modal'
 import { useState } from 'react'
