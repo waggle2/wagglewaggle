@@ -6,16 +6,29 @@ import Header from '@/app/_components/common/header/page'
 import Back from '@/app/_components/common/header/_components/Back'
 import Heart from '@/app/_components/common/header/_components/Heart'
 import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
+import { PageProps } from '@/.next/types/app/layout'
+import api from '@/app/_api/commonApi'
+import formatDate from '@/app/_lib/formatDate'
 
-export default function Detail() {
+export default async function Detail({ params }: PageProps) {
+  const response = await api.get(`/posts/${params.id}`)
+  const data = response.data
   return (
     <div className={styles.container}>
       <Header leftSection={<Back />} rightSection={[<Heart />, <MoreMenu />]} />
       <Content
-        title="14살 연하랑 썸타본 사람? 나 좀 공감해줘 여기 최대 두 줄"
-        nickName="익명의 냥이"
-        content="아 길거리에서 번호 땄는데 14살 연하야 ㅋ
-        서로 연락 자주 해서 썸타고 있는거 같긴 한데,, 이게 맞는걸까?"
+        title={data.title}
+        nickName={
+          data.isAnonymous
+            ? `익명의 ${data.animalOfAuthor}`
+            : data.credential.nickname
+        }
+        content={data.content}
+        tag={data.tag}
+        category={data.category}
+        date={formatDate(data.createdAt)}
+        likes={data.likes === null ? 0 : data.likes.length}
+        views={data.views}
       />
       <div className={styles.boldLine}></div>
       <div className={styles.commentInfo}>
