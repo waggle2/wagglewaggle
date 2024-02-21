@@ -6,6 +6,7 @@ export default function page() {
     <div>
       <Header isNoneSidePadding={true} leftSection={<h2>쪽지</h2>} />
       <div className={style.roomsDiv}>
+        {/* test */}
         <MessageRooms />
       </div>
     </div>
