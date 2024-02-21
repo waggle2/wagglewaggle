@@ -1,19 +1,21 @@
 'use client'
 import { useState } from 'react'
 import style from '../_styles/confirmChange.module.scss'
-import Link from 'next/link'
-import Modal from '@/app/_components/common/modal/Modal'
+import { ItemData } from '@/app/_recoil/atoms/pointshopState'
 
 type Props = {
     pointDifference: number,
-    selectedItemsLength: number,
+    selectedItems: ItemData[],
     onConfirmClick: () => void,
 }
-export default function ConfirmChange({ pointDifference, selectedItemsLength, onConfirmClick }: Props) {
+export default function ConfirmChange({ pointDifference, selectedItems, onConfirmClick }: Props) {
     const [applyModal, setApplyModal] = useState(false);
     const [applyProfile, setApplyProfile] = useState(false);
 
+
+
     const applyModalHandler = () => {
+
         setApplyModal(true);
     }
     console.log('잔돈: ' + pointDifference)
@@ -21,7 +23,7 @@ export default function ConfirmChange({ pointDifference, selectedItemsLength, on
     // 조건2: 보유포인트-상품가격 < 0 일때 : 포인트 부족 안내 모달
     // 조건3: 상품이 담겨있지 않을 때 : 상품을 담아주세요 모달
 
-    if (selectedItemsLength > 0) {
+    if (selectedItems.length > 0) {
         if (pointDifference >= 0) {
             // 구매 가능한 경우
             return (

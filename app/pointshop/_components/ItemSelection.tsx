@@ -1,19 +1,8 @@
 import style from '../_styles/pointShop.module.scss';
 import PointIcon from './PointIcon';
+import { ItemData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState';
 
-type ItemData = {
-    id: number;
-    animal: string;
-    itemType: string;
-    name: string;
-    price: number;
-    image: string;
-    purchasedCount: number;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
-    isOwned: boolean;
-}
+
 
 type ItemSelectionProps = {
     selectedTab: string;
@@ -24,6 +13,7 @@ type ItemSelectionProps = {
     handleItemClick: (item: ItemData) => void;
     selectedItems: ItemData[];
     isLoading: boolean;
+    possessionItems: PossesionItemData[];
 };
 
 export default function ItemSelection({
@@ -34,8 +24,10 @@ export default function ItemSelection({
     items,
     handleItemClick,
     selectedItems,
-    isLoading
+    isLoading,
+    possessionItems
 }: ItemSelectionProps) {
+
 
     const renderCategoryButton = (selectedItemType: string, label: string) => (
         <button
@@ -47,21 +39,42 @@ export default function ItemSelection({
     );
 
     const renderItemsForCategory = (selectedItemType: string) => (
-        items.filter(item => item.itemType === selectedItemType).reverse().map(item => (
-            <li key={item.id} className={selectedItemType === 'emoji' ? style.item : style.bigItem}
-                onClick={() => handleItemClick(item)}
-            >
-                <div className={style.imageWrap}
-                    style={selectedItems.some(selectedItem => selectedItem.id === item.id) ? { border: '2px solid #7EE36E' } : {}}
-                >
-                    <img src={item.image} alt={item.image} />
-                </div>
-                <div className={style.priceCoin}>
-                    <PointIcon animal={selectedTab} /> {item.price}
-                </div>
-            </li>
-        ))
+        items.filter(item => item.itemType === selectedItemType).reverse().map(item => {
+            const isOwned = possessionItems.some(possessionItem => possessionItem.id === item.id);
+
+            if (isOwned) {
+                return (
+                    <li key={item.id} className={selectedItemType === 'emoji' ? style.item : style.bigItem}>
+                        <div className={style.imageWrap}>
+                            <span className={style.ownedIndicator}>보유 중</span>
+                            <img src={item.image} alt={item.name} />
+                        </div>
+                        <div className={style.priceCoin}>
+                            <PointIcon animal={selectedTab} /> {item.price}
+                        </div>
+                    </li>
+                );
+            } else {
+
+                return (
+                    <li key={item.id} className={selectedItemType === 'emoji' ? style.item : style.bigItem}
+                        onClick={() => handleItemClick(item)}
+                    >
+                        <div className={style.imageWrap}
+                            style={selectedItems.some(selectedItem => selectedItem.id === item.id) ? { border: '2px solid #7EE36E' } : {}}
+                        >
+                            <img src={item.image} alt={item.name} />
+                        </div>
+                        <div className={style.priceCoin}>
+                            <PointIcon animal={selectedTab} /> {item.price}
+                        </div>
+                    </li>
+                );
+            }
+        })
     );
+
+
 
     return (
         <div>

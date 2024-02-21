@@ -7,8 +7,9 @@ import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
 import Cart from './Cart';
 import ItemSelection from './ItemSelection';
-import { AnimalTab, ItemData, CartData } from '@/app/_recoil/atoms/pointshopState';
+import { AnimalTab, ItemData, CartData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState';
 import api from '@/app/_api/commonApi'
+import { fetchWearingItems, fetchPossessionItems, fetchItems, fetchAnimalCoin, fetchCartItems } from '../_service/usePointshopData';
 
 type Props = {
   selectedTab: AnimalTab;
@@ -21,151 +22,128 @@ export default function CustomResult({
   selectedItemType,
   setSelectedItemType,
 }: Props) {
-
   const [confirmModal, setConfirmModal] = useState(false);
-  const [wearingItems, setWearingItems] = useState();
+  const [wearingItems, setWearingItems] = useState({
+    emoji: '',
+    background: '',
+    frame: '',
+    wallpaper: '',
+  });
   const [isLoading, setIsLoading] = useState(false);
 
-  const [selectedEmoji, setSelectedEmoji] = useState('/assets/point_shop/emoji/cat_angry.svg');
-  const [selectedProfileBg, setSelectedProfileBg] = useState('/assets/point_shop/profile_background/프로필배경1.svg');
-  const [selectedFrame, setSelectedFrame] = useState('/assets/point_shop/frame/프레임샘플.png');
-  const [selectedWallpaper, setSelectedWallpaper] = useState('/assets/point_shop/wallpaper/벽지샘플.png');
+  const [possessionItems, setPossessionItems] = useState<PossesionItemData[]>([]);
 
-
-
-  const [animalCoins, setAnimalCoins] = useState(0); // 동물 코인 수를 저장할 상태
-  const [items, setItems] = useState([]);
+  const [animalCoins, setAnimalCoins] = useState(0); // 동물별 보유 코인
+  const [items, setItems] = useState([]); // 동물별 아이템 리스트
   const [cartData, setCartData] = useState<CartData>({ cartItems: [], totalCoins: 0 });
   const pointDifference = animalCoins - cartData.totalCoins;
 
-  const fetchWearingItems = async (selectedTab: string) => {
-    const endpoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`;
-    try {
-      const data = await api.get(endpoint);
-      console.log(data);
-
-      if (data.data === null) {
-        return {
-          emoji: '/assets/point_shop/emoji/cat_angry.svg',
-          profileBg: '/assets/point_shop/profile_background/프로필배경1.svg',
-          frame: '/assets/point_shop/frame/프레임샘플.png',
-          wallpaper: '/assets/point_shop/wallpaper/벽지샘플.png',
-        };
-      }
-      return data.data;
-
-    } catch (error) {
-      console.error('착용 아이템 데이터를 가져오는 중 오류 발생:', error);
-      return {};
-    }
-  };
-
-  useEffect(() => {
-    const loadWearingItems = async () => {
-      const fetchedWearingItems = await fetchWearingItems(selectedTab);
-      setWearingItems(fetchedWearingItems);
-    };
-    loadWearingItems();
-  }, [cartData.cartItems]);
-
-  const fetchItems = async (selectedTab: string, selectedItemType: string) => {
-    const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
-    try {
-      const data = await api.get(endpoint);
-      return data.data.items;
-    } catch (error) {
-      console.error('아이템 데이터를 가져오는 중 오류 발생:', error);
-      return [];
-    }
-  };
-
-  const fetchAnimalCoin = async (selectedTab: AnimalTab) => {
-    const endpoint = `/users`;
-    const animalKeyMap = {
-      고냥이: 'catCoins',
-      곰돌이: 'bearCoins',
-      댕댕이: 'dogCoins',
-      폭스: 'foxCoins',
-    };
-    try {
-      const data = await api.get(endpoint);
-      const animalCoinKey = animalKeyMap[selectedTab];
-      return data.data[animalCoinKey];
-
-    } catch (error) {
-      console.error("동물 코인 정보를 가져오는 데 실패했습니다.", error);
-      return 0;
-    }
-  };
-
-  const fetchCartItems = async (selectedTab: string) => {
-    const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`;
-    try {
-      const data = await api.get(endpoint);
-      return {
-        cartItems: data.data.items,
-        totalCoins: data.data.totalCoins,
-      };
-    } catch (error) {
-      console.error('장바구니 데이터를 가져오는 중 오류 발생:', error);
-      return { cartItems: [], totalCoins: 0 };
-    }
-  };
-
-  useEffect(() => {
-    const fetchItemData = async () => {
-      setIsLoading(true);
-      try {
-        const itemsPromise = fetchItems(selectedTab, selectedItemType);
-        const coinsPromise = fetchAnimalCoin(selectedTab);
-        const [items, coins] = await Promise.all([itemsPromise, coinsPromise]);
-        setItems(items);
-        setAnimalCoins(coins);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchItemData();
-  }, [selectedTab, selectedItemType]);
-
+  //착용 미리보기 이미지
+  const [selectedEmoji, setSelectedEmoji] = useState('');
+  const [selectedProfileBg, setSelectedProfileBg] = useState('');
+  const [selectedFrame, setSelectedFrame] = useState('');
+  const [selectedWallpaper, setSelectedWallpaper] = useState('');
 
   const handleConfirmModalClick = () => setConfirmModal(!confirmModal);
   const handleCategoryClick = (itemType: string) => setSelectedItemType(itemType);
 
+  //구매 확인 모달 열려있을때 스크롤 방지
   useEffect(() => {
-    const getCartData = async () => {
-      const fetchedCartData = await fetchCartItems(selectedTab);
-      setCartData(fetchedCartData);
+    if (confirmModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
     };
+  }, [confirmModal]);
 
+
+  const loadWearingItems = async () => {
+    const fetchedWearingItems = await fetchWearingItems(selectedTab);
+    if (fetchedWearingItems && fetchedWearingItems) {
+      if (fetchedWearingItems.emoji) setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
+      if (fetchedWearingItems.background) setSelectedProfileBg(fetchedWearingItems.background.image || selectedProfileBg);
+      if (fetchedWearingItems.frame) setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
+      if (fetchedWearingItems.wallpaper) setSelectedWallpaper(fetchedWearingItems.wallpaper.image || selectedWallpaper);
+    }
+
+    setWearingItems({
+      emoji: fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : '',
+      background: fetchedWearingItems.background ? fetchedWearingItems.background.image : '',
+      frame: fetchedWearingItems.frame ? fetchedWearingItems.frame.image : '',
+      wallpaper: fetchedWearingItems.wallpaper ? fetchedWearingItems.wallpaper.image : '',
+    });
+
+  };
+
+  const getPossessionItems = async () => {
+    const fetchedossessionItems = await fetchPossessionItems(selectedTab, selectedItemType);
+    setPossessionItems(fetchedossessionItems)
+  }
+
+  const fetchItemData = async () => {
+    setIsLoading(true);
+    try {
+      const itemsPromise = fetchItems(selectedTab, selectedItemType);
+      const coinsPromise = fetchAnimalCoin(selectedTab);
+      const [items, coins] = await Promise.all([itemsPromise, coinsPromise]);
+      setItems(items);
+      setAnimalCoins(coins);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const getCartData = async () => {
+    const fetchedCartData = await fetchCartItems(selectedTab);
+    setCartData(fetchedCartData);
+    updateSelectedItemImages(fetchedCartData.cartItems);
+  };
+
+  const updateSelectedItemImages = (updatedCartItems: ItemData[]) => {
+
+    // 카트 아이템에 따라 이미지 업데이트
+    updatedCartItems.forEach(item => {
+      switch (item.itemType) {
+        case 'emoji':
+          setSelectedEmoji(item.image);
+          break;
+        case 'background':
+          setSelectedProfileBg(item.image);
+          break;
+        case 'frame':
+          setSelectedFrame(item.image);
+          break;
+        case 'wallpaper':
+          setSelectedWallpaper(item.image);
+          break;
+        default:
+          break;
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadWearingItems();
     getCartData();
+    console.log(`${selectedTab} 장바구니:`, cartData.cartItems)
+
   }, [selectedTab]);
 
 
-  // const queryClient = useQueryClient();
+  useEffect(() => {
+    fetchItemData();
+    console.log(`${selectedTab} ${selectedItemType} 아이템:`, items)
 
-  const updateSelectedItemImages = (updatedCartItems: ItemData[]) => {
-    const emojiItem = updatedCartItems.find(item => item.itemType === 'emoji');
-    const backgroundItem = updatedCartItems.find(item => item.itemType === 'background');
-    const frameItem = updatedCartItems.find(item => item.itemType === 'frame');
-    const wallpaperItem = updatedCartItems.find(item => item.itemType === 'wallpaper');
+    getPossessionItems();
+    console.log(`${selectedTab} ${selectedItemType} 보유 아이템:`, possessionItems)
 
-    if (emojiItem) setSelectedEmoji(emojiItem.image);
-    if (backgroundItem) setSelectedProfileBg(backgroundItem.image);
-    if (frameItem) setSelectedFrame(frameItem.image);
-    if (wallpaperItem) setSelectedWallpaper(wallpaperItem.image);
-  };
-
-  const resetSelectedImages = () => {
-    setSelectedEmoji('/assets/point_shop/emoji/cat_angry.svg');
-    setSelectedProfileBg('/assets/point_shop/profile_background/프로필배경1.svg');
-    setSelectedFrame('/assets/point_shop/frame/프레임샘플.png');
-    setSelectedWallpaper('/assets/point_shop/wallpaper/벽지샘플.png');
-  };
-
+  }, [selectedTab, selectedItemType]);
 
   const addItemMutation = useMutation({
     mutationFn: async ({ itemId, animal }: { itemId: number; animal: string }) => {
@@ -178,6 +156,8 @@ export default function CustomResult({
       const updatedCartData = await fetchCartItems(selectedTab);
       setCartData(updatedCartData);
       updateSelectedItemImages(updatedCartData.cartItems);
+
+      getCartData();
     }
   });
 
@@ -191,6 +171,8 @@ export default function CustomResult({
       const updatedCartData = await fetchCartItems(selectedTab);
       setCartData(updatedCartData);
       updateSelectedItemImages(updatedCartData.cartItems);
+
+      getCartData();
     }
   });
 
@@ -203,7 +185,8 @@ export default function CustomResult({
       console.log('All items removed successfully');
       const updatedCartData = await fetchCartItems(selectedTab);
       setCartData(updatedCartData);
-      resetSelectedImages();
+
+      getCartData();
     }
   });
 
@@ -218,32 +201,52 @@ export default function CustomResult({
   };
 
 
-  const handleRemoveItemClick = (itemId: number) => {
-    removeItemMutation.mutate({ itemId, animal: selectedTab });
+  const handleRemoveItemClick = async (itemId: number) => {
+    const fetchedWearingItems = await fetchWearingItems(selectedTab);
+    const itemToRemove = cartData.cartItems.find(item => item.id === itemId);
+    await removeItemMutation.mutateAsync({ itemId, animal: selectedTab });
+
+    if (itemToRemove) {
+      switch (itemToRemove.itemType) {
+        case 'emoji':
+          setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
+          break;
+        case 'background':
+          setSelectedProfileBg('/assets/point_shop/profile_background/프로필배경1.svg');
+          break;
+        case 'frame':
+          setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
+          break;
+        case 'wallpaper':
+          setSelectedWallpaper(fetchedWearingItems.wallpaper.image || selectedWallpaper);
+          break;
+        default:
+          break;
+      }
+    }
   };
 
-  const handleRefreshClick = () => removeAllItemsMutation.mutate(selectedTab);
-
-
-
-  useEffect(() => {
-    if (confirmModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+  const handleRefreshClick = async () => {
+    await removeAllItemsMutation.mutateAsync(selectedTab);
+    const fetchedWearingItems = await fetchWearingItems(selectedTab);
+    if (fetchedWearingItems) {
+      setSelectedEmoji(fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : '');
+      setSelectedProfileBg(fetchedWearingItems.background ? fetchedWearingItems.background.image : '');
+      setSelectedFrame(fetchedWearingItems.frame ? fetchedWearingItems.frame.image : '');
+      setSelectedWallpaper(fetchedWearingItems.wallpaper ? fetchedWearingItems.wallpaper.image : '');
     }
+  };
 
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [confirmModal]);
+
+
+
 
   return (
     <>
       {confirmModal && (
         <ConfirmChange
           pointDifference={pointDifference}
-          selectedItemsLength={cartData.cartItems.length}
+          selectedItems={cartData.cartItems}
           onConfirmClick={handleConfirmModalClick}
         />
       )}
@@ -274,10 +277,9 @@ export default function CustomResult({
         handleItemClick={handleItemClick}
         selectedItems={cartData.cartItems}
         isLoading={isLoading}
+        possessionItems={possessionItems}
       />
-
 
     </>
   );
 };
-

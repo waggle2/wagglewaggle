@@ -16,6 +16,19 @@ export type ItemData = {
   isOwned: boolean
 }
 
+export type PossesionItemData = {
+  id: number
+  animal: string
+  itemType: string
+  name: string
+  price: number
+  image: string
+  purchasedCount: number
+  createdAt: string
+  updatedAt: string
+  deletedAt: string | null
+}
+
 export type CartData = {
   cartItems: ItemData[]
   totalCoins: number

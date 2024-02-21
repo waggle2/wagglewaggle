@@ -302,6 +302,7 @@
     padding-bottom: 8px;
 
     .imageWrap {
+      position: relative;
       transition: all 0.25s;
       border: 2px solid transparent;
       display: flex;
@@ -314,10 +315,17 @@
         width: 100%;
         max-width: 58px;
       }
+
+      .ownedIndicator {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
     }
   }
 
   > .bigItem {
+    position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -339,6 +347,12 @@
 
       > img {
         width: 100%;
+      }
+
+      > .ownedIndicator {
+        position: absolute;
+        top: 0;
+        right: 0;
       }
     }
   }
