@@ -1,0 +1,25 @@
+.hTitle {
+  margin-block: 32px 18px;
+  line-height: 30px;
+  color: #222;
+  font-size: 20px;
+  font-weight: var(--fw-semiBold);
+}
+
+.subTitle {
+  margin-bottom: 32px;
+  line-height: 20px;
+  color: #444444;
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.actionButtonDiv {
+  margin-block: 16px 8px;
+}

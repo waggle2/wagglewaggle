@@ -15,7 +15,6 @@ interface Props {
 
 export default function SwitchStep({
   type,
-  initStep = 1,
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
@@ -32,6 +31,37 @@ export default function SwitchStep({
     setStep(step - 1)
   }
 
+  const changeBodyInResetPassword = (step: number) => {
+    switch (step) {
+      case 0:
+        router.replace('/login')
+        break
+      case 1:
+        return (
+          <FormPresetProvider
+            formDataObject={{ email: '', isEmailChecked: '' }}
+            formDataType="emailConfirm"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      case 2:
+        return (
+          <FormPresetProvider
+            formDataObject={{ password: '', passwordCheck: '' }}
+            formDataType="resetPassword"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      default:
+        return null
+    }
+  }
   const goBack = () => {
     if (isSocial && step === 2) {
       router.replace('/register')
@@ -40,7 +70,7 @@ export default function SwitchStep({
     prevStep()
   }
 
-  const changeBody = (step: number): ReactNode => {
+  const changeBodyInRegisterEmail = (step: number): ReactNode => {
     switch (step) {
       case 0:
         router.replace('/register')
@@ -52,7 +82,7 @@ export default function SwitchStep({
               formDataObject={{
                 email: '',
                 emailCheck: '',
-                isEmailChecked: false,
+                isEmailChecked: '',
                 password: '',
                 passwordCheck: '',
               }}
@@ -109,9 +139,10 @@ export default function SwitchStep({
             <Back handleBack={goBack} />
           </span>
         }
-        title="회원가입"
+        title={type === 'email' ? '회원가입' : '비밀번호 재설정'}
       />
-      {changeBody(step)}
+      {type === 'email' && changeBodyInRegisterEmail(step)}
+      {type === 'resetPassword' && changeBodyInResetPassword(step)}
     </>
   )
 }
