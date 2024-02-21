@@ -1,17 +1,22 @@
+'use client'
 import api from '@/app/_api/commonApi'
 import { IPost } from '@/app/_types/postTypes'
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 
-const postWrite = async (writeData: IPost): Promise<any> => {
+const postWrite = async (
+  writeData: IPost,
+): Promise<{ data: { id: number }; message: string }> => {
   const response = await api.post('/posts', writeData)
   return response
 }
 export function usePostWrite() {
+  const router = useRouter()
   return useMutation({
     mutationFn: (writeData: IPost) => postWrite(writeData),
     onSuccess: (response) => {
-      console.log(response)
-      alert('게시글 첨부가 완료되었습니다.') // 임시, 게시글 디테일 페이지 작업 시 해당 게시물 디테일 페이지로 redirect구현 예정
+      alert(response.message)
+      router.push(`/detail/${response.data.id}`)
     },
   })
 }
