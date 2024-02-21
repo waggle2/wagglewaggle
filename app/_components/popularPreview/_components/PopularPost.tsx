@@ -8,7 +8,7 @@ import FoxTemplate from './FoxTemplate'
 import BearTemplate from './BearTemplate'
 
 export default function PopularPost({ profile, post }: postProps) {
-  //TODO: 여기서 css 누적 로딩 일어나는거 같음 리팩토링에서 수정
+  //TODO: 여기서 css 누적 로딩 일어나는거 같음 리팩토링에서 수정, textOverFlow도 확인
   //The resource <URL> was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
   switch (profile.animal) {
     case '고냥이':

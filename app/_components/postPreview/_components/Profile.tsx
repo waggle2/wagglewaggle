@@ -10,21 +10,23 @@ type props = {
 }
 
 export default function Profile({ isAnonymous, image, animal }: props) {
-  let defaultProfile
-  switch (animal) {
-    case '개':
-      defaultProfile = <DogDefault />
-      break
-    case '고양이':
-      defaultProfile = <CatDefault />
-      break
-    case '여우':
-      defaultProfile = <FoxDefault />
-      break
-    case '곰':
-      defaultProfile = <BearDefault />
-      break
-    default:
+  if (isAnonymous && image?.length === 0) {
+    switch (animal) {
+      case '개':
+        return <DogDefault />
+
+      case '고양이':
+        return <CatDefault />
+
+      case '여우':
+        return <FoxDefault />
+
+      case '곰':
+        return <BearDefault />
+
+      default:
+    }
+  } else {
+    return <BearDefault /> //TODO: 유저 프로필 정보 받아와서 뿌려주는 로직 생성
   }
-  return <></>
 }
