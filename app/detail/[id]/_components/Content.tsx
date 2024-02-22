@@ -3,25 +3,27 @@ import HeartIcon from '/public/assets/heart.svg'
 import View from '/public/assets/view.svg'
 import styles from '../styles/content.module.scss'
 import DOMPurify from 'isomorphic-dompurify'
+import LikeSection from './LikeSection'
 
 interface ContentProps {
+  postId: number
   title: string
   nickName: string
   content: string
   tag: string
   category: string
   date: string
-  likes: number
   views: number
 }
 export default function Content({
+  postId,
   title,
   nickName,
   content,
   tag,
   category,
   date,
-  likes,
+
   views,
 }: ContentProps) {
   return (
@@ -48,10 +50,7 @@ export default function Content({
         <div />
       )}
       <div className={styles.buttonSection}>
-        <div>
-          <HeartIcon width="16" height="16" color="#8c8c8c" />
-          <span>{likes}</span>
-        </div>
+        <LikeSection postId={postId} />
         <div>
           <View width="16" height="16" color="#8c8c8c" />
           <span>{views}</span>
