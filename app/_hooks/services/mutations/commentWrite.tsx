@@ -1,6 +1,6 @@
 import api from '@/app/_api/commonApi'
 import { IComment } from '@/app/_types/commentTypes'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const commentWrite = async (
   commentData: IComment,
@@ -10,10 +10,11 @@ const commentWrite = async (
   return response
 }
 export function useCommentWrite(postId: number) {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (commentData: IComment) => commentWrite(commentData, postId),
-    onSuccess: (response) => {
-      alert(response.message)
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['get-comments'] })
     },
   })
 }

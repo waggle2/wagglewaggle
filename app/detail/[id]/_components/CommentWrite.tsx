@@ -30,17 +30,19 @@ export default function CommentWrite({ postId }: CommentWriteProps) {
       </div>
       <div className={styles.commentWrapper}>
         <textarea
+          value={content}
           className={styles.comment}
           onChange={(e) => setContent(e.target.value)}
         />
         <div
           className={styles.commentSubmit}
-          onClick={() =>
+          onClick={() => {
             mutate({
               content: content,
               isAnonymous: isAnonymous,
             })
-          }
+            setContent('')
+          }}
         >
           확인
         </div>
