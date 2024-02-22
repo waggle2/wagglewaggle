@@ -9,6 +9,7 @@ interface ButtonSectionProps {
   setSelectedCategory: Dispatch<SetStateAction<number>>
   setSelectedTag: Dispatch<SetStateAction<number>>
   setIsAnonymous: Dispatch<SetStateAction<boolean>>
+  editIsAnonymous?: boolean
 }
 export default function ButtonSection({
   category,
@@ -18,6 +19,7 @@ export default function ButtonSection({
   setSelectedCategory,
   setSelectedTag,
   setIsAnonymous,
+  editIsAnonymous,
 }: ButtonSectionProps) {
   const isAnonymous = false
   return (
@@ -64,9 +66,18 @@ export default function ButtonSection({
         <span>익명</span>
         <label
           className={styles.toggle}
-          onClick={() => setIsAnonymous(!isAnonymous)}
+          onClick={() =>
+            setIsAnonymous(
+              editIsAnonymous !== null ? !editIsAnonymous : !isAnonymous,
+            )
+          }
         >
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            defaultChecked={
+              editIsAnonymous !== null ? editIsAnonymous : isAnonymous
+            }
+          />
           <span className={styles.slider}></span>
         </label>
       </div>
