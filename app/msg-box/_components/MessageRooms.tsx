@@ -1,11 +1,21 @@
+'use client'
+
 import style from '../styles/messageRooms.module.scss'
 import MessagePreview from './MessagePreview'
 import { messageRooms, IMessageRooms } from '../mockTalk'
 import Link from 'next/link'
 import EmptyRooms from './EmptyRooms'
+import { useEffect } from 'react'
+import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/msgBox'
 
 export default function MessageRooms() {
-  console.log(messageRooms.length)
+  const { data, isLoading } = useGetAllMessageRooms()
+
+  if (isLoading) return <div>로딩중...</div>
+
+  console.log(data, '야호')
+  return
+
   return (
     <>
       {messageRooms?.length === 0 ? (
