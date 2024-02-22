@@ -6,7 +6,7 @@ const cx = cs.bind(style)
 interface Props {
   sender?: string
   content?: string
-  time?: string
+  time?: Date
   receiver?: string
   firstUser?: string
   secondUser?: string

@@ -3,7 +3,8 @@
   font-weight: var(--fw-bold);
   padding-block: 12px;
 }
-.roomsDiv {
+.roomsSection {
+  position: relative;
   padding-top: 8px;
   height: calc(100dvh - 60px);
   background-color: #e8e8e8;

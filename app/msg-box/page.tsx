@@ -6,13 +6,9 @@ import PaddingProvider from '../_components/layoutSupport/PaddingProvider'
 export default function page() {
   return (
     <>
-      <PaddingProvider>
-        <Header isNoneSidePadding={true} leftSection={<h2>쪽지</h2>} />
-        <div className={style.roomsDiv}>
-          <MessageRooms />
-        </div>
-      </PaddingProvider>
-      <Footer />
+      <section className={style.roomsSection}>
+        <MessageRooms />
+      </section>
     </>
   )
 }
