@@ -4,6 +4,13 @@
   display: flex;
   gap: 8px;
 }
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+}
 .profileCircle {
   width: 40px;
   height: 40px;
@@ -21,7 +28,7 @@
 .comment {
   width: 100%;
   height: 60px;
-  border: 2px solid #ebebeb;
+  border: 1px solid #ebebeb;
   border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -41,4 +48,56 @@
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   cursor: pointer;
+}
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+  margin-top: 2px;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 14px;
+}
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 12px;
+  width: 12px;
+  left: 2.5px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #2fd714;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2fd714;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+.toggleBox {
+  font-weight: normal;
+  font-size: 11px;
+  color: #6b6b6b;
 }

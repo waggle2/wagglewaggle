@@ -33,7 +33,6 @@ export default async function Detail({ params }: PageProps) {
         views={data.views}
       />
       <div className={styles.boldLine}></div>
-      <CommentWrite />
       <div className={styles.commentInfo}>
         <div>
           <span>댓글</span>
@@ -44,6 +43,8 @@ export default async function Detail({ params }: PageProps) {
           <span>최신순</span>
         </div>
       </div>
+      <CommentWrite postId={params.id} />
+      <div className={styles.line} />
       <Comment nickName="익명의 냥이" />
       <div className={styles.line} />
       <Comment nickName="익명의 냥이" />
