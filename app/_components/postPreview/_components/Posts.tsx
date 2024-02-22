@@ -1,6 +1,3 @@
-import { ReactNode } from 'react'
-import api from '@/app/_api/commonApi'
-
 import Post from './Post'
 import api from '@/app/_api/commonApi'
 
