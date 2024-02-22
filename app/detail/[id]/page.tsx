@@ -10,6 +10,7 @@ import Navigation from './_components/Navigation'
 export default async function Detail({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)
   const data = response.data
+  console.log(data)
   return (
     <div className={styles.container}>
       <Navigation
