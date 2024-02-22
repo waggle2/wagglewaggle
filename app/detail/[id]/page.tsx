@@ -6,6 +6,7 @@ import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
 import formatDate from '@/app/_lib/formatDate'
 import Navigation from './_components/Navigation'
+import CommentWrite from './_components/CommentWrite'
 
 export default async function Detail({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)
@@ -32,6 +33,7 @@ export default async function Detail({ params }: PageProps) {
         views={data.views}
       />
       <div className={styles.boldLine}></div>
+      <CommentWrite />
       <div className={styles.commentInfo}>
         <div>
           <span>댓글</span>
