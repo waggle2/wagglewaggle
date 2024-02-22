@@ -17,6 +17,7 @@ export default async function Detail({ params }: PageProps) {
         authorNickname={data.author.credential.nickname}
       />
       <Content
+        postId={params.id}
         title={data.title}
         nickName={
           data.isAnonymous
@@ -27,7 +28,6 @@ export default async function Detail({ params }: PageProps) {
         tag={data.tag}
         category={data.category}
         date={formatDate(data.createdAt)}
-        likes={data.likes === null ? 0 : data.likes.length}
         views={data.views}
       />
       <div className={styles.boldLine}></div>
