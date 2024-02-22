@@ -11,31 +11,36 @@ import { messageRoom } from '@/app/_lib/messages'
 import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
 
 export default function MessageRooms() {
-  const [roomsData, setRoomsData] = useState<Array<messageRoom | undefined>>([])
+  const [roomsData, setRoomsData] = useState<Array<messageRoom>>([])
   const { data, isLoading, isError } = useGetAllMessageRooms()
 
   useEffect(() => {
-    console.log(data)
     if (data) {
-      console.log(data)
+      setRoomsData([...roomsData, data])
     }
-  }, [])
+  }, [data])
+
+  if (isLoading) return <div>로딩중</div>
 
   return (
     <>
-      {roomsData?.length === 0 ? (
-        <EmptyRooms />
+      {data?.length === 0 ? (
+        <>
+          <EmptyRooms />
+        </>
       ) : (
         <div className={style.roomsDiv}>
-          {roomsData.map((roomData: messageRoom, index) => (
-            <Link href={`msg-box/${index}`} key={index}>
-              <MessagePreview
-                sender={roomsData[index]?.messages.at(-1)?.sender}
-                content={roomsData[index]?.messages.at(-1)?.content}
-                time={roomsData[index]?.messages.at(-1)?.created_at}
-              />
-            </Link>
-          ))}
+          <PaddingProvider>
+            {roomsData.map((roomData: messageRoom, index) => (
+              <Link href={`msg-box/${index}`} key={index}>
+                <MessagePreview
+                  sender={roomsData[index].messages.at(-1).sender}
+                  content={roomsData[index].messages.at(-1).content}
+                  time={roomsData[index].messages.at(-1).created_at}
+                />
+              </Link>
+            ))}
+          </PaddingProvider>
         </div>
       )}
     </>

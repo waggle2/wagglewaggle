@@ -7,7 +7,7 @@ import Comment from '@/public/assets/comment.svg'
 import View from '@/public/assets/view.svg'
 import TestProfile from '@/public/assets/profile.svg'
 import Link from '@/node_modules/next/link'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 
 type Props = {
   profile: {

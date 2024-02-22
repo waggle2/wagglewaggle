@@ -1,15 +1,16 @@
+import { dateAndTime } from '@/app/_lib/formatDate'
 import style from '../styles/messagePreview.module.scss'
 import Avatar from '/public/assets/avatar.svg'
 import cs from 'classnames/bind'
 const cx = cs.bind(style)
 
 interface Props {
-  sender?: string
-  content?: string
-  time?: Date
-  receiver?: string
-  firstUser?: string
-  secondUser?: string
+  sender: string
+  content: string
+  time: Date
+  receiver: string
+  firstUser: string
+  secondUser: string
 }
 
 export default function MessagePreview({
@@ -40,7 +41,7 @@ export default function MessagePreview({
         <span className={style.content}>{content}</span>
       </div>
       <div className={style.informDiv}>
-        <span className={style.time}>{time}</span>
+        <span className={style.time}>{dateAndTime(time)}</span>
         <span className={style.notRead}>3</span>
       </div>
     </article>

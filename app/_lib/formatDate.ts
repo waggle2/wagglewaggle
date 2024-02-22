@@ -1,4 +1,6 @@
-const formatDate = (time: string) => {
+import { format } from 'date-fns'
+
+export const formatDate = (time: string) => {
   const date = new Date(time)
   return (
     date.getFullYear() +
@@ -12,4 +14,7 @@ const formatDate = (time: string) => {
       : '0' + date.getDate().toString())
   )
 }
-export default formatDate
+
+export const dateAndTime = (time: Date) => {
+  return format(time, 'yyyy-MM-dd HH:mm')
+}

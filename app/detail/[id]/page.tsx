@@ -4,7 +4,7 @@ import Comment from './_components/Comment'
 import Sort from '/public/assets/sort.svg'
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import Navigation from './_components/Navigation'
 
 export default async function Detail({ params }: PageProps) {

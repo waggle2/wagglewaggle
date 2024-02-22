@@ -3,13 +3,13 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 const getAllMessageBoxes = async () => {
-  const { data } = await axios.get('http://localhost:3000/api/messages')
-  return data
+  const response = await axios.get('http://localhost:3000/api/messages')
+  return response.data
 }
 
 export const useGetAllMessageRooms = () => {
   return useQuery({
     queryKey: ['message-rooms'],
-    queryFn: async () => await getAllMessageBoxes(),
+    queryFn: getAllMessageBoxes,
   })
 }

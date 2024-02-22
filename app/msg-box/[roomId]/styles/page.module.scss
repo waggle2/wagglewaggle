@@ -8,14 +8,13 @@
 
 .mainSection {
   padding-top: 8px;
+  padding-inline: 16px;
   height: calc(100dvh - 141px);
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   background-color: #e8e8e8;
-  box-shadow:
-    16px 0 0 #e8e8e8,
-    -16px 0 0 #e8e8e8;
+
   &::-webkit-scrollbar {
     display: none;
   }
