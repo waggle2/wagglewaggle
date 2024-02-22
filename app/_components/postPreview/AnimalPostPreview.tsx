@@ -14,9 +14,6 @@ import Town from '@/public/assets/town.svg'
 
 import api from '@/app/_api/commonApi'
 
-import Posts from './_components/Posts'
-import api from '@/app/_api/commonApi'
-
 type postData = {
   id: number
   animal?: string
