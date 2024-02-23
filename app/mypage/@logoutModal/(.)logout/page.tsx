@@ -14,6 +14,7 @@ export default function Logout() {
   const handleLogout = async () => {
     try {
       const res = await api.post('/authentication/logout', {})
+      localStorage.setItem('isLogin', 'false')
       console.log(res, 'logout')
       router.replace('/')
     } catch (err) {
