@@ -35,7 +35,7 @@ export default function Post({ profile, post }: Props) {
     <div className={style.container}>
       <div className={style.profileContainer}>
         <Link
-          href={`http://localhost:3000/profile/${post.id}`}
+          href={`http://localhost:3000/profile/${post.id}`} //TODO: ID참조 어떻게 할건지
           scroll={false}
           className={style.profileWrapper}
         >

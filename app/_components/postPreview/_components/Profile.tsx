@@ -29,4 +29,5 @@ export default function Profile({ isAnonymous, image, animal }: props) {
   } else {
     return <BearDefault /> //TODO: 유저 프로필 정보 받아와서 뿌려주는 로직 생성
   }
+  return <></>
 }
