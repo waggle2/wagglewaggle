@@ -60,8 +60,15 @@
     .record {
       display: flex;
       justify-content: space-between;
-      padding: 17px 16px;
+      padding: 0 16px;
+      gap: 15px;
       border-top: 1px solid #f6f6f6;
+
+      > span {
+        cursor: pointer;
+        flex: 1;
+        padding: 17px 0;
+      }
 
       & img {
         cursor: pointer;

@@ -4,6 +4,7 @@ import style from '@/app/explore/_styles/explore.module.scss';
 import RecordSwitch from './RecordSwitch';
 import SearchBar from '@/app/search/_components/SearchBar';
 import { fetchSearchHistories, deleteSingleHistory, deleteAllHistories } from '@/app/search/_api/useSearch';
+import { useRouter } from 'next/navigation';
 
 type DeleteButtonProps = {
     index: number,
@@ -30,6 +31,12 @@ export default function Explore() {
     const [localSearchHistories, setLocalSearchHistories] = useState<string[]>([]);
     const [showSearchHistories, setShowSearchHistories] = useState<boolean>(true);
     const [isLogin, setIsLogin] = useState(false);
+
+    const router = useRouter();
+
+    const handleHistoryClick = (keyword: string) => {
+        router.push(`/search?keyword=${keyword}`)
+    }
 
     const handleRecordSwitchChange = (checked: boolean) => {
         setShowSearchHistories(checked);
@@ -84,6 +91,8 @@ export default function Explore() {
                 <div className={style.recordHeader}>
                     <h4>최근 검색 기록</h4>
                     <button onClick={handleClearSearchRecord}>지우기</button>
+                    {/* <div className={style.recordSwitch}><span>검색 기록</span> {showSearchHistories ? "숨기기" : "보기"}<RecordSwitch onChange={handleRecordSwitchChange} checked={showSearchHistories} /></div> */}
+
                 </div>
             </div>
 
@@ -93,8 +102,8 @@ export default function Explore() {
                         searchHistories.length > 0 && (
                             <ul className={style.searchRecords}>
                                 {searchHistories.map((history, index) => (
-                                    <li key={history.id} className={style.record}>
-                                        <span>{history.keyword}</span>
+                                    <li key={history.id} className={style.record} >
+                                        <span onClick={() => handleHistoryClick(history.keyword)}>{history.keyword}</span>
                                         <DeleteButton index={index} onDelete={() => handleDeleteSearchRecord(index)} />
                                     </li>
                                 ))}
@@ -104,8 +113,8 @@ export default function Explore() {
                         localSearchHistories.length > 0 && (
                             <ul className={style.searchRecords}>
                                 {localSearchHistories.map((keyword, index) => (
-                                    <li key={index} className={style.record}>
-                                        <span>{keyword}</span>
+                                    <li key={index} className={style.record} >
+                                        <span onClick={() => handleHistoryClick(keyword)}>{keyword}</span>
                                         <DeleteButton index={index} onDelete={() => handleDeleteSearchRecord(index, keyword)} />
                                     </li>
                                 ))}
