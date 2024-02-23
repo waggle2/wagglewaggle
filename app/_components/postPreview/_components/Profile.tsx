@@ -10,18 +10,18 @@ type props = {
 }
 
 export default function Profile({ isAnonymous, image, animal }: props) {
-  if (isAnonymous && image?.length === 0) {
+  if (isAnonymous || !image) {
     switch (animal) {
-      case '개':
+      case '댕댕이':
         return <DogDefault />
 
-      case '고양이':
+      case '고냥이':
         return <CatDefault />
 
-      case '여우':
+      case '폭스':
         return <FoxDefault />
 
-      case '곰':
+      case '곰돌이':
         return <BearDefault />
 
       default:
