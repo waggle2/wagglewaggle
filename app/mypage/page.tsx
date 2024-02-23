@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import style from './mypage.module.scss'
 
 import Header from '../_components/common/header/Header'
@@ -10,7 +12,6 @@ import SettingNav from './_components/SettingNav'
 import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
 import Footer from '../_components/common/footer/Footer'
-import Link from '@/node_modules/next/link'
 
 import api from '../_api/commonApi'
 import { userResponseData } from './_types/userData'
@@ -18,6 +19,8 @@ import { useEffect, useState } from 'react'
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<userResponseData>()
+  const router = useRouter()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +29,7 @@ export default function MyPage() {
         console.log(res.data, 'mypage')
         setUserInfo(userData)
       } catch (e: any) {
+        if (e.code === 404) router.replace('/')
         console.error(e, 'mypageError')
       }
     }
