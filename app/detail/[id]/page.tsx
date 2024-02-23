@@ -1,7 +1,6 @@
 import styles from './styles/page.module.scss'
 import Content from './_components/Content'
 import Comment from './_components/Comment'
-import Sort from '/public/assets/sort.svg'
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
 import formatDate from '@/app/_lib/formatDate'
@@ -32,21 +31,7 @@ export default async function Detail({ params }: PageProps) {
         views={data.views}
       />
       <div className={styles.boldLine}></div>
-      <div className={styles.commentInfo}>
-        <div>
-          <span>댓글</span>
-          <span>2</span>
-        </div>
-        <div>
-          <Sort width="14" height="14" />
-          <span>최신순</span>
-        </div>
-      </div>
-      <Comment nickName="익명의 냥이" />
-      <div className={styles.line} />
-      <Comment nickName="익명의 냥이" />
-      <div className={styles.line} />
-      <Comment nickName="익명의 냥이" />
+      <Comment postId={params.id} />
     </div>
   )
 }
