@@ -29,17 +29,19 @@
   padding: 0 16px;
   display: flex;
   gap: 4px;
-  overflow-x: scroll;
-  white-space: nowrap;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  // overflow-x: scroll;
+  // white-space: nowrap;
+  // -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  // scrollbar-width: none; /* 파이어폭스 */
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
 
   span {
     display: flex;
+    align-items: center;
     gap: 6.5px;
+    margin-bottom: 13px;
     padding: 4px 6px 4px 8px;
     border-radius: 4px;
     color: #2fd714;
@@ -47,8 +49,6 @@
     background-color: #cae5c6;
     font-size: 13px;
     letter-spacing: -0.17px;
-    display: flex;
-    align-items: center;
 
     > button {
       cursor: pointer;

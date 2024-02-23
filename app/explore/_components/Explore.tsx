@@ -63,7 +63,7 @@ export default function Explore() {
         const fetchHistories = async () => {
             if (isLogin) {
                 try {
-                    const { data } = await fetchSearchHistories();
+                    const { data } = await fetchSearchHistories(1, 10);
                     setSearchHistories(data);
                 } catch (error) {
                     console.error('Failed to fetch search histories:', error);

@@ -1,16 +1,19 @@
 'use client'
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Back from '@/app/_components/common/header/_components/Back';
 import style from '../_styles/searchBar.module.scss';
 import { fetchSearchPost } from '../_api/useSearch';
 
-type Props = { q?: string };
 
-export default function SearchBar({ q }: Props) {
+export default function SearchBar() {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [isLogin, setIsLogin] = useState<boolean>(false);
+    const searchParams = useSearchParams()
+    const keyword = searchParams.get('keyword');
     const router = useRouter();
+
 
     useEffect(() => {
         // 로컬 스토리지에서 로그인 상태 확인
@@ -18,10 +21,10 @@ export default function SearchBar({ q }: Props) {
     }, []);
 
     useEffect(() => {
-        if (q) {
-            setSearchTerm(q);
+        if (keyword) {
+            setSearchTerm(keyword);
         }
-    }, [q]);
+    }, [keyword]);
 
     const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
@@ -31,10 +34,13 @@ export default function SearchBar({ q }: Props) {
         if (!searchTerm.trim()) {
             alert('검색어를 입력하세요');
             return;
+        } else if (searchTerm.length === 1) {
+            alert('검색어를 2글자 이상 입력하세요')
+            return
         }
 
         await fetchSearchPost({ text: searchTerm });
-        router.push(`/search?q=${searchTerm}`);
+        router.push(`/search?keyword=${searchTerm}`);
 
         if (!isLogin) {
             // 비로그인 상태일 때: 로컬 스토리지에 검색 기록 저장

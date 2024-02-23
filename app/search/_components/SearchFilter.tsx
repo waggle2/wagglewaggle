@@ -8,17 +8,17 @@ type Props = {
     onClickModalToggle: () => void,
     filterLabels: {
         category: string | null,
-        talkAbout: string | null,
-        animalType: string | null,
+        tag: string | null,
+        animal: string | null,
     },
-    onRemoveFilter: (filterType: 'category' | 'talkAbout' | 'animalType') => void
+    onRemoveFilter: (filterType: 'category' | 'tag' | 'animal') => void
 
 }
 
 
 export default function SearchFilter({ isResult, onClickModalToggle, filterLabels, onRemoveFilter }: Props) {
 
-    const handleRemoveFilter = (filterType: 'category' | 'talkAbout' | 'animalType') => {
+    const handleRemoveFilter = (filterType: 'category' | 'tag' | 'animal') => {
         // 부모 컴포넌트로부터 받은 onRemoveFilter 함수를 호출하여 해당 필터를 제거
         onRemoveFilter(filterType);
     };
@@ -43,16 +43,16 @@ export default function SearchFilter({ isResult, onClickModalToggle, filterLabel
                         <button className={style.removeFilterBtn} onClick={() => handleRemoveFilter('category')}><RemoveIcon /></button>
                     </span>
                 )}
-                {filterLabels.talkAbout && (
+                {filterLabels.tag && (
                     <span className={style.filterItem}>
-                        #{filterLabels.talkAbout}
-                        <button className={style.removeFilterBtn} onClick={() => handleRemoveFilter('talkAbout')}><RemoveIcon /></button>
+                        #{filterLabels.tag}
+                        <button className={style.removeFilterBtn} onClick={() => handleRemoveFilter('tag')}><RemoveIcon /></button>
                     </span>
                 )}
-                {filterLabels.animalType && (
+                {filterLabels.animal && (
                     <span className={style.filterItem}>
-                        #{filterLabels.animalType}
-                        <button className={style.removeFilterBtn} onClick={() => handleRemoveFilter('animalType')}><RemoveIcon /></button>
+                        #{filterLabels.animal}
+                        <button className={style.removeFilterBtn} onClick={() => handleRemoveFilter('animal')}><RemoveIcon /></button>
                     </span>
                 )}
 

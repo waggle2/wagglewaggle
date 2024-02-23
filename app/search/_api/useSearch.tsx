@@ -1,10 +1,10 @@
 import api from "@/app/_api/commonApi";
 
 interface SearchPostParams {
-    tag?: string;
-    category?: string;
-    text?: string;
-    animal?: string;
+    tag?: string | null;
+    category?: string | null;
+    text?: string | null;
+    animal?: string | null;
     page?: number;
     pageSize?: number;
 }
@@ -28,17 +28,17 @@ export const fetchSearchPost = async ({
     const endpoint = `/posts?${queryParams.toString()}`;
     try {
         const data = await api.get(endpoint);
-        console.log(data.message);
         console.log(data)
         return data;
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
+        alert(error.message)
         throw error;
     }
 };
 
-export const fetchSearchHistories = async () => {
-    const endpoint = `/search-histories`
+export const fetchSearchHistories = async (page: number, pageSize: number) => {
+    const endpoint = `/search-histories?page=${page}&pageSize=${pageSize}`
     try {
         const data = await api.get(endpoint)
         console.log(data.message)
