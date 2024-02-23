@@ -42,6 +42,9 @@ export default function InfoEdit() {
   const userVerified = () => {
     console.log('TODO: 인증 이벤트 추가')
   }
+  const handleChangeCurrentPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPassword(() => e.target.value)
+  }
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(() => e.target.value)
     isValidCheckPassword(e.target.value)
@@ -73,9 +76,7 @@ export default function InfoEdit() {
       setWaringMessage(() => '비밀번호가 일치하지 않습니다')
     }
   }
-  const handleAuthPassword = async () => {
-    console.log('handleAuthPassword')
-  }
+
   const handleSuccess = () => {
     router.replace('/mypage')
   }
@@ -122,11 +123,9 @@ export default function InfoEdit() {
       <InputText
         title="현재 비밀번호"
         placeholder={'현재 비밀번호를 입력해주세요'}
-        text={newPassword}
+        text={currentPassword}
         type="password"
-        onChange={handleChangePassword}
-        button={true}
-        onClick={isAuthPassword ? undefined : handleAuthPassword}
+        onChange={handleChangeCurrentPassword}
       />
       <InputText
         title="새로운 비밀번호"
