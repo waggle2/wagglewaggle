@@ -104,7 +104,7 @@ export default function InfoEdit() {
       <DisabledText
         text={
           userInfo?.socialId
-            ? userInfo.authenticationProvider
+            ? `(${userInfo.authenticationProvider}) 가입 회원입니다.`
             : userCredential?.email
         }
         title={'이메일'}
@@ -120,38 +120,43 @@ export default function InfoEdit() {
         onClick={userInfo?.isVerified ? undefined : userVerified}
       />
 
-      <InputText
-        title="현재 비밀번호"
-        placeholder={'현재 비밀번호를 입력해주세요'}
-        text={currentPassword}
-        type="password"
-        onChange={handleChangeCurrentPassword}
-      />
-      <InputText
-        title="새로운 비밀번호"
-        placeholder={'새로운 비밀번호를 입력해주세요'}
-        text={newPassword}
-        type="password"
-        onChange={handleChangePassword}
-        guide={'8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.'}
-      />
-      <InputText
-        title="새로운 비밀번호 확인"
-        placeholder={'새로운 비밀번호를 입력해주세요'}
-        text={validPassword}
-        type="password"
-        onChange={handleChangeValidPassword}
-        warning={waringMessage}
-      />
-      {isValid && isAuthPassword ? (
-        <Button
-          text={'변경하기'}
-          mainColor={'green'}
-          action={handlePasswordChangeRequest}
-        />
-      ) : (
-        <Button text={'변경하기'} mainColor={'grey'} />
+      {userInfo?.authenticationProvider === 'email' && (
+        <>
+          <InputText
+            title="현재 비밀번호"
+            placeholder={'현재 비밀번호를 입력해주세요'}
+            text={currentPassword}
+            type="password"
+            onChange={handleChangeCurrentPassword}
+          />
+          <InputText
+            title="새로운 비밀번호"
+            placeholder={'새로운 비밀번호를 입력해주세요'}
+            text={newPassword}
+            type="password"
+            onChange={handleChangePassword}
+            guide={'8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.'}
+          />
+          <InputText
+            title="새로운 비밀번호 확인"
+            placeholder={'새로운 비밀번호를 입력해주세요'}
+            text={validPassword}
+            type="password"
+            onChange={handleChangeValidPassword}
+            warning={waringMessage}
+          />
+          {isValid && isAuthPassword ? (
+            <Button
+              text={'변경하기'}
+              mainColor={'green'}
+              action={handlePasswordChangeRequest}
+            />
+          ) : (
+            <Button text={'변경하기'} mainColor={'grey'} />
+          )}
+        </>
       )}
+
       {successModalView && (
         <Modal
           title={'변경 완료'}
