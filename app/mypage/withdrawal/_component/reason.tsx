@@ -38,15 +38,15 @@ export default function Reason({
   const handleWithDrawal = async () => {
     const reason =
       selected === 3
-        ? { reason: reasons[selected], otherReason: otherReason }
-        : { reason: reasons[selected], otherReason: '' }
+        ? { reason: reasons[selected], otherReasons: otherReason }
+        : { reason: reasons[selected] }
     if (confirm !== '와글와글을 탈퇴하겠습니다.') {
       setWarning(() => true)
     } else {
       setWarning(() => false)
       try {
         console.log(reason)
-        const res = await api.delete('/users', reason)
+        const res = await api.delete('/users', { data: reason })
         console.log(res)
         setModalView(() => true)
       } catch (e) {
@@ -128,7 +128,12 @@ export default function Reason({
             </div>
           }
           buttons={[
-            <Button text={'확인'} mainColor={'green'} action={handleSuccess} />,
+            <Button
+              text={'확인'}
+              mainColor={'green'}
+              action={handleSuccess}
+              key="success"
+            />,
           ]}
         />
       )}
