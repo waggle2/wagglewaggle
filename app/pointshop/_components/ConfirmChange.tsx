@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import style from '../_styles/confirmChange.module.scss'
 import { AnimalTab, ItemData } from '@/app/_recoil/atoms/pointshopState'
-import { checkoutAnimalCartItems, updateProfileItems } from '../_service/usePointshopData'
+import { checkoutAnimalCartItems, updateProfileItems, fetchWearingItems } from '../_service/usePointshopData'
 import { useRouter } from 'next/navigation'
 
 type Props = {
@@ -10,12 +10,22 @@ type Props = {
     cartItems: ItemData[],
     pointDifference: number,
     confirmModalToggle: () => void,
+    wearingItems: {
+        emoji: number,
+        background: number,
+        frame: number,
+        wallpaper: number,
+    }
 }
-export default function ConfirmChange({ selectedTab, cartItems, pointDifference, confirmModalToggle }: Props) {
+
+type PurchasedItemsType = {
+    [key: string]: number;
+};
+
+export default function ConfirmChange({ selectedTab, cartItems, pointDifference, confirmModalToggle, wearingItems }: Props) {
     const [applyModal, setApplyModal] = useState(false);
     const router = useRouter();
 
-    //장바구니 아이템 구매
     const purchaseCartItemsHandler = () => {
         const patchCartData = async () => {
             try {
@@ -29,27 +39,31 @@ export default function ConfirmChange({ selectedTab, cartItems, pointDifference,
         patchCartData();
     }
 
+    const updateProfileHandler = async () => {
+        try {
+            const purchasedItems = cartItems.reduce<PurchasedItemsType>((acc, item) => {
+                acc[item.itemType] = item.id;
+                return acc;
+            }, {});
 
-    //구매아이템 프로필에 적용
-    const updateProfileHandler = () => {
-        const applyProfileItems = async () => {
-            // 선택된 아이템의 ID만 추출하여 이중 배열로 만듦
-            const itemIds = [cartItems.map(item => item.id)]; // 이중 배열로 만들기 위해 추가적으로 배열로 감쌈
+            const finalItemIds: number[] = [
+                purchasedItems.emoji || wearingItems.emoji,
+                purchasedItems.background || wearingItems.background,
+                purchasedItems.frame || wearingItems.frame,
+                purchasedItems.wallpaper || wearingItems.wallpaper,
+            ].filter(id => id !== undefined);
 
-            try {
-                const response = await updateProfileItems(selectedTab, itemIds);
+            if (finalItemIds.length > 0) {
+                const response = await updateProfileItems(selectedTab, [finalItemIds]);
                 console.log('프로필 업데이트 응답:', response.message);
                 window.location.reload();
-            } catch (error) {
-                console.error('프로필 아이템 업데이트 중 오류 발생:', error);
+            } else {
+                console.error('업데이트할 아이템이 없습니다.');
             }
-        };
-
-        applyProfileItems();
-        confirmModalToggle();
+        } catch (error) {
+            console.error('프로필 아이템 업데이트 중 오류 발생:', error);
+        }
     };
-
-
 
     console.log('잔돈: ' + pointDifference)
     // 조건1: 상품이 담겨있고, 보유포인트 >= 상품가격 : 구매 최종 확인 모달

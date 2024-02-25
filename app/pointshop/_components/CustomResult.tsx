@@ -24,10 +24,10 @@ export default function CustomResult({
 }: Props) {
   const [confirmModal, setConfirmModal] = useState(false);
   const [wearingItems, setWearingItems] = useState({
-    emoji: '',
-    background: '',
-    frame: '',
-    wallpaper: '',
+    emoji: 0,
+    background: 0,
+    frame: 0,
+    wallpaper: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,7 +62,8 @@ export default function CustomResult({
 
   const loadWearingItems = async () => {
     const fetchedWearingItems = await fetchWearingItems(selectedTab);
-    if (fetchedWearingItems && fetchedWearingItems) {
+
+    if (fetchedWearingItems) {
       if (fetchedWearingItems.emoji) setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
       if (fetchedWearingItems.background) setSelectedProfileBg(fetchedWearingItems.background.image || selectedProfileBg);
       if (fetchedWearingItems.frame) setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
@@ -70,13 +71,15 @@ export default function CustomResult({
     }
 
     setWearingItems({
-      emoji: fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : '',
-      background: fetchedWearingItems.background ? fetchedWearingItems.background.image : '',
-      frame: fetchedWearingItems.frame ? fetchedWearingItems.frame.image : '',
-      wallpaper: fetchedWearingItems.wallpaper ? fetchedWearingItems.wallpaper.image : '',
+      emoji: fetchedWearingItems.emoji.id,
+      background: fetchedWearingItems.background.id,
+      frame: fetchedWearingItems.frame.id,
+      wallpaper: fetchedWearingItems.wallpaper.id,
     });
-
   };
+
+
+
 
   const getPossessionItems = async () => {
     const fetchedossessionItems = await fetchPossessionItems(selectedTab, selectedItemType);
@@ -149,7 +152,7 @@ export default function CustomResult({
     mutationFn: async ({ itemId, animal }: { itemId: number; animal: string }) => {
       const endpoint = `/items/cart/${itemId}?animal=${animal}`;
 
-      await api.post(endpoint, {});
+      await api.patch(endpoint, {});
     },
     onSuccess: async () => {
       console.log('Item added successfully');
@@ -212,7 +215,7 @@ export default function CustomResult({
           setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
           break;
         case 'background':
-          setSelectedProfileBg('/assets/point_shop/profile_background/프로필배경1.svg');
+          setSelectedProfileBg(fetchedWearingItems.background.image || selectedProfileBg);
           break;
         case 'frame':
           setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
@@ -249,6 +252,7 @@ export default function CustomResult({
           cartItems={cartData.cartItems}
           pointDifference={pointDifference}
           confirmModalToggle={confirmModalToggle}
+          wearingItems={wearingItems}
         />
       )}
       <CustomPreview
@@ -265,7 +269,6 @@ export default function CustomResult({
         selectedTab={selectedTab}
         cartItems={cartData.cartItems}
         totalItemPrice={cartData.totalCoins}
-        handleRemoveItemClick={handleRemoveItemClick}
       />
       <ItemSelection
         selectedTab={selectedTab}
@@ -276,11 +279,11 @@ export default function CustomResult({
         }
         items={items}
         handleItemClick={handleItemClick}
+        handleRemoveItemClick={handleRemoveItemClick}
         selectedItems={cartData.cartItems}
         isLoading={isLoading}
         possessionItems={possessionItems}
       />
-
     </>
   );
 };

@@ -7,10 +7,9 @@ type CartProps = {
     selectedTab: string;
     cartItems: ItemData[];
     totalItemPrice: number;
-    handleRemoveItemClick: (itemId: number) => void;
 };
 
-export default function Cart({ selectedTab, cartItems, totalItemPrice, handleRemoveItemClick }: CartProps) {
+export default function Cart({ selectedTab, cartItems, totalItemPrice, }: CartProps) {
 
     const itemTypeOrder = ['emoji', 'background', 'frame', 'wallpaper'];
 
@@ -28,8 +27,6 @@ export default function Cart({ selectedTab, cartItems, totalItemPrice, handleRem
                     {sortedCartItems && sortedCartItems.length > 0 ? (
                         sortedCartItems.map((item, index) => (
                             <li key={index} className={style.item} >
-                                <button className={style.removeBtn}
-                                    onClick={() => handleRemoveItemClick(item.id)}>x</button>
                                 <div className={style.selectedImageBox}>
                                     <img src={item.image} alt="" />
                                 </div>
