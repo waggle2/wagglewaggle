@@ -229,7 +229,7 @@ export default function CustomResult({
     }
   };
 
-  const handleRefreshClick = async () => {
+  const handleResetClick = async () => {
     await removeAllItemsMutation.mutateAsync(selectedTab);
     const fetchedWearingItems = await fetchWearingItems(selectedTab);
     if (fetchedWearingItems) {
@@ -263,12 +263,14 @@ export default function CustomResult({
         selectedWallpaper={selectedWallpaper}
         possessionCoin={animalCoins}
         confirmModalToggle={confirmModalToggle}
-        handleRefreshClick={handleRefreshClick}
+        handleResetClick={handleResetClick}
       />
       <Cart
         selectedTab={selectedTab}
         cartItems={cartData.cartItems}
         totalItemPrice={cartData.totalCoins}
+        handleResetClick={handleResetClick}
+        confirmModalToggle={confirmModalToggle}
       />
       <ItemSelection
         selectedTab={selectedTab}

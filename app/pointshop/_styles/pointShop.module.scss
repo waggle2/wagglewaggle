@@ -64,46 +64,56 @@
 
 // 선택 아이템 착용 미리보기
 .customContainer {
-  padding: 1rem;
-  background-color: #f0f0f0;
+  padding: 12px 16px;
+  // background-color: #fff;
 }
 
 .customBackground {
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 215px;
-  border-radius: 0.75rem;
+  height: 247px;
+  border-radius: 8px;
 
-  .profileResult {
+  .profilePreview {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     width: 100%;
     height: 100%;
 
     .emoji,
     .frame,
+    .animalBody,
     .profileBg {
       position: absolute;
-      top: 50%;
+      // top: 50%;
+      top: 24px;
       left: 50%;
-      transform: translate(-50%, -50%);
+      // transform: translate(-50%, -50%);
+      transform: translate(-50%, 0);
       z-index: 2;
     }
 
     .emoji {
-      transform: translate(-50%, -42.7%);
+      transform: translate(-50%, 30px);
       width: 100px;
       z-index: 4;
     }
+
     .frame {
-      width: 132px;
+      width: 165px;
       z-index: 5;
     }
+
+    .animalBody {
+      width: 162px;
+      z-index: 4;
+    }
+
     .profileBg {
-      width: 132px;
+      width: 162px;
       z-index: 3;
     }
     .wallPaper {
@@ -136,8 +146,8 @@
 }
 
 .imageBox {
-  min-width: 137px;
-  min-height: 137px;
+  min-width: 162px;
+  min-height: 162px;
   border: 3px solid #fff;
   border-radius: 50%;
   overflow: hidden;
@@ -146,30 +156,40 @@
   align-items: center;
 }
 
-.possessionCoin {
+.possessionCoinWrap {
   z-index: 11;
   position: absolute;
-  bottom: 13px;
-  right: 13px;
+  justify-self: center;
+  bottom: 16px;
+  // top: 13px;
+  // left: 13px;
+
   display: flex;
-  gap: 10px;
-  padding: 4px 8px;
-  background-color: #fefefe;
-  border-radius: 34px;
-  font-size: 16px;
-  color: #878787;
-  > img {
-    height: 17px;
-    width: auto;
+  justify-content: center;
+  width: 100%;
+  .possessionCoin {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background-color: #fff;
+    border: 1px solid #eff0f0;
+    border-radius: 34px;
+    font-size: 16px;
+    color: #878787;
+    > img {
+      height: 17px;
+      width: auto;
+    }
   }
 }
 
 // 장바구니 UI
 .selectedContainer {
   width: 100%;
-  min-height: 185px;
+  // min-height: 185px;
   background-color: #fff;
-  padding: 20px;
+  padding: 0 16px 12px 16px;
 }
 .selectedItems {
   display: flex;
@@ -184,35 +204,28 @@
     align-items: center;
     gap: 6px;
 
-    .removeBtn {
-      position: absolute;
-      right: -4px;
-      top: -4px;
-      width: 16px;
-      height: 16px;
-      border-radius: 8px;
-      background-color: #ccc;
-      opacity: 0.5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-      line-height: 1;
-    }
-
     > .selectedImageBox {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      height: 86px;
-      padding: 18px 11px;
+      padding: 12px;
+      // height: 86px;
+      // padding: 18px 11px;
       background-color: #f5f5f5;
       border-radius: 12px;
 
+      &::after {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+      }
+
       > img {
+        position: absolute;
         width: 100%;
         max-width: 58px;
+        max-height: 58px;
       }
     }
   }
@@ -228,12 +241,13 @@
   font-size: 14px;
 }
 
-.totalPriceWrap {
+.cartFnc {
+  margin-top: 15px;
   display: flex;
   justify-content: flex-end;
+  gap: 4px;
 
-  .totalPrice {
-    margin-top: 15px;
+  > button {
     display: flex;
     align-items: center;
     gap: 3px;
@@ -243,6 +257,11 @@
     font-size: 14px;
     color: #878787;
   }
+
+  // .resetBtn {
+  // }
+  // .purchaseBtn {
+  // }
 }
 
 // 아이템 선택부분
@@ -310,7 +329,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px 11px;
+      padding: 12px;
+      // padding: 18px 11px;
       background-color: #f5f5f5;
       border-radius: 12px;
       > img {

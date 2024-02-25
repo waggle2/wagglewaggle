@@ -7,9 +7,11 @@ type CartProps = {
     selectedTab: string;
     cartItems: ItemData[];
     totalItemPrice: number;
+    handleResetClick: () => void;
+    confirmModalToggle: () => void;
 };
 
-export default function Cart({ selectedTab, cartItems, totalItemPrice, }: CartProps) {
+export default function Cart({ selectedTab, cartItems, totalItemPrice, handleResetClick, confirmModalToggle }: CartProps) {
 
     const itemTypeOrder = ['emoji', 'background', 'frame', 'wallpaper'];
 
@@ -19,12 +21,14 @@ export default function Cart({ selectedTab, cartItems, totalItemPrice, }: CartPr
         return orderA - orderB;
     });
 
+    const isCartItem = sortedCartItems.length > 0;
+
     return (
         <div>
             {/* 장바구니 */}
             <div className={style.selectedContainer}>
                 <ul className={style.selectedItems}>
-                    {sortedCartItems && sortedCartItems.length > 0 ? (
+                    {isCartItem ? (
                         sortedCartItems.map((item, index) => (
                             <li key={index} className={style.item} >
                                 <div className={style.selectedImageBox}>
@@ -37,20 +41,19 @@ export default function Cart({ selectedTab, cartItems, totalItemPrice, }: CartPr
                         ))
                     ) : (
                         <li className={style.item}>
-                            <div className={style.selectedImageBox}>
-                                <img src="/아이템.png" alt="" />
-                            </div>
+                            <div className={style.selectedImageBox}></div>
                             <div className={style.priceCoin}>
                                 <PointIcon animal={selectedTab} /> {0}
                             </div>
                         </li>
                     )}
                 </ul>
-                <div className={style.totalPriceWrap}>
-                    <div className={style.totalPrice}>
-                        <span>TOTAL</span>
+                <div className={style.cartFnc}>
+                    {isCartItem && <button className={style.resetBtn} onClick={handleResetClick}>RESET</button>}
+                    <button className={style.purchaseBtn} onClick={confirmModalToggle}>
+                        <span>BUY</span>
                         <PointIcon animal={selectedTab} />{totalItemPrice}
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
