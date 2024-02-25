@@ -13,28 +13,26 @@ import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
 import Footer from '../_components/common/footer/Footer'
 
-import api from '../_api/commonApi'
 import { userResponseData } from './_types/userData'
 import { useEffect, useState } from 'react'
+import useGetUserInfo from '../_hooks/services/queries/userInfo'
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<userResponseData>()
   const router = useRouter()
+  const fetchData = async () => {
+    try {
+      const { data } = await useGetUserInfo()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get('/users')
-        const userData = res.data
-        console.log(res.data, 'mypage')
-        setUserInfo(userData)
-      } catch (e: any) {
-        if (e.code === 404) router.replace('/')
-        console.error(e, 'mypageError')
-      }
+      console.log(data, 'mypage')
+      setUserInfo(data)
+    } catch (e: any) {
+      if (e.code === 404) router.replace('/')
+      console.error(e, 'mypageError')
     }
-    fetchData()
-  }, [])
+  }
+  fetchData()
+  console.log(userInfo)
 
   return (
     <>
