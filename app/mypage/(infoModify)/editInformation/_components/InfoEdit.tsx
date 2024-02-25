@@ -4,6 +4,7 @@ import { userResponseData, credential } from '@/app/mypage/_types/userData'
 import api from '@/app/_api/commonApi'
 import Button from '@/app/_components/button/Button'
 import Modal from '@/app/_components/common/modal/Modal'
+import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
 import InputText, { DisabledText } from '../../_components/InputText'
@@ -24,21 +25,19 @@ export default function InfoEdit() {
   const regex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=|\\{}[\]:;<>,.?/~]).{8,16}$/
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get('/users')
-        const userData = res.data
-        console.log(res.data, 'mypage')
-        setUserInfo(() => userData)
-        setUserCredential(() => userData.credential)
-        //undefined
-      } catch (e) {
-        console.error(e, 'mypageError')
-      }
+  const fetchData = async () => {
+    try {
+      const { data } = useGetUserInfo()
+
+      console.log(data, 'mypage')
+      setUserInfo(() => data)
+      setUserCredential(() => data.credential)
+    } catch (e) {
+      console.error(e, 'mypageError')
     }
-    fetchData()
-  }, [])
+  }
+  fetchData()
+
   const userVerified = () => {
     console.log('TODO: 인증 이벤트 추가')
   }
