@@ -5,14 +5,18 @@ import CommentInfo from './CommentInfo'
 import CommentWrite from './CommentWrite'
 import useGetComments from '@/app/_hooks/services/queries/comments'
 import formatDate from '@/app/_lib/formatDate'
+import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
+import { useState } from 'react'
 interface CommentProps {
   postId: number
 }
 export default function Comment({ postId }: CommentProps) {
   const { data, isLoading } = useGetComments(postId)
+  const { data: userInfo, isLoading: isUserLoading } = useGetUserInfo()
+  const [editIdx, setEditIdx] = useState<number | null>(null)
   return (
     <>
-      {!isLoading && (
+      {!isLoading && !isUserLoading && (
         <>
           <div className={styles.commentInfo}>
             <div>
@@ -24,20 +28,38 @@ export default function Comment({ postId }: CommentProps) {
               <span>최신순</span>
             </div>
           </div>
-          <CommentWrite postId={postId} />
-          {data.map((item: any) => {
+          <CommentWrite postId={postId} isEdit={false} />
+          {data.map((item: any, idx: number) => {
             return (
               <>
                 <div className={styles.line} />
-                <CommentInfo
-                  nickName={
-                    item.isAnonymous
-                      ? `익명의 ${item.author.profileAnimal}`
-                      : item.author.credential.nickname
-                  }
-                  content={item.content}
-                  date={formatDate(item.updatedAt)}
-                />
+                {idx === editIdx ? (
+                  <CommentWrite
+                    commentId={item.id}
+                    postId={postId}
+                    isEdit={idx === editIdx}
+                    setEditIdx={setEditIdx}
+                    initialContent={item.content}
+                    initialAnonymous={item.isAnonymous}
+                  />
+                ) : (
+                  <CommentInfo
+                    commentId={item.id}
+                    nickName={
+                      item.isAnonymous
+                        ? `익명의 ${item.author.profileAnimal}`
+                        : item.author.credential.nickname
+                    }
+                    content={item.content}
+                    date={formatDate(item.updatedAt)}
+                    isEditable={
+                      userInfo.credential.nickname ===
+                      item.author.credential.nickname
+                    }
+                    idx={idx}
+                    setEditIdx={setEditIdx}
+                  />
+                )}
               </>
             )
           })}
