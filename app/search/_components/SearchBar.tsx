@@ -1,30 +1,53 @@
 'use client'
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Back from '@/app/_components/common/header/_components/Back'
+import Back from '@/app/_components/common/header/_components/Back';
+import style from '../_styles/searchBar.module.scss';
+import { fetchSearchPost } from '../_api/useSearch';
 
-import style from '../_styles/searchBar.module.scss'
 
-type Props = { q?: string }
-
-export default function SearchBar({ q }: Props) {
-
+export default function SearchBar() {
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const searchParams = useSearchParams()
+    const keyword = searchParams.get('keyword');
     const router = useRouter();
 
+
     useEffect(() => {
-        if (q) {
-            setSearchTerm(q);
+        // 로컬 스토리지에서 로그인 상태 확인
+        setIsLogin(localStorage.getItem('isLogin') === 'true');
+    }, []);
+
+    useEffect(() => {
+        if (keyword) {
+            setSearchTerm(keyword);
         }
-    }, [q]);
+    }, [keyword]);
 
     const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const handleSearch = () => {
-        console.log(searchTerm);
-        router.push(`/search?q=${searchTerm}`);
+    const handleSearch = async () => {
+        if (!searchTerm.trim()) {
+            alert('검색어를 입력하세요');
+            return;
+        } else if (searchTerm.length === 1) {
+            alert('검색어를 2글자 이상 입력하세요')
+            return
+        }
+
+        await fetchSearchPost({ text: searchTerm });
+        router.push(`/search?keyword=${searchTerm}`);
+
+        if (!isLogin) {
+            // 비로그인 상태일 때: 로컬 스토리지에 검색 기록 저장
+            const histories = JSON.parse(localStorage.getItem('searchHistories') || '[]');
+            const updatedHistories = [searchTerm, ...histories.filter((term: string) => term !== searchTerm)];
+            localStorage.setItem('searchHistories', JSON.stringify(updatedHistories));
+        }
     };
 
     return (
@@ -33,11 +56,11 @@ export default function SearchBar({ q }: Props) {
             <input
                 className={style.searchInput}
                 type="text"
-                placeholder="무엇을 검색하실건가요?"
+                placeholder="어떤 이야기를 찾으시나요?"
                 value={searchTerm}
                 onChange={handleSearchInput}
                 onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
             />
         </div>
-    )
+    );
 }

@@ -6,7 +6,7 @@ import SearchIcon from '@/public/assets/search.svg'
 export default function Search() {
   const router = useRouter()
   const clickEvent = () => {
-    router.push('/search')
+    router.push('/explore')
   }
   return <SearchIcon onClick={clickEvent} />
 }

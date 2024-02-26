@@ -1,19 +1,21 @@
-'use client'
 import { ConfigProvider, Switch } from 'antd';
 
-const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
+type RecordSwitchProps = {
+    onChange: (checked: boolean) => void; // Function that takes a boolean and returns void
+    checked: boolean; // Boolean to indicate if the switch is checked
 };
-export default function RecordSwitch() {
+
+const RecordSwitch = ({ onChange, checked }: RecordSwitchProps) => {
     return (
         <ConfigProvider
             theme={{
                 token: {
                     colorPrimary: '#2FD714',
-                }
+                },
             }}>
-            <Switch defaultChecked={false} size='small' onChange={onChange} />
+            <Switch checked={checked} size="small" onChange={onChange} />
         </ConfigProvider>
-    )
-}
+    );
+};
 
+export default RecordSwitch;
