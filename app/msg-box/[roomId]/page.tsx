@@ -8,14 +8,11 @@ import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
 import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
+import { useParams } from 'next/navigation'
 
-interface Props {
-  params: { roomId: number }
-}
-
-export default function page({ params }: Props) {
+export default function page() {
   const [isMenuModalOpen, setMenuModalOpen] = useState(false)
-
+  const [headerTitle, setHeaderTitle] = useState('')
   return (
     <div className={style.wrapper}>
       <PaddingProvider>
@@ -33,11 +30,11 @@ export default function page({ params }: Props) {
               }}
             />,
           ]}
-          title="은하수반짝카와이"
+          title={headerTitle}
         />
       </PaddingProvider>
       <div className={style.mainSection}>
-        <Messages roomId={params.roomId} />
+        <Messages setHeaderTitle={setHeaderTitle} />
       </div>
       <MessageSender />
       <ModalCollection

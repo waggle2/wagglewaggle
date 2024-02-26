@@ -15,7 +15,8 @@ interface Props {
   firstUser: MessageUser
   secondUser: MessageUser
   type?: 'title' | 'content'
-  unreadMessageCount: number
+  unreadMessageCount?: number
+  loginUserType: 'firstUser' | 'secondUser'
 }
 
 export default function MessagePreview({
@@ -25,20 +26,12 @@ export default function MessagePreview({
   time,
   firstUser,
   secondUser,
+  loginUserType,
   type = 'title',
+  unreadMessageCount = 0,
 }: Props) {
-  const { data } = useGetUserInfo()
-  const [isSameMeWithFirstUser, setSameMeWithFirstUser] = useState(false)
-  useEffect(() => {
-    if (data) {
-      if (data.id === firstUser?.id) {
-        setSameMeWithFirstUser(true)
-      }
-    }
-  }, [data])
-
   const partnerObject = () => {
-    if (isSameMeWithFirstUser) {
+    if (loginUserType === 'firstUser') {
       return secondUser
     } else {
       return firstUser
@@ -56,7 +49,9 @@ export default function MessagePreview({
       </div>
       <div className={style.informDiv}>
         <span className={style.time}>{dateAndTime(time)}</span>
-        <span className={style.notRead}>3</span>
+        {unreadMessageCount === 0 ? null : (
+          <span className={style.notRead}>{unreadMessageCount}</span>
+        )}
       </div>
     </article>
   )
