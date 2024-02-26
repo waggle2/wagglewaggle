@@ -1,31 +1,48 @@
+'use client'
+import Sort from '/public/assets/sort.svg'
 import styles from '../styles/comment.module.scss'
-import Profile from '/public/assets/profile.svg'
-import EmpathyButton from './EmpathyButton'
-import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
-
+import CommentInfo from './CommentInfo'
+import CommentWrite from './CommentWrite'
+import useGetComments from '@/app/_hooks/services/queries/comments'
+import formatDate from '@/app/_lib/formatDate'
 interface CommentProps {
-  nickName: string
+  postId: number
 }
-export default function Comment({ nickName }: CommentProps) {
+export default function Comment({ postId }: CommentProps) {
+  const { data, isLoading } = useGetComments(postId)
   return (
-    <div className={styles.container}>
-      <div className={styles.profile}>
-        <div className={styles.profileCircle}>
-          <Profile width="26" height="23" />
-        </div>
-        <div className={styles.author}>
-          <div>
-            <h5>{nickName}</h5>
-            <span>2024-12-03 14:30</span>
+    <>
+      {!isLoading && (
+        <>
+          <div className={styles.commentInfo}>
+            <div>
+              <span>댓글</span>
+              <span>{data.length}</span>
+            </div>
+            <div>
+              <Sort width="14" height="14" />
+              <span>최신순</span>
+            </div>
           </div>
-          <MoreMenu />
-        </div>
-      </div>
-      <span>
-        미친거 아님? 너 그러다 잡혀가 정신차려 제발 이 각박한 세상에서
-        왜그러는거야
-      </span>
-      <EmpathyButton />
-    </div>
+          <CommentWrite postId={postId} />
+          {data.map((item: any) => {
+            return (
+              <>
+                <div className={styles.line} />
+                <CommentInfo
+                  nickName={
+                    item.isAnonymous
+                      ? `익명의 ${item.author.profileAnimal}`
+                      : item.author.credential.nickname
+                  }
+                  content={item.content}
+                  date={formatDate(item.updatedAt)}
+                />
+              </>
+            )
+          })}
+        </>
+      )}
+    </>
   )
 }
