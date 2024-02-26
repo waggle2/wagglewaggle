@@ -13,10 +13,10 @@ export default function Logout() {
   }
   const handleLogout = async () => {
     try {
-      const res = await api.post('/authentication/logout', {})
+      const res = await api.get('/authentication/logout')
       localStorage.setItem('isLogin', 'false')
-      console.log(res, 'logout')
-      router.replace('/')
+      console.log(res, 'logout') //TODO: 쿠키 없어지는지 체크 필요
+      await router.replace('/')
     } catch (err) {
       console.log(err, 'logout error')
     }
