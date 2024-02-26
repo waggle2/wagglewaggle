@@ -101,26 +101,6 @@ export default function PopularPost({ profile, post }: postProps) {
       )
 
     default:
-    // return (
-    // <BearTemplate
-    //   profile={{
-    //     isAnonymous: profile.isAnonymous,
-    //     image: [],
-    //     name: 'test',
-    //     category: 'test',
-    //     tag: 'test',
-    //     animal: '곰돌이',
-    //   }}
-    //   post={{
-    //     id: post.id,
-    //     time: post.time,
-    //     title: post.title,
-    //     content: 'test',
-    //     likes: [],
-    //     comments: 0,
-    //     views: 0,
-    //   }}
-    // />
-    // )
+      return <></>
   }
 }

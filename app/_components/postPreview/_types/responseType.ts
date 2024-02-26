@@ -29,7 +29,7 @@ type author = {
   dogCoins: number
   foxCoins: number
   currentRefreshToken: string
-  items: any[]
+  profileItems: any[]
   createdAt: string
   updatedAt: string
   deletedAt: string | null
