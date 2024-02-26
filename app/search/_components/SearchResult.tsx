@@ -7,8 +7,6 @@ import FilterModal from './FilterModal';
 import Post from '@/app/_components/postPreview/_components/Post';
 import SearchIcon from '@/public/assets/ico_search-outline.svg'
 
-
-
 import { fetchSearchPost } from '../_api/useSearch';
 
 
@@ -16,6 +14,7 @@ type Props = { keyword?: string }
 
 
 type Author = {
+    profileItems: any[] | undefined;
     id: string;
     authenticationProvider: string;
     socialId: string | null;
@@ -55,7 +54,7 @@ type PostData = {
     tag: string;
     animalOfAuthor: string;
     category: string;
-    likes: string[] | null;
+    likes: any[];
     createdAt: string;
     author: Author;
 };
@@ -179,8 +178,8 @@ export default function SearchResult() {
                             <Post
                                 key={postData.id}
                                 profile={{
-                                    image: postData.imageUrls[0],
-                                    name: postData.author.credential.nickname,
+                                    image: postData.author?.profileItems,
+                                    name: postData.author?.credential.nickname,
                                     animal: postData.animalOfAuthor,
                                     isAnonymous: postData.isAnonymous,
                                 }}
@@ -191,7 +190,7 @@ export default function SearchResult() {
                                     time: postData.createdAt,
                                     title: postData.title,
                                     content: postData.content,
-                                    likes: postData.likes ? postData.likes.length : 0,
+                                    likes: postData.likes,
                                     comments: postData.commentNum,
                                     views: postData.views,
                                 }}
