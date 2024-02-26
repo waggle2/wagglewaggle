@@ -11,6 +11,7 @@ interface Props {
   receiver: string
   firstUser: string
   secondUser: string
+  type?: 'title' | 'content'
 }
 
 export default function MessagePreview({
@@ -19,6 +20,7 @@ export default function MessagePreview({
   content,
   time,
   firstUser,
+  type = 'title',
 }: Props) {
   return (
     <article
@@ -32,7 +34,7 @@ export default function MessagePreview({
       </span>
       <div className={style.textDiv}>
         <span className={style.sender}>
-          {receiver
+          {type === 'content' && receiver
             ? firstUser === receiver
               ? '받은 쪽지'
               : '보낸 쪽지'

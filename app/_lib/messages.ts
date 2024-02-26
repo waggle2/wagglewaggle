@@ -32,12 +32,14 @@ export type messageRoom = {
   deleted_at: Date | null
 }
 
-export const messagesRoom = {
-  id: 1,
-  first_user: '강인',
-  second_user: '흥민',
-  messages: [messages],
-  created_at: new Date(),
-  updated_at: new Date(),
-  deleted_at: null,
-}
+export const messagesRoom = [
+  {
+    id: 1,
+    first_user: '강인',
+    second_user: '흥민',
+    messages: [messages],
+    created_at: new Date(),
+    updated_at: new Date(),
+    deleted_at: null,
+  },
+]
