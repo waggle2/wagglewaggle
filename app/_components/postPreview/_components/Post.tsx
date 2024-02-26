@@ -34,16 +34,6 @@ export default function Post({ profile, post }: Props) {
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
-<<<<<<< HEAD
-        <Link href={`/profile/1`} scroll={false}>
-          <div className={style.profileImageWrapper}>
-            {profile.image ? (
-              profile.image
-            ) : (
-              <TestProfile width={'100%'} height={'100%'} />
-            )}
-          </div>
-=======
         <Link
           href={`http://localhost:3000/profile/${post.id}`} //TODO: ID참조 어떻게 할건지
           scroll={false}
@@ -51,7 +41,6 @@ export default function Post({ profile, post }: Props) {
         >
           <Profile isAnonymous={profile.isAnonymous} animal={profile?.animal} />
 
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>
               {profile.isAnonymous ? '익명의' + profile.animal : profile.name}

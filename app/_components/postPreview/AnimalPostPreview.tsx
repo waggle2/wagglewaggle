@@ -12,10 +12,6 @@ import Button from '../button/Button'
 import Next from '@/public/assets/next.svg'
 import Town from '@/public/assets/town.svg'
 
-<<<<<<< HEAD
-import Posts from './_components/Posts'
-=======
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 import api from '@/app/_api/commonApi'
 
 type postData = {
@@ -40,11 +36,7 @@ export default function AnimalPostPreview() {
     const fetchData = async () => {
       try {
         const res = await api.get(
-<<<<<<< HEAD
-          `/posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
-=======
           `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
         )
         const posts = await res.data
         console.log(posts, 'animal')

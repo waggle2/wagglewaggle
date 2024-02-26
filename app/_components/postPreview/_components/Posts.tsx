@@ -1,10 +1,7 @@
 import Post from './Post'
 import api from '@/app/_api/commonApi'
-<<<<<<< HEAD
-=======
 
 import { postData } from '../_types/responseType'
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 
 type props = {
   title?: string
@@ -33,12 +30,7 @@ export default async function Posts({ title }: props) {
     try {
       const { data } = await api.get(`/posts?page=1&pageSize=2${filter}`)
 
-<<<<<<< HEAD
-  try {
-    const res = await api.get(`/posts?page=1&pageSize=2${filter}`)
-=======
       console.log(data, 'post data')
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 
       return data
     } catch (err) {
@@ -54,8 +46,8 @@ export default async function Posts({ title }: props) {
           <Post
             key={index}
             profile={{
-              image: postData.author.profileItems,
-              name: postData.author.credential.nickname,
+              image: postData.author?.profileItems,
+              name: postData.author?.credential.nickname,
               animal: postData.animalOfAuthor,
               isAnonymous: postData.isAnonymous,
             }}
