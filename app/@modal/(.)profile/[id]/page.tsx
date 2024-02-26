@@ -6,8 +6,8 @@ import Close from '@/app/_components/common/header/_components/Close'
 import Modal from '@/app/_components/common/modal/Modal'
 import style from './profile.module.scss'
 import Button from '@/app/_components/button/Button'
-import MyType from '@/app/mypage/[id]/_components/MyType'
-import MyProfile from '@/app/mypage/[id]/profileSetting/_components/MyProfile'
+import MyType from '@/app/mypage/_components/MyType'
+import MyProfile from '@/app/mypage/profileSetting/_components/MyProfile'
 import Link from '@/node_modules/next/link'
 
 export default function Profile() {
