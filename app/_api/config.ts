@@ -1,5 +1,4 @@
 import axios from 'axios'
-import local from 'next/font/local'
 
 const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
 
@@ -17,6 +16,8 @@ const retryPlag = { isRetry: false }
 customAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
+    if (!error.response) throw error
+
     const originalRequest = error.config
     if (error.response.status === 401 && !retryPlag.isRetry) {
       retryPlag.isRetry = true

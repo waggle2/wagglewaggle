@@ -1,7 +1,5 @@
 'use client'
 import style from '../styles/emailRegister.module.scss'
-import cs from 'classnames/bind'
-const cx = cs.bind(style)
 import View2 from '/public/assets/view2.svg'
 import NotView from '/public/assets/notView.svg'
 import {
@@ -14,7 +12,10 @@ import {
 import Button from '@/app/_components/button/Button'
 import InputGroup from '@/app/_components/userForm/InputGroup'
 import { IInputFileds } from '@/app/_types/userFormTypes'
-import api from '@/app/_api/commonApi'
+import {
+  useConfirmEmailCode,
+  useSendCheckEmailCode,
+} from '@/app/_hooks/services/mutations/userRegister'
 
 interface Props {
   inputFields: IInputFileds
@@ -35,35 +36,47 @@ export default function EmailForm({
   handleChange,
   passable,
 }: Props) {
+  const mutationCheckEmail = useSendCheckEmailCode()
+  const mutationConfirmEmail = useConfirmEmailCode()
   async function sendCheckEmailCode(email: string) {
-    try {
-      const response = await api.post('/users/email-verification', { email })
-      alert('인증코드가 발송되었습니다.')
-    } catch (error) {
-      const { code } = error as { code: number }
-      console.error(error)
-      if (code === 400) return alert('이미 가입된 이메일입니다.')
-      alert('인증코드 발송에 실패하였습니다.')
-    }
+    mutationCheckEmail.mutate(email, {
+      onError: (error) => {
+        console.error(error)
+        if (error.code === 400) {
+          return setErrors({ ...errors, email: '이미 가입된 이메일입니다.' })
+        }
+        alert('인증코드 발송에 실패하였습니다.')
+      },
+    })
   }
 
   async function confirmEmailCode(email: string, emailCheckNumber: string) {
-    try {
-      const response = await api.post('/users/email-verification/confirm', {
-        email,
-        verificationCode: Number(emailCheckNumber ?? '') ?? 0,
-      })
-      if (!response.data.verified) {
-        setErrors({ ...errors, emailCheck: '인증코드가 일치하지 않습니다.' })
-        alert('인증에 실패하였습니다.')
-        return
-      }
-      setErrors({ ...errors, emailCheck: '' })
-      setInputFields({ ...inputFields, isEmailChecked: true })
-      alert('인증이 완료되었습니다.')
-    } catch (error) {
-      console.error(error)
-    }
+    mutationConfirmEmail.mutate(
+      { email, emailCheckNumber },
+      {
+        onSuccess: (response) => {
+          if (!response.data.verified) {
+            setErrors({
+              ...errors,
+              emailCheck: '인증코드가 일치하지 않습니다.',
+            })
+            alert('인증에 실패하였습니다.')
+            return
+          }
+          setInputFields({ ...inputFields, isEmailChecked: 'true' })
+        },
+        onError: (error) => {
+          console.error(error)
+          if (error.code === 400) {
+            return setErrors({
+              ...errors,
+              emailCheck: '인증코드가 일치하지 않습니다.',
+            })
+          }
+          alert('인증에 실패하였습니다.')
+        },
+      },
+    )
   }
 
   const [passwordView, setPasswordView] = useState(false)
@@ -86,7 +99,7 @@ export default function EmailForm({
               onChange: handleChange,
               value: inputFields.email ?? '',
               tabIndex: 1,
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
             }}
             buttonProps={{
               text: inputFields.isEmailChecked ? '인증완료' : '인증하기',
@@ -104,7 +117,7 @@ export default function EmailForm({
                 inputFields.email &&
                 !errors.email &&
                 sendCheckEmailCode(inputFields.email),
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.email}
@@ -121,7 +134,7 @@ export default function EmailForm({
               onChange: handleChange,
               value: inputFields.emailCheck ?? '',
               tabIndex: 2,
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
             }}
             buttonProps={{
               text: inputFields.isEmailChecked ? '인증완료' : '인증확인',
@@ -142,7 +155,7 @@ export default function EmailForm({
                     inputFields.emailCheck ?? '',
                   )
               },
-              disabled: inputFields.isEmailChecked,
+              disabled: !!inputFields.isEmailChecked,
               type: 'button',
             }}
             errorMessage={errors.emailCheck}
@@ -152,7 +165,7 @@ export default function EmailForm({
           <InputGroup
             labelText="비밀번호"
             inputProps={{
-              type: 'password',
+              type: passwordView ? 'text' : 'password',
               placeholder: '비밀번호를 입력해주세요',
               maxLength: 30,
               name: 'password',
@@ -183,7 +196,7 @@ export default function EmailForm({
           <InputGroup
             labelText="비밀번호 확인"
             inputProps={{
-              type: 'password',
+              type: passwordView ? 'text' : 'password',
               placeholder: '비밀번호를 입력해주세요',
               maxLength: 30,
               name: 'passwordCheck',

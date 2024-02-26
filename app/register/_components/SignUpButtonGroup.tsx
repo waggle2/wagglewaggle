@@ -7,35 +7,21 @@ import Email from '/public/assets/email.svg'
 import cs from 'classnames/bind'
 import style from '../styles/signUpButtonGroup.module.scss'
 import useSocialLogin from '@/app/_hooks/useSocialLogin'
-import { useRouter } from 'next/navigation'
+import { setCookie } from 'cookies-next'
 const cx = cs.bind(style)
 
 export default function SignUpButtonGroup() {
-  const { loginHandler } = useSocialLogin()
-  const router = useRouter()
+  function generateState() {
+    return Math.random().toString(36).substring(2, 10)
+  }
+  const randomString = generateState()
 
-  const signUpButtonList = [
-    {
-      class: 'kakao',
-      name: '카카오로 가입하기',
-      clickEvent: () => loginHandler('kakao'),
-    },
-    {
-      class: 'naver',
-      name: '네이버로 가입하기',
-      clickEvent: () => loginHandler('naver'),
-    },
-    {
-      class: 'google',
-      name: '구글로 가입하기',
-      clickEvent: () => loginHandler('google'),
-    },
-    {
-      class: 'email',
-      name: '이메일로 가입하기',
-      clickEvent: () => router.push('/register/email'),
-    },
-  ]
+  setCookie('randomString', randomString, {
+    maxAge: 60 * 5,
+  })
+
+  const { signUpButtonList } = useSocialLogin(randomString)
+
   const makeSignUpButton = (index: number) => {
     switch (index) {
       case 0:

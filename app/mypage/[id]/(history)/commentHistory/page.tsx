@@ -1,5 +1,5 @@
 import style from '../history.module.scss'
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
 import Post from '@/app/_components/postPreview/_components/Post'
 

@@ -1,23 +1,27 @@
 'use client'
 
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
-import RegisterAgree from './RegisterAgree'
-import Header from '@/app/_components/common/header/page'
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
+import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
-import { useRouter } from 'next/navigation'
-import FormPresetProvider from './FormPresetProvider'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { IInputFileds } from '@/app/_types/userFormTypes'
+import FormPresetProvider from '@/app/_components/userForm/FormPresetProvider'
 interface Props {
+  type: 'email' | 'resetPassword'
   userTotalDatas: IInputFileds
   setUserTotalDatas: Dispatch<SetStateAction<IInputFileds>>
+  initStep?: number
 }
 
 export default function SwitchStep({
+  type,
   userTotalDatas,
   setUserTotalDatas,
 }: Props) {
-  const [step, setStep] = useState(1)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const isSocial = !!searchParams.get('social')
+  const [step, setStep] = useState(isSocial ? 2 : 1)
 
   const nextStep = () => {
     setStep(step + 1)
@@ -27,7 +31,46 @@ export default function SwitchStep({
     setStep(step - 1)
   }
 
-  const changeBody = (step: number): ReactNode => {
+  const changeBodyInResetPassword = (step: number) => {
+    switch (step) {
+      case 0:
+        router.replace('/login')
+        break
+      case 1:
+        return (
+          <FormPresetProvider
+            formDataObject={{ email: '', isEmailChecked: '' }}
+            formDataType="emailConfirm"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      case 2:
+        return (
+          <FormPresetProvider
+            formDataObject={{ password: '', passwordCheck: '' }}
+            formDataType="resetPassword"
+            step={step}
+            nextStep={nextStep}
+            setUserTotalDatas={setUserTotalDatas}
+            userTotalDatas={userTotalDatas}
+          />
+        )
+      default:
+        return null
+    }
+  }
+  const goBack = () => {
+    if (isSocial && step === 2) {
+      router.replace('/register')
+      return
+    }
+    prevStep()
+  }
+
+  const changeBodyInRegisterEmail = (step: number): ReactNode => {
     switch (step) {
       case 0:
         router.replace('/register')
@@ -39,7 +82,7 @@ export default function SwitchStep({
               formDataObject={{
                 email: '',
                 emailCheck: '',
-                isEmailChecked: false,
+                isEmailChecked: '',
                 password: '',
                 passwordCheck: '',
               }}
@@ -57,7 +100,7 @@ export default function SwitchStep({
             <FormPresetProvider
               formDataObject={{
                 nickname: '',
-                isNicknameChecked: false,
+                isNicknameChecked: '',
                 birthYear: '',
                 gender: '',
               }}
@@ -93,12 +136,13 @@ export default function SwitchStep({
         isNoneSidePadding={true}
         leftSection={
           <span style={{ cursor: 'pointer' }}>
-            <Back handleBack={prevStep} />
+            <Back handleBack={goBack} />
           </span>
         }
-        title="회원가입"
+        title={type === 'email' ? '회원가입' : '비밀번호 재설정'}
       />
-      {changeBody(step)}
+      {type === 'email' && changeBodyInRegisterEmail(step)}
+      {type === 'resetPassword' && changeBodyInResetPassword(step)}
     </>
   )
 }

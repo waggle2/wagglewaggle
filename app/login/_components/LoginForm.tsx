@@ -46,7 +46,7 @@ export default function LoginForm({
         },
         onError: (error) => {
           const typeError = error as { code?: number; message: string }
-          if (typeError.code === 404) {
+          if (typeError.code === 404 || typeError.code === 401) {
             setErrors({
               ...errors,
               loginPassword: '이메일 혹은 비밀번호가 일치하지 않습니다',

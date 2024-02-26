@@ -46,11 +46,7 @@ export default function Profile() {
           key="close"
           action={handleClose}
         />,
-        <Link
-          href={'http://localhost:3000/send-msg/1'}
-          style={{ width: '100%' }}
-          key="sendMessage"
-        >
+        <Link href={'/send-msg/1'} style={{ width: '100%' }} key="sendMessage">
           <Button text={'쪽지 보내기'} mainColor={'green'} key="msg" />
         </Link>,
       ]}

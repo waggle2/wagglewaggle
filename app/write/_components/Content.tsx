@@ -1,23 +1,60 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '../styles/content.module.scss'
-import Toolbar from './Toolbar'
-import VoteContainer from './VoteContainer'
-import ImageContainer from './ImageContainer'
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import LeftArrow from '/public/assets/leftArrow.svg'
 import SubmitText from '/public/assets/submitText.svg'
+import ButtonSection from './ButtonSection'
+import 'react-quill/dist/quill.snow.css'
 
-export default function Content() {
-  const [isToggle, setIsToggle] = useState(false)
-  const [isImage, setIsImage] = useState(false)
-  const [isVote, setIsVote] = useState(false)
+import {
+  usePostModify,
+  usePostWrite,
+} from '@/app/_hooks/services/mutations/postWrite'
+import Editor from './Editor'
+
+interface ContentProps {
+  postId?: number
+  editTitle?: string
+  editContent?: string
+  editCategory?: string
+  editTag?: string
+  editIsAnonymous?: boolean
+}
+export default function Content({
+  postId,
+  editTitle,
+  editContent,
+  editCategory,
+  editTag,
+  editIsAnonymous,
+}: ContentProps) {
+  const { mutate } = usePostWrite()
+  const { mutate: postModify } = usePostModify(postId as number)
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const textarea = useRef<HTMLTextAreaElement | null>(null)
-  const handleResizeHeight = () => {
-    if (textarea.current) {
-      textarea.current.style.height = 'auto'
-      textarea.current.style.height = textarea.current.scrollHeight + 'px'
+  const category = ['짝사랑', '썸', '연애', '이별', '19']
+  const tag = ['수다수다', '공감해줘', '조언해줘', '골라줘']
+  const [selectedCategory, setSelectedCategory] = useState(0)
+  const [selectedTag, setSelectedTag] = useState(0)
+  const [isAnonymous, setIsAnonymous] = useState(false)
+  const imageUrls: string[] = []
+  useEffect(() => {
+    if (postId) {
+      setTitle(editTitle as string)
+      setContent(editContent as string)
+      setSelectedCategory(category.indexOf(editCategory as string))
+      setSelectedTag(tag.indexOf(editTag as string))
+      setIsAnonymous(editIsAnonymous as boolean)
+    }
+  }, [])
+  const handleImageUrls = (htmlString: string) => {
+    const srcRegex = /<img[^>]+src="([^">]+)"/g
+    let match
+    while ((match = srcRegex.exec(htmlString)) !== null) {
+      if (match && match.length > 1) {
+        imageUrls.push(match[1])
+      }
     }
   }
   return (
@@ -25,24 +62,48 @@ export default function Content() {
       <Header
         leftSection={<LeftArrow />}
         title={'글 작성하기'}
-        rightSection={[<SubmitText />]}
-        isNoneSidePadding
+        rightSection={[
+          <SubmitText
+            onClick={() => {
+              handleImageUrls(content)
+              const writeData = {
+                title,
+                content,
+                category: category[selectedCategory],
+                tag: tag[selectedTag],
+                is_anonymous: isAnonymous,
+                image_urls: imageUrls,
+              }
+              if (postId) {
+                postModify(writeData)
+              } else {
+                mutate(writeData)
+              }
+            }}
+          />,
+        ]}
       />
-      <input className={styles.titleInput} placeholder="제목" />
-      <div className={styles.contentBox}>
-        <Toolbar setIsImage={setIsImage} setIsVote={setIsVote} />
-        {isVote && <VoteContainer setIsVote={setIsVote} />}
-        {isImage && <ImageContainer setIsImage={setIsImage} />}
-        <textarea
-          ref={textarea}
-          rows={1}
-          className={styles.contentInput}
-          placeholder="함께 나누고 싶은 이야기를 적어주세요"
-          onChange={(e) => {
-            setContent(e.target.value)
-            handleResizeHeight()
-          }}
+      <ButtonSection
+        category={category}
+        tag={tag}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedTag={selectedTag}
+        setSelectedTag={setSelectedTag}
+        editIsAnonymous={editIsAnonymous}
+        setIsAnonymous={setIsAnonymous}
+      />
+      <div className={styles.boldLine} />
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.titleInput}
+          placeholder="제목"
+          onChange={(e) => setTitle(e.target.value)}
+          defaultValue={title}
         />
+        <div className={styles.contentBox}>
+          <Editor initialContent={editContent} setContent={setContent} />
+        </div>
       </div>
     </div>
   )

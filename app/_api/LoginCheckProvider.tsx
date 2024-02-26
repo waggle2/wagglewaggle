@@ -11,7 +11,7 @@ const accessableWithLogin = [
   '/send-msg',
   '/write',
 ]
-const accessableWithoutLogin = ['/login', '/register']
+const accessableWithoutLogin = ['/login', '/register', '/reset-password']
 
 export default function LoginCheckProvider({
   children,
@@ -35,7 +35,6 @@ export default function LoginCheckProvider({
   }
   const handleLoginCheck = async () => {
     const isLogin = localStorage.getItem('isLogin') === 'true'
-
     if (accessableWithLogin.includes(pathname) && !isLogin) {
       alert('로그인이 필요한 페이지입니다')
       return router.replace('/login')

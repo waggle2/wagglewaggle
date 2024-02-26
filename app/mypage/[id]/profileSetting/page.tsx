@@ -1,4 +1,4 @@
-import Header from '@/app/_components/common/header/page'
+import Header from '@/app/_components/common/header/Header'
 import Back from '@/app/_components/common/header/_components/Back'
 import CustomProfile from './_components/CustomProfile'
 
