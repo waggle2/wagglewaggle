@@ -2,6 +2,9 @@ import { dateAndTime } from '@/app/_lib/formatDate'
 import style from '../styles/messagePreview.module.scss'
 import Avatar from '/public/assets/avatar.svg'
 import cs from 'classnames/bind'
+import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
+import { useEffect, useState } from 'react'
+import { MessageUser } from '@/app/_types/messageTypes'
 const cx = cs.bind(style)
 
 interface Props {
@@ -9,9 +12,10 @@ interface Props {
   content: string
   time: Date
   receiver: string
-  firstUser: string
-  secondUser: string
+  firstUser: MessageUser
+  secondUser: MessageUser
   type?: 'title' | 'content'
+  unreadMessageCount: number
 }
 
 export default function MessagePreview({
@@ -20,26 +24,34 @@ export default function MessagePreview({
   content,
   time,
   firstUser,
+  secondUser,
   type = 'title',
 }: Props) {
+  const { data } = useGetUserInfo()
+  const [isSameMeWithFirstUser, setSameMeWithFirstUser] = useState(false)
+  useEffect(() => {
+    if (data) {
+      if (data.id === firstUser?.id) {
+        setSameMeWithFirstUser(true)
+      }
+    }
+  }, [data])
+
+  const partnerObject = () => {
+    if (isSameMeWithFirstUser) {
+      return secondUser
+    } else {
+      return firstUser
+    }
+  }
+
   return (
-    <article
-      className={cx(
-        'container',
-        receiver ? (firstUser === receiver ? null : 'dark') : null,
-      )}
-    >
+    <article className={cx('container')}>
       <span className={style.avatar}>
         <Avatar width="48" height="48" />
       </span>
       <div className={style.textDiv}>
-        <span className={style.sender}>
-          {type === 'content' && receiver
-            ? firstUser === receiver
-              ? '받은 쪽지'
-              : '보낸 쪽지'
-            : sender}
-        </span>
+        <span className={style.sender}>{partnerObject().nickname}</span>
         <span className={style.content}>{content}</span>
       </div>
       <div className={style.informDiv}>

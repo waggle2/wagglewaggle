@@ -1,9 +1,8 @@
 import api from '@/app/_api/commonApi'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 
 const getAllMessageBoxes = async () => {
-  const response = await axios.get('http://localhost:3000/api/messages')
+  const response = await api.get('/messages')
   return response.data
 }
 

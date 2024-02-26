@@ -2,16 +2,20 @@
 
 import style from '../styles/messageRooms.module.scss'
 import MessagePreview from './MessagePreview'
-import { messageRooms, IMessageRooms } from '../mockTalk'
 import Link from 'next/link'
 import EmptyRooms from './EmptyRooms'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/msgBox'
 import { messageRoom } from '@/app/_lib/messages'
 import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
+import { IMessageRooms, Messages } from '@/app/_types/messageTypes'
 
 export default function MessageRooms() {
   const { data, isLoading, isError } = useGetAllMessageRooms()
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   if (isLoading) return <div>로딩중</div>
 
@@ -24,17 +28,18 @@ export default function MessageRooms() {
       ) : (
         <div className={style.roomsDiv}>
           <PaddingProvider>
-            {data.map((roomData: messageRoom, index: number) => {
-              const lastMessage = data[index].messages.at(-1)
+            {data.map((room: IMessageRooms) => {
+              const lastMessage = room.messages.at(-1) as Messages
               return (
-                <Link href={`msg-box/${index}`} key={index}>
+                <Link href={`msg-box/${room.id}`} key={room.id}>
                   <MessagePreview
                     sender={lastMessage.sender}
                     content={lastMessage.content}
-                    time={lastMessage.created_at}
-                    firstUser={lastMessage.first_user}
-                    secondUser={lastMessage.second_user}
-                    receiver={lastMessage.receiver}
+                    time={lastMessage.createdAt}
+                    firstUser={room.firstUser}
+                    secondUser={room.secondUser}
+                    receiver={lastMessage.sender}
+                    unreadMessageCount={room.unreadMessageCount}
                   />
                 </Link>
               )
