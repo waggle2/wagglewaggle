@@ -46,8 +46,8 @@ export default async function Posts({ title }: props) {
           <Post
             key={index}
             profile={{
-              image: postData.author.profileItems,
-              name: postData.author.credential.nickname,
+              image: postData.author?.profileItems,
+              name: postData.author?.credential.nickname,
               animal: postData.animalOfAuthor,
               isAnonymous: postData.isAnonymous,
             }}
