@@ -38,8 +38,8 @@ export default async function PopularPreview() {
             <PopularPost
               profile={{
                 isAnonymous: postData.isAnonymous,
-                image: postData.author.items,
-                name: postData.author.credential.nickname,
+                image: postData.author?.profileItems,
+                name: postData.author?.credential.nickname,
                 category: postData.category,
                 tag: postData.tag,
                 animal: postData.animalOfAuthor,
