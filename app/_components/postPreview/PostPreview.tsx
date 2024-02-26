@@ -25,6 +25,7 @@ export default function PostPreview({ title, href, icon }: Props) {
         </Link>
       </div>
       <div className={style.postContainer}>
+        {/* @ts-expect-error Async Server Component */}
         <Posts title={title} />
       </div>
     </section>
