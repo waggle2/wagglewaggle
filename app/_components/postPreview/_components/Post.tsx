@@ -1,19 +1,21 @@
-import { ReactNode } from 'react'
+import DOMPurify from 'isomorphic-dompurify'
 
 import style from './post.module.scss'
 
 import Like from '@/public/assets/like.svg'
 import Comment from '@/public/assets/comment.svg'
 import View from '@/public/assets/view.svg'
-import TestProfile from '@/public/assets/profile.svg'
+
 import Link from '@/node_modules/next/link'
 import formatDate from '@/app/_lib/formatDate'
+import Profile from './Profile'
 
 type Props = {
   profile: {
-    image?: ReactNode
+    image?: any[]
     name: string
-    animal?: string
+    animal: string
+    isAnonymous: boolean
   }
   post: {
     id: number
@@ -22,7 +24,7 @@ type Props = {
     time: string
     title: string
     content: string
-    likes: number
+    likes: any[]
     comments: number
     views: number
   }
@@ -32,6 +34,7 @@ export default function Post({ profile, post }: Props) {
   return (
     <div className={style.container}>
       <div className={style.profileContainer}>
+<<<<<<< HEAD
         <Link href={`/profile/1`} scroll={false}>
           <div className={style.profileImageWrapper}>
             {profile.image ? (
@@ -40,8 +43,19 @@ export default function Post({ profile, post }: Props) {
               <TestProfile width={'100%'} height={'100%'} />
             )}
           </div>
+=======
+        <Link
+          href={`http://localhost:3000/profile/${post.id}`} //TODO: ID참조 어떻게 할건지
+          scroll={false}
+          className={style.profileWrapper}
+        >
+          <Profile isAnonymous={profile.isAnonymous} animal={profile?.animal} />
+
+>>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
           <div className={style.profileInfoWrapper}>
-            <div className={style.name}>{profile.name}</div>
+            <div className={style.name}>
+              {profile.isAnonymous ? '익명의' + profile.animal : profile.name}
+            </div>
             <div
               className={style.category}
             >{`${post.category} · ${post.tag}`}</div>
@@ -49,23 +63,34 @@ export default function Post({ profile, post }: Props) {
         </Link>
         <div className={style.time}>{formatDate(post.time)}</div>
       </div>
-      <Link href={''}>
+      <Link href={`/detail/${post.id}`}>
         <div className={style.contentContainer}>
           <div className={style.title}>{post.title}</div>
-          <div className={style.content}>{post.content}</div>
+          {typeof window ? (
+            <div
+              className={style.content}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(post.content),
+              }}
+            /> //js코드 실행 방지용 라이브러리 사용(해킹 방지)
+          ) : (
+            <div />
+          )}
         </div>
         <div className={style.postInfoContainer}>
           <div className={style.postInfoWrapper}>
             <Like />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>
+              {post.likes ? post.likes.length : 0}
+            </span>
           </div>
           <div className={style.postInfoWrapper}>
             <Comment />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>{post.comments}</span>
           </div>
           <div className={style.postInfoWrapper}>
             <View width="15" height="14" />
-            <span className={style.likes}>{post.likes}</span>
+            <span className={style.likes}>{post.views}</span>
           </div>
         </div>
       </Link>

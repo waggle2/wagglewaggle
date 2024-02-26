@@ -1,7 +1,10 @@
 import styles from './styles/page.module.scss'
 import Content from './_components/Content'
 import Comment from './_components/Comment'
+<<<<<<< HEAD
 import Sort from '/public/assets/sort.svg'
+=======
+>>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
 import formatDate from '@/app/_lib/formatDate'
@@ -10,6 +13,7 @@ import Navigation from './_components/Navigation'
 export default async function Detail({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)
   const data = response.data
+  console.log(data)
   return (
     <div className={styles.container}>
       <Navigation
@@ -17,6 +21,7 @@ export default async function Detail({ params }: PageProps) {
         authorNickname={data.author.credential.nickname}
       />
       <Content
+        postId={params.id}
         title={data.title}
         nickName={
           data.isAnonymous
@@ -27,25 +32,10 @@ export default async function Detail({ params }: PageProps) {
         tag={data.tag}
         category={data.category}
         date={formatDate(data.createdAt)}
-        likes={data.likes === null ? 0 : data.likes.length}
         views={data.views}
       />
       <div className={styles.boldLine}></div>
-      <div className={styles.commentInfo}>
-        <div>
-          <span>댓글</span>
-          <span>2</span>
-        </div>
-        <div>
-          <Sort width="14" height="14" />
-          <span>최신순</span>
-        </div>
-      </div>
-      <Comment nickName="익명의 냥이" />
-      <div className={styles.line} />
-      <Comment nickName="익명의 냥이" />
-      <div className={styles.line} />
-      <Comment nickName="익명의 냥이" />
+      <Comment postId={params.id} />
     </div>
   )
 }

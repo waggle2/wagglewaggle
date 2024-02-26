@@ -10,11 +10,12 @@ import Post from './_components/Post'
 import Button from '../button/Button'
 
 import Next from '@/public/assets/next.svg'
-
 import Town from '@/public/assets/town.svg'
-import axios from '@/node_modules/axios/index'
 
+<<<<<<< HEAD
 import Posts from './_components/Posts'
+=======
+>>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 import api from '@/app/_api/commonApi'
 
 type postData = {
@@ -39,10 +40,15 @@ export default function AnimalPostPreview() {
     const fetchData = async () => {
       try {
         const res = await api.get(
+<<<<<<< HEAD
           `/posts?page=1&pageSize=2${selectedAnimal !== '' && '&animal=' + selectedAnimal}`,
+=======
+          `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
+>>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
         )
-        const posts = await res.data.data
-        // console.log(posts, 'animal')
+        const posts = await res.data
+        console.log(posts, 'animal')
+
         setPosts(posts)
       } catch (err) {
         console.error(err)
@@ -76,57 +82,59 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'고냥이'}
-          mainColor={selectedAnimal === '고양이' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '고냥이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('고양이')
+            handleAnimalSelect('고냥이')
           }}
         />
         <Button
           text={'곰돌이'}
-          mainColor={selectedAnimal === '곰' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '곰돌이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('곰')
+            handleAnimalSelect('곰돌이')
           }}
         />
         <Button
           text={'댕댕이'}
-          mainColor={selectedAnimal === '개' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '댕댕이' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('개')
+            handleAnimalSelect('댕댕이')
           }}
         />
         <Button
           text={'폭스'}
-          mainColor={selectedAnimal === '여우' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '폭스' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('여우')
+            handleAnimalSelect('폭스')
           }}
         />
       </div>
-      <div className={style.postContainer}>
-        {posts?.map((info, index: number) => {
+      <div className={style.animalPostContainer}>
+        {posts?.map((postData, index: number) => {
           return (
             <Post
               key={index}
               profile={{
-                image: info.imageUrls,
-                name: 'undefined',
-                animal: info.animal,
+                image: null,
+                // name: postData.author.credential.nickname,
+                name: 'nickname',
+                animal: postData.animalOfAuthor,
+                isAnonymous: postData.isAnonymous,
               }}
               post={{
-                id: info.id,
-                category: info.tags[0],
-                tag: info.tags[1],
-                time: info.createdAt,
-                title: info.title,
-                content: info.content,
-                likes: info.likeNum,
-                comments: info.commentNum,
-                views: 0,
+                id: postData.id,
+                category: postData.category,
+                tag: postData.tag,
+                time: postData.createdAt,
+                title: postData.title,
+                content: postData.content,
+                likes: postData.likes,
+                comments: postData.commentNum,
+                views: postData.views,
               }}
             />
           )

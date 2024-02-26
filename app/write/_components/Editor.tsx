@@ -15,12 +15,11 @@ const ReactQuill = dynamic(
 )
 interface EditorProps {
   setContent: Dispatch<SetStateAction<string>>
-  setImageUrls: Dispatch<SetStateAction<string[]>>
+  initialContent?: string
 }
-export default function Editor({ setContent, setImageUrls }: EditorProps) {
+export default function Editor({ setContent, initialContent }: EditorProps) {
   const { mutate: imageMutate } = usePostImage()
   const quillRef = useRef<any>()
-  const newImageUrls: string[] = []
   const imageHandler = () => {
     // file input 임의 생성
     const input = document.createElement('input')
@@ -43,8 +42,6 @@ export default function Editor({ setContent, setImageUrls }: EditorProps) {
                 const range = editor.getSelection()
                 editor.insertEmbed(range.index, 'image', response)
                 editor.setSelection(range.index + 1)
-                newImageUrls.push(response)
-                setImageUrls(newImageUrls)
               }
             },
           },
@@ -94,6 +91,7 @@ export default function Editor({ setContent, setImageUrls }: EditorProps) {
       theme="snow"
       modules={modules}
       formats={formats}
+      defaultValue={initialContent}
       onChange={setContent}
       placeholder="함께 나누고 싶은 이야기를 적어보세요"
       style={{ width: '100%' }}

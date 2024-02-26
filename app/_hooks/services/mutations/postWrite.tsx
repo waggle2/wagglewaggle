@@ -10,6 +10,14 @@ const postWrite = async (
   const response = await api.post('/posts', writeData)
   return response
 }
+
+const postModify = async (
+  writeData: IPost,
+  postId: number,
+): Promise<{ data: { id: number }; message: string }> => {
+  const response = await api.patch(`/posts/${postId}`, writeData)
+  return response
+}
 export function usePostWrite() {
   const router = useRouter()
   return useMutation({
@@ -17,6 +25,20 @@ export function usePostWrite() {
     onSuccess: (response) => {
       alert(response.message)
       router.push(`/detail/${response.data.id}`)
+<<<<<<< HEAD
+=======
+    },
+  })
+}
+export function usePostModify(postId: number) {
+  const router = useRouter()
+  return useMutation({
+    mutationFn: (writeData: IPost) => postModify(writeData, postId),
+    onSuccess: (response) => {
+      alert(response.message)
+      router.push(`/detail/${response.data.id}`)
+      router.refresh()
+>>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
     },
   })
 }

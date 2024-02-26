@@ -50,6 +50,7 @@ export default function RootLayout({
             <LoginCheckProvider>{children}</LoginCheckProvider>
           </QueryProvider>
         </div>
+        {modal}
       </body>
     </html>
   )
