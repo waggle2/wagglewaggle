@@ -4,12 +4,23 @@ import Link from '@/node_modules/next/link'
 import Popular from '@/public/assets/popular.svg'
 import Next from '@/public/assets/next.svg'
 
-import CatTemplate from './_components/CatTemplate'
-import DogTemplate from './_components/DogTemplate'
-import FoxTemplate from './_components/FoxTemplate'
-import BearTemplate from './_components/BearTemplate'
+import { postData } from '../postPreview/_types/responseType'
 
-export default function PopularPreview() {
+import api from '@/app/_api/commonApi'
+import PopularPost from './_components/PopularPost'
+
+export default async function PopularPreview() {
+  const fetchData = async () => {
+    try {
+      const res = await api.get('posts/hot-posts?page=1&pageSize=10')
+      console.log(res.data, 'data!')
+      return res.data
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const postData = await fetchData()
+
   return (
     <section className={style.container}>
       <div className={style.titleContainer}>
@@ -22,78 +33,30 @@ export default function PopularPreview() {
         </Link>
       </div>
       <div className={style.postContainer}>
-        <CatTemplate
-          profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
-          }}
-          post={{
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
-        <DogTemplate
-          profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
-          }}
-          post={{
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
-        <FoxTemplate
-          profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
-          }}
-          post={{
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
-        <BearTemplate
-          profile={{
-            image: '',
-            name: '익명의 곰',
-            category: '수다수다',
-            tag: '19',
-            animal: '',
-          }}
-          post={{
-            time: '2024-12-01',
-            title: '아 정말 못참겠디',
-            content:
-              '남친이 자꾸 짜증나게 구는데 어떻게 해야 돼? 그냥 헤어질까 싶기도',
-            likes: 0,
-            comments: 0,
-            views: 0,
-          }}
-        />
+        {postData?.map((postData: postData) => {
+          return (
+            <PopularPost
+              profile={{
+                isAnonymous: postData.isAnonymous,
+                image: postData.author.items,
+                name: postData.author.credential.nickname,
+                category: postData.category,
+                tag: postData.tag,
+                animal: postData.animalOfAuthor,
+              }}
+              post={{
+                id: postData.id,
+                time: postData.createdAt,
+                title: postData.title,
+                content: postData.content,
+                likes: postData.likes,
+                comments: postData.commentNum,
+                views: postData.views,
+              }}
+              key={postData.id}
+            />
+          )
+        })}
       </div>
     </section>
   )

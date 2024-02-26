@@ -16,8 +16,6 @@ const retryPlag = { isRetry: false }
 customAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (!error.response) throw error
-
     const originalRequest = error.config
     if (error.response.status === 401 && !retryPlag.isRetry) {
       retryPlag.isRetry = true
@@ -25,6 +23,7 @@ customAxios.interceptors.response.use(
         await customAxios.get('/authentication/refresh-token')
         return customAxios(originalRequest)
       } catch (refreshError) {
+        localStorage.setItem('isLogin', 'false')
         return onError(error.response.status, error.response.data.message)
       }
     }

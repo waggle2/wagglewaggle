@@ -5,7 +5,6 @@ import Link from '@/node_modules/next/link'
 import Next from '@/public/assets/next.svg'
 import { ReactNode } from 'react'
 import Posts from './_components/Posts'
-import Post from './_components/Post'
 
 type Props = {
   title: string
@@ -26,6 +25,7 @@ export default function PostPreview({ title, href, icon }: Props) {
         </Link>
       </div>
       <div className={style.postContainer}>
+        {/* @ts-expect-error Async Server Component */}
         <Posts title={title} />
       </div>
     </section>
