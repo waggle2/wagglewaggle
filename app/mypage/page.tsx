@@ -1,8 +1,12 @@
 'use client'
 
+import { userResponseData } from './_types/userData'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import style from './mypage.module.scss'
+
+import api from '../_api/commonApi'
 
 import Header from '../_components/common/header/Header'
 import Title from '../_components/common/header/_components/Title'
@@ -13,26 +17,23 @@ import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
 import Footer from '../_components/common/footer/Footer'
 
-import { userResponseData } from './_types/userData'
-import { useEffect, useState } from 'react'
-import useGetUserInfo from '../_hooks/services/queries/userInfo'
-
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<userResponseData>()
   const router = useRouter()
-  const fetchData = async () => {
-    try {
-      const { data } = await useGetUserInfo()
 
-      console.log(data, 'mypage')
-      setUserInfo(data)
-    } catch (e: any) {
-      if (e.code === 404) router.replace('/')
-      console.error(e, 'mypageError')
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await api.get('/users')
+        console.log(data, 'mypage')
+        setUserInfo(data)
+      } catch (e: any) {
+        if (e.code === 404) router.replace('/')
+        console.error(e, 'mypageError')
+      }
     }
-  }
-  fetchData()
-  console.log(userInfo)
+    fetchData()
+  }, [])
 
   return (
     <>

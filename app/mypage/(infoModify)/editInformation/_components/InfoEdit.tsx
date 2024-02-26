@@ -1,15 +1,15 @@
 'use client'
+import style from './infoEdit.module.scss'
+
+import { useRouter } from 'next/navigation'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 
 import { userResponseData, credential } from '@/app/mypage/_types/userData'
 import api from '@/app/_api/commonApi'
-import Button from '@/app/_components/button/Button'
-import Modal from '@/app/_components/common/modal/Modal'
-import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
-import { useRouter } from 'next/navigation'
-import { ChangeEvent, useEffect, useState } from 'react'
 import InputText, { DisabledText } from '../../_components/InputText'
 
-import style from './infoEdit.module.scss'
+import Button from '@/app/_components/button/Button'
+import Modal from '@/app/_components/common/modal/Modal'
 
 export default function InfoEdit() {
   const router = useRouter()
@@ -24,24 +24,28 @@ export default function InfoEdit() {
   const [userCredential, setUserCredential] = useState<credential>()
   const regex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=|\\{}[\]:;<>,.?/~]).{8,16}$/
+  console.log('render', currentPassword)
 
-  const fetchData = async () => {
-    try {
-      const { data } = useGetUserInfo()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await api.get('/users')
 
-      console.log(data, 'mypage')
-      setUserInfo(() => data)
-      setUserCredential(() => data.credential)
-    } catch (e) {
-      console.error(e, 'mypageError')
+        console.log(data, 'edit Info')
+        setUserInfo(() => data)
+        setUserCredential(() => data.credential)
+      } catch (e) {
+        console.error(e, 'edit Error')
+      }
     }
-  }
-  fetchData()
+    fetchData()
+  }, [])
 
   const userVerified = () => {
     console.log('TODO: 인증 이벤트 추가')
   }
   const handleChangeCurrentPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('handleChangeCurrentPassword')
     setCurrentPassword(() => e.target.value)
   }
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -100,24 +104,28 @@ export default function InfoEdit() {
   }
   return (
     <div className={style.container}>
-      <DisabledText
-        text={
-          userInfo?.socialId
-            ? `(${userInfo.authenticationProvider}) 가입 회원입니다.`
-            : userCredential?.email
-        }
-        title={'이메일'}
-      />
+      {useMemo(
+        () => (
+          <>
+            <DisabledText
+              text={
+                userInfo?.socialId
+                  ? `(${userInfo.authenticationProvider}) 가입 회원입니다.`
+                  : userCredential?.email
+              }
+              title={'이메일'}
+            />
 
-      <DisabledText
-        text={
-          userCredential &&
-          userCredential?.birthYear + ' / ' + userCredential?.gender
-        }
-        title={'성별'}
-        button={true}
-        onClick={userInfo?.isVerified ? undefined : userVerified}
-      />
+            <DisabledText
+              text={userCredential?.birthYear + ' / ' + userCredential?.gender}
+              title={'성별'}
+              button={true}
+              onClick={userInfo?.isVerified ? undefined : userVerified}
+            />
+          </>
+        ),
+        [userInfo],
+      )}
 
       {userInfo?.authenticationProvider === 'email' && (
         <>
