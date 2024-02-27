@@ -94,36 +94,27 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
   }, [text])
 
   return (
-    <>
-      <form className={style.form} onSubmit={handleSubmit}>
-        <label htmlFor="send" className={style.label}>
-          <textarea
-            className={style.textContent}
-            rows={1}
-            id="send"
-            value={text}
-            placeholder="텍스트를 입력하세요"
-            ref={textareaRef}
-            wrap="hard"
-            onChange={(e) => {
-              setText(e.target.value)
-              handleResizeHeight()
-            }}
-            onKeyDown={handleKeyDown}
-            maxLength={209}
-          ></textarea>
-          <button className={style.button}>
-            <SubmitText2 width="24" height="24" />
-          </button>
-        </label>
-      </form>
-      <button
-        onClick={() =>
-          console.log(textareaRef.current && textareaRef.current.scrollHeight)
-        }
-      >
-        text
-      </button>
-    </>
+    <form className={style.form} onSubmit={handleSubmit}>
+      <label htmlFor="send" className={style.label}>
+        <textarea
+          className={style.textContent}
+          rows={1}
+          id="send"
+          value={text}
+          placeholder="텍스트를 입력하세요"
+          ref={textareaRef}
+          wrap="hard"
+          onChange={(e) => {
+            setText(e.target.value)
+            handleResizeHeight()
+          }}
+          onKeyDown={handleKeyDown}
+          maxLength={209}
+        ></textarea>
+        <button className={style.button}>
+          <SubmitText2 width="24" height="24" />
+        </button>
+      </label>
+    </form>
   )
 }
