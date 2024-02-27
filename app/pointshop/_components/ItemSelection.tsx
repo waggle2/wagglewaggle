@@ -3,12 +3,11 @@ import PointIcon from './PointIcon';
 import { ItemData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState';
 import OwnedIcon from '@/public/assets/point_shop/owned-item.svg'
 import SelectedIcon from '@/public/assets/point_shop/selected-item.svg'
-
+import { useRecoilValue } from 'recoil'
+import { selectedTabState, selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState'
 
 
 type ItemSelectionProps = {
-    selectedTab: string;
-    selectedItemType: string;
     handleCategoryClick: (selectedItemType: string) => void;
     tabCategoryButtonStyle: (selectedItemType: string) => string;
     items: ItemData[];
@@ -20,8 +19,6 @@ type ItemSelectionProps = {
 };
 
 export default function ItemSelection({
-    selectedTab,
-    selectedItemType,
     handleCategoryClick,
     tabCategoryButtonStyle,
     items,
@@ -31,7 +28,8 @@ export default function ItemSelection({
     isLoading,
     possessionItems
 }: ItemSelectionProps) {
-
+    const selectedTab = useRecoilValue(selectedTabState)
+    const selectedItemType = useRecoilValue(selectedItemTypeState)
 
     const renderCategoryButton = (selectedItemType: string, label: string) => (
         <button

@@ -2,9 +2,10 @@ import style from '../_styles/pointShop.module.scss'
 import PointIcon from './PointIcon';
 import RefreshIcon from '@/public/assets/ico_refresh.svg'
 import CheckIcon from '@/public/assets/ico_check_green.svg'
+import { useRecoilValue } from 'recoil'
+import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 
 type CustomPreviewProps = {
-    selectedTab: string;
     selectedEmoji: string;
     selectedProfileBg: string;
     selectedFrame: string;
@@ -15,7 +16,6 @@ type CustomPreviewProps = {
 };
 
 export default function CustomPreview({
-    selectedTab,
     selectedEmoji,
     selectedProfileBg,
     selectedFrame,
@@ -24,6 +24,7 @@ export default function CustomPreview({
     confirmModalToggle,
     handleResetClick,
 }: CustomPreviewProps) {
+    const selectedTab = useRecoilValue(selectedTabState)
 
     return (
         <>

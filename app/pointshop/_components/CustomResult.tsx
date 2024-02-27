@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import style from '../_styles/pointShop.module.scss';
 import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
@@ -71,11 +71,13 @@ export default function CustomResult({
     }
 
     setWearingItems({
-      emoji: fetchedWearingItems.emoji.id,
-      background: fetchedWearingItems.background.id,
-      frame: fetchedWearingItems.frame.id,
-      wallpaper: fetchedWearingItems.wallpaper.id,
+      emoji: fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
+      background: fetchedWearingItems.background.id ? fetchedWearingItems.background.id : null,
+      frame: fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
+      wallpaper: fetchedWearingItems.wallpaper.id ? fetchedWearingItems.wallpaper.id : null,
     });
+
+    console.log(`${selectedTab}`, fetchedWearingItems)
   };
 
 
@@ -248,7 +250,6 @@ export default function CustomResult({
     <>
       {confirmModal && (
         <ConfirmChange
-          selectedTab={selectedTab}
           cartItems={cartData.cartItems}
           pointDifference={pointDifference}
           confirmModalToggle={confirmModalToggle}
@@ -256,7 +257,6 @@ export default function CustomResult({
         />
       )}
       <CustomPreview
-        selectedTab={selectedTab}
         selectedEmoji={selectedEmoji}
         selectedProfileBg={selectedProfileBg}
         selectedFrame={selectedFrame}
@@ -266,15 +266,12 @@ export default function CustomResult({
         handleResetClick={handleResetClick}
       />
       <Cart
-        selectedTab={selectedTab}
         cartItems={cartData.cartItems}
         totalItemPrice={cartData.totalCoins}
         handleResetClick={handleResetClick}
         confirmModalToggle={confirmModalToggle}
       />
       <ItemSelection
-        selectedTab={selectedTab}
-        selectedItemType={selectedItemType}
         handleCategoryClick={handleCategoryClick}
         tabCategoryButtonStyle={(itemType: string) =>
           itemType === selectedItemType ? `${style.tabButton} ${style.active}` : style.tabButton

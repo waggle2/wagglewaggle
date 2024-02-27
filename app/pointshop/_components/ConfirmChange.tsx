@@ -4,9 +4,10 @@ import style from '../_styles/confirmChange.module.scss'
 import { AnimalTab, ItemData } from '@/app/_recoil/atoms/pointshopState'
 import { checkoutAnimalCartItems, updateProfileItems, fetchWearingItems } from '../_service/usePointshopData'
 import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
+import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 
 type Props = {
-    selectedTab: AnimalTab,
     cartItems: ItemData[],
     pointDifference: number,
     confirmModalToggle: () => void,
@@ -22,9 +23,10 @@ type PurchasedItemsType = {
     [key: string]: number;
 };
 
-export default function ConfirmChange({ selectedTab, cartItems, pointDifference, confirmModalToggle, wearingItems }: Props) {
+export default function ConfirmChange({ cartItems, pointDifference, confirmModalToggle, wearingItems }: Props) {
     const [applyModal, setApplyModal] = useState(false);
     const router = useRouter();
+    const selectedTab = useRecoilValue(selectedTabState)
 
     const purchaseCartItemsHandler = () => {
         const patchCartData = async () => {
@@ -160,4 +162,3 @@ export default function ConfirmChange({ selectedTab, cartItems, pointDifference,
 
 
 }
-

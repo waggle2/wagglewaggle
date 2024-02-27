@@ -1,17 +1,18 @@
 import style from '../_styles/pointShop.module.scss';
 import PointIcon from './PointIcon';
 import { ItemData } from '@/app/_recoil/atoms/pointshopState';
-
+import { useRecoilValue } from 'recoil'
+import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 
 type CartProps = {
-    selectedTab: string;
     cartItems: ItemData[];
     totalItemPrice: number;
     handleResetClick: () => void;
     confirmModalToggle: () => void;
 };
 
-export default function Cart({ selectedTab, cartItems, totalItemPrice, handleResetClick, confirmModalToggle }: CartProps) {
+export default function Cart({ cartItems, totalItemPrice, handleResetClick, confirmModalToggle }: CartProps) {
+    const selectedTab = useRecoilValue(selectedTabState)
 
     const itemTypeOrder = ['emoji', 'background', 'frame', 'wallpaper'];
 
