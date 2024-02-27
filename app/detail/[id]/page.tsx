@@ -7,7 +7,7 @@ import Sort from '/public/assets/sort.svg'
 >>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import Navigation from './_components/Navigation'
 
 export default async function Detail({ params }: PageProps) {
