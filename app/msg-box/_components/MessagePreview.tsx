@@ -24,7 +24,6 @@ interface Props {
 
 export default function MessagePreview({
   sender,
-  receiver,
   content,
   time,
   firstUser,
@@ -67,7 +66,7 @@ export default function MessagePreview({
             ? profileAnimal[firstUser.profileAnimal]
             : profileAnimal[secondUser.profileAnimal])}
       </span>
-      <div className={style.textDiv}>
+      <div className={style.contentDiv}>
         {type === 'title' && (
           <span className={style.sender}>{partnerObject().nickname}</span>
         )}
@@ -77,14 +76,13 @@ export default function MessagePreview({
           ) : (
             <span className={style.sender}>받은 쪽지</span>
           ))}
-
-        <span className={style.content}>{content}</span>
-      </div>
-      <div className={style.informDiv}>
-        <span className={style.time}>{dateAndTime(time)}</span>
-        {unreadMessageCount === 0 ? null : (
-          <span className={style.notRead}>{unreadMessageCount}</span>
-        )}
+        <div className={style.informDiv}>
+          <span className={style.time}>{dateAndTime(time)}</span>
+          {unreadMessageCount === 0 ? null : (
+            <span className={style.notRead}>{unreadMessageCount}</span>
+          )}
+        </div>
+        <span className={cx('content')}>{content}</span>
       </div>
     </article>
   )

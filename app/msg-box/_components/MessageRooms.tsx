@@ -7,7 +7,6 @@ import EmptyRooms from './EmptyRooms'
 import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/message'
 import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
 import { IMessageRooms, Messages } from '@/app/_types/messageTypes'
-import { useEffect, useState } from 'react'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 
 export default function MessageRooms() {
@@ -28,6 +27,7 @@ export default function MessageRooms() {
           <PaddingProvider>
             {rooms?.map((room: IMessageRooms) => {
               const lastMessage = room.messages.at(-1) as Messages
+              console.log(lastMessage)
               return (
                 <Link href={`msg-box/${room.id}`} key={room.id}>
                   <MessagePreview
