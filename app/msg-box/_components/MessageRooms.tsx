@@ -27,7 +27,6 @@ export default function MessageRooms() {
           <PaddingProvider>
             {rooms?.map((room: IMessageRooms) => {
               const lastMessage = room.messages.at(-1) as Messages
-              console.log(lastMessage)
               return (
                 <Link href={`msg-box/${room.id}`} key={room.id}>
                   <MessagePreview

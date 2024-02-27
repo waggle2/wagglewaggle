@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import style from './styles/page.module.scss'
 import ModalCollection from './_components/ModalCollection'
 import Messages from './_components/Messages'
@@ -18,14 +18,27 @@ export default function page() {
   const [headerTitle, setHeaderTitle] = useState('')
   const params = useParams()
   const roomId = Number(params.roomId)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [loginUserType, setLoginUserType] = useState<
     'firstUser' | 'secondUser'
   >('firstUser')
   const { data: messageRoom, isLoading: messageLoading } =
     useGetMessageRoom(roomId)
   const { data: userData, isLoading: userLoading } = useGetUserInfo()
-  //TODO: 페이지 진입시 unreadMessageCount를 0으로 만들어주는 로직이 필요함
-  //TODO: 페이지 진입시 하단에 있는 쪽지 포커싱
+
+  const scrollToBottom = () => {
+    const SMOOTH_SCROLL_MAX_HEIGHT = 1500
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior:
+          scrollRef.current.scrollHeight < SMOOTH_SCROLL_MAX_HEIGHT
+            ? 'smooth'
+            : 'instant',
+      })
+    }
+  }
+
   useEffect(() => {
     if (!messageRoom || !userData) return
     if (userData.id === messageRoom?.firstUser.id) {
@@ -36,6 +49,7 @@ export default function page() {
       setLoginUserType('secondUser')
       setHeaderTitle(messageRoom.firstUser.nickname)
     }
+    scrollToBottom()
   }, [messageRoom, userData])
 
   if (messageLoading) return <div>로딩중</div>
@@ -61,7 +75,7 @@ export default function page() {
           title={headerTitle}
         />
       </PaddingProvider>
-      <div className={style.mainSection}>
+      <div className={style.mainSection} ref={scrollRef}>
         <Messages
           loginUserType={loginUserType}
           messageRoom={messageRoom as IMessageRooms}

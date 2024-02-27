@@ -40,8 +40,10 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
         onError: (error) => {
           if (error.code === 400) {
             alert('메시지를 입력해주세요')
+            return
           }
           alert('메시지 전송에 실패했습니다')
+          return
         },
       },
     )

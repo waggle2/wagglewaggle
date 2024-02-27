@@ -3,6 +3,7 @@
 import style from '../styles/messages.module.scss'
 import MessagePreview from '../../_components/MessagePreview'
 import { IMessageRooms } from '@/app/_types/messageTypes'
+import { useEffect } from 'react'
 
 type Props = {
   loginUserType: 'firstUser' | 'secondUser'
