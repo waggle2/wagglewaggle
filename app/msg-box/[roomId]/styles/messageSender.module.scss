@@ -15,8 +15,10 @@
     border: none;
     font-size: 13px;
     font-weight: var(--fw-regular);
+    line-height: 19px;
     outline: none;
     resize: none;
+    max-height: 100px;
     overflow: auto;
     &::-webkit-scrollbar {
       display: none;

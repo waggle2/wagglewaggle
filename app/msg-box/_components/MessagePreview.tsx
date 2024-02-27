@@ -1,6 +1,5 @@
 import { dateAndTime } from '@/app/_lib/formatDate'
 import style from '../styles/messagePreview.module.scss'
-import Avatar from '/public/assets/avatar.svg'
 import cs from 'classnames/bind'
 import { MessageUser } from '@/app/_types/messageTypes'
 const cx = cs.bind(style)
@@ -56,7 +55,7 @@ export default function MessagePreview({
     <article
       className={cx(
         'container',
-        type === 'content' && !isMessageFromMe() && 'dark',
+        type === 'content' && isMessageFromMe() && 'dark',
       )}
     >
       <span className={style.avatar}>
@@ -82,7 +81,9 @@ export default function MessagePreview({
             <span className={style.notRead}>{unreadMessageCount}</span>
           )}
         </div>
-        <span className={cx('content')}>{content}</span>
+        <span className={cx('content', type === 'title' && 'title')}>
+          {content}
+        </span>
       </div>
     </article>
   )
