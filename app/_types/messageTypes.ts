@@ -24,3 +24,8 @@ export type MessageUser = {
   profileAnimal: '곰돌이'
   profileItems: Array<any>
 }
+
+export type IPostMessage = {
+  receiver: string
+  content: string
+}
