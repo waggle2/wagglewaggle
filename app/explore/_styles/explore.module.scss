@@ -2,12 +2,6 @@
   position: relative;
   max-width: 430px;
   height: 100dvh;
-  overflow: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   .searchFnc {
     position: fixed;
@@ -33,10 +27,16 @@
 }
 
 .searchRecordContainer {
-  height: 100%;
+  height: calc(100% - 85px);
   padding-top: 80px;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .recordSwitch {
     display: flex;
@@ -51,7 +51,7 @@
     flex-direction: column;
     font-size: 13px;
     background-color: #fff;
-    padding-bottom: 85px;
+    padding-bottom: 50px;
 
     &:first-child {
       border: none;
@@ -75,6 +75,20 @@
       }
     }
   }
+  .loadMore {
+    cursor: pointer;
+    align-self: center;
+    padding-bottom: 35px;
+    color: #999;
+  }
+
+  .noMoreData,
+  .loading {
+    align-self: center;
+    padding-bottom: 35px;
+    color: #999;
+  }
+
   .noRecord {
     position: absolute;
     top: 45dvh;

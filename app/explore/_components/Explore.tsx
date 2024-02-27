@@ -31,12 +31,72 @@ export default function Explore() {
     const [localSearchHistories, setLocalSearchHistories] = useState<string[]>([]);
     const [showSearchHistories, setShowSearchHistories] = useState<boolean>(true);
     const [isLogin, setIsLogin] = useState(false);
-
     const router = useRouter();
+
+    const [page, setPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [noMoreData, setNoMoreData] = useState<boolean>(false); // 추가할 데이터가 더 이상 없을 때 true로 설정
+
+    const [localSearchHistoriesPage, setLocalSearchHistoriesPage] = useState(1);
+    const [maxLocalHistoryPage, setMaxLocalHistoryPage] = useState(1);
+
+
+    const fetchHistories = async () => {
+        setLoading(true);
+        try {
+            const { data } = await fetchSearchHistories(1, 10);
+            setSearchHistories(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to fetch search histories:', error);
+            setLoading(false);
+        }
+    };
+
+    console.log('localSearchHistoriesPage', localSearchHistoriesPage)
+    console.log('maxLocalHistoryPage', maxLocalHistoryPage)
+
+    const fetchLocalHistories = () => {
+        const localHistories = JSON.parse(localStorage.getItem('searchHistories') || '[]');
+        const pageSize = 10; // 한 페이지당 표시할 항목 수
+        // 페이지 번호가 1부터 시작하므로, 실제 인덱스 계산을 위해 1을 빼줍니다.
+        const startIndex = pageSize * (localSearchHistoriesPage - 1); // 현재 페이지의 시작 인덱스
+        const endIndex = startIndex + pageSize; // 현재 페이지의 끝 인덱스
+        setMaxLocalHistoryPage(Math.ceil(localHistories.length / pageSize));
+
+        // 새 페이지 데이터를 기존 데이터에 추가
+        const newPageHistories = localHistories.slice(startIndex, endIndex);
+        setLocalSearchHistories(prevHistories => [...prevHistories, ...newPageHistories]);
+    };
+
+    useEffect(() => {
+        fetchLocalHistories();
+    }, [localSearchHistoriesPage]);
+
+
+
+    const fetchMoreHistories = async () => {
+        if (loading || noMoreData) return; // 로딩 중이거나 더 이상 불러올 데이터가 없으면 함수를 종료
+        setLoading(true);
+        try {
+            const { data } = await fetchSearchHistories(page + 1, 10);
+            if (data.length > 0) {
+                setSearchHistories(prev => [...prev, ...data]);
+                setPage(prev => prev + 1);
+            } else {
+                setNoMoreData(true); // 불러온 데이터가 없으면 더 이상 불러올 데이터가 없다고 상태 업데이트
+            }
+        } catch (error) {
+            console.error('Failed to fetch search histories:', error);
+        } finally {
+            setLoading(false); // 에러가 발생하든 안 하든 로딩 상태는 false로 변경
+        }
+    };
+
 
     const handleHistoryClick = (keyword: string) => {
         router.push(`/search?keyword=${keyword}`)
-    }
+    };
 
     const handleRecordSwitchChange = (checked: boolean) => {
         setShowSearchHistories(checked);
@@ -64,13 +124,36 @@ export default function Explore() {
         }
     };
 
+    const handleLoadMore = () => {
+        fetchMoreHistories();
+    };
+
+
+
+    const handleLoadMoreLocalHistories = () => {
+        if (localSearchHistoriesPage < maxLocalHistoryPage) {
+            setLocalSearchHistoriesPage(prevPage => prevPage + 1);
+        }
+    };
+
+    useEffect(() => {
+        setIsLogin(localStorage.getItem('isLogin') === 'true');
+
+        if (isLogin) {
+            fetchHistories();
+        } else {
+            fetchLocalHistories();
+        }
+
+    }, [isLogin, localSearchHistoriesPage]);
+
     useEffect(() => {
         setIsLogin(localStorage.getItem('isLogin') === 'true');
 
         const fetchHistories = async () => {
             if (isLogin) {
                 try {
-                    const { data } = await fetchSearchHistories(1, 10);
+                    const { data } = await fetchSearchHistories(page, 10);
                     setSearchHistories(data);
                 } catch (error) {
                     console.error('Failed to fetch search histories:', error);
@@ -80,7 +163,6 @@ export default function Explore() {
                 setLocalSearchHistories(localHistories);
             }
         };
-
         fetchHistories();
     }, [isLogin]);
 
@@ -92,7 +174,6 @@ export default function Explore() {
                     <h4>최근 검색 기록</h4>
                     <button onClick={handleClearSearchRecord}>지우기</button>
                     {/* <div className={style.recordSwitch}><span>검색 기록</span> {showSearchHistories ? "숨기기" : "보기"}<RecordSwitch onChange={handleRecordSwitchChange} checked={showSearchHistories} /></div> */}
-
                 </div>
             </div>
 
@@ -120,10 +201,36 @@ export default function Explore() {
                                 ))}
                             </ul>
                         )
+
                     )}
+                    {
+                        isLogin ? (
+                            searchHistories.length > 0 && (
+                                !noMoreData ? (
+                                    !loading && (
+                                        <button className={style.loadMore} onClick={handleLoadMore}>
+                                            더보기
+                                        </button>
+                                    )
+                                ) : (
+                                    <div className={style.noMoreData}>더 이상 불러올 기록이 없습니다.</div>
+                                )
+                            )
+                        ) : (
+                            localSearchHistoriesPage < maxLocalHistoryPage && (
+                                <button className={style.loadMore} onClick={handleLoadMoreLocalHistories}>
+                                    더보기
+                                </button>
+                            )
+                        )
+                    }
+                    {loading && <span className={style.loading}>Loading...</span>}
+
+
                     {(!isLogin && localSearchHistories.length === 0) || (isLogin && searchHistories.length === 0) && (
                         <span className={style.noRecord}>최근 검색기록이 없습니다</span>
                     )}
+
                 </div>
             )}
         </div>
