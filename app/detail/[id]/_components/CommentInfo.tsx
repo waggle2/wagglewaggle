@@ -13,6 +13,12 @@ interface CommentInfoProps {
   isEditable: boolean
   idx: number
   setEditIdx: Dispatch<SetStateAction<number | null>>
+  stickers: {
+    id: number
+    animal: string
+    userId: string
+  }[]
+  userId: string
 }
 export default function CommentInfo({
   commentId,
@@ -22,6 +28,8 @@ export default function CommentInfo({
   isEditable,
   idx,
   setEditIdx,
+  stickers,
+  userId,
 }: CommentInfoProps) {
   const [isToggle, setIsToggle] = useState(false)
   const { mutate } = useCommentDelete(commentId)
@@ -54,7 +62,11 @@ export default function CommentInfo({
         )}
       </div>
       <span>{content}</span>
-      <EmpathyButton />
+      <EmpathyButton
+        commentId={commentId}
+        stickers={stickers}
+        userId={userId}
+      />
     </div>
   )
 }

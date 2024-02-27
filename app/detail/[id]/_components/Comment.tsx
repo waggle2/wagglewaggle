@@ -58,6 +58,8 @@ export default function Comment({ postId }: CommentProps) {
                     }
                     idx={idx}
                     setEditIdx={setEditIdx}
+                    stickers={item.stickers}
+                    userId={userInfo.id}
                   />
                 )}
               </>
