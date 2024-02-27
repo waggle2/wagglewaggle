@@ -1,23 +1,4 @@
-export interface IMessageRooms {
-  id: number
-  firstUser: string
-  secondUser: string
-  messages: Messages[]
-  createdAt: string
-  updatedAt: string
-  deletedAt: string | null
-}
-
-type Messages = {
-  id: number
-  messageRoomId: number
-  sender: string
-  receiver: string
-  content: string
-  isRead: boolean
-  createdAt: string
-  deletedAt: string | null
-}
+import { IMessageRooms } from '../_types/messageTypes'
 
 export const messageRooms: IMessageRooms[] = [
   {

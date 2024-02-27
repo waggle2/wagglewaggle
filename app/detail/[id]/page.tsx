@@ -3,7 +3,7 @@ import Content from './_components/Content'
 import Comment from './_components/Comment'
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import Navigation from './_components/Navigation'
 
 export default async function Detail({ params }: PageProps) {
