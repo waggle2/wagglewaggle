@@ -4,7 +4,7 @@ import styles from '../styles/comment.module.scss'
 import CommentInfo from './CommentInfo'
 import CommentWrite from './CommentWrite'
 import useGetComments from '@/app/_hooks/services/queries/comments'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 import { useState } from 'react'
 interface CommentProps {

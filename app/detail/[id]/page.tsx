@@ -1,10 +1,6 @@
 import styles from './styles/page.module.scss'
 import Content from './_components/Content'
 import Comment from './_components/Comment'
-<<<<<<< HEAD
-import Sort from '/public/assets/sort.svg'
-=======
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
 import { formatDate } from '@/app/_lib/formatDate'
