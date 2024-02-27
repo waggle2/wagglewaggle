@@ -46,21 +46,29 @@
   .time {
     color: #8c8c8c;
   }
-  .notRead {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    width: 20px;
-    aspect-ratio: 1/1;
-    background-color: #2fd714;
-    font-weight: var(--fw-semiBold);
-    font-size: 11px;
-    color: white;
-  }
+}
+.notRead {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
+  background-color: #2fd714;
+  font-weight: var(--fw-semiBold);
+  font-size: 11px;
+  color: white;
 }
 
 .title {
   height: 38px;
   overflow: hidden;
+}
+
+.contentAndCountDiv {
+  width: 100%;
+  display: flex;
+  gap: 11px;
+  justify-content: space-between;
+  align-items: flex-start;
 }

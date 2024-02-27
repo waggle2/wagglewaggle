@@ -77,13 +77,15 @@ export default function MessagePreview({
           ))}
         <div className={style.informDiv}>
           <span className={style.time}>{dateAndTime(time)}</span>
+        </div>
+        <div className={style.contentAndCountDiv}>
+          <span className={cx('content', type === 'title' && 'title')}>
+            {content}
+          </span>
           {unreadMessageCount === 0 ? null : (
             <span className={style.notRead}>{unreadMessageCount}</span>
           )}
         </div>
-        <span className={cx('content', type === 'title' && 'title')}>
-          {content}
-        </span>
       </div>
     </article>
   )
