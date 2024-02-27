@@ -2,36 +2,57 @@
 import { useState } from 'react'
 import style from '../_styles/filterModal.module.scss'
 import Refresh from '@/public/assets/ico_refresh.svg'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { fetchSearchPost } from '../_api/useSearch'
+
 
 type Props = {
     onClickModalToggle: () => void,
     categories: {
         category: string[],
-        talkAbout: string[],
-        animalType: string[],
+        tag: string[],
+        animal: string[],
     },
-    onApplyFilter: (category: string, talkAbout: string, animalType: string) => void
+    onApplyFilter: (category: string, tag: string, animal: string) => void
 }
 
 export default function FilterModal({ onClickModalToggle, categories, onApplyFilter }: Props) {
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedTalkAbout, setSelectedTalkAbout] = useState('');
-    const [selectedAnimalType, setSelectedAnimalType] = useState('');
+    const [selectedTag, setSelectedTag] = useState('');
+    const [selectedAnimal, setSelectedAnimal] = useState('');
 
     const selectCategory = (category: string) => setSelectedCategory(category);
-    const selectTalkAbout = (talkAbout: string) => setSelectedTalkAbout(talkAbout);
-    const selectAnimalType = (animalType: string) => setSelectedAnimalType(animalType);
+    const selectTag = (tag: string) => setSelectedTag(tag);
+    const selectAnimal = (animal: string) => setSelectedAnimal(animal);
 
+    const router = useRouter();
+    const searchParams = useSearchParams()
+    const keyword = searchParams.get('keyword');
 
     const resetFilters = () => {
         setSelectedCategory('');
-        setSelectedTalkAbout('');
-        setSelectedAnimalType('');
+        setSelectedTag('');
+        setSelectedAnimal('');
     }
 
-    const applyFilters = () => {
-        onApplyFilter(selectedCategory, selectedTalkAbout, selectedAnimalType);
-        onClickModalToggle();
+    const applyFilters = async () => {
+        try {
+            // fetchSearchPost 함수를 호출하여 검색 결과를 가져옵니다.
+            const response = await fetchSearchPost({
+                category: selectedCategory,
+                tag: selectedTag,
+                text: keyword, // 주의: keyword가 URL 쿼리 파라미터에서 올바르게 추출되었는지 확인해야 합니다.
+                animal: selectedAnimal,
+            });
+
+            // 검색 결과 처리
+            console.log(response); // 콘솔에 결과를 로깅하거나, 상태로 저장하여 UI에 표시
+            onApplyFilter(selectedCategory, selectedTag, selectedAnimal); // 필요한 경우, 검색 결과를 상위 컴포넌트에 전달
+        } catch (error) {
+            console.error('검색 중 에러 발생:', error);
+        }
+
+        onClickModalToggle(); // 모달 창을 닫습니다.
     };
 
 
@@ -59,11 +80,11 @@ export default function FilterModal({ onClickModalToggle, categories, onApplyFil
                 <div className={`${style.selectorWrap} ${style.middle}`}>
                     <h5>이런 이야기를 나누고 싶어요</h5>
                     <div className={style.buttonWrap}>
-                        {categories.talkAbout.map((item, itemIdx) => (
+                        {categories.tag.map((item, itemIdx) => (
                             <button
                                 key={itemIdx}
-                                className={selectedTalkAbout === item ? style.selected : ''}
-                                onClick={() => selectTalkAbout(item)}
+                                className={selectedTag === item ? style.selected : ''}
+                                onClick={() => selectTag(item)}
                             >
                                 {item}
                             </button>
@@ -73,11 +94,11 @@ export default function FilterModal({ onClickModalToggle, categories, onApplyFil
                 <div className={style.selectorWrap}>
                     <h5>이런 친구들과 이야기를 나누고 싶어요</h5>
                     <div className={style.buttonWrap}>
-                        {categories.animalType.map((item, itemIdx) => (
+                        {categories.animal.map((item, itemIdx) => (
                             <button
                                 key={itemIdx}
-                                className={selectedAnimalType === item ? style.selected : ''}
-                                onClick={() => selectAnimalType(item)}
+                                className={selectedAnimal === item ? style.selected : ''}
+                                onClick={() => selectAnimal(item)}
                             >
                                 {item}
                             </button>

@@ -1,4 +1,5 @@
 .modalContainer {
+  z-index: 8000;
   position: absolute;
   padding: 0 16px;
   left: 0;
@@ -44,22 +45,24 @@
     padding: 16px 0;
 
     h5 {
+      color: #8c8c8c;
       margin-bottom: 12px;
       font-size: 12px;
-      font-weight: var(--fw-semiBold);
+      font-weight: var(--fw-regular);
     }
 
     .buttonWrap {
-      overflow: scroll;
       display: flex;
-      flex-wrap: nowrap;
       gap: 4px;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      flex-wrap: wrap;
+      // overflow: scroll;
+      // flex-wrap: nowrap;
+      // -ms-overflow-style: none;
+      // scrollbar-width: none;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      // &::-webkit-scrollbar {
+      //   display: none;
+      // }
 
       > button {
         padding: 8px 17px;
@@ -84,6 +87,7 @@
   }
 
   .modalFooter {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     gap: 8px;
