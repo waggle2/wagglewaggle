@@ -1,5 +1,7 @@
 import style from './page.module.scss'
 
+import dynamic from 'next/dynamic'
+
 import Logo from '../public/assets/logo.svg'
 import Recent from '../public/assets/recent.svg'
 import Lips from '../public/assets/lips.svg'
@@ -9,17 +11,28 @@ import Header from './_components/common/header/Header'
 import Search from './_components/common/header/_components/Search'
 import Bell from './_components/common/header/_components/Bell'
 import SwipeEvent from './_components/swipeEvent/SwipeEvent'
+
 import NavTheme from './_components/navTheme/NavTheme'
-import PopularPreview from './_components/popularPreview/PopularPreview'
-import PostPreview from './_components/postPreview/PostPreview'
 import NavEvent from './_components/navEvent/NavEvent'
-import AnimalPostPreview from './_components/postPreview/AnimalPostPreview'
 import TopButton from './_components/button/TopButton'
 import Footer from './_components/common/footer/Footer'
-import Link from '@/node_modules/next/link'
-import Post from './_components/postPreview/_components/Post'
+
+import PostPreview from './_components/postPreview/PostPreview'
+import PopularPreview from './_components/popularPreview/PopularPreview'
 
 export default function Home() {
+  const LazyPopularPost = dynamic(
+    async () => await import('./_components/popularPreview/PopularPreview'),
+    { ssr: false },
+  )
+  const LazyPostPreview = dynamic(
+    async () => await import('./_components/postPreview/PostPreview'),
+    { ssr: false },
+  )
+  const LazyAnimalPost = dynamic(
+    async () => await import('./_components/postPreview/AnimalPostPreview'),
+    { ssr: false },
+  )
   return (
     <>
       <main className={style.main}>
@@ -31,10 +44,11 @@ export default function Home() {
         <NavTheme />
         {/* @ts-expect-error Async Server Component */}
         <PopularPreview />
+        {/* @ts-expect-error Async Server Component */}
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
+        <LazyPostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
         <NavEvent href={'./'} img={<TestAD />} />
-        <PostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
-        <AnimalPostPreview />
+        <LazyAnimalPost />
         <TopButton />
       </main>
       <Footer />
