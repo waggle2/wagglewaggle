@@ -1,5 +1,13 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import style from '../styles/reportReason.module.scss'
 import RuleListItem from './RuleListItem'
 import ModalRules from './ModalRules'
@@ -9,6 +17,7 @@ import Inform from '@/app/_components/common/header/_components/Inform'
 import Button from '@/app/_components/button/Button'
 import { usePostReportMessage } from '@/app/_hooks/services/mutations/reportMessage'
 import { useParams } from 'next/navigation'
+import { isPassableNewLineInMessage } from '@/app/_lib/validate'
 
 const reportCategories = [
   { id: '부적절한 표현', label: '부적절한 표현' },
@@ -28,11 +37,18 @@ export default function ReportReason({ setReportStep }: Props) {
   const [content, setContent] = useState('')
   const [isPassable, setIsPassable] = useState(false)
   const reportMutation = usePostReportMessage()
+  const enterCountRef = useRef<number>(0)
   const { roomId } = useParams()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    handleMutation()
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value
+    const lineBreaks = text.split('\n').length - 1
+
+    if (lineBreaks <= 6) {
+      setContent(text)
+    } else {
+      alert('더 이상 줄을 추가할 수 없습니다.')
+    }
   }
 
   const handleMutation = () => {
@@ -53,8 +69,13 @@ export default function ReportReason({ setReportStep }: Props) {
     )
   }
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleMutation()
+  }
+
   useEffect(() => {
-    if (selectedCategory && content) {
+    if (selectedCategory && !!content.replace(/\n/g, '')) {
       setIsPassable(true)
       return
     }
@@ -90,11 +111,11 @@ export default function ReportReason({ setReportStep }: Props) {
           ))}
         </div>
         <textarea
-          className={style.etcText}
+          className={style.textarea}
           placeholder="신고 사유를 작성해주세요."
-          maxLength={300}
+          maxLength={138}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleChange}
         ></textarea>
         <div className={style.submitDiv}>
           <Button

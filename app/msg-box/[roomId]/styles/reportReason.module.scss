@@ -40,7 +40,7 @@
   padding-inline: 18px;
 }
 
-.etcText {
+.textarea {
   resize: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
@@ -54,6 +54,7 @@
   padding: 16px;
   outline: none;
   background-color: #f5f5f5;
+  max-height: 200px;
   line-height: 21px;
   font-size: 15px;
   font-weight: var(--fw-regular);
