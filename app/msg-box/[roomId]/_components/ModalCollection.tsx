@@ -6,6 +6,8 @@ import ReportReason from './ReportReason'
 import ModalMenu from './ModalMenu'
 import DarkBgProvider from './DarkBgProvider'
 import ConfirmBox from './ConfirmBox'
+import { useDeleteMessagesRoom } from '@/app/_hooks/services/mutations/message'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function ModalCollection({
   isMenuModalOpen,
@@ -17,6 +19,9 @@ export default function ModalCollection({
   const [reportStep, setReportStep] = useState(0)
   const [blockStep, setBlockStep] = useState(0)
   const [deleteStep, setDeleteStep] = useState(0)
+  const params = useParams()
+  const roomId = Number(params.roomId)
+  const router = useRouter()
 
   const getCurrentDateTime = () => {
     const now = new Date()
@@ -31,8 +36,14 @@ export default function ModalCollection({
     return `${year}-${month}-${day} ${hours}:${minutes}`
   }
 
+  const deleteMutation = useDeleteMessagesRoom()
+
   const handleDelete = () => {
-    console.log('삭제 로직')
+    deleteMutation.mutate(roomId, {
+      onSuccess: () => {
+        router.replace('/msg-box')
+      },
+    })
   }
 
   const handleBlock = () => {
@@ -99,6 +110,7 @@ export default function ModalCollection({
     )
   if (deleteStep === 1) {
     handleDelete()
+    handleModalInit()
     return (
       <DarkBgProvider>
         <ConfirmBox
