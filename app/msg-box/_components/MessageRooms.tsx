@@ -19,7 +19,7 @@ export default function MessageRooms() {
     if (rooms) {
       setFilteredRooms(
         rooms.filter(
-          (room: IMessageRooms) => !room.leaveRoom.includes(userData.id),
+          (room: IMessageRooms) => !room.leaveRoom?.includes(userData.id),
         ),
       )
     }
