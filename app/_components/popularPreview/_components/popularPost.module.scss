@@ -1,56 +1,31 @@
-.catContainer {
+.container {
   padding: 16px;
   width: 210px;
   height: 240px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: #fbebff;
-
   gap: 16px;
   display: flex;
   flex-direction: column;
-}
-.dogContainer {
-  padding: 16px;
-  width: 210px;
-  height: 240px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: #fce7c0;
 
-  gap: 16px;
-  display: flex;
-  flex-direction: column;
-}
-.foxContainer {
-  padding: 16px;
-  width: 210px;
-  height: 240px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: #ffe1c4;
-
-  gap: 16px;
-  display: flex;
-  flex-direction: column;
-}
-.bearContainer {
-  padding: 16px;
-  width: 210px;
-  height: 240px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: #e0f4ff;
-
-  gap: 16px;
-  display: flex;
-  flex-direction: column;
+  &.곰돌이 {
+    background: #e0f4ff;
+  }
+  &.고냥이 {
+    background: #fbebff;
+  }
+  &.폭스 {
+    background: #ffe1c4;
+  }
+  &.댕댕이 {
+    background: #fce7c0;
+  }
 }
 .categoryWrapper {
   display: flex;
   gap: 4px;
 }
-.catCategory {
+.category {
   width: max-content;
   padding: 4px 6px;
   color: #000;
@@ -66,75 +41,22 @@
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.32);
-  border: 1px solid #eebfff;
+  &.곰돌이 {
+    border: 1px solid #8ad4ff;
+  }
+  &.고냥이 {
+    border: 1px solid #eebfff;
+  }
+  &.폭스 {
+    border: 1px solid #ff9f69;
+  }
+  &.댕댕이 {
+    border: 1px solid #f0be6b;
+  }
 }
-.dogCategory {
-  width: max-content;
-  padding: 4px 6px;
-  color: #000;
-
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  display: flex;
-  height: 21px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.32);
-  border: 1px solid #f0be6b;
-}
-.foxCategory {
-  width: max-content;
-  padding: 4px 6px;
-  color: #000;
-
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  display: flex;
-  height: 21px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.32);
-  border: 1px solid #ff9f69;
-}
-.bearCategory {
-  width: max-content;
-  padding: 4px 6px;
-  color: #000;
-
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  display: flex;
-  height: 21px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.32);
-  border: 1px solid #8ad4ff;
-}
-.catTag {
+.tag {
   width: max-content;
   display: flex;
   padding: 4px 6px;
@@ -142,61 +64,25 @@
   align-items: center;
   gap: 10px;
   border-radius: 4px;
-  background: #eebfff;
   color: #fff;
   font-family: Outfit;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-}
-.dogTag {
-  width: max-content;
-  display: flex;
-  padding: 4px 6px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 4px;
-  background: #f0be6b;
-  color: #fff;
-  font-family: Outfit;
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.foxTag {
-  width: max-content;
-  display: flex;
-  padding: 4px 6px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 4px;
-  background: #ff9f69;
-  color: #fff;
-  font-family: Outfit;
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.bearTag {
-  width: max-content;
-  display: flex;
-  padding: 4px 6px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 4px;
-  background: #8ad4ff;
-  color: #fff;
-  font-family: Outfit;
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+
+  &.곰돌이 {
+    background: #8ad4ff;
+  }
+  &.고냥이 {
+    background: #eebfff;
+  }
+  &.폭스 {
+    background: #ff9f69;
+  }
+  &.댕댕이 {
+    background: #f0be6b;
+  }
 }
 .postWrapper {
   display: flex;
