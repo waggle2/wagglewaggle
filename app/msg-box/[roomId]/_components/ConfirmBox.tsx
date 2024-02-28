@@ -27,7 +27,6 @@ export default function ConfirmBox({
       <div className={style.buttonWrapper}>
         {buttonType === 'choice' ? (
           <>
-            {' '}
             <Button text="차단하지 않기" mainColor="grey" action={closeModal} />
             <Button text="차단하기" mainColor="green" action={changeState} />
           </>

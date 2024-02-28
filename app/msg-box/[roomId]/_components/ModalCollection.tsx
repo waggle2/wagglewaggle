@@ -32,7 +32,7 @@ export default function ModalCollection({
   }
 
   const handleDelete = () => {
-    // 쪽지 삭제 로직
+    console.log('삭제 로직')
   }
 
   const handleBlock = () => {
@@ -97,7 +97,8 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
-  if (deleteStep === 1)
+  if (deleteStep === 1) {
+    handleDelete()
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -108,6 +109,7 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
+  }
 
   return (
     <div>
