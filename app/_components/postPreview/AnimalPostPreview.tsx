@@ -19,22 +19,22 @@ export default function AnimalPostPreview() {
   const [selectedAnimal, setSelectedAnimal] = useState('')
   const [posts, setPosts] = useState<Array<postData>>()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get(
-          `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
-        )
-        const posts = await res.data
-        console.log(posts, 'animal')
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await api.get(
+  //         `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
+  //       )
+  //       const posts = await res.data
+  //       console.log(posts, 'animal')
 
-        setPosts(posts)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchData()
-  }, [selectedAnimal])
+  //       setPosts(posts)
+  //     } catch (err) {
+  //       console.error(err)
+  //     }
+  //   }
+  //   fetchData()
+  // }, [selectedAnimal])
   const handleAnimalSelect = (animal: string) => {
     setSelectedAnimal(() => animal)
   }
@@ -50,7 +50,7 @@ export default function AnimalPostPreview() {
           <Next />
         </Link>
       </div>
-      <div className={style.animalContainer}>
+      {/* <div className={style.animalContainer}>
         <Button
           text={'전체'}
           mainColor={selectedAnimal === '' ? 'green' : 'grey'}
@@ -91,7 +91,7 @@ export default function AnimalPostPreview() {
             handleAnimalSelect('폭스')
           }}
         />
-      </div>
+      </div> */}
       <div className={style.animalPostContainer}>
         {posts?.map((postData: postData, index: number) => {
           return (
@@ -116,7 +116,7 @@ export default function AnimalPostPreview() {
               }}
             />
           )
-        })}
+        })} */}
       </div>
     </section>
   )
