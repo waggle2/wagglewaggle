@@ -45,16 +45,17 @@ export default function ModalCollection({
       onError: (error) => {
         if (error.code === 400) {
           handleModalInit()
-          alert('이미 차단된 사용자입니다.')
+          setTimeout(() => alert('이미 차단된 사용자입니다.'), 100)
           return
         }
         if (error.code === 404) {
           handleModalInit()
-          alert('사용자를 찾을 수 없습니다.')
+          setTimeout(() => alert('사용자를 찾을 수 없습니다.'), 100)
+
           return
         }
         handleModalInit()
-        alert('차단에 실패했습니다.')
+        setTimeout(() => alert('서버문제로 인해 차단에 실패하였습니다.'), 100)
         return
       },
     })
