@@ -1,6 +1,5 @@
 import Button from '@/app/_components/button/Button'
 import style from '../styles/confirmBox.module.scss'
-import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
   title: string

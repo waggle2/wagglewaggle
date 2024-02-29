@@ -6,6 +6,7 @@ import ReportReason from './ReportReason'
 import ModalMenu from './ModalMenu'
 import DarkBgProvider from './DarkBgProvider'
 import ConfirmBox from './ConfirmBox'
+import { dateAndTime } from '@/app/_lib/formatDate'
 
 export default function ModalCollection({
   isMenuModalOpen,
@@ -18,18 +19,18 @@ export default function ModalCollection({
   const [blockStep, setBlockStep] = useState(0)
   const [deleteStep, setDeleteStep] = useState(0)
 
-  const getCurrentDateTime = () => {
-    const now = new Date()
+  // const getCurrentDateTime = () => {
+  //   const now = new Date()
 
-    const year = now.getFullYear()
-    const month = String(now.getMonth() + 1).padStart(2, '0') // 월은 0부터 시작하므로 1을 더해줍니다.
-    const day = String(now.getDate()).padStart(2, '0')
+  //   const year = now.getFullYear()
+  //   const month = String(now.getMonth() + 1).padStart(2, '0') // 월은 0부터 시작하므로 1을 더해줍니다.
+  //   const day = String(now.getDate()).padStart(2, '0')
 
-    const hours = String(now.getHours()).padStart(2, '0')
-    const minutes = String(now.getMinutes()).padStart(2, '0')
+  //   const hours = String(now.getHours()).padStart(2, '0')
+  //   const minutes = String(now.getMinutes()).padStart(2, '0')
 
-    return `${year}-${month}-${day} ${hours}:${minutes}`
-  }
+  //   return `${year}-${month}-${day} ${hours}:${minutes}`
+  // }
 
   const handleDelete = () => {
     // 쪽지 삭제 로직
@@ -91,7 +92,7 @@ export default function ModalCollection({
         <ConfirmBox
           title="차단 완료"
           description="상대방을 차단했습니다."
-          description2={`차단 일시 ${getCurrentDateTime()}`}
+          description2={`차단 일시 ${dateAndTime(new Date())}`}
           buttonType="single"
           closeModal={handleModalInit}
         />
