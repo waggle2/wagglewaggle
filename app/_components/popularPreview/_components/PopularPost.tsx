@@ -14,9 +14,6 @@ import FoxCover from '@/public/assets/foxCover.svg'
 import DogCover from '@/public/assets/dogCover.svg'
 
 export default function PopularPost({ profile, post }: postProps) {
-  //TODO: 여기서 css 누적 로딩 일어나는거 같음 리팩토링에서 수정, textOverFlow도 확인
-  //The resource <URL> was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
-
   return (
     <Link
       className={cx(`${profile.animal}`, 'container')}
@@ -49,14 +46,14 @@ export default function PopularPost({ profile, post }: postProps) {
           </div>
           <div className={style.time}>2024-12-01</div>
           <div className={style.infoWrapper}>
-            <div className={style.info}>
+            <span className={style.info}>
               <View width="15" height="14" />
               {post.views}
-            </div>
-            <div className={style.info}>
+            </span>
+            <span className={style.info}>
               <Comment />
               {post.comments}
-            </div>
+            </span>
           </div>
         </div>
       </div>
