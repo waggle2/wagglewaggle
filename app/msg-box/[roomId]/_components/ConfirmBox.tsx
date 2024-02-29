@@ -8,6 +8,7 @@ interface Props {
   buttonType: 'choice' | 'single'
   changeState?: () => void
   closeModal?: () => void
+  actionFunction?: () => void
 }
 
 export default function ConfirmBox({
@@ -15,8 +16,9 @@ export default function ConfirmBox({
   description,
   description2,
   buttonType,
-  changeState,
+  changeState = () => {},
   closeModal,
+  actionFunction = () => {},
 }: Props) {
   return (
     <div className={style.container}>
@@ -26,9 +28,14 @@ export default function ConfirmBox({
       <div className={style.buttonWrapper}>
         {buttonType === 'choice' ? (
           <>
-            {' '}
             <Button text="차단하지 않기" mainColor="grey" action={closeModal} />
-            <Button text="차단하기" mainColor="green" action={changeState} />
+            <Button
+              text="차단하기"
+              mainColor="green"
+              action={() => {
+                actionFunction()
+              }}
+            />
           </>
         ) : (
           <Button text="확인" mainColor="green" action={closeModal} />

@@ -1,30 +1,63 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Modal from './Modal'
 import ReportReason from './ReportReason'
 import ModalMenu from './ModalMenu'
 import DarkBgProvider from './DarkBgProvider'
 import ConfirmBox from './ConfirmBox'
 import { dateAndTime } from '@/app/_lib/formatDate'
+import { usePostBlockUser } from '@/app/_hooks/services/mutations/blockUser'
+import { IMessageRooms } from '@/app/_types/messageTypes'
+import { IErrorResponse } from '@/app/_types/userFormTypes'
+
+type Props = {
+  isMenuModalOpen: boolean
+  setMenuModalOpen: Dispatch<SetStateAction<boolean>>
+  loginUserType: 'firstUser' | 'secondUser'
+  messageRoom: IMessageRooms
+}
 
 export default function ModalCollection({
   isMenuModalOpen,
   setMenuModalOpen,
-}: {
-  isMenuModalOpen: boolean
-  setMenuModalOpen: (isOpen: boolean) => void
-}) {
+  loginUserType,
+  messageRoom,
+}: Props) {
   const [reportStep, setReportStep] = useState(0)
   const [blockStep, setBlockStep] = useState(0)
   const [deleteStep, setDeleteStep] = useState(0)
 
-  const handleDelete = () => {
-    // 쪽지 삭제 로직
+  const blockMutation = usePostBlockUser()
+
+  const checkPartnerId = () => {
+    if (loginUserType === 'firstUser') return messageRoom.secondUser.id
+    if (loginUserType === 'secondUser') return messageRoom.firstUser.id
   }
 
   const handleBlock = () => {
-    // 차단 로직
+    const partnerId = checkPartnerId() as string
+    blockMutation.mutate(partnerId, {
+      onSuccess: () => {
+        setBlockStep(2)
+        return
+      },
+      onError: (error) => {
+        if (error.code === 400) {
+          handleModalInit()
+          alert('이미 차단된 사용자입니다.')
+          return
+        }
+        if (error.code === 404) {
+          handleModalInit()
+          alert('사용자를 찾을 수 없습니다.')
+          return
+        }
+        handleModalInit()
+        alert('차단에 실패했습니다.')
+        return
+      },
+    })
   }
 
   const handleReport = () => {
@@ -69,11 +102,12 @@ export default function ModalCollection({
           buttonType="choice"
           changeState={() => handleStep('Block', 2)}
           closeModal={handleModalInit}
+          actionFunction={handleBlock}
         />
       </DarkBgProvider>
     )
 
-  if (blockStep === 2)
+  if (blockStep === 2) {
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -85,6 +119,7 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
+  }
   if (deleteStep === 1)
     return (
       <DarkBgProvider>
