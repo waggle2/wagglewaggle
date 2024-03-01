@@ -57,21 +57,6 @@ const nextConfig = {
       ],
     }
 
-    if (!isServer) {
-      config.mode = 'production' // 웹팩 모드 설정 추가
-    }
-    // TerserPlugin 추가
-    config.optimization = {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            // TerserPlugin 옵션 설정 가능
-          },
-        }),
-      ],
-    }
-
     return config
   },
 }
