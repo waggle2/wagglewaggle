@@ -18,12 +18,15 @@ const nextConfig = {
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.svg$/i,
       use: ['@svgr/webpack'],
     })
     config.plugins.push(new CompressionPlugin())
+    if (!isServer) {
+      config.mode = 'production' // 웹팩 모드 설정 추가
+    }
     return config
   },
 }
