@@ -21,10 +21,12 @@ const signUpUser = async (userData: SignUpData): Promise<SignUpResponse> => {
 
 export const useSignUpUser = () => {
   const router = useRouter()
+  const localStorage = window.localStorage
   return useMutation({
     mutationFn: (userData: SignUpData) => signUpUser(userData),
     onSuccess: (data) => {
       console.log(data)
+      localStorage.setItem('isVerified', 'false')
       alert('회원가입이 완료되었습니다.')
       router.replace('/login')
     },
