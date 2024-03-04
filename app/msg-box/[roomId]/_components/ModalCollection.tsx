@@ -39,7 +39,7 @@ export default function ModalCollection({
   const handleDelete = () => {
     deleteMutation.mutate(roomId, {
       onSuccess: () => {
-        router.replace('/msg-box')
+        setDeleteStep(1)
       },
     })
   }
@@ -136,8 +136,6 @@ export default function ModalCollection({
     )
   }
   if (deleteStep === 1) {
-    handleDelete()
-    handleModalInit()
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -145,6 +143,9 @@ export default function ModalCollection({
           description={`${checkPartnerObject()?.nickname ?? ''}님과의 대화가 모두 삭제되었습니다.`}
           buttonType="single"
           closeModal={handleModalInit}
+          actionFunction={() => {
+            router.replace('/msg-box')
+          }}
         />
       </DarkBgProvider>
     )
@@ -156,7 +157,7 @@ export default function ModalCollection({
         <ModalMenu
           onBlock={() => setBlockStep(1)}
           onReport={() => setReportStep(1)}
-          onDelete={() => setDeleteStep(1)}
+          onDelete={handleDelete}
           onClose={() => setMenuModalOpen(false)}
         />
       </Modal>
