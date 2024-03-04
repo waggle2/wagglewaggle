@@ -38,21 +38,25 @@ export default function CustomPreview({
                                 <button onClick={confirmModalToggle}>
                                     <CheckIcon /></button>
                             </div> */}
-
-                            <div className={style.profilePreview}>
-                                <img className={style.emoji} src={selectedEmoji} alt={`${selectedEmoji}`} />
-                                <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
-                                <img className={style.animalBody} src={`/assets/point_shop/animal_body/${selectedTab}_body.svg`} />
-                                <img className={style.profileBg} src={selectedProfileBg} alt={selectedProfileBg} />
-                                <img className={style.wallPaper} src={selectedWallpaper} alt={selectedWallpaper} />
-                            </div>
                             <div className={style.possessionCoinWrap}>
                                 <div className={style.possessionCoin}>
-                                    MY COIN
+                                    보유 코인
                                     <PointIcon animal={selectedTab} />
                                     {possessionCoin.toLocaleString()}
                                 </div>
                             </div>
+                            <div className={style.profilePreview}>
+                                <div className={style.imageContainer}>
+                                    <div className={style.imageBox}>
+                                        <img className={style.emoji} src={selectedEmoji} alt={`${selectedEmoji}`} />
+                                        <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
+                                        {/* <img className={style.animalBody} src={`/assets/point_shop/animal_body/${selectedTab}_body.svg`} /> */}
+                                        <img className={style.profileBg} src={selectedProfileBg} alt={selectedProfileBg} />
+                                    </div>
+                                </div>
+                                <img className={style.wallPaper} src={selectedWallpaper} alt={selectedWallpaper} />
+                            </div>
+
                         </div>
                     </>
                 )}

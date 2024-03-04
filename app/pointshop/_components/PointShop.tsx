@@ -1,6 +1,6 @@
 'use client'
 import style from '@/app/pointshop/_styles/pointShop.module.scss'
-import ShopInfoButton from './ShopInfoButton'
+// import ShopInfoButton from './ShopInfoButton'
 import CustomProfile from './CustomProfile'
 import Header from '@/app/_components/common/header/Header'
 import Search from '@/app/_components/common/header/_components/Search'
@@ -17,7 +17,6 @@ export default function PointShop() {
       />
       <div className={style.container}>
         {/* <ShopInfoButton /> */}
-
         {/* 꾸미기 영역 */}
         <CustomProfile />
       </div>

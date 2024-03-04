@@ -265,12 +265,12 @@ export default function CustomResult({
         confirmModalToggle={confirmModalToggle}
         handleResetClick={handleResetClick}
       />
-      <Cart
+      {/* <Cart
         cartItems={cartData.cartItems}
         totalItemPrice={cartData.totalCoins}
         handleResetClick={handleResetClick}
         confirmModalToggle={confirmModalToggle}
-      />
+      /> */}
       <ItemSelection
         handleCategoryClick={handleCategoryClick}
         tabCategoryButtonStyle={(itemType: string) =>
