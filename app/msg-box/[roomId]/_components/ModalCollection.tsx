@@ -43,13 +43,13 @@ export default function ModalCollection({
       },
     })
   }
-  const checkPartnerId = () => {
-    if (loginUserType === 'firstUser') return messageRoom.secondUser.id
-    if (loginUserType === 'secondUser') return messageRoom.firstUser.id
+  const checkPartnerObject = () => {
+    if (loginUserType === 'firstUser') return messageRoom.secondUser
+    if (loginUserType === 'secondUser') return messageRoom.firstUser
   }
 
   const handleBlock = () => {
-    const partnerId = checkPartnerId() as string
+    const partnerId = checkPartnerObject()?.id as string
     blockMutation.mutate(partnerId, {
       onSuccess: () => {
         setBlockStep(2)
@@ -142,7 +142,7 @@ export default function ModalCollection({
       <DarkBgProvider>
         <ConfirmBox
           title="삭제 완료"
-          description="은하수님과의 대화가 모두 삭제되었습니다."
+          description={`${checkPartnerObject()?.nickname ?? ''}님과의 대화가 모두 삭제되었습니다.`}
           buttonType="single"
           closeModal={handleModalInit}
         />
