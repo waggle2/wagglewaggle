@@ -26,7 +26,7 @@ export const useSignUpUser = () => {
     onSuccess: (data) => {
       console.log(data)
       alert('회원가입이 완료되었습니다.')
-      router.replace('/')
+      router.replace('/login')
     },
     onError: (error) => {
       console.error(error)
