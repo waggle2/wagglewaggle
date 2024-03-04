@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import style from './_styles/layout.module.scss'
 import QueryProvider from './_components/reactQuery/QueryProvider'
 import LoginCheckProvider from './_api/LoginCheckProvider'
+import Script from 'next/script'
 
 const pretendard = localFont({
   src: [
@@ -44,6 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://cdn.iamport.kr/v1/iamport.js" />
       <body className={pretendard.className}>
         <div className={style.container}>
           <QueryProvider>
