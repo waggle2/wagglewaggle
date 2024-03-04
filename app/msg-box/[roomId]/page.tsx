@@ -89,6 +89,8 @@ export default function page() {
       <ModalCollection
         isMenuModalOpen={isMenuModalOpen}
         setMenuModalOpen={setMenuModalOpen}
+        loginUserType={loginUserType}
+        messageRoom={messageRoom as IMessageRooms}
       />
     </div>
   )
