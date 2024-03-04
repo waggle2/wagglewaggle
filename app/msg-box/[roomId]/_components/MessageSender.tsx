@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { useSendMessage } from '@/app/_hooks/services/mutations/message'
 import { IMessageRooms } from '@/app/_types/messageTypes'
+import { isPassableNewLineInMessage } from '@/app/_lib/validate'
 
 type Props = {
   messageRoom: IMessageRooms
@@ -39,19 +40,6 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
         },
       },
     )
-  }
-
-  const isPassableNewLineInMessage = (text: string) => {
-    if (countNewlines(text) >= 6) {
-      return false
-    }
-    return true
-  }
-
-  const countNewlines = (text: string) => {
-    const newlineCount = (text.match(/\n/g) || []).length
-
-    return newlineCount
   }
 
   const handleResizeHeight = () => {

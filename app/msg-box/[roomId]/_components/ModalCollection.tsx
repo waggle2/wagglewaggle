@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Modal from './Modal'
 import ReportReason from './ReportReason'
 import ModalMenu from './ModalMenu'
@@ -8,14 +8,23 @@ import DarkBgProvider from './DarkBgProvider'
 import ConfirmBox from './ConfirmBox'
 import { useDeleteMessagesRoom } from '@/app/_hooks/services/mutations/message'
 import { useParams, useRouter } from 'next/navigation'
+import { dateAndTime } from '@/app/_lib/formatDate'
+import { usePostBlockUser } from '@/app/_hooks/services/mutations/blockUser'
+import { IMessageRooms } from '@/app/_types/messageTypes'
+
+type Props = {
+  isMenuModalOpen: boolean
+  setMenuModalOpen: Dispatch<SetStateAction<boolean>>
+  loginUserType: 'firstUser' | 'secondUser'
+  messageRoom: IMessageRooms
+}
 
 export default function ModalCollection({
   isMenuModalOpen,
   setMenuModalOpen,
-}: {
-  isMenuModalOpen: boolean
-  setMenuModalOpen: (isOpen: boolean) => void
-}) {
+  loginUserType,
+  messageRoom,
+}: Props) {
   const [reportStep, setReportStep] = useState(0)
   const [blockStep, setBlockStep] = useState(0)
   const [deleteStep, setDeleteStep] = useState(0)
@@ -23,18 +32,7 @@ export default function ModalCollection({
   const roomId = Number(params.roomId)
   const router = useRouter()
 
-  const getCurrentDateTime = () => {
-    const now = new Date()
-
-    const year = now.getFullYear()
-    const month = String(now.getMonth() + 1).padStart(2, '0') // 월은 0부터 시작하므로 1을 더해줍니다.
-    const day = String(now.getDate()).padStart(2, '0')
-
-    const hours = String(now.getHours()).padStart(2, '0')
-    const minutes = String(now.getMinutes()).padStart(2, '0')
-
-    return `${year}-${month}-${day} ${hours}:${minutes}`
-  }
+  const blockMutation = usePostBlockUser()
 
   const deleteMutation = useDeleteMessagesRoom()
 
@@ -45,9 +43,35 @@ export default function ModalCollection({
       },
     })
   }
+  const checkPartnerId = () => {
+    if (loginUserType === 'firstUser') return messageRoom.secondUser.id
+    if (loginUserType === 'secondUser') return messageRoom.firstUser.id
+  }
 
   const handleBlock = () => {
-    // 차단 로직
+    const partnerId = checkPartnerId() as string
+    blockMutation.mutate(partnerId, {
+      onSuccess: () => {
+        setBlockStep(2)
+        return
+      },
+      onError: (error) => {
+        if (error.code === 400) {
+          handleModalInit()
+          setTimeout(() => alert('이미 차단된 사용자입니다.'), 100)
+          return
+        }
+        if (error.code === 404) {
+          handleModalInit()
+          setTimeout(() => alert('사용자를 찾을 수 없습니다.'), 100)
+
+          return
+        }
+        handleModalInit()
+        setTimeout(() => alert('서버문제로 인해 차단에 실패하였습니다.'), 100)
+        return
+      },
+    })
   }
 
   const handleReport = () => {
@@ -68,7 +92,7 @@ export default function ModalCollection({
     if (type === 'Delete') setDeleteStep(step)
   }
   if (reportStep === 1) return <ReportReason setReportStep={setReportStep} />
-  if (reportStep === 2)
+  if (reportStep === 2) {
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -81,8 +105,9 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
+  }
 
-  if (blockStep === 1)
+  if (blockStep === 1) {
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -92,22 +117,24 @@ export default function ModalCollection({
           buttonType="choice"
           changeState={() => handleStep('Block', 2)}
           closeModal={handleModalInit}
+          actionFunction={handleBlock}
         />
       </DarkBgProvider>
     )
-
-  if (blockStep === 2)
+  }
+  if (blockStep === 2) {
     return (
       <DarkBgProvider>
         <ConfirmBox
           title="차단 완료"
           description="상대방을 차단했습니다."
-          description2={`차단 일시 ${getCurrentDateTime()}`}
+          description2={`차단 일시 ${dateAndTime(new Date())}`}
           buttonType="single"
           closeModal={handleModalInit}
         />
       </DarkBgProvider>
     )
+  }
   if (deleteStep === 1) {
     handleDelete()
     handleModalInit()

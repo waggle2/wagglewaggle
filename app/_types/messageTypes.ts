@@ -30,3 +30,9 @@ export type IPostMessage = {
   receiver: string
   content: string
 }
+
+export type IReportMessageRequestBody = {
+  reason: string
+  content: string
+  messageRoomId: string
+}

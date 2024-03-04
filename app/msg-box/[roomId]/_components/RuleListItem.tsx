@@ -1,15 +1,7 @@
 'use client'
 
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import style from '../styles/ruleListItem.module.scss'
-import cs from 'classnames/bind'
-const cx = cs.bind(style)
 interface Props {
   rule: {
     id: string

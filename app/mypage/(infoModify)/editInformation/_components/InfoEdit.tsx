@@ -10,6 +10,7 @@ import InputText, { DisabledText } from '../../_components/InputText'
 
 import Button from '@/app/_components/button/Button'
 import Modal from '@/app/_components/common/modal/Modal'
+import userVerify from '@/app/_lib/userVerify'
 
 export default function InfoEdit() {
   const router = useRouter()
@@ -25,7 +26,6 @@ export default function InfoEdit() {
   const regex =
     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=|\\{}[\]:;<>,.?/~]).{8,16}$/
   console.log('render', currentPassword)
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,10 +39,10 @@ export default function InfoEdit() {
       }
     }
     fetchData()
-  }, [])
+  }, [userInfo])
 
   const userVerified = () => {
-    console.log('TODO: 인증 이벤트 추가')
+    userVerify()
   }
   const handleChangeCurrentPassword = (e: ChangeEvent<HTMLInputElement>) => {
     console.log('handleChangeCurrentPassword')
