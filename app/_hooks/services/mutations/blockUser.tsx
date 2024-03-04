@@ -3,7 +3,7 @@ import { IErrorResponse } from '@/app/_types/userFormTypes'
 import { useMutation } from '@tanstack/react-query'
 
 const postblockUser = async (blockedUserId: string) => {
-  const response = await api.post(`/blocks`, blockedUserId)
+  const response = await api.post(`/blocks`, { blockedUserId })
   return response.data
 }
 
