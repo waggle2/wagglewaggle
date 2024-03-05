@@ -8,6 +8,7 @@ export interface IMessageRooms {
   updatedAt: Date
   deletedAt: Date | null
   unreadMessageCount: number
+  isBlockedUser: boolean
 }
 
 export type Messages = {
