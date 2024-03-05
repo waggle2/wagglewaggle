@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useSendMessage } from '@/app/_hooks/services/mutations/postMessage'
+import { useSendMessage } from '@/app/_hooks/services/mutations/message'
 import { IMessageRooms } from '@/app/_types/messageTypes'
 import { isPassableNewLineInMessage } from '@/app/_lib/validate'
 import cs from 'classnames/bind'

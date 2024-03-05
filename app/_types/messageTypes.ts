@@ -1,5 +1,6 @@
 export interface IMessageRooms {
   id: number
+  leaveRoom: Array<string>
   firstUser: MessageUser
   secondUser: MessageUser
   messages: Messages[]

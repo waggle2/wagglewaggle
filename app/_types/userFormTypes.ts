@@ -71,11 +71,6 @@ export type IResetPassword = {
   newPassword: string
 }
 
-export type IErrorResponse = {
-  code: number
-  message: string
-}
-
 export type IEmailCheck = {
   email: string
   emailCheckNumber: string

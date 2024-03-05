@@ -8,24 +8,35 @@ import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/message'
 import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
 import { IMessageRooms, Messages } from '@/app/_types/messageTypes'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
+import { useEffect, useState } from 'react'
 
 export default function MessageRooms() {
   const { data: rooms, isLoading } = useGetAllMessageRooms()
   const { data: userData, isLoading: userLoading } = useGetUserInfo()
+  const [filteredRooms, setFilteredRooms] = useState<IMessageRooms[]>([])
 
+  useEffect(() => {
+    if (rooms) {
+      setFilteredRooms(
+        rooms.filter(
+          (room: IMessageRooms) => !room.leaveRoom?.includes(userData.id),
+        ),
+      )
+    }
+  }, [rooms])
   if (isLoading) return <div>로딩중</div>
   if (userLoading) return <div>로딩중</div>
 
   return (
     <>
-      {rooms?.length === 0 ? (
+      {filteredRooms?.length === 0 ? (
         <>
           <EmptyRooms />
         </>
       ) : (
         <PaddingProvider>
           <div className={style.roomsDiv}>
-            {rooms?.map((room: IMessageRooms) => {
+            {filteredRooms?.map((room: IMessageRooms) => {
               const lastMessage = room.messages.at(-1) as Messages
               return (
                 <Link href={`msg-box/${room.id}`} key={room.id}>

@@ -6,10 +6,11 @@ import ReportReason from './ReportReason'
 import ModalMenu from './ModalMenu'
 import DarkBgProvider from './DarkBgProvider'
 import ConfirmBox from './ConfirmBox'
+import { useDeleteMessagesRoom } from '@/app/_hooks/services/mutations/message'
+import { useParams, useRouter } from 'next/navigation'
 import { dateAndTime } from '@/app/_lib/formatDate'
 import { usePostBlockUser } from '@/app/_hooks/services/mutations/blockUser'
 import { IMessageRooms } from '@/app/_types/messageTypes'
-import { IErrorResponse } from '@/app/_types/userFormTypes'
 
 type Props = {
   isMenuModalOpen: boolean
@@ -27,16 +28,28 @@ export default function ModalCollection({
   const [reportStep, setReportStep] = useState(0)
   const [blockStep, setBlockStep] = useState(0)
   const [deleteStep, setDeleteStep] = useState(0)
+  const params = useParams()
+  const roomId = Number(params.roomId)
+  const router = useRouter()
 
   const blockMutation = usePostBlockUser()
 
-  const checkPartnerId = () => {
-    if (loginUserType === 'firstUser') return messageRoom.secondUser.id
-    if (loginUserType === 'secondUser') return messageRoom.firstUser.id
+  const deleteMutation = useDeleteMessagesRoom()
+
+  const handleDelete = () => {
+    deleteMutation.mutate(roomId, {
+      onSuccess: () => {
+        setDeleteStep(1)
+      },
+    })
+  }
+  const checkPartnerObject = () => {
+    if (loginUserType === 'firstUser') return messageRoom.secondUser
+    if (loginUserType === 'secondUser') return messageRoom.firstUser
   }
 
   const handleBlock = () => {
-    const partnerId = checkPartnerId() as string
+    const partnerId = checkPartnerObject()?.id as string
     blockMutation.mutate(partnerId, {
       onSuccess: () => {
         setBlockStep(2)
@@ -79,7 +92,7 @@ export default function ModalCollection({
     if (type === 'Delete') setDeleteStep(step)
   }
   if (reportStep === 1) return <ReportReason setReportStep={setReportStep} />
-  if (reportStep === 2)
+  if (reportStep === 2) {
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -92,8 +105,9 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
+  }
 
-  if (blockStep === 1)
+  if (blockStep === 1) {
     return (
       <DarkBgProvider>
         <ConfirmBox
@@ -107,7 +121,7 @@ export default function ModalCollection({
         />
       </DarkBgProvider>
     )
-
+  }
   if (blockStep === 2) {
     return (
       <DarkBgProvider>
@@ -121,17 +135,21 @@ export default function ModalCollection({
       </DarkBgProvider>
     )
   }
-  if (deleteStep === 1)
+  if (deleteStep === 1) {
     return (
       <DarkBgProvider>
         <ConfirmBox
           title="삭제 완료"
-          description="은하수님과의 대화가 모두 삭제되었습니다."
+          description={`${checkPartnerObject()?.nickname ?? ''}님과의 대화가 모두 삭제되었습니다.`}
           buttonType="single"
           closeModal={handleModalInit}
+          actionFunction={() => {
+            router.replace('/msg-box')
+          }}
         />
       </DarkBgProvider>
     )
+  }
 
   return (
     <div>
@@ -139,7 +157,7 @@ export default function ModalCollection({
         <ModalMenu
           onBlock={() => setBlockStep(1)}
           onReport={() => setReportStep(1)}
-          onDelete={() => setDeleteStep(1)}
+          onDelete={handleDelete}
           onClose={() => setMenuModalOpen(false)}
         />
       </Modal>
