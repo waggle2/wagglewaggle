@@ -23,8 +23,8 @@ export default function MessageRooms() {
           <EmptyRooms />
         </>
       ) : (
-        <div className={style.roomsDiv}>
-          <PaddingProvider>
+        <PaddingProvider>
+          <div className={style.roomsDiv}>
             {rooms?.map((room: IMessageRooms) => {
               const lastMessage = room.messages.at(-1) as Messages
               return (
@@ -46,8 +46,8 @@ export default function MessageRooms() {
                 </Link>
               )
             })}
-          </PaddingProvider>
-        </div>
+          </div>
+        </PaddingProvider>
       )}
     </>
   )

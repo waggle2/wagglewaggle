@@ -81,7 +81,7 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
 
   useEffect(() => {
     handleResizeHeight()
-  }, [text])
+  }, [text, messageRoom.isBlockedUser])
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
