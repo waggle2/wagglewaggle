@@ -76,3 +76,16 @@ export function checkObject(obj: any, subObj: any) {
   })
   return result === 0 ? true : false
 }
+
+export const isPassableNewLineInMessage = (text: string) => {
+  const countNewlines = (text: string) => {
+    const newlineCount = (text.match(/\n/g) || []).length
+
+    return newlineCount
+  }
+
+  if (countNewlines(text) >= 6) {
+    return false
+  }
+  return true
+}

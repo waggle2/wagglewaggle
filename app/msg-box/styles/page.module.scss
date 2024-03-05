@@ -3,13 +3,11 @@
   font-weight: var(--fw-bold);
   padding-block: 12px;
 }
-.roomsDiv {
+.roomsSection {
+  position: relative;
   padding-top: 8px;
   height: calc(100dvh - 60px);
   background-color: #e8e8e8;
-  box-shadow:
-    16px 0 0 #e8e8e8,
-    -16px 0 0 #e8e8e8;
   overflow-y: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */

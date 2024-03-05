@@ -1,26 +1,52 @@
+'use client'
+
 import style from '../styles/messageRooms.module.scss'
 import MessagePreview from './MessagePreview'
-import { messageRooms, IMessageRooms } from '../mockTalk'
 import Link from 'next/link'
 import EmptyRooms from './EmptyRooms'
+import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/message'
+import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
+import { IMessageRooms, Messages } from '@/app/_types/messageTypes'
+import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 
 export default function MessageRooms() {
-  console.log(messageRooms.length)
+  const { data: rooms, isLoading } = useGetAllMessageRooms()
+  const { data: userData, isLoading: userLoading } = useGetUserInfo()
+
+  if (isLoading) return <div>로딩중</div>
+  if (userLoading) return <div>로딩중</div>
+
   return (
     <>
-      {messageRooms?.length === 0 ? (
-        <EmptyRooms />
+      {rooms?.length === 0 ? (
+        <>
+          <EmptyRooms />
+        </>
       ) : (
         <div className={style.roomsDiv}>
-          {messageRooms.map((messageRoom: IMessageRooms, index) => (
-            <Link href={`msg-box/${index}`} key={index}>
-              <MessagePreview
-                sender={messageRooms[index]?.messages.at(-1)?.sender}
-                content={messageRooms[index]?.messages.at(-1)?.content}
-                time={messageRooms[index]?.messages.at(-1)?.createdAt}
-              />
-            </Link>
-          ))}
+          <PaddingProvider>
+            {rooms?.map((room: IMessageRooms) => {
+              const lastMessage = room.messages.at(-1) as Messages
+              return (
+                <Link href={`msg-box/${room.id}`} key={room.id}>
+                  <MessagePreview
+                    sender={lastMessage.sender}
+                    content={lastMessage.content}
+                    time={lastMessage.createdAt}
+                    firstUser={room.firstUser}
+                    secondUser={room.secondUser}
+                    receiver={lastMessage.sender}
+                    unreadMessageCount={room.unreadMessageCount}
+                    loginUserType={
+                      userData.id === room.firstUser.id
+                        ? 'firstUser'
+                        : 'secondUser'
+                    }
+                  />
+                </Link>
+              )
+            })}
+          </PaddingProvider>
         </div>
       )}
     </>

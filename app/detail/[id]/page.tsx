@@ -3,13 +3,13 @@ import Content from './_components/Content'
 import Comment from './_components/Comment'
 import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import Navigation from './_components/Navigation'
+import userVerify from '@/app/_lib/userVerify'
 
 export default async function Detail({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)
   const data = response.data
-  console.log(data)
   return (
     <div className={styles.container}>
       <Navigation
