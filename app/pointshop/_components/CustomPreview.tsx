@@ -1,6 +1,5 @@
 import style from '../_styles/pointShop.module.scss'
 import PointIcon from './PointIcon';
-import RefreshIcon from '@/public/assets/ico_refresh.svg'
 import CheckIcon from '@/public/assets/ico_check_green.svg'
 import { useRecoilValue } from 'recoil'
 import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'

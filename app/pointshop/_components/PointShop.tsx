@@ -12,7 +12,7 @@ export default function PointShop() {
   return (
     <>
       <Header
-        leftSection={<Title title={'포인트샵'} />}
+        leftSection={<Title title={'아이템샵'} />}
         rightSection={[<Search />, <Bell />]}
       />
       <div className={style.container}>

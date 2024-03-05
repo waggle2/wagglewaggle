@@ -1,0 +1,172 @@
+// 장바구니 UI
+.modalBackground {
+  z-index: 9900;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.cartWrapper {
+  position: absolute;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  transform: translateY(calc(100% - 47px - 16px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cartToggleContainer {
+  margin-bottom: 16px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  .resetBtn {
+    border: 1px solid #eff0f0;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > .refreshIcon {
+      transform: rotate(45deg);
+    }
+  }
+
+  .toggleBtn {
+    background-color: #2fd714;
+    border: 1px solid #2fd714;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    color: #fff;
+    border-radius: 30px;
+  }
+}
+
+.selectedContainer {
+  width: 100%;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px 8px 0 0;
+  transition: transform 0.3s ease-in-out;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-weight: var(--fw-semiBold);
+  }
+}
+
+.selectedItems {
+  display: flex;
+  gap: 8px;
+
+  .item {
+    position: relative;
+    width: 25%;
+    padding-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    border: 2px solid #2fd714;
+    border-radius: 8px;
+
+    > .selectedImageBox {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 12px;
+      background-color: #fff;
+      border: 1px solid #eff0f0;
+      border-radius: 8px;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+      }
+
+      > img {
+        position: absolute;
+        width: 70%;
+      }
+
+      > .emojiImg {
+        top: 17px;
+      }
+    }
+  }
+}
+
+.priceCoin {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+
+  > img {
+    height: 12px;
+  }
+
+  > .ownedIcon {
+    margin-top: 4px;
+  }
+}
+
+.purchaseContainer {
+  margin-top: 15px;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 1px solid #f6f6f6;
+
+  .totalPurchase {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+
+    & > .price {
+      display: flex;
+      gap: 4px;
+    }
+  }
+  .purchaseFnc {
+    display: flex;
+    gap: 8px;
+    & > button {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      border: 1px solid #eee;
+      padding: 12px 0;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .resetBtn {
+      background-color: #c7c7c7;
+      color: #878787;
+    }
+    .purchaseBtn {
+      background-color: #2fd714;
+      color: #fff;
+    }
+  }
+}

@@ -265,12 +265,7 @@ export default function CustomResult({
         confirmModalToggle={confirmModalToggle}
         handleResetClick={handleResetClick}
       />
-      {/* <Cart
-        cartItems={cartData.cartItems}
-        totalItemPrice={cartData.totalCoins}
-        handleResetClick={handleResetClick}
-        confirmModalToggle={confirmModalToggle}
-      /> */}
+
       <ItemSelection
         handleCategoryClick={handleCategoryClick}
         tabCategoryButtonStyle={(itemType: string) =>
@@ -282,6 +277,13 @@ export default function CustomResult({
         selectedItems={cartData.cartItems}
         isLoading={isLoading}
         possessionItems={possessionItems}
+      />
+
+      <Cart
+        cartItems={cartData.cartItems}
+        totalItemPrice={cartData.totalCoins}
+        handleResetClick={handleResetClick}
+        confirmModalToggle={confirmModalToggle}
       />
     </>
   );
