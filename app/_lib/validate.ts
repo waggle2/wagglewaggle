@@ -10,8 +10,7 @@ export const validate = (inputValues: IInputFileds): IErrors => {
     errors.email = '이메일의 형태 혹은 길이가 맞지 않습니다.'
   }
   if (inputValues.password && !validatePassword(inputValues.password)) {
-    errors.password =
-      '비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.'
+    errors.password = '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.'
   }
 
   if (
