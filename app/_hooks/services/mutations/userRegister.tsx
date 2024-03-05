@@ -1,8 +1,8 @@
 import api from '@/app/_api/commonApi'
+import { IErrorResponse } from '@/app/_types/apiTypes'
 import {
   SignUpResponse,
   SignUpData,
-  IErrorResponse,
   IEmailCheck,
   IEmailConfirmResponse,
   IResetPassword,
