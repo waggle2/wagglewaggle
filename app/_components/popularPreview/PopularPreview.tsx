@@ -13,10 +13,10 @@ export default async function PopularPreview() {
   const fetchData = async () => {
     try {
       const res = await api.get('posts/hot-posts?page=1&pageSize=10')
-      console.log(res.data, 'data!')
+      // console.log(res.data, 'data!')
       return res.data
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
   const postData = await fetchData()
@@ -25,7 +25,7 @@ export default async function PopularPreview() {
     <section className={style.container}>
       <div className={style.titleContainer}>
         <div className={style.titleWrapper}>
-          {<Popular />}
+          <Popular />
           <label className={style.title}>{'바글바글 인기글'}</label>
         </div>
         <Link href={''}>

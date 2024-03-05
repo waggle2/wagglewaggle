@@ -8,9 +8,11 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useSendMessage } from '@/app/_hooks/services/mutations/postMessage'
+import { useSendMessage } from '@/app/_hooks/services/mutations/message'
 import { IMessageRooms } from '@/app/_types/messageTypes'
 import { isPassableNewLineInMessage } from '@/app/_lib/validate'
+import cs from 'classnames/bind'
+const cx = cs.bind(style)
 
 type Props = {
   messageRoom: IMessageRooms
@@ -83,13 +85,20 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
-      <label htmlFor="send" className={style.label}>
+      <label
+        htmlFor="send"
+        className={cx('label', messageRoom.isBlockedUser && 'inactive')}
+      >
         <textarea
           className={style.textContent}
           rows={1}
           id="send"
           value={text}
-          placeholder="텍스트를 입력하세요"
+          placeholder={
+            messageRoom.isBlockedUser
+              ? '쪽지를 보낼 수 없는 사용자 입니다.'
+              : '텍스트를 입력하세요'
+          }
           ref={textareaRef}
           wrap="hard"
           onChange={(e) => {
@@ -98,10 +107,14 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
           }}
           onKeyDown={handleKeyDown}
           maxLength={209}
+          disabled={messageRoom.isBlockedUser}
         ></textarea>
-        <button className={style.button}>
-          <SubmitText2 width="24" height="24" />
-        </button>
+
+        {!messageRoom.isBlockedUser && (
+          <button className={style.button}>
+            <SubmitText2 width="24" height="24" />
+          </button>
+        )}
       </label>
     </form>
   )

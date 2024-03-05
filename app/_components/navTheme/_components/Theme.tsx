@@ -12,9 +12,9 @@ type Props = {
 export default function Theme({ href, svg, title, bgColor }: Props) {
   return (
     <Link href={href} className={style.container} key={title}>
-      <div className={style.background} style={{ backgroundColor: bgColor }}>
+      <label className={style.background} style={{ backgroundColor: bgColor }}>
         {svg}
-      </div>
+      </label>
       <div className={style.title}>{title}</div>
     </Link>
   )

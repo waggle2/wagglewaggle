@@ -268,9 +268,6 @@ export default function CustomResult({
 
       <ItemSelection
         handleCategoryClick={handleCategoryClick}
-        tabCategoryButtonStyle={(itemType: string) =>
-          itemType === selectedItemType ? `${style.tabButton} ${style.active}` : style.tabButton
-        }
         items={items}
         handleItemClick={handleItemClick}
         handleRemoveItemClick={handleRemoveItemClick}

@@ -17,7 +17,7 @@ export default function ConfirmBox({
   description2,
   buttonType,
   changeState = () => {},
-  closeModal,
+  closeModal = () => {},
   actionFunction = () => {},
 }: Props) {
   return (
@@ -38,7 +38,14 @@ export default function ConfirmBox({
             />
           </>
         ) : (
-          <Button text="확인" mainColor="green" action={closeModal} />
+          <Button
+            text="확인"
+            mainColor="green"
+            action={() => {
+              closeModal()
+              actionFunction()
+            }}
+          />
         )}
       </div>
     </div>
