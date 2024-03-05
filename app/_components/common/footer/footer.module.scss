@@ -12,3 +12,18 @@
   padding: 8px 22px 18px 22px;
   background: #fff;
 }
+
+.messageDiv {
+  position: relative;
+}
+
+.alarm {
+  position: absolute;
+  left: 16px;
+  top: -4px;
+  display: block;
+  width: 10px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: red;
+}
