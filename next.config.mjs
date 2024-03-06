@@ -37,11 +37,11 @@ const nextConfig = {
       },
     )
 
-    config.plugins.push(
-      new BundleAnalyzerPlugin({
-        generateStatsFile: true,
-      }),
-    )
+    // config.plugins.push(
+    //   new BundleAnalyzerPlugin({
+    //     generateStatsFile: true,
+    //   }),
+    // )
     // if (!isServer) {
     //   config.mode = 'production' // 웹팩 모드 설정 추가
     // }
