@@ -1,8 +1,8 @@
 import api from '@/app/_api/commonApi'
+import { IErrorResponse } from '@/app/_types/apiTypes'
 import {
   SignUpResponse,
   SignUpData,
-  IErrorResponse,
   IEmailCheck,
   IEmailConfirmResponse,
   IResetPassword,
@@ -28,7 +28,7 @@ export const useSignUpUser = () => {
       console.log(data)
       localStorage.setItem('isVerified', 'false')
       alert('회원가입이 완료되었습니다.')
-      router.replace('/')
+      router.replace('/login')
     },
     onError: (error) => {
       console.error(error)

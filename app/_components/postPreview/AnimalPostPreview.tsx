@@ -13,20 +13,7 @@ import Next from '@/public/assets/next.svg'
 import Town from '@/public/assets/town.svg'
 
 import api from '@/app/_api/commonApi'
-
-type postData = {
-  id: number
-  animal?: string
-  commentNum: number
-  content: string
-  createdAt: string
-  imageUrls?: ReactNode
-  isAnonymous: boolean
-  likeNum: number
-  likes: null
-  tags: string[]
-  title: string
-}
+import { postData } from './_types/responseType'
 
 export default function AnimalPostPreview() {
   const [selectedAnimal, setSelectedAnimal] = useState('')
@@ -106,14 +93,13 @@ export default function AnimalPostPreview() {
         />
       </div>
       <div className={style.animalPostContainer}>
-        {posts?.map((postData, index: number) => {
+        {posts?.map((postData: postData, index: number) => {
           return (
             <Post
               key={index}
               profile={{
-                image: null,
-                // name: postData.author.credential.nickname,
-                name: 'nickname',
+                image: postData.author?.profileItems,
+                name: postData.author?.credential.nickname, //TODO: 02.26 회의 후 탈퇴한 회원 정보 처리
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,
               }}
