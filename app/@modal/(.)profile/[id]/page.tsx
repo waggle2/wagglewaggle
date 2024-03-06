@@ -16,7 +16,7 @@ import { profileData } from './profileDataTypes'
 export default function Profile({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [userInfo, setUserInfo] = useState<profileData>()
-  //TODO: 탈퇴한 유저 & 메세지 이동 처리
+  //TODO: 탈퇴한 유저 & 유저 프로필,메세지 이동 처리
   useEffect(() => {
     const fetchData = async () => {
       try {
