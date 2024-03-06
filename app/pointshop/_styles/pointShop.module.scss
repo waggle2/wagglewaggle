@@ -1,15 +1,12 @@
 .container {
   position: relative;
   max-width: 430px;
-  height: 100%;
-  padding-bottom: 85px;
+  // height: calc(100dvh - 85px);
+  height: 100dvh;
   background-color: #fff;
-  overflow: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
 
   button {
     cursor: pointer;
@@ -42,7 +39,7 @@
 }
 
 .tabContainer {
-  padding: 0 16px;
+  padding: 12px 16px 0 16px;
   > button {
     width: 25%;
     padding-bottom: 10px;
@@ -51,13 +48,13 @@
   }
 
   > .tabButton {
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid #f5f5f5;
     color: #ccc;
     text-align: center;
   }
 
   > .active {
-    border-bottom: 3px solid #2fd714;
+    border-bottom: 2px solid #2fd714;
     color: #000;
     font-weight: bold;
   }
@@ -65,54 +62,69 @@
 
 // 선택 아이템 착용 미리보기
 .customContainer {
-  padding: 1rem;
-  background-color: #f0f0f0;
+  padding: 12px 16px;
+  // background-color: #fff;
 }
 
 .customBackground {
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 215px;
-  border-radius: 0.75rem;
+  height: 255px;
+  border-radius: 8px;
 
-  .profileResult {
+  .profilePreview {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
 
-    .emoji,
-    .frame,
-    .profileBg {
+    .imageContainer {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-    }
+      z-index: 90;
+      bottom: 20px;
 
-    .emoji {
-      transform: translate(-50%, -42.7%);
-      width: 100px;
-      z-index: 4;
+      .imageBox {
+        position: relative;
+        width: 165px;
+        height: 165px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        .emoji,
+        .frame,
+        .animalBody,
+        .profileBg {
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, 0);
+          z-index: 2;
+        }
+
+        .emoji {
+          transform: translate(-50%, 30px);
+          width: 100px;
+          z-index: 4;
+        }
+
+        .frame {
+          width: 165px;
+          z-index: 5;
+        }
+
+        .profileBg {
+          width: 165px;
+          z-index: 3;
+        }
+      }
     }
-    .frame {
-      width: 132px;
-      z-index: 5;
-    }
-    .profileBg {
-      width: 132px;
-      z-index: 3;
-    }
-    .wallPaper {
-      position: absolute;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-    }
+  }
+  .wallPaper {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -136,179 +148,28 @@
   }
 }
 
-.imageBox {
-  min-width: 137px;
-  min-height: 137px;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.possessionCoin {
+.possessionCoinWrap {
   z-index: 11;
   position: absolute;
-  bottom: 13px;
-  right: 13px;
+  justify-self: center;
+  top: 20px;
   display: flex;
-  gap: 10px;
-  padding: 4px 8px;
-  background-color: #fefefe;
-  border-radius: 34px;
-  font-size: 16px;
-  color: #878787;
-}
-
-// 장바구니 UI
-.selectedContainer {
-  width: 100%;
-  min-height: 185px;
-  background-color: #fff;
-  padding: 20px;
-}
-.selectedItems {
-  display: flex;
-  gap: 8px;
-  // justify-content: space-between;
-
-  .item {
-    width: 24%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-
-    > .selectedImageBox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 86px;
-      padding: 18px 11px;
-      background-color: #f5f5f5;
-      border-radius: 12px;
-
-      > img {
-        width: 100%;
-        max-width: 58px;
-      }
-    }
-  }
-}
-
-.priceCoin {
-  > img {
-    height: 12px;
-  }
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: 14px;
-}
-
-.totalPriceWrap {
-  display: flex;
-  justify-content: flex-end;
-
-  .totalPrice {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    border: 1px solid #eee;
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 14px;
-    color: #878787;
-  }
-}
-
-// 아이템 선택부분
-.categoryTabContainer {
-  background-color: #f0f0f0;
-  padding: 16px 20px 0 20px;
-  display: flex;
-
   justify-content: center;
-  gap: 4px;
+  width: 100%;
 
-  > button {
-    border-radius: 14px 14px 0 0;
-    padding: 6px 20px;
-    transition: all 0.25s;
-    font-size: 14px;
-    letter-spacing: -0.07em;
-  }
-  > .tabButton {
-    background-color: #fafafa;
-    color: #ccc;
-  }
-
-  > .active {
+  .possessionCoin {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
     background-color: #fff;
-    color: #444;
-    font-weight: bolder;
-  }
-}
-
-.itemContainer {
-  background-color: #fff;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  > .item {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    width: 24%;
-    height: auto;
-    padding-bottom: 8px;
-
-    .imageWrap {
-      transition: all 0.25s;
-      border: 2px solid transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 18px 11px;
-      background-color: #f5f5f5;
-      border-radius: 12px;
-      > img {
-        width: 100%;
-        max-width: 58px;
-      }
-    }
-  }
-
-  > .bigItem {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    width: 49%;
-    height: auto;
-    padding-bottom: 8px;
-
-    .imageWrap {
-      transition: all 0.25s;
-      border: 2px solid transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 34px 17px;
-      background-color: #f5f5f5;
-      border-radius: 12px;
-
-      > img {
-        width: 100%;
-      }
+    border: 1px solid #eff0f0;
+    border-radius: 34px;
+    font-size: 14px;
+    color: #1a1a1a;
+    > img {
+      height: 17px;
+      width: auto;
     }
   }
 }
