@@ -150,9 +150,6 @@ export default function SearchResult() {
     }, [keyword, selectedCategory, selectedTag, selectedAnimal]);
 
 
-
-    console.log(searchPosts)
-    console.log(hasInitialSearchResults)
     return (
         <div className={style.searchContainer}>
             {isModal && (
