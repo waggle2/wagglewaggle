@@ -4,7 +4,7 @@ import { ItemData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState'
 import OwnedIcon from '@/public/assets/point_shop/owned_check.svg'
 import { useRecoilValue } from 'recoil'
 import { selectedTabState, selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState'
-import UnsetIcon from '@/public/assets/point_shop/item_unset.svg'
+// import UnsetIcon from '@/public/assets/point_shop/item_unset.svg'
 
 type ItemSelectionProps = {
     handleCategoryClick: (selectedItemType: string) => void;
@@ -109,7 +109,7 @@ export default function ItemSelection({
                                 </div>
                             </div>
                             <div className={style.priceCoin}>
-                                <PointIcon animal={selectedTab} /> { }
+                                <OwnedIcon /> { }
                             </div>
                         </li>
                         {renderItemsForCategory(selectedItemType)}

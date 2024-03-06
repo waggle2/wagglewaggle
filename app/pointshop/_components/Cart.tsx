@@ -6,15 +6,16 @@ import { useRecoilValue } from 'recoil';
 import { selectedTabState } from '@/app/_recoil/atoms/pointshopState';
 import RefreshIcon from '@/public/assets/ico_refresh.svg';
 import CloseIcon from '@/public/assets/point_shop/close.svg'
-
+import EmptyIcon from '@/public/assets/point_shop/selected_empty.svg'
 type CartProps = {
     cartItems: ItemData[];
     totalItemPrice: number;
     handleResetClick: () => void;
+    handleRemoveItemClick: (item: number) => void;
     confirmModalToggle: () => void;
 };
 
-export default function Cart({ cartItems, totalItemPrice, handleResetClick, confirmModalToggle }: CartProps) {
+export default function Cart({ cartItems, totalItemPrice, handleResetClick, handleRemoveItemClick, confirmModalToggle }: CartProps) {
     const selectedTab = useRecoilValue(selectedTabState);
     const [isMovedUp, setIsMovedUp] = useState(false);
 
@@ -45,22 +46,19 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, conf
         setIsMovedUp(!isMovedUp);
     };
 
-    // const dynamicStyle = isMovedUp ? { transform: `translateY(calc(-${containerHeight}px + 85px))` } : {};
     const dynamicStyle = isMovedUp ? { transform: `translateY(calc(-${containerHeight}px + 1px))` } : {};
 
 
     return (
         <div className={`${isMovedUp ? style.modalBackground : ''}`}>
+            <div className={style.cartToggleContainer}>
+                <button className={style.resetBtn} onClick={handleResetClick}>
+                    <RefreshIcon className={style.refreshIcon} />
+                </button>
+                <button className={style.toggleBtn} onClick={handleCartUp}>장바구니 {sortedCartItems.length}</button>
+            </div>
 
             <div className={style.cartWrapper}>
-                <div className={style.cartToggleContainer}>
-                    <button className={style.resetBtn} onClick={handleResetClick}>
-                        <RefreshIcon className={style.refreshIcon} />
-                    </button>
-                    <button className={style.toggleBtn} onClick={handleCartUp}>장바구니 {sortedCartItems.length}</button>
-                </div>
-
-
                 {/* 장바구니 */}
                 <div ref={cartRef} className={style.selectedContainer} style={dynamicStyle}>
                     <div className={style.header}>
@@ -70,7 +68,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, conf
                     <ul className={style.selectedItems}>
                         {isCartItem ? (
                             sortedCartItems.map((item, index) => (
-                                <li key={index} className={style.item} >
+                                <li key={index} className={style.item} onClick={() => handleRemoveItemClick(item.id)} >
                                     <div className={style.selectedImageBox}>
                                         <img className={item.itemType === 'emoji' ? style.emojiImg : ''} src={item.image} alt="" />
                                     </div>
@@ -80,11 +78,9 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, conf
                                 </li>
                             ))
                         ) : (
-                            <li className={style.item}>
-                                <div className={style.selectedImageBox}></div>
-                                <div className={style.priceCoin}>
-                                    <PointIcon animal={selectedTab} /> {0}
-                                </div>
+                            <li className={style.emptyCart}>
+                                <EmptyIcon />
+                                <span>장바구니가 비어있어요</span>
                             </li>
                         )}
                     </ul>

@@ -11,16 +11,18 @@ import Title from '@/app/_components/common/header/_components/Title'
 export default function PointShop() {
   return (
     <>
-      <Header
-        leftSection={<Title title={'아이템샵'} />}
-        rightSection={[<Search />, <Bell />]}
-      />
       <div className={style.container}>
+        <div>
+          <Header
+            leftSection={<Title title={'아이템샵'} />}
+            rightSection={[<Search />, <Bell />]}
+          />
+        </div>
         {/* <ShopInfoButton /> */}
         {/* 꾸미기 영역 */}
         <CustomProfile />
+        <Footer />
       </div>
-      <Footer />
     </>
   )
 }

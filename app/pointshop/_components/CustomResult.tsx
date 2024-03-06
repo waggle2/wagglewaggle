@@ -280,6 +280,7 @@ export default function CustomResult({
         cartItems={cartData.cartItems}
         totalItemPrice={cartData.totalCoins}
         handleResetClick={handleResetClick}
+        handleRemoveItemClick={handleRemoveItemClick}
         confirmModalToggle={confirmModalToggle}
       />
     </>
