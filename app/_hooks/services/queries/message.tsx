@@ -11,7 +11,6 @@ export const useGetAllMessageRooms = () => {
   return useQuery({
     queryKey: ['message-rooms'],
     queryFn: getAllMessageBoxes,
-    staleTime: Infinity,
   })
 }
 
