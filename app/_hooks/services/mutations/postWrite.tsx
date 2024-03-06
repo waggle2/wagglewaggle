@@ -25,8 +25,6 @@ export function usePostWrite() {
     onSuccess: (response) => {
       alert(response.message)
       router.push(`/detail/${response.data.id}`)
-<<<<<<< HEAD
-=======
     },
   })
 }
@@ -38,7 +36,6 @@ export function usePostModify(postId: number) {
       alert(response.message)
       router.push(`/detail/${response.data.id}`)
       router.refresh()
->>>>>>> 6d3975185bb40e2af42e71ba2195050834d962c4
     },
   })
 }
