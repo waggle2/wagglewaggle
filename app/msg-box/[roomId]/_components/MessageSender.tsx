@@ -37,6 +37,10 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
             alert('메시지를 입력해주세요')
             return
           }
+          if (error.code === 500) {
+            alert('서버문제로 메시지 전송에 실패했습니다')
+            return
+          }
           alert('메시지 전송에 실패했습니다')
           return
         },
