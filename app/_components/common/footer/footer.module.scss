@@ -19,11 +19,23 @@
 
 .alarm {
   position: absolute;
-  left: 16px;
-  top: -4px;
-  display: block;
-  width: 10px;
-  aspect-ratio: 1/1;
+  left: 12px;
+  top: -6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: red;
+  &.medium {
+    width: 17px;
+  }
+  &.large {
+    width: 24px;
+    border-radius: 100vmax;
+  }
+  background: #eb2c19;
+  color: #fff;
+  font-size: 10px;
+  font-weight: var(--fw-bold);
 }
