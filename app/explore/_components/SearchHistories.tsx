@@ -19,6 +19,7 @@ type SearchHistory = {
 };
 
 type SearchHistoriesProps = {
+    isSearch?: boolean
     setIsFocused?: (isFocused: boolean) => void;
 };
 
@@ -30,7 +31,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ index, onDelete }) => {
     );
 };
 
-export default function SearchHistories({ setIsFocused }: SearchHistoriesProps) {
+export default function SearchHistories({ isSearch, setIsFocused }: SearchHistoriesProps) {
     const [searchHistories, setSearchHistories] = useState<SearchHistory[]>([]);
     const [localSearchHistories, setLocalSearchHistories] = useState<string[]>([]);
     const [showSearchHistories, setShowSearchHistories] = useState<boolean>(true);
@@ -91,15 +92,14 @@ export default function SearchHistories({ setIsFocused }: SearchHistoriesProps) 
                 setLocalSearchHistories(localHistories.slice(0, 10));
             }
         };
-
-
         fetchHistories();
     }, [isLogin]);
     return (
         <div>
             <div className={style.searchFnc}>
                 <div className={style.recordHeader}>
-                    <h4>최근 검색 기록</h4>
+                    <h4>최근 검색 기록 {isSearch && <span onClick={() => { setIsFocused?.(false) }}>| 닫기</span>}</h4>
+
                     <button onClick={handleClearSearchRecord}>지우기</button>
                     {/* <div className={style.recordSwitch}><span>검색 기록</span> {showSearchHistories ? "숨기기" : "보기"}<RecordSwitch onChange={handleRecordSwitchChange} checked={showSearchHistories} /></div> */}
 

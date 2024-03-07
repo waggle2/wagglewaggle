@@ -28,7 +28,7 @@ export const fetchSearchPost = async ({
     const endpoint = `/posts?${queryParams.toString()}`;
     try {
         const data = await api.get(endpoint);
-        console.log(data)
+        // console.log(data)
         return data;
     } catch (error: any) {
         console.error(error);
@@ -41,7 +41,7 @@ export const fetchSearchHistories = async (page: number, pageSize: number) => {
     const endpoint = `/search-histories?page=${page}&pageSize=${pageSize}`
     try {
         const data = await api.get(endpoint)
-        console.log(data.message)
+        // console.log(data.message)
         return data
     } catch (error) {
         console.log(error)

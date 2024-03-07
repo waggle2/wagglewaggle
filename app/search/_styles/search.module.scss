@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  height: calc(100dvh - 85px);
   background-color: #e8e8e8;
   overflow-y: hidden;
 }

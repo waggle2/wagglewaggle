@@ -73,7 +73,7 @@ export default function SearchBar({ isSearch }: Props) {
             </div>
             {isSearch && isFocused &&
                 (<div className={`${isFocused ? style.historiesContainer : ''}`}>
-                    <SearchHistories setIsFocused={setIsFocused} />
+                    <SearchHistories isSearch={isSearch} setIsFocused={setIsFocused} />
                 </div>)
             }
         </>
