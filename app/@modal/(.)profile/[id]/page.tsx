@@ -9,9 +9,26 @@ import Button from '@/app/_components/button/Button'
 import MyType from '@/app/mypage/_components/MyType'
 import MyProfile from '@/app/mypage/profileSetting/_components/MyProfile'
 import Link from '@/node_modules/next/link'
+import api from '@/app/_api/commonApi'
+import { useEffect, useState } from 'react'
+import { profileData } from './profileDataTypes'
 
-export default function Profile() {
+export default function Profile({ params }: { params: { id: string } }) {
   const router = useRouter()
+  const [userInfo, setUserInfo] = useState<profileData>()
+  //TODO: 탈퇴한 유저 & 유저 프로필,메세지 이동 처리
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await api.get(`/users/profile/${params.id}`)
+        console.log(data, 'data')
+        setUserInfo(data)
+      } catch (err) {
+        console.log(err, 'err')
+      }
+    }
+    fetchData()
+  }, [])
 
   const handleClose = () => {
     router.back()
@@ -21,22 +38,24 @@ export default function Profile() {
     <Modal
       title={
         <div className={style.container}>
-          <span>내이름은 김삼순</span>
+          <span>{userInfo?.nickname}</span>
           <Close clickEvent={handleClose} />
         </div>
       }
       content={
         <div className={style.contentWrapper}>
-          <MyProfile
-            selectedEmoji={`/assets/point_shop/emoji/cat_smile.svg`}
-            selectedProfileBg={
-              '/assets/point_shop/profile_background/프로필배경1.svg'
+          <MyProfile isSetting={false} />
+          <MyType
+            primaryAnimal={
+              userInfo?.primaryAnimal
+                ? userInfo.primaryAnimal
+                : userInfo?.secondAnimal
             }
-            selectedFrame={'/assets/point_shop/frame/프레임샘플.png'}
-            selectedWallpaper={'/assets/point_shop/wallpaper/벽지샘플.png'}
-            isSetting={false}
+            cat={userInfo?.userStickers.catStickers}
+            bear={userInfo?.userStickers.bearStickers}
+            dog={userInfo?.userStickers.dogStickers}
+            fox={userInfo?.userStickers.foxStickers}
           />
-          <MyType type={'고냥이'} cat={92} bear={32} dog={32} fox={32} />
         </div>
       }
       buttons={[
