@@ -20,15 +20,14 @@ export default function MessageRooms() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(rooms)
-    if (rooms) {
+    if (rooms && userData) {
       setFilteredRooms(
         rooms.filter(
-          (room: IMessageRooms) => !room.leaveRoom?.includes(userData.id),
+          (room: IMessageRooms) => !room.leaveRoom?.includes(userData?.id),
         ),
       )
     }
-  }, [rooms])
+  }, [rooms, userData])
   if (isLoading) return <div>로딩중</div>
   if (userLoading) return <div>로딩중</div>
 
