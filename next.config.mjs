@@ -5,6 +5,7 @@ import withPlugins from 'next-compose-plugins'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import TerserPlugin from 'terser-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -49,12 +50,47 @@ const nextConfig = {
     config.optimization = {
       minimize: true,
       minimizer: [
+        // new TerserPlugin({
+        //   terserOptions: {
+        //     format: {
+        //       comments: false,
+        //     },
+        //   },
+        // }),
         new TerserPlugin({
+          minify: TerserPlugin.terserMinify,
           terserOptions: {
-            // TerserPlugin 옵션 설정 가능
+            format: {
+              comments: false,
+            },
           },
         }),
+        new CssMinimizerPlugin(),
       ],
+      splitChunks: {
+        chunks(chunk) {
+          // exclude `my-excluded-chunk`
+          return chunk.name !== 'my-excluded-chunk'
+        },
+        minSize: 20000,
+        minRemainingSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
+        enforceSizeThreshold: 50000,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      },
     }
 
     return config
