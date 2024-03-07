@@ -9,13 +9,18 @@ import PaddingProvider from '@/app/_components/layoutSupport/PaddingProvider'
 import { IMessageRooms, Messages } from '@/app/_types/messageTypes'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { QueryClient } from '@tanstack/react-query'
 
 export default function MessageRooms() {
   const { data: rooms, isLoading } = useGetAllMessageRooms()
   const { data: userData, isLoading: userLoading } = useGetUserInfo()
   const [filteredRooms, setFilteredRooms] = useState<IMessageRooms[]>([])
 
+  const router = useRouter()
+
   useEffect(() => {
+    console.log(rooms)
     if (rooms) {
       setFilteredRooms(
         rooms.filter(
@@ -38,6 +43,7 @@ export default function MessageRooms() {
           <div className={style.roomsDiv}>
             {filteredRooms?.map((room: IMessageRooms) => {
               const lastMessage = room.messages.at(-1) as Messages
+              if (lastMessage === undefined) return
               return (
                 <Link href={`msg-box/${room.id}`} key={room.id}>
                   <MessagePreview

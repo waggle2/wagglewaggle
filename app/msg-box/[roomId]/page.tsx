@@ -22,6 +22,7 @@ export default function page() {
   const [loginUserType, setLoginUserType] = useState<
     'firstUser' | 'secondUser'
   >('firstUser')
+
   const { data: messageRoom, isLoading: messageLoading } =
     useGetMessageRoom(roomId)
   const { data: userData, isLoading: userLoading } = useGetUserInfo()
