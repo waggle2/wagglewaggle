@@ -1,5 +1,5 @@
 import api from '@/app/_api/commonApi'
-import { IErrorResponse } from '@/app/_types/userFormTypes'
+import { IErrorResponse } from '@/app/_types/apiTypes'
 import { useMutation } from '@tanstack/react-query'
 
 const postblockUser = async (blockedUserId: string) => {
