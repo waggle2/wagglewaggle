@@ -1,21 +1,28 @@
+'use client'
 import style from '@/app/pointshop/_styles/pointShop.module.scss'
-import ShopInfoButton from './ShopInfoButton'
+// import ShopInfoButton from './ShopInfoButton'
 import CustomProfile from './CustomProfile'
 import Header from '@/app/_components/common/header/Header'
+import Search from '@/app/_components/common/header/_components/Search'
+import Bell from '@/app/_components/common/header/_components/Bell'
 import Footer from '@/app/_components/common/footer/Footer'
 import Title from '@/app/_components/common/header/_components/Title'
 
 export default function PointShop() {
   return (
     <>
-      <Header leftSection={<Title title={'포인트샵'} />} />
       <div className={style.container}>
-        <ShopInfoButton />
-
+        <div>
+          <Header
+            leftSection={<Title title={'아이템샵'} />}
+            rightSection={[<Search />, <Bell />]}
+          />
+        </div>
+        {/* <ShopInfoButton /> */}
         {/* 꾸미기 영역 */}
         <CustomProfile />
+        <Footer />
       </div>
-      <Footer />
     </>
   )
 }
