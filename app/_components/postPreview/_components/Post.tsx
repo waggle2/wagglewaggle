@@ -10,6 +10,7 @@ type Props = {
     name: string
     animal: string
     isAnonymous: boolean
+    id: string
   }
   post: {
     id: number
@@ -29,7 +30,10 @@ export default function Post({ profile, post }: Props) {
     <div className={style.container}>
       <div className={style.profileContainer}>
         <Link
-          href={`http://localhost:3000/profile/${post.id}`} //TODO: ID참조 어떻게 할건지
+          href={{
+            pathname: `http://localhost:3000/profile/${profile.id}`,
+            // query: { userId: `${profile.id}` },
+          }}
           scroll={false}
           className={style.profileWrapper}
         >

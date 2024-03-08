@@ -53,6 +53,7 @@ export default async function PostPreview({ title, href, icon }: Props) {
                 name: postData.author?.credential.nickname,
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,
+                id: postData.author?.id,
               }}
               post={{
                 id: postData.id,
