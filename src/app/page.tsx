@@ -2,9 +2,9 @@ import style from './page.module.scss'
 
 import dynamic from 'next/dynamic'
 
-import Logo from '../public/assets/logo.svg'
-import Recent from '../public/assets/recent.svg'
-import Lips from '../public/assets/lips.svg'
+import Logo from '../../public/assets/logo.svg'
+import Recent from '../../public/assets/recent.svg'
+import Lips from '../../public/assets/lips.svg'
 import TestAD from '@/public/assets/testAD.svg'
 
 import Header from './_components/common/header/Header'
@@ -42,9 +42,7 @@ export default function Home() {
         />
         <SwipeEvent />
         <NavTheme />
-        {/* @ts-expect-error Async Server Component */}
         <PopularPreview />
-        {/* @ts-expect-error Async Server Component */}
         <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
         <LazyPostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
         <NavEvent href={'./'} img={<TestAD />} />

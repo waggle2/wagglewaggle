@@ -1,6 +1,5 @@
 'use client'
 
-import { usePathname } from '@/node_modules/next/navigation'
 import { useEffect, useState } from 'react'
 import style from './footer.module.scss'
 import cs from 'classnames/bind'
@@ -13,6 +12,7 @@ import MyPage from './_components/MyPage'
 import PointShop from './_components/PointShop'
 import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/message'
 import { IMessageRooms } from '@/app/_types/messageTypes'
+import { usePathname } from 'next/navigation'
 
 type UnreadMessageCharacterType = {
   size: 'small' | 'medium' | 'large'
