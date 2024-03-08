@@ -1,5 +1,5 @@
 'use client'
-import style from '@/app/pointshop/_styles/pointShop.module.scss'
+import style from './styles/pointShop.module.scss'
 // import ShopInfoButton from './ShopInfoButton'
 import CustomProfile from './CustomProfile'
 import Header from '@/app/_components/common/header/Header'

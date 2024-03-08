@@ -1,7 +1,7 @@
 'use client'
 
 import style from './styles/pointShop.module.scss'
-import CustomResult from '@/app/pointshop/_components/CustomResult'
+import CustomResult from './CustomResult'
 import { useRecoilState } from 'recoil'
 import {
   selectedTabState,

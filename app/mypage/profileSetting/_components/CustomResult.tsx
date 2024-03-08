@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import style from '../_styles/pointShop.module.scss'
+import style from './styles/pointShop.module.scss'
 import ConfirmChange from './ConfirmChange'
 import CustomPreview from './CustomPreview'
-import Cart from './Cart'
+
 import ItemSelection from './ItemSelection'
 import {
   AnimalTab,
@@ -20,7 +20,7 @@ import {
   fetchItems,
   fetchAnimalCoin,
   fetchCartItems,
-} from '../_service/usePointshopData'
+} from './service/usePointshopData'
 
 type Props = {
   selectedTab: AnimalTab
@@ -327,14 +327,6 @@ export default function CustomResult({
         selectedItems={cartData.cartItems}
         isLoading={isLoading}
         possessionItems={possessionItems}
-      />
-
-      <Cart
-        cartItems={cartData.cartItems}
-        totalItemPrice={cartData.totalCoins}
-        handleResetClick={handleResetClick}
-        handleRemoveItemClick={handleRemoveItemClick}
-        confirmModalToggle={confirmModalToggle}
       />
     </>
   )
