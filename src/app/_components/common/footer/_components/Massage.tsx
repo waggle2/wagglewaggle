@@ -1,8 +1,8 @@
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 import style from './navIcon.module.scss'
 
-import Msg from '@/public/assets/msg.svg'
-import ActiveMsg from '@/public/assets/activeMsg.svg'
+import Msg from '/public/assets/msg.svg'
+import ActiveMsg from '/public/assets/activeMsg.svg'
 
 type props = {
   path: string

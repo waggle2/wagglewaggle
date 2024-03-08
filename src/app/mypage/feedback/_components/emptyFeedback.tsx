@@ -1,8 +1,8 @@
 import style from './_styles/emptyFeedback.module.scss'
 
-import FeedBackIcon from '@/public/assets/feedbackIcon.svg'
+import FeedBackIcon from '/public/assets/feedbackIcon.svg'
 import Button from '@/app/_components/button/Button'
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 
 export default function EmptyFeedback() {
   return (

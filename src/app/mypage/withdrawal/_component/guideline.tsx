@@ -1,6 +1,6 @@
 import style from './guideline.module.scss'
-import WithdrawalAnimal from '@/public/assets/withdrawalAnimal.svg'
-import WithdrawalStar from '@/public/assets/withdrawalStar.svg'
+import WithdrawalAnimal from '/public/assets/withdrawalAnimal.svg'
+import WithdrawalStar from '/public/assets/withdrawalStar.svg'
 import Button from '@/app/_components/button/Button'
 
 type props = { handleBack: () => void; handleNextStep: () => void }

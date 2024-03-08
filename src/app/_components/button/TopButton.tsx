@@ -1,7 +1,7 @@
 'use client'
 
 import style from './button.module.scss'
-import TopButtonIcon from '@/public/assets/topButton.svg'
+import TopButtonIcon from '/public/assets/topButton.svg'
 
 export default function TopButton() {
   const scrollToTop = () => {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import BellIcon from '@/public/assets/bell.svg'
+import BellIcon from '/public/assets/bell.svg'
 
 export default function Bell() {
   const router = useRouter()

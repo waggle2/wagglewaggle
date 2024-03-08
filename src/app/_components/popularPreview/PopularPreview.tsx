@@ -1,8 +1,8 @@
 import style from './popularPreview.module.scss'
 
-import Link from '@/node_modules/next/link'
-import Popular from '@/public/assets/popular.svg'
-import Next from '@/public/assets/next.svg'
+import Link from 'next/link'
+import Popular from '/public/assets/popular.svg'
+import Next from '/public/assets/next.svg'
 
 import { postData } from '../postPreview/_types/responseType'
 

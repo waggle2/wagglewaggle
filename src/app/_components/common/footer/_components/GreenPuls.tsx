@@ -1,7 +1,7 @@
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 import style from './navIcon.module.scss'
 
-import GreenPulsIcon from '@/public/assets/greenPlus.svg'
+import GreenPulsIcon from '/public/assets/greenPlus.svg'
 
 export default function GreenPuls() {
   return (

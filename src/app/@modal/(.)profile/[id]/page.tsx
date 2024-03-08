@@ -8,10 +8,10 @@ import style from './profile.module.scss'
 import Button from '@/app/_components/button/Button'
 import MyType from '@/app/mypage/_components/MyType'
 import MyProfile from '@/app/mypage/profileSetting/_components/MyProfile'
-import Link from '@/node_modules/next/link'
 import api from '@/app/_api/commonApi'
 import { useEffect, useState } from 'react'
 import { profileData } from './profileDataTypes'
+import Link from 'next/link'
 
 export default function Profile({ params }: { params: { id: string } }) {
   const router = useRouter()

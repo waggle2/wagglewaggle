@@ -1,7 +1,7 @@
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 import style from './navIcon.module.scss'
 
-import MyPageIcon from '@/public/assets/myPage.svg'
+import MyPageIcon from '/public/assets/myPage.svg'
 
 export default function Login() {
   return (

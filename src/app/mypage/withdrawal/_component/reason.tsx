@@ -1,5 +1,5 @@
 import style from './guideline.module.scss'
-import Check from '@/public/assets/check_green.svg'
+import Check from '/public/assets/check_green.svg'
 import React, { ChangeEvent, useState } from 'react'
 import Button from '@/app/_components/button/Button'
 import api from '@/app/_api/commonApi'

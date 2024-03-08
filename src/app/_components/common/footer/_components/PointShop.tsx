@@ -1,8 +1,8 @@
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 import style from './navIcon.module.scss'
 
-import PointShopIcon from '@/public/assets/pointShop.svg'
-import ActivePointShop from '@/public/assets/activePointShop.svg'
+import PointShopIcon from '/public/assets/pointShop.svg'
+import ActivePointShop from '/public/assets/activePointShop.svg'
 
 type props = {
   path: string

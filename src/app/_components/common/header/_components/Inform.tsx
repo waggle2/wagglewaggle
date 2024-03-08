@@ -1,5 +1,5 @@
 'use client'
-import InformIcon from '@/public/assets/inform.svg'
+import InformIcon from '/public/assets/inform.svg'
 
 interface Props {
   clickEvent?: () => void

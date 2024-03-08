@@ -7,8 +7,8 @@ import style from './postPreview.module.scss'
 import Post from './_components/Post'
 import Button from '../button/Button'
 
-import Next from '@/public/assets/next.svg'
-import Town from '@/public/assets/town.svg'
+import Next from '/public/assets/next.svg'
+import Town from '/public/assets/town.svg'
 
 import api from '@/app/_api/commonApi'
 import { postData } from './_types/responseType'
@@ -97,6 +97,7 @@ export default function AnimalPostPreview() {
             <Post
               key={index}
               profile={{
+                id: postData.author?.id,
                 image: postData.author?.profileItems,
                 name: postData.author?.credential.nickname, //TODO: 02.26 회의 후 탈퇴한 회원 정보 처리
                 animal: postData.animalOfAuthor,

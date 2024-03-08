@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import BackIcon from '@/public/assets/back.svg'
+import BackIcon from '/public/assets/back.svg'
 
 type Props = {
   handleBack?: () => void

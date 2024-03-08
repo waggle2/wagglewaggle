@@ -2,10 +2,10 @@ import style from './page.module.scss'
 
 import dynamic from 'next/dynamic'
 
-import Logo from '../../public/assets/logo.svg'
-import Recent from '../../public/assets/recent.svg'
-import Lips from '../../public/assets/lips.svg'
-import TestAD from '@/public/assets/testAD.svg'
+import Logo from '/public/assets/logo.svg'
+import Recent from '/public/assets/recent.svg'
+import Lips from '/public/assets/lips.svg'
+import TestAD from '/public/assets/testAD.svg'
 
 import Header from './_components/common/header/Header'
 import Search from './_components/common/header/_components/Search'

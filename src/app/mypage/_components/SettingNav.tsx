@@ -1,6 +1,6 @@
 import style from './styles/settingNav.module.scss'
-import Next from '@/public/assets/next.svg'
-import Link from '@/node_modules/next/link'
+import Next from '/public/assets/next.svg'
+import Link from 'next/link'
 type props = {
   title: string
   nickName?: string

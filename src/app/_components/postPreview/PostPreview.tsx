@@ -1,8 +1,8 @@
 import style from './postPreview.module.scss'
 
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 
-import Next from '@/public/assets/next.svg'
+import Next from '/public/assets/next.svg'
 import { ReactNode } from 'react'
 
 import { postData } from './_types/responseType'

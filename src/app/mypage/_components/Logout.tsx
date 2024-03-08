@@ -1,5 +1,5 @@
 import style from './styles/settingNav.module.scss'
-import Next from '@/public/assets/next.svg'
+import Next from '/public/assets/next.svg'
 
 import { useEffect, useState } from 'react'
 import Modal from '@/app/_components/common/modal/Modal'

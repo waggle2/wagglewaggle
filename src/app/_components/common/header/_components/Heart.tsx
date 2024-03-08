@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import HeartIcon from '@/public/assets/heart.svg'
-import FilledHeartIcon from '@/public/assets/heartFilled.svg'
+import HeartIcon from '/public/assets/heart.svg'
+import FilledHeartIcon from '/public/assets/heartFilled.svg'
 
 interface HeartProps {
   isClicked: boolean

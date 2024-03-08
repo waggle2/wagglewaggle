@@ -4,14 +4,14 @@ import cs from 'classnames/bind'
 const cx = cs.bind(style)
 
 import { postProps } from '../_types/postType'
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 
-import View from '@/public/assets/view.svg'
-import Comment from '@/public/assets/comment.svg'
-import CatCover from '@/public/assets/catCover.svg'
-import BearCover from '@/public/assets/bearCover.svg'
-import FoxCover from '@/public/assets/foxCover.svg'
-import DogCover from '@/public/assets/dogCover.svg'
+import View from '/public/assets/view.svg'
+import Comment from '/public/assets/comment.svg'
+import CatCover from '/public/assets/catCover.svg'
+import BearCover from '/public/assets/bearCover.svg'
+import FoxCover from '/public/assets/foxCover.svg'
+import DogCover from '/public/assets/dogCover.svg'
 
 export default function PopularPost({ profile, post }: postProps) {
   return (

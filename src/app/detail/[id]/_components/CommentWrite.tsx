@@ -6,7 +6,7 @@ import {
   useCommentModify,
   useCommentWrite,
 } from '@/app/_hooks/services/mutations/commentWrite'
-import XmarkIcon from '@/public/assets/xmark.svg'
+import XmarkIcon from '/public/assets/xmark.svg'
 
 interface CommentWriteProps {
   commentId?: number

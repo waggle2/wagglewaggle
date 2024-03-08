@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import MoreMenuIcon from '@/public/assets/more-menu.svg'
+import MoreMenuIcon from '/public/assets/more-menu.svg'
 
 interface Props {
   clickEvent?: () => void

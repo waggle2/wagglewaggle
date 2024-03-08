@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import CloseIcon from '@/public/assets/close.svg'
+import CloseIcon from '/public/assets/close.svg'
 
 interface Props {
   clickEvent?: () => void

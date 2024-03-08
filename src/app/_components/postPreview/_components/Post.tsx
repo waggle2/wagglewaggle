@@ -1,5 +1,5 @@
 import style from './post.module.scss'
-import Link from '@/node_modules/next/link'
+import Link from 'next/link'
 import { formatDate } from '@/app/_lib/formatDate'
 import Profile from './Profile'
 import PostDetail from './PostDetail'

@@ -1,7 +1,7 @@
-import FoxDefault from '@/public/assets/fox_default.svg'
-import BearDefault from '@/public/assets/bear_default.svg'
-import DogDefault from '@/public/assets/dog_default.svg'
-import CatDefault from '@/public/assets/cat_default.svg'
+import FoxDefault from '/public/assets/fox_default.svg'
+import BearDefault from '/public/assets/bear_default.svg'
+import DogDefault from '/public/assets/dog_default.svg'
+import CatDefault from '/public/assets/cat_default.svg'
 
 type props = {
   isAnonymous: boolean
