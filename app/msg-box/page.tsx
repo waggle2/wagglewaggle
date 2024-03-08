@@ -1,8 +1,8 @@
 import style from './styles/page.module.scss'
-import MessageRooms from './_components/MessageRooms'
 import Header from '../_components/common/header/Header'
 import Footer from '../_components/common/footer/Footer'
 import PaddingProvider from '../_components/layoutSupport/PaddingProvider'
+import MessageRooms from './_components/MessageRooms'
 export default function page() {
   return (
     <>
