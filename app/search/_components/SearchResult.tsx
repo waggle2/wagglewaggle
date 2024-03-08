@@ -176,6 +176,7 @@ export default function SearchResult() {
                                     name: postData.author?.credential.nickname,
                                     animal: postData.animalOfAuthor,
                                     isAnonymous: postData.isAnonymous,
+                                    id: postData.author?.id,
                                 }}
                                 post={{
                                     id: postData.id,
@@ -196,7 +197,7 @@ export default function SearchResult() {
             ) : (
                 <div className={style.noResultContainer}>
                     <div className={style.noResultIcon}>
-                        <Image src='/assets/ico_search-outline.svg' alt='search icon' width={21} height={21} />
+                        <Image src='/assets/searchNoResult.svg' alt='search icon' width={21.25} height={21.25} />
                     </div>
                     <p>
                         ′{keyword}′<br />
