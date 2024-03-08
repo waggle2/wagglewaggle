@@ -20,6 +20,7 @@ const nextConfig = {
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+
   webpack: (config, { isServer }) => {
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),
@@ -47,6 +48,7 @@ const nextConfig = {
     //   config.mode = 'production' // 웹팩 모드 설정 추가
     // }
     // TerserPlugin 추가
+
     config.optimization = {
       minimize: true,
       minimizer: [
@@ -68,10 +70,11 @@ const nextConfig = {
         new CssMinimizerPlugin(),
       ],
       splitChunks: {
-        chunks(chunk) {
-          // exclude `my-excluded-chunk`
-          return chunk.name !== 'my-excluded-chunk'
-        },
+        // chunks(chunk) {
+        //   // exclude `my-excluded-chunk`
+        //   return chunk.name !== 'my-excluded-chunk'
+        // },
+        chunks: 'all',
         minSize: 20000,
         minRemainingSize: 0,
         minChunks: 1,
