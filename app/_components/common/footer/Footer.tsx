@@ -12,6 +12,7 @@ import Massage from './_components/Massage'
 import MyPage from './_components/MyPage'
 import PointShop from './_components/PointShop'
 import { useGetAllMessageRooms } from '@/app/_hooks/services/queries/message'
+import { IMessageRooms } from '@/app/_types/messageTypes'
 
 type UnreadMessageCharacterType = {
   size: 'small' | 'medium' | 'large'
@@ -22,11 +23,12 @@ export default function Footer() {
   const { data } = useGetAllMessageRooms()
 
   const isUnreadMessage = !!data?.filter(
-    (room: any) => room.unreadMessageCount > 0,
+    (room: IMessageRooms) => room.unreadMessageCount > 0,
   ).length
+
   const totalUnreadMessage = () => {
     let count = 0
-    data?.forEach((room: any) => {
+    data?.forEach((room: IMessageRooms) => {
       count += room.unreadMessageCount
     })
     return count
@@ -58,16 +60,14 @@ export default function Footer() {
   return (
     <footer className={style.container}>
       <Home path={pathname} />
-      <div className={style.messageDiv}>
-        <Massage path={pathname} />
-        {isUnreadMessage && (
-          <span
-            className={cx('alarm', countUnreadMessageCharacter()?.size ?? '')}
-          >
-            {countUnreadMessageCharacter()?.count}
-          </span>
-        )}
-      </div>
+      <Massage path={pathname} />
+      {isUnreadMessage && (
+        <span
+          className={cx('alarm', countUnreadMessageCharacter()?.size ?? '')}
+        >
+          {countUnreadMessageCharacter()?.count}
+        </span>
+      )}
       <GreenPuls />
       <PointShop path={pathname} />
       {isLogin ? <MyPage path={pathname} /> : <Login />}
