@@ -4,8 +4,6 @@ import { useState, useEffect, ReactNode } from 'react'
 
 import style from './postPreview.module.scss'
 
-import Link from '@/node_modules/next/link'
-
 import Post from './_components/Post'
 import Button from '../button/Button'
 
@@ -14,6 +12,7 @@ import Town from '@/public/assets/town.svg'
 
 import api from '@/app/_api/commonApi'
 import { postData } from './_types/responseType'
+import Link from 'next/link'
 
 export default function AnimalPostPreview() {
   const [selectedAnimal, setSelectedAnimal] = useState('')
