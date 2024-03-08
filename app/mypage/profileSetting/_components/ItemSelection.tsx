@@ -1,164 +1,121 @@
-import style from './styles/profileSetting.module.scss'
-
-type Item = {
-  id: number
-  src: string
-  price: number
-  category: 'emoji' | 'profileBg' | 'frame' | 'wallpaper'
-}
+import style from '../_styles/itemSelection.module.scss'
+import PointIcon from './PointIcon';
+import { ItemData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState';
+import OwnedIcon from '@/public/assets/point_shop/owned_check.svg'
+import { useRecoilValue } from 'recoil'
+import { selectedTabState, selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState'
+// import UnsetIcon from '@/public/assets/point_shop/item_unset.svg'
 
 type ItemSelectionProps = {
-  itemCategoryTab: string
-  handleCategoryClick: (category: string) => void
-  tabCategoryButtonStyle: (category: string) => string
-  products: Item[]
-  handleItemClick: (item: Item) => void
-  selectedItems: Item[]
-}
+    handleCategoryClick: (selectedItemType: string) => void;
+    items: ItemData[];
+    handleItemClick: (item: ItemData) => void;
+    handleRemoveItemClick: (item: number) => void;
+    selectedItems: ItemData[];
+    isLoading: boolean;
+    possessionItems: PossesionItemData[];
+};
 
 export default function ItemSelection({
-  itemCategoryTab,
-  handleCategoryClick,
-  tabCategoryButtonStyle,
-  products,
-  handleItemClick,
-  selectedItems,
+    handleCategoryClick,
+    items,
+    handleItemClick,
+    handleRemoveItemClick,
+    selectedItems,
+    isLoading,
+    possessionItems
 }: ItemSelectionProps) {
-  return (
-    <div>
-      {/* 아이템 선택 */}
-      <div className={style.categoryTabContainer}>
-        <button
-          className={tabCategoryButtonStyle('이모지')}
-          onClick={() => handleCategoryClick('이모지')}
-        >
-          이모지
-        </button>
-        <button
-          className={tabCategoryButtonStyle('프로필 배경')}
-          onClick={() => handleCategoryClick('프로필 배경')}
-        >
-          프로필 배경
-        </button>
-        <button
-          className={tabCategoryButtonStyle('프레임')}
-          onClick={() => handleCategoryClick('프레임')}
-        >
-          프레임
-        </button>
-        <button
-          className={tabCategoryButtonStyle('벽지')}
-          onClick={() => handleCategoryClick('벽지')}
-        >
-          벽지
-        </button>
-      </div>
+    const selectedTab = useRecoilValue(selectedTabState)
+    const selectedItemType = useRecoilValue(selectedItemTypeState)
 
-      <ul className={style.itemContainer}>
-        {itemCategoryTab === '이모지' &&
-          products
-            .filter((item) => item.category === 'emoji')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.item}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
+    const handleRemoveItemByType = () => {
+        const item = selectedItems.find(item => item.itemType === selectedItemType);
+        if (item) {
+            handleRemoveItemClick(item.id);
+        }
+    };
 
-        {itemCategoryTab === '프로필 배경' &&
-          products
-            .filter((item) => item.category === 'profileBg')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
+    const renderCategoryButton = (itemType: string, label: string) => (
+        <button
+            className={itemType === selectedItemType ? `${style.tabButton} ${style.active}` : style.tabButton}
+            onClick={() => handleCategoryClick(itemType)}
+        >
+            {label}
+        </button>
+    );
 
-        {itemCategoryTab === '프레임' &&
-          products
-            .filter((item) => item.category === 'frame')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
 
-        {itemCategoryTab === '벽지' &&
-          products
-            .filter((item) => item.category === 'wallpaper')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
+    const renderItemsForCategory = (selectedItemType: string) => (
+        items.filter(item => item.itemType === selectedItemType).reverse().map(item => {
+            const isOwned = possessionItems.some(possessionItem => possessionItem.id === item.id);
+            const isSelected = selectedItems.some(selectedItem => selectedItem.id === item.id);
+
+            return (
+                <li
+                    key={item.id}
+                    className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
+                    onClick={() => {
+                        if (!isOwned) {
+                            isSelected ? handleRemoveItemClick(item.id) : handleItemClick(item);
+                        }
+                    }}
+                    style={isSelected ? { border: '2px solid #7EE36E', borderRadius: '8px' } : {}}
                 >
-                  <img src={item.src} alt={item.src} />
+
+                    <div className={style.imageWrap}>
+                        <img className={style.itemImage} src={item.image} alt={item.name} />
+                    </div>
+                    <div className={style.priceCoin}>
+                        {!isOwned ? (<>
+                            <PointIcon animal={selectedTab} /> {item.price}
+                        </>) : (
+                            <div className={style.ownedIcon}>
+                                <OwnedIcon />
+                            </div>
+                        )}
+                    </div>
+                </li>
+            );
+
+        })
+    );
+
+
+    console.log(selectedItems)
+    return (
+        <>
+            <div className={style.itemSelectionWrapper}>
+                <div className={style.categoryTabContainer}>
+                    {renderCategoryButton('emoji', '이모지')}
+                    {renderCategoryButton('background', '프로필 배경')}
+                    {renderCategoryButton('frame', '프레임')}
+                    {renderCategoryButton('wallpaper', '벽지')}
                 </div>
-              </li>
-            ))}
-      </ul>
-    </div>
-  )
+            </div>
+            <div className={style.itemWrapper}>
+                {isLoading ? (
+                    <div className={style.loadingContainer}>
+                        LOADING
+                    </div>
+                ) : (
+                    <ul className={style.itemContainer}>
+                        <li className={selectedItemType === 'emoji' ? style.item : style.bigItem}
+                            onClick={handleRemoveItemByType}
+                        >
+                            <div className={style.imageWrap}>
+                                <div className={style.itemUnset}>
+                                    {/* <UnsetIcon className={style.unsetImg} /> */}
+                                    <img className={style.unsetImg} src="/assets/point_shop/item_unset.svg" alt="" />
+                                </div>
+                            </div>
+                            <div className={style.priceCoin}>
+                                <OwnedIcon /> { }
+                            </div>
+                        </li>
+                        {renderItemsForCategory(selectedItemType)}
+                    </ul>
+                )}
+            </div>
+        </>
+    );
 }

@@ -10,7 +10,7 @@ import api from '../_api/commonApi'
 
 import Header from '../_components/common/header/Header'
 import Title from '../_components/common/header/_components/Title'
-import MyProfile from './profileSetting/_components/MyProfile'
+import MyProfile from './_components/MyProfile'
 import MyType from './_components/MyType'
 import SettingNav from './_components/SettingNav'
 import Search from '../_components/common/header/_components/Search'
