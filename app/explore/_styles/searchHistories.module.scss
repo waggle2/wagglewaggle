@@ -1,3 +1,4 @@
+//최근검색기록, 지우기
 .searchFnc {
   width: 100%;
   max-width: 430px;
@@ -23,14 +24,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  .recordSwitch {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    background-color: #fff;
-    font-size: 12px;
-  }
+  // .recordSwitch {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 3px;
+  //   background-color: #fff;
+  //   font-size: 12px;
+  // }
 
   .searchRecords {
     display: flex;

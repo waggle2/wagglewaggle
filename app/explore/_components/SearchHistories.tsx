@@ -4,7 +4,7 @@ import style from '../_styles/searchHistories.module.scss'
 import { fetchSearchHistories, deleteSingleHistory, deleteAllHistories } from '@/app/search/_api/useSearch';
 import { useRouter } from 'next/navigation';
 // import RecordSwitch from './RecordSwitch';
-
+import { useMutation } from '@tanstack/react-query';
 
 type DeleteButtonProps = {
     index: number,
@@ -38,6 +38,34 @@ export default function SearchHistories({ isSearch, setIsFocused }: SearchHistor
     const [isLogin, setIsLogin] = useState(false);
 
     const router = useRouter();
+
+
+    const fetchHistoriesMutation = useMutation({
+        mutationFn: async () => {
+            if (isLogin) {
+                return await fetchSearchHistories(1, 10);
+            } else {
+                const localHistories = JSON.parse(localStorage.getItem('searchHistories') || '[]');
+                return localHistories.slice(0, 10);
+            }
+        },
+        onSuccess: (data) => {
+            if (isLogin) {
+                setSearchHistories(data.data);
+            } else {
+                setLocalSearchHistories(data);
+            }
+        },
+
+    });
+
+
+    useEffect(() => {
+        setIsLogin(localStorage.getItem('isLogin') === 'true');
+        fetchHistoriesMutation.mutate();
+
+    }, [isLogin]);
+
 
     const handleHistoryClick = (keyword: string) => {
         router.push(`/search?keyword=${keyword}`)
@@ -76,24 +104,7 @@ export default function SearchHistories({ isSearch, setIsFocused }: SearchHistor
         }
     };
 
-    useEffect(() => {
-        setIsLogin(localStorage.getItem('isLogin') === 'true');
 
-        const fetchHistories = async () => {
-            if (isLogin) {
-                try {
-                    const { data } = await fetchSearchHistories(1, 10);
-                    setSearchHistories(data);
-                } catch (error) {
-                    console.error('Failed to fetch search histories:', error);
-                }
-            } else {
-                const localHistories = JSON.parse(localStorage.getItem('searchHistories') || '[]');
-                setLocalSearchHistories(localHistories.slice(0, 10));
-            }
-        };
-        fetchHistories();
-    }, [isLogin]);
     return (
         <div>
             <div className={style.searchFnc}>
