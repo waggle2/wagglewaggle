@@ -20,7 +20,8 @@ import Footer from '../_components/common/footer/Footer'
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<userResponseData>()
   const router = useRouter()
-
+  //useGetLogin 사용하기에는 리엑트 쿼리에 stale이 걸려있지 않아 컴포넌트라 렌더링 될 때마다 계속 서버로 요청을 보내는 이슈가 있음
+  //staleTime을 걸면 해당 시간동안 변경된 데이터가 적용되지 않는 이슈(닉네임 변경 등)가 있어 사용x
   useEffect(() => {
     const fetchData = async () => {
       try {

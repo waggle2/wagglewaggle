@@ -7,10 +7,13 @@ import {
   selectedTabState,
   selectedItemTypeState,
 } from '@/app/_recoil/atoms/pointshopState'
+import { AnimalTab } from '@/app/_recoil/atoms/pointshopState'
 
-type AnimalTab = '고냥이' | '곰돌이' | '댕댕이' | '폭스'
-
-export default function CustomProfile() {
+export default function CustomProfile({
+  defaultAnimal,
+}: {
+  defaultAnimal: string
+}) {
   const [selectedTab, setSelectedTab] =
     useRecoilState<AnimalTab>(selectedTabState)
   const [selectedItemType, setSelectedItemType] = useRecoilState<string>(

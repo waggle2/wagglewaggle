@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode } from 'react'
-import style from '@/app/pointshop/_styles/pointShop.module.scss'
 import RecoilProvider from '@/app/_recoil/RecoilProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 

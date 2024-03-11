@@ -42,7 +42,13 @@ export default function MyProfile({
       <div className={style.customBackground}>
         <div className={style.customFnc}>
           {isSetting && (
-            <Link href={'/mypage/profileSetting'} className={style.setting}>
+            <Link
+              href={{
+                pathname: '/mypage/profileSetting',
+                query: { defaultAnimal: `${profileAnimal}` },
+              }}
+              className={style.setting}
+            >
               <img src="/assets/setting.svg" alt="navigation profile setting" />
             </Link>
           )}
