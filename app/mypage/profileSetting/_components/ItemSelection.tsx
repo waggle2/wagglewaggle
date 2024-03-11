@@ -1,13 +1,8 @@
 import style from './styles/itemSelection.module.scss'
 
 import { ItemData, PossesionItemData } from '@/app/_recoil/atoms/pointshopState'
-import OwnedIcon from '@/public/assets/point_shop/owned_check.svg'
 import { useRecoilValue } from 'recoil'
-import {
-  selectedTabState,
-  selectedItemTypeState,
-} from '@/app/_recoil/atoms/pointshopState'
-// import UnsetIcon from '@/public/assets/point_shop/item_unset.svg'
+import { selectedItemTypeState } from '@/app/_recoil/atoms/pointshopState'
 
 type ItemSelectionProps = {
   handleCategoryClick: (selectedItemType: string) => void
@@ -28,17 +23,7 @@ export default function ItemSelection({
   isLoading,
   possessionItems,
 }: ItemSelectionProps) {
-  const selectedTab = useRecoilValue(selectedTabState)
   const selectedItemType = useRecoilValue(selectedItemTypeState)
-
-  const handleRemoveItemByType = () => {
-    const item = selectedItems.find(
-      (item) => item.itemType === selectedItemType,
-    )
-    if (item) {
-      handleRemoveItemClick(item.id)
-    }
-  }
 
   const renderCategoryButton = (itemType: string, label: string) => (
     <button
@@ -89,15 +74,6 @@ export default function ItemSelection({
                 alt={item.name}
               />
             </div>
-            <div className={style.priceCoin}>
-              {!isOwned ? (
-                <></>
-              ) : (
-                <div className={style.ownedIcon}>
-                  <OwnedIcon />
-                </div>
-              )}
-            </div>
           </li>
         )
       })
@@ -118,26 +94,6 @@ export default function ItemSelection({
           <div className={style.loadingContainer}>LOADING</div>
         ) : (
           <ul className={style.itemContainer}>
-            <li
-              className={
-                selectedItemType === 'emoji' ? style.item : style.bigItem
-              }
-              onClick={handleRemoveItemByType}
-            >
-              <div className={style.imageWrap}>
-                <div className={style.itemUnset}>
-                  {/* <UnsetIcon className={style.unsetImg} /> */}
-                  <img
-                    className={style.unsetImg}
-                    src="/assets/point_shop/item_unset.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className={style.priceCoin}>
-                <OwnedIcon /> {}
-              </div>
-            </li>
             {renderItemsForCategory(selectedItemType)}
           </ul>
         )}

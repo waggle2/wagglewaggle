@@ -18,7 +18,6 @@ export default function PointShop() {
             rightSection={[<Search />, <Bell />]}
           />
         </div>
-        {/* <ShopInfoButton /> */}
         {/* 꾸미기 영역 */}
         <CustomProfile />
         <Footer />

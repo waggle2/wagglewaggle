@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import style from './styles/pointShop.module.scss'
-import ConfirmChange from './ConfirmChange'
 import CustomPreview from './CustomPreview'
 
 import ItemSelection from './ItemSelection'
@@ -46,13 +44,11 @@ export default function CustomResult({
     [],
   )
 
-  const [animalCoins, setAnimalCoins] = useState(0) // 동물별 보유 코인
   const [items, setItems] = useState([]) // 동물별 아이템 리스트
   const [cartData, setCartData] = useState<CartData>({
     cartItems: [],
     totalCoins: 0,
   })
-  const pointDifference = animalCoins - cartData.totalCoins
 
   //착용 미리보기 이미지
   const [selectedEmoji, setSelectedEmoji] = useState('')
@@ -96,7 +92,7 @@ export default function CustomResult({
 
     setWearingItems({
       emoji: fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
-      background: fetchedWearingItems.background.id
+      background: fetchedWearingItems.background?.id
         ? fetchedWearingItems.background.id
         : null,
       frame: fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
@@ -123,7 +119,6 @@ export default function CustomResult({
       const coinsPromise = fetchAnimalCoin(selectedTab)
       const [items, coins] = await Promise.all([itemsPromise, coinsPromise])
       setItems(items)
-      setAnimalCoins(coins)
     } catch (error) {
       console.error(error)
     } finally {
@@ -301,20 +296,11 @@ export default function CustomResult({
 
   return (
     <>
-      {confirmModal && (
-        <ConfirmChange
-          cartItems={cartData.cartItems}
-          pointDifference={pointDifference}
-          confirmModalToggle={confirmModalToggle}
-          wearingItems={wearingItems}
-        />
-      )}
       <CustomPreview
         selectedEmoji={selectedEmoji}
         selectedProfileBg={selectedProfileBg}
         selectedFrame={selectedFrame}
         selectedWallpaper={selectedWallpaper}
-        possessionCoin={animalCoins}
         confirmModalToggle={confirmModalToggle}
         handleResetClick={handleResetClick}
       />

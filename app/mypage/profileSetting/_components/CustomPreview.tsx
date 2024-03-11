@@ -8,7 +8,6 @@ type CustomPreviewProps = {
   selectedProfileBg: string
   selectedFrame: string
   selectedWallpaper: string
-  possessionCoin: number
   confirmModalToggle: () => void
   handleResetClick: () => void
 }
@@ -18,7 +17,7 @@ export default function CustomPreview({
   selectedProfileBg,
   selectedFrame,
   selectedWallpaper,
-  possessionCoin,
+
   confirmModalToggle,
   handleResetClick,
 }: CustomPreviewProps) {
@@ -31,12 +30,6 @@ export default function CustomPreview({
         {selectedTab && (
           <>
             <div className={style.customBackground}>
-              <div className={style.possessionCoinWrap}>
-                <div className={style.possessionCoin}>
-                  보유 코인
-                  {possessionCoin.toLocaleString()}
-                </div>
-              </div>
               <div className={style.profilePreview}>
                 <div className={style.imageContainer}>
                   <div className={style.imageBox}>
