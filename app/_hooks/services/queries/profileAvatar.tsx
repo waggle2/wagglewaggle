@@ -1,13 +1,13 @@
 import api from '@/app/_api/commonApi'
 import { useQuery } from '@tanstack/react-query'
 
-const getProfileAvatar = async (animal: string) => {
+const getProfileAvatar = async (animal: string | null) => {
   const response = await api.get(`items/profile?animal=${animal}`)
   console.log(animal, 'getProfileAvatar')
   return response.data
 }
 
-export default function useGetProfileAvatar(animal: string) {
+export default function useGetProfileAvatar(animal: string | null) {
   return useQuery({
     queryKey: ['get-profile-avatar', animal],
     queryFn: () => getProfileAvatar(animal),

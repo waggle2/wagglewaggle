@@ -1,13 +1,13 @@
 import api from '@/app/_api/commonApi'
 import { useQuery } from '@tanstack/react-query'
 
-const profileItemList = async (animal: string) => {
+const profileItemList = async (animal: string | null) => {
   const response = await api.get(`/items?animal=${animal}`)
   console.log(animal, 'profileItemList')
   return response.data
 }
 
-export default function useProfileItemList(animal: string) {
+export default function useProfileItemList(animal: string | null) {
   return useQuery({
     queryKey: ['get-profile-item-list', animal], //쿼리 키 추가
     queryFn: () => profileItemList(animal),

@@ -1,15 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { avatarItemList, wearingItem } from './types/responseType'
 import CustomPreview from './CustomPreview'
 
 import ItemSelection from './ItemSelection'
 
-import api from '@/app/_api/commonApi'
-
 type Props = {
-  selectedTab: string
+  selectedTab: string | null
   wearingItem?: wearingItem
   itemList: avatarItemList
 }
