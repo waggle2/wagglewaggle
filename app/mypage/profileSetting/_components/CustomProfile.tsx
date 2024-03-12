@@ -27,13 +27,14 @@ export default function CustomProfile() {
     console.log(data, selectedTab)
   }, [selectedTab])
 
+  fetchItemList()
+
   const fetchInitProfileItem = useCallback(async () => {
     const { data } = await useGetProfileAvatar(selectedTab)
     setWearingItem(data)
     console.log(data, 'wearing')
   }, [selectedTab])
   fetchInitProfileItem()
-  fetchItemList()
   // useEffect(() => {}, [selectedTab])
   return (
     <>
@@ -49,7 +50,11 @@ export default function CustomProfile() {
         ))}
       </div>
       {/* 아이템 및 동물 코인 정보를 CustomResult 컴포넌트에 전달 */}
-      <CustomResult selectedTab={selectedTab} itemList={itemList} />
+      <CustomResult
+        selectedTab={selectedTab}
+        itemList={itemList}
+        wearingItem={wearingItem}
+      />
     </>
   )
 }
