@@ -70,6 +70,7 @@ export default function SearchBar({ isSearch }: Props) {
                     onFocus={() => setIsFocused(true)}
                     onKeyDown={(event) => event.key === 'Enter' && handleSearch()}
                 />
+                {isSearch && isFocused && <button className={style.closeBtn} onClick={() => { setIsFocused?.(false) }}>취소</button>}
             </div>
             {isSearch && isFocused &&
                 (<div className={`${isFocused ? style.historiesContainer : ''}`}>

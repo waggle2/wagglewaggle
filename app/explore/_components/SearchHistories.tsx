@@ -109,8 +109,8 @@ export default function SearchHistories({ isSearch, setIsFocused }: SearchHistor
         <div>
             <div className={style.searchFnc}>
                 <div className={style.recordHeader}>
-                    <h4>최근 검색 기록 {isSearch && <span onClick={() => { setIsFocused?.(false) }}>| 닫기</span>}</h4>
-
+                    <h4>최근 검색 기록</h4>
+                    {/* {isSearch && <span onClick={() => { setIsFocused?.(false) }}>| 닫기</span>} */}
                     <button onClick={handleClearSearchRecord}>지우기</button>
                     {/* <div className={style.recordSwitch}><span>검색 기록</span> {showSearchHistories ? "숨기기" : "보기"}<RecordSwitch onChange={handleRecordSwitchChange} checked={showSearchHistories} /></div> */}
 
