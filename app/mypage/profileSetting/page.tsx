@@ -10,7 +10,7 @@ export default function ProfileSetting({
   return (
     <>
       <Header leftSection={<Back />} title={'프로필 꾸미기'} />
-      <CustomProfile defaultAnimal={params.defaultAnimal} />
+      <CustomProfile />
     </>
   )
 }
