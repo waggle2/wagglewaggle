@@ -17,8 +17,6 @@ export default function CustomResult({
   itemList,
   wearingItem,
 }: Props) {
-  const [selectedItemType, setSelectedItemType] = useState('이모지')
-  const ITEMTYPE = ['이모지', '프로필 배경', '프레임', '벽지']
   return (
     <>
       <CustomPreview
@@ -29,15 +27,16 @@ export default function CustomResult({
         selectedWallpaper={wearingItem?.wallpaper}
       />
 
-      {/* <ItemSelection
-        handleCategoryClick={handleCategoryClick}
-        items={items}
-        handleItemClick={handleItemClick}
-        handleRemoveItemClick={handleRemoveItemClick}
-        selectedItems={cartData.cartItems}
-        isLoading={isLoading}
-        possessionItems={possessionItems}
-      /> */}
+      <ItemSelection
+        // handleCategoryClick={handleCategoryClick}
+        // items={items}
+        // handleItemClick={handleItemClick}
+        // handleRemoveItemClick={handleRemoveItemClick}
+        // selectedItems={cartData.cartItems}
+
+        // possessionItems={possessionItems}
+        itemList={itemList}
+      />
     </>
   )
 }

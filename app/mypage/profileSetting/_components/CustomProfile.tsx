@@ -32,14 +32,14 @@ export default function CustomProfile() {
   const fetchItemList = useCallback(async () => {
     const { data } = await useProfileItemList(selectedTab)
     setItemList(data)
-    // console.log(data, selectedTab)
+    console.log(data, selectedTab)
   }, [selectedTab])
 
   const fetchInitProfileItem = useCallback(async () => {
     const { data } = await useGetProfileAvatar(selectedTab)
     setWearingItem(data)
-    // console.log(data, 'wearing')
-  }, [])
+    console.log(data, 'wearing')
+  }, [selectedTab])
 
   fetchItemList()
   fetchInitProfileItem()
