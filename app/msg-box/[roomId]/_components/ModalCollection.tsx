@@ -52,7 +52,7 @@ export default function ModalCollection({
     const partnerId = checkPartnerObject()?.id as string
     blockMutation.mutate(partnerId, {
       onSuccess: () => {
-        setBlockStep(2)
+        handleStep('Block', 2)
         return
       },
       onError: (error) => {
@@ -64,7 +64,6 @@ export default function ModalCollection({
         if (error.code === 404) {
           handleModalInit()
           setTimeout(() => alert('사용자를 찾을 수 없습니다.'), 100)
-
           return
         }
         handleModalInit()
@@ -102,6 +101,7 @@ export default function ModalCollection({
           buttonType="choice"
           changeState={() => handleStep('Block', 2)}
           closeModal={handleModalInit}
+          actionFunction={handleBlock}
         />
       </DarkBgProvider>
     )

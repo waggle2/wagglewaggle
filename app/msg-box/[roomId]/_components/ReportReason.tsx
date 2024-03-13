@@ -110,13 +110,15 @@ export default function ReportReason({ setReportStep }: Props) {
             />
           ))}
         </div>
-        <textarea
-          className={style.textarea}
-          placeholder="신고 사유를 작성해주세요."
-          maxLength={138}
-          value={content}
-          onChange={handleChange}
-        ></textarea>
+        {selectedCategory &&
+          <textarea
+            className={style.textarea}
+            placeholder="신고 사유를 작성해주세요."
+            maxLength={138}
+            value={content}
+            onChange={handleChange}
+          ></textarea>
+        }
         <div className={style.submitDiv}>
           <Button
             mainColor={isPassable ? 'green' : 'grey'}
@@ -124,6 +126,7 @@ export default function ReportReason({ setReportStep }: Props) {
             text="신고하기"
             action={handleMutation}
           />
+
         </div>
       </div>
     </form>
