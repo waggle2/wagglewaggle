@@ -7,8 +7,8 @@ import CustomPreview from './CustomPreview'
 import ItemSelection from './ItemSelection'
 
 type Props = {
-  selectedTab: string | null
-  wearingItem?: wearingItem
+  selectedTab: string | undefined | null
+  wearingItem?: wearingItem | null
   itemList: avatarItemList
 }
 

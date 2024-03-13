@@ -4,7 +4,7 @@ import style from './styles/pointShop.module.scss'
 import CustomResult from './CustomResult'
 
 import { useSearchParams } from '@/node_modules/next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import AnimalButton from './view/AnimalButton'
 import useProfileItemList from '@/app/_hooks/services/queries/profileItemList'
 import { avatarItemList, wearingItem } from './types/responseType'
@@ -12,37 +12,39 @@ import useGetProfileAvatar from '@/app/_hooks/services/queries/profileAvatar'
 
 export default function CustomProfile() {
   const defaultAnimal = useSearchParams().get('defaultAnimal')
-  const [selectedTab, setSelectedTab] = useState<string | null>(defaultAnimal)
-  // const [selectedTab, setSelectedTab] = useState<string>('고냥이')
+  // const [selectedTab, setSelectedTab] = useState<string | null>(defaultAnimal)
+  const [selectedTab, setSelectedTab] = useState<string>('고냥이')
   const [itemList, setItemList] = useState<avatarItemList>([])
-  const [wearingItem, setWearingItem] = useState<wearingItem>({
-    id: 0,
-    animal: undefined,
-    user: undefined,
-    emoji: undefined,
-    background: undefined,
-    frame: undefined,
-    wallpaper: undefined,
-  })
+  const [wearingItem, setWearingItem] = useState<
+    wearingItem | undefined | null
+  >()
+  const { mutate } = useGetProfileAvatar(selectedTab, setWearingItem)
+
+  useEffect(() => {
+    const fetchData = () => {
+      mutate(selectedTab)
+    }
+    fetchData()
+  }, [selectedTab])
 
   const ANIMALTYPE = ['고냥이', '곰돌이', '댕댕이', '폭스']
   const handleTabClick = (animal: string) => {
     setSelectedTab(animal)
   }
-  const fetchItemList = useCallback(async () => {
-    const { data } = await useProfileItemList(selectedTab)
-    setItemList(data)
-    console.log(data, selectedTab)
-  }, [selectedTab])
+  // const fetchItemList = useCallback(async () => {
+  //   const { data } = await useProfileItemList(selectedTab)
+  //   setItemList(data)
+  //   console.log(data, selectedTab)
+  // }, [selectedTab])
 
-  const fetchInitProfileItem = useCallback(async () => {
-    const { data } = await useGetProfileAvatar(selectedTab)
-    setWearingItem(data)
-    console.log(data, 'wearing')
-  }, [selectedTab])
+  // const fetchInitProfileItem = useCallback(async () => {
+  //   const { data } = await useGetProfileAvatar(selectedTab)
+  //   setWearingItem(data)
+  //   console.log(data, 'wearing')
+  // }, [selectedTab])
 
-  fetchItemList()
-  fetchInitProfileItem()
+  // fetchItemList()
+  // fetchInitProfileItem()
 
   return (
     <>

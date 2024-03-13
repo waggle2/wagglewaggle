@@ -5,7 +5,7 @@ import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 import { avatarItem } from './types/responseType'
 
 type CustomPreviewProps = {
-  animal: string | null
+  animal: string | undefined | null
   selectedEmoji?: avatarItem
   selectedProfileBg?: avatarItem
   selectedFrame?: avatarItem
