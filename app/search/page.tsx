@@ -9,9 +9,8 @@ export default function Search() {
 
   return (
     <>
-
       <div className={style.searchContainer}>
-        <SearchBar />
+        <SearchBar isSearch={true} />
         <SearchResult />
       </div>
       <Footer />

@@ -2,11 +2,10 @@
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import style from '../_styles/search.module.scss'
+import Image from 'next/image';
 import SearchFilter from "./SearchFilter";
 import FilterModal from './FilterModal';
 import Post from '@/app/_components/postPreview/_components/Post';
-import SearchIcon from '@/public/assets/ico_search-outline.svg'
-
 import { fetchSearchPost } from '../_api/useSearch';
 
 
@@ -76,7 +75,7 @@ export default function SearchResult() {
 
     const searchParams = useSearchParams();
     const keyword = searchParams.get('keyword');
-    console.log("검색어: " + keyword)
+    // console.log("검색어: " + keyword)
 
 
     const onClickModalToggle = () => {
@@ -118,7 +117,7 @@ export default function SearchResult() {
     useEffect(() => {
         const fetchInitialSearchData = async () => {
             const initialData = await fetchSearchPost({ text: keyword });
-            console.log('초기배열', initialData.data.length)
+            // console.log('초기배열', initialData.data.length)
             if (initialData.data.length == 0)
                 setHasInitialSearchResults(false)
             else
@@ -150,9 +149,6 @@ export default function SearchResult() {
     }, [keyword, selectedCategory, selectedTag, selectedAnimal]);
 
 
-
-    console.log(searchPosts)
-    console.log(hasInitialSearchResults)
     return (
         <div className={style.searchContainer}>
             {isModal && (
@@ -170,8 +166,6 @@ export default function SearchResult() {
                         filterLabels={filterLabels}
                         onClickModalToggle={onClickModalToggle}
                         onRemoveFilter={onRemoveFilter}
-
-
                     />
                     <div className={style.postContainer}>
                         {searchPosts.map((postData) => (
@@ -182,6 +176,7 @@ export default function SearchResult() {
                                     name: postData.author?.credential.nickname,
                                     animal: postData.animalOfAuthor,
                                     isAnonymous: postData.isAnonymous,
+                                    id: postData.author?.id,
                                 }}
                                 post={{
                                     id: postData.id,
@@ -201,7 +196,9 @@ export default function SearchResult() {
                 </>
             ) : (
                 <div className={style.noResultContainer}>
-                    <div className={style.noResultIcon}><SearchIcon /></div>
+                    <div className={style.noResultIcon}>
+                        <Image src='/assets/searchNoResult.svg' alt='search icon' width={21.25} height={21.25} />
+                    </div>
                     <p>
                         ′{keyword}′<br />
                         검색결과가 없어요!

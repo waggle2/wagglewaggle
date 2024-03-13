@@ -1,23 +1,28 @@
-.exploreBar {
+.searchBar {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   align-items: center;
   padding: 4px 16px;
   width: 100%;
+  max-width: 430px;
   background-color: #fff;
 
   > .searchInput {
     background: url('/assets/ico_search-outline.svg') no-repeat
       calc(100% - 16px) 50%;
-    width: 93%;
+    flex: 1;
+    // width: 93%;
     height: 34px;
     padding-left: 16px;
     border: none;
-    border-radius: 12px;
+    border-radius: 6px;
     background-color: #f1f1f1;
     font-size: 13px;
     color: #333;
     outline: none;
+
     &::placeholder {
       color: #b3b3b3;
     }
@@ -30,5 +35,26 @@
         color: transparent;
       }
     }
+  }
+
+  .closeBtn {
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+  }
+}
+
+.historiesContainer {
+  z-index: 100;
+  position: absolute;
+  top: 42px;
+  width: 100%;
+  height: calc(100% - 42px);
+  background-color: #fff;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
