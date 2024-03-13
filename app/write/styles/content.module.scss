@@ -12,6 +12,9 @@
     @content;
   }
 }
+.container {
+  position: relative;
+}
 .titleInput {
   width: 100%;
   font-size: 20px;
@@ -28,6 +31,7 @@
 }
 .contentBox {
   min-height: 317px;
+  z-index: -1;
 }
 .contentInput {
   display: block;
@@ -53,4 +57,11 @@
 }
 .inputContainer {
   padding: 16px;
+}
+.navButton {
+  display: flex;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 17px;
 }

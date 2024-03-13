@@ -5,6 +5,7 @@ import Header from '@/app/_components/common/header/Header'
 import LeftArrow from '/public/assets/leftArrow.svg'
 import SubmitText from '/public/assets/submitText.svg'
 import ButtonSection from './ButtonSection'
+import SquarePlus from '/public/assets/squarePlus.svg'
 import 'react-quill/dist/quill.snow.css'
 
 import {
@@ -12,6 +13,9 @@ import {
   usePostWrite,
 } from '@/app/_hooks/services/mutations/postWrite'
 import Editor from './Editor'
+import { useRouter } from 'next/navigation'
+import VoteContainer from './VoteContainer'
+import BottomSheet from './BottomSheet'
 
 interface ContentProps {
   postId?: number
@@ -39,6 +43,8 @@ export default function Content({
   const [selectedTag, setSelectedTag] = useState(0)
   const [isAnonymous, setIsAnonymous] = useState(false)
   const imageUrls: string[] = []
+  const [isVote, setIsVote] = useState(true)
+  const [isVoteClick, setIsVoteClick] = useState(false)
   useEffect(() => {
     if (postId) {
       setTitle(editTitle as string)
@@ -57,6 +63,7 @@ export default function Content({
       }
     }
   }
+  const router = useRouter()
   return (
     <div className={styles.container}>
       <Header
@@ -95,16 +102,27 @@ export default function Content({
       />
       <div className={styles.boldLine} />
       <div className={styles.inputContainer}>
+        {!isVote && (
+          <div
+            className={styles.navButton}
+            onClick={() => router.push('/vote')}
+          >
+            <SquarePlus />
+            투표받기
+          </div>
+        )}
         <input
           className={styles.titleInput}
           placeholder="제목"
           onChange={(e) => setTitle(e.target.value)}
           defaultValue={title}
         />
+        {isVote && <VoteContainer setIsVoteClick={setIsVoteClick} />}
         <div className={styles.contentBox}>
           <Editor initialContent={editContent} setContent={setContent} />
         </div>
       </div>
+      {isVoteClick && <BottomSheet />}
     </div>
   )
 }
