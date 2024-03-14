@@ -36,8 +36,18 @@ export default function useGetProfileAvatar(
     enabled: !!animal, //animal이 undefined일 때 실행하지 않는 코드
   })
 
+  // console.log(data, animal, '착용중인 쿼리 프로필')
   useEffect(() => {
-    console.log(data, animal, '착용중인 프로필')
-    if (data) setWearingItem(data)
-  }, [data])
+    // console.log(data, animal, '착용중인 프로필')
+    if (data) {
+      setWearingItem(data)
+    } else {
+      setWearingItem({
+        emoji: undefined,
+        background: undefined,
+        frame: undefined,
+        wallpaper: undefined,
+      })
+    }
+  }, [data, animal])
 }

@@ -2,25 +2,22 @@
 
 import { avatarItemList, wearingItem } from './types/responseType'
 
-import dynamic from 'next/dynamic'
+import CustomPreview from './CustomPreview'
+import ItemSelection from './ItemSelection'
 
 type Props = {
   selectedTab: string | undefined | null
   wearingItem: wearingItem
   itemList: avatarItemList
+  setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>
 }
 
 export default function CustomResult({
   selectedTab,
   itemList,
   wearingItem,
+  setWearingItem,
 }: Props) {
-  const CustomPreview = dynamic(async () => await import('./CustomPreview'), {
-    ssr: false,
-  })
-  const ItemSelection = dynamic(async () => await import('./ItemSelection'), {
-    ssr: false,
-  })
   return (
     <>
       <CustomPreview
@@ -30,7 +27,11 @@ export default function CustomResult({
         selectedFrame={wearingItem?.frame}
         selectedWallpaper={wearingItem?.wallpaper}
       />
-      <ItemSelection wearingItem={wearingItem} itemList={itemList} />
+      <ItemSelection
+        wearingItem={wearingItem}
+        itemList={itemList}
+        setWearingItem={setWearingItem}
+      />
     </>
   )
 }

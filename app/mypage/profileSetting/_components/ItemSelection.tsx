@@ -4,11 +4,11 @@ import { avatarItemList, wearingItem, avatarItem } from './types/responseType'
 import { useState } from 'react'
 import CategoryButton from './view/CategoryButton'
 
-import UnsetIcon from '@/public/assets/point_shop/item_unset.svg'
 import cs from 'classnames/bind'
 type props = {
   itemList: avatarItemList
   wearingItem: wearingItem
+  setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>
 }
 
 export default function ItemSelection({
@@ -19,6 +19,7 @@ export default function ItemSelection({
     frame: null,
     wallpaper: null,
   },
+  setWearingItem,
 }: props) {
   const cx = cs.bind(style)
   const [selectedItemType, setSelectedItemType] = useState('emoji')
@@ -26,8 +27,17 @@ export default function ItemSelection({
   const handleChangeCategory = (category: string) => {
     setSelectedItemType(category)
   }
-  console.log(!wearingItem[`${selectedItemType}`]?.id, 'unset')
-  console.log(wearingItem[`${selectedItemType}`]?.id, 'unset')
+  const handleUnsetWearing = () => {
+    setWearingItem((prev) => {
+      return { ...prev, [selectedItemType]: null }
+    })
+  }
+
+  const handleWearingItem = (id: number, itemType: string, image: string) => {
+    setWearingItem((prev) => {
+      return { ...prev, [selectedItemType]: { id, itemType, image } }
+    })
+  }
 
   return (
     <>
@@ -60,6 +70,7 @@ export default function ItemSelection({
                 className={style.itemImage}
                 src={'/assets/point_shop/item_unset.svg'}
                 alt={'unsetIcon'}
+                onClick={handleUnsetWearing}
               />
             </div>
           </li>
@@ -84,6 +95,9 @@ export default function ItemSelection({
                       className={style.itemImage}
                       src={item.image}
                       alt={item.name}
+                      onClick={() =>
+                        handleWearingItem(item.id, item.itemType, item.image)
+                      }
                     />
                   </div>
                 </li>

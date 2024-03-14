@@ -46,6 +46,7 @@ export default function CustomProfile() {
         selectedTab={selectedTab}
         itemList={itemList}
         wearingItem={wearingItem}
+        setWearingItem={setWearingItem}
       />
     </>
   )

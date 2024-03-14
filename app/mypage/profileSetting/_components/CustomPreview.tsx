@@ -1,15 +1,13 @@
 import style from './styles/pointShop.module.scss'
 
-import { useRecoilValue } from 'recoil'
-import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 import { avatarItem } from './types/responseType'
 
 type CustomPreviewProps = {
   animal: string | undefined | null
-  selectedEmoji?: avatarItem
-  selectedProfileBg?: avatarItem
-  selectedFrame?: avatarItem
-  selectedWallpaper?: avatarItem
+  selectedEmoji?: avatarItem | undefined | null
+  selectedProfileBg?: avatarItem | undefined | null
+  selectedFrame?: avatarItem | undefined | null
+  selectedWallpaper?: avatarItem | undefined | null
 }
 
 export default function CustomPreview({
@@ -19,6 +17,7 @@ export default function CustomPreview({
   selectedFrame,
   selectedWallpaper,
 }: CustomPreviewProps) {
+  //TODO:img태그 수정
   return (
     <>
       {/* 선택된 동물 꾸미기 미리보기 */}
@@ -27,9 +26,6 @@ export default function CustomPreview({
           <div className={style.profilePreview}>
             <div className={style.imageContainer}>
               <div className={style.imageBox}>
-                {
-                  //TODO:img태그 수정
-                }
                 <img
                   className={style.emoji}
                   src={
@@ -45,7 +41,7 @@ export default function CustomPreview({
                   src={
                     selectedFrame
                       ? selectedFrame.image
-                      : '/assets/point_shop/frame/프레임샘플.png'
+                      : '/assets/point_shop/frame/frame_default.svg'
                   }
                   alt={'selectedFrame'}
                 />
@@ -55,7 +51,7 @@ export default function CustomPreview({
                   src={
                     selectedProfileBg
                       ? selectedProfileBg.image
-                      : '/assets/point_shop/profile_background/프로필배경1.svg'
+                      : `/assets/point_shop/profile_background/${animal}_background_default.svg`
                   }
                   alt={'selectedProfileBg'}
                 />
@@ -66,7 +62,7 @@ export default function CustomPreview({
               src={
                 selectedWallpaper
                   ? selectedWallpaper.image
-                  : '/assets/point_shop/wallpaper/벽지기본.png'
+                  : '/assets/point_shop/wallpaper/wallpaper_default.svg'
               }
               alt={'selectedWallpaper'}
             />
