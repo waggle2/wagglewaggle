@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { DatePicker } from 'antd'
 import React from 'react'
 import style from '../styles/schedulePicker.module.scss'
+import { formatDate } from '@/app/_lib/formatDate'
 const { RangePicker } = DatePicker
 
 type RangeValue = [Dayjs | null, Dayjs | null] | null
@@ -28,18 +29,15 @@ export default function SchedulePicker() {
       setDates(null)
     }
   }
+  const today = new Date()
+  const todayString = today.toISOString().substring(0, 10)
   return (
     <div className={style.container}>
       <DatePicker
+        style={{ width: '100%' }}
         disabledDate={disabledDate}
         variant="borderless"
-        dropdownClassName={style.firstDropdown}
-      />
-      <span>-</span>
-      <DatePicker
-        disabledDate={disabledDate}
-        variant="borderless"
-        dropdownClassName={style.secondDropdown}
+        placeholder={formatDate(todayString)}
       />
     </div>
   )

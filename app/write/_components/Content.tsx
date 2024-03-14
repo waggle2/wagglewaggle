@@ -16,6 +16,7 @@ import Editor from './Editor'
 import { useRouter } from 'next/navigation'
 import VoteContainer from './VoteContainer'
 import BottomSheet from './BottomSheet'
+import Modal from '@/app/_components/common/modal/Modal'
 
 interface ContentProps {
   postId?: number
@@ -45,6 +46,7 @@ export default function Content({
   const imageUrls: string[] = []
   const [isVote, setIsVote] = useState(true)
   const [isVoteClick, setIsVoteClick] = useState(false)
+  const [isModal, setIsModal] = useState(false)
   useEffect(() => {
     if (postId) {
       setTitle(editTitle as string)
@@ -63,9 +65,34 @@ export default function Content({
       }
     }
   }
+  const modalContent =
+    '투표를 삭제하시겠어요?\n 삭제된 투표는 복구할 수 없어요.'
   const router = useRouter()
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        if (isModal) {
+          setIsModal(false)
+        }
+        if (isVoteClick) {
+          setIsVoteClick(false)
+        }
+      }}
+    >
+      {isModal && (
+        <Modal
+          title={<span>투표 삭제</span>}
+          content={<div className={styles.modalContent}>{modalContent}</div>}
+          buttons={[
+            <div className={styles.modalFooter}>
+              <div>취소</div>
+              <div style={{ color: '#ff184f' }}>삭제하기</div>
+            </div>,
+          ]}
+        />
+      )}
+
       <Header
         leftSection={<LeftArrow />}
         title={'글 작성하기'}
@@ -122,7 +149,7 @@ export default function Content({
           <Editor initialContent={editContent} setContent={setContent} />
         </div>
       </div>
-      {isVoteClick && <BottomSheet />}
+      {isVoteClick && <BottomSheet setIsModal={setIsModal} />}
     </div>
   )
 }
