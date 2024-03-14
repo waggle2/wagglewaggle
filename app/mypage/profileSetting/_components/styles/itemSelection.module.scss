@@ -87,6 +87,9 @@
       border-radius: 8px;
       border: 1px solid #eff0f0;
       overflow: hidden;
+      &.selected {
+        border: 2px solid #7ee36e;
+      }
 
       > .itemUnset {
         position: absolute;
@@ -133,7 +136,9 @@
       border-radius: 8px;
       border: 1px solid #eff0f0;
       overflow: hidden;
-
+      &.selected {
+        border: 2px solid #7ee36e;
+      }
       > .itemUnset {
         position: absolute;
         top: 50%;

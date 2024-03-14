@@ -1,14 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { avatarItemList, wearingItem } from './types/responseType'
-import CustomPreview from './CustomPreview'
 
-import ItemSelection from './ItemSelection'
+import dynamic from 'next/dynamic'
 
 type Props = {
   selectedTab: string | undefined | null
-  wearingItem?: wearingItem | null
+  wearingItem: wearingItem
   itemList: avatarItemList
 }
 
@@ -17,6 +15,12 @@ export default function CustomResult({
   itemList,
   wearingItem,
 }: Props) {
+  const CustomPreview = dynamic(async () => await import('./CustomPreview'), {
+    ssr: false,
+  })
+  const ItemSelection = dynamic(async () => await import('./ItemSelection'), {
+    ssr: false,
+  })
   return (
     <>
       <CustomPreview
@@ -26,17 +30,7 @@ export default function CustomResult({
         selectedFrame={wearingItem?.frame}
         selectedWallpaper={wearingItem?.wallpaper}
       />
-
-      <ItemSelection
-        // handleCategoryClick={handleCategoryClick}
-        // items={items}
-        // handleItemClick={handleItemClick}
-        // handleRemoveItemClick={handleRemoveItemClick}
-        // selectedItems={cartData.cartItems}
-
-        // possessionItems={possessionItems}
-        itemList={itemList}
-      />
+      <ItemSelection wearingItem={wearingItem} itemList={itemList} />
     </>
   )
 }

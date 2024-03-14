@@ -18,8 +18,8 @@ export type wearingItem = {
   user?: {
     id: string
   }
-  emoji?: avatarItem
-  background?: avatarItem
-  frame?: avatarItem
-  wallpaper?: avatarItem
+  emoji?: avatarItem | null
+  background?: avatarItem | null
+  frame?: avatarItem | null
+  wallpaper?: avatarItem | null
 }
