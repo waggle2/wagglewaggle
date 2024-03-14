@@ -28,6 +28,7 @@ const getProfileAvatar = async (animal: string | null) => {
 export default function useGetProfileAvatar(
   animal: string | null,
   setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>,
+  setInitWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>,
 ) {
   const { loading, error, data } = useQuery({
     queryKey: ['get-profile-avatar', animal],
@@ -40,13 +41,24 @@ export default function useGetProfileAvatar(
   useEffect(() => {
     // console.log(data, animal, '착용중인 프로필')
     if (data) {
-      setWearingItem(data)
+      setWearingItem(() => data)
+      setInitWearingItem(() => data)
     } else {
-      setWearingItem({
-        emoji: undefined,
-        background: undefined,
-        frame: undefined,
-        wallpaper: undefined,
+      setWearingItem(() => {
+        return {
+          emoji: undefined,
+          background: undefined,
+          frame: undefined,
+          wallpaper: undefined,
+        }
+      })
+      setInitWearingItem(() => {
+        return {
+          emoji: undefined,
+          background: undefined,
+          frame: undefined,
+          wallpaper: undefined,
+        }
       })
     }
   }, [data, animal])

@@ -33,9 +33,9 @@ export default function ItemSelection({
     })
   }
 
-  const handleWearingItem = (id: number, itemType: string, image: string) => {
+  const handleWearingItem = (item: avatarItem) => {
     setWearingItem((prev) => {
-      return { ...prev, [selectedItemType]: { id, itemType, image } }
+      return { ...prev, [selectedItemType]: item }
     })
   }
 
@@ -81,7 +81,9 @@ export default function ItemSelection({
                 <li
                   key={item.id}
                   className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
-                  onClick={() => {}}
+                  onClick={() => {
+                    handleWearingItem(item)
+                  }}
                 >
                   <div
                     className={cx(
@@ -95,9 +97,6 @@ export default function ItemSelection({
                       className={style.itemImage}
                       src={item.image}
                       alt={item.name}
-                      onClick={() =>
-                        handleWearingItem(item.id, item.itemType, item.image)
-                      }
                     />
                   </div>
                 </li>
