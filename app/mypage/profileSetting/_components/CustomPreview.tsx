@@ -26,16 +26,27 @@ export default function CustomPreview({
           <div className={style.profilePreview}>
             <div className={style.imageContainer}>
               <div className={style.imageBox}>
-                <img
-                  className={style.emoji}
-                  src={
-                    selectedEmoji
-                      ? selectedEmoji.image
-                      : `/assets/point_shop/emoji/${animal}/${animal}_default.svg`
-                  }
-                  alt={'selectedEmoji'}
-                />
+                <div className={style.profileWrapper}>
+                  <img
+                    className={style.emoji}
+                    src={
+                      selectedEmoji
+                        ? selectedEmoji.image
+                        : `/assets/point_shop/emoji/${animal}/${animal}_default.svg`
+                    }
+                    alt={'selectedEmoji'}
+                  />
 
+                  <img
+                    className={style.profileBg}
+                    src={
+                      selectedProfileBg
+                        ? selectedProfileBg.image
+                        : `/assets/point_shop/profile_background/${animal}_background_default.svg`
+                    }
+                    alt={'selectedProfileBg'}
+                  />
+                </div>
                 <img
                   className={style.frame}
                   src={
@@ -44,16 +55,6 @@ export default function CustomPreview({
                       : '/assets/point_shop/frame/frame_default.svg'
                   }
                   alt={'selectedFrame'}
-                />
-
-                <img
-                  className={style.profileBg}
-                  src={
-                    selectedProfileBg
-                      ? selectedProfileBg.image
-                      : `/assets/point_shop/profile_background/${animal}_background_default.svg`
-                  }
-                  alt={'selectedProfileBg'}
                 />
               </div>
             </div>

@@ -20,7 +20,7 @@ export default function useProfileItemList(
     enabled: !!animal, //animal이 undefined일 때 실행하지 않는 코드
   })
   useEffect(() => {
-    console.log(data, animal, '여기')
+    console.log(data, animal, '아이템 리스트')
     if (data) setItemList(data)
   }, [data])
 }
