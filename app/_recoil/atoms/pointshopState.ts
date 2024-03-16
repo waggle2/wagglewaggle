@@ -43,5 +43,5 @@ export const selectedTabState = atom<AnimalTab>({
 // 선택된 아이템 타입 상태
 export const selectedItemTypeState = atom<string>({
   key: 'selectedItemTypeState',
-  default: 'emoji', // 초기값
+  default: '이모지', // 초기값
 })

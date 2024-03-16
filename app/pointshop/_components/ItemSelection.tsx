@@ -35,12 +35,12 @@ export default function ItemSelection({
         }
     };
 
-    const renderCategoryButton = (itemType: string, label: string) => (
+    const renderCategoryButton = (itemType: string) => (
         <button
             className={itemType === selectedItemType ? `${style.tabButton} ${style.active}` : style.tabButton}
             onClick={() => handleCategoryClick(itemType)}
         >
-            {label}
+            {itemType}
         </button>
     );
 
@@ -53,7 +53,7 @@ export default function ItemSelection({
             return (
                 <li
                     key={item.id}
-                    className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
+                    className={`${selectedItemType === '이모지' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
                     onClick={() => {
                         if (!isOwned) {
                             isSelected ? handleRemoveItemClick(item.id) : handleItemClick(item);
@@ -81,15 +81,14 @@ export default function ItemSelection({
     );
 
 
-    console.log(selectedItems)
     return (
         <>
             <div className={style.itemSelectionWrapper}>
                 <div className={style.categoryTabContainer}>
-                    {renderCategoryButton('emoji', '이모지')}
-                    {renderCategoryButton('background', '프로필 배경')}
-                    {renderCategoryButton('frame', '프레임')}
-                    {renderCategoryButton('wallpaper', '벽지')}
+                    {renderCategoryButton('이모지')}
+                    {renderCategoryButton('프로필 배경')}
+                    {renderCategoryButton('프레임')}
+                    {renderCategoryButton('벽지')}
                 </div>
             </div>
             <div className={style.itemWrapper}>
@@ -99,7 +98,7 @@ export default function ItemSelection({
                     </div>
                 ) : (
                     <ul className={style.itemContainer}>
-                        <li className={selectedItemType === 'emoji' ? style.item : style.bigItem}
+                        <li className={selectedItemType === '이모지' ? style.item : style.bigItem}
                             onClick={handleRemoveItemByType}
                         >
                             <div className={style.imageWrap}>

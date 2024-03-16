@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import style from '../_styles/pointShop.module.scss';
 import ConfirmChange from './ConfirmChange';
 import CustomPreview from './CustomPreview';
 import Cart from './Cart';
@@ -24,10 +23,10 @@ export default function CustomResult({
 }: Props) {
   const [confirmModal, setConfirmModal] = useState(false);
   const [wearingItems, setWearingItems] = useState({
-    emoji: 0,
-    background: 0,
-    frame: 0,
-    wallpaper: 0,
+    '이모지': 0,
+    '프로필 배경': 0,
+    '프레임': 0,
+    '벽지': 0,
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,13 +70,13 @@ export default function CustomResult({
     }
 
     setWearingItems({
-      emoji: fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
-      background: fetchedWearingItems.background.id ? fetchedWearingItems.background.id : null,
-      frame: fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
-      wallpaper: fetchedWearingItems.wallpaper.id ? fetchedWearingItems.wallpaper.id : null,
+      이모지: fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
+      "프로필 배경": fetchedWearingItems.background.id ? fetchedWearingItems.background.id : null,
+      프레임: fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
+      벽지: fetchedWearingItems.wallpaper.id ? fetchedWearingItems.wallpaper.id : null,
     });
 
-    console.log(`${selectedTab}`, fetchedWearingItems)
+    // console.log(`${selectedTab}`, fetchedWearingItems)
   };
 
 
@@ -115,16 +114,16 @@ export default function CustomResult({
     // 카트 아이템에 따라 이미지 업데이트
     updatedCartItems.forEach(item => {
       switch (item.itemType) {
-        case 'emoji':
+        case '이모지':
           setSelectedEmoji(item.image);
           break;
-        case 'background':
+        case '프로필 배경':
           setSelectedProfileBg(item.image);
           break;
-        case 'frame':
+        case '프레임':
           setSelectedFrame(item.image);
           break;
-        case 'wallpaper':
+        case '벽지':
           setSelectedWallpaper(item.image);
           break;
         default:
@@ -136,17 +135,17 @@ export default function CustomResult({
   useEffect(() => {
     loadWearingItems();
     getCartData();
-    console.log(`${selectedTab} 장바구니:`, cartData.cartItems)
+    // console.log(`${selectedTab} 장바구니:`, cartData.cartItems)
     updateSelectedItemImages(cartData.cartItems);
   }, [selectedTab]);
 
 
   useEffect(() => {
     fetchItemData();
-    console.log(`${selectedTab} ${selectedItemType} 아이템:`, items)
+    // console.log(`${selectedTab} ${selectedItemType} 아이템:`, items)
 
     getPossessionItems();
-    console.log(`${selectedTab} ${selectedItemType} 보유 아이템:`, possessionItems)
+    // console.log(`${selectedTab} ${selectedItemType} 보유 아이템:`, possessionItems)
 
   }, [selectedTab, selectedItemType]);
 
@@ -157,7 +156,7 @@ export default function CustomResult({
       await api.patch(endpoint, {});
     },
     onSuccess: async () => {
-      console.log('Item added successfully');
+      // console.log('Item added successfully');
       const updatedCartData = await fetchCartItems(selectedTab);
       setCartData(updatedCartData);
       updateSelectedItemImages(updatedCartData.cartItems);
@@ -172,7 +171,7 @@ export default function CustomResult({
       await api.delete(endpoint);
     },
     onSuccess: async () => {
-      console.log('Item removed successfully');
+      // console.log('Item removed successfully');
       const updatedCartData = await fetchCartItems(selectedTab);
       setCartData(updatedCartData);
       updateSelectedItemImages(updatedCartData.cartItems);
@@ -213,16 +212,16 @@ export default function CustomResult({
 
     if (itemToRemove) {
       switch (itemToRemove.itemType) {
-        case 'emoji':
+        case '이모지':
           setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
           break;
-        case 'background':
+        case '프로필 배경':
           setSelectedProfileBg(fetchedWearingItems.background.image || selectedProfileBg);
           break;
-        case 'frame':
+        case '프레임':
           setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
           break;
-        case 'wallpaper':
+        case '벽지':
           setSelectedWallpaper(fetchedWearingItems.wallpaper.image || selectedWallpaper);
           break;
         default:
@@ -235,10 +234,10 @@ export default function CustomResult({
     await removeAllItemsMutation.mutateAsync(selectedTab);
     const fetchedWearingItems = await fetchWearingItems(selectedTab);
     if (fetchedWearingItems) {
-      setSelectedEmoji(fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : '');
-      setSelectedProfileBg(fetchedWearingItems.background ? fetchedWearingItems.background.image : '');
-      setSelectedFrame(fetchedWearingItems.frame ? fetchedWearingItems.frame.image : '');
-      setSelectedWallpaper(fetchedWearingItems.wallpaper ? fetchedWearingItems.wallpaper.image : '');
+      setSelectedEmoji(fetchedWearingItems.이모지 ? fetchedWearingItems.이모지.image : '');
+      setSelectedProfileBg(fetchedWearingItems["프로필 배경"] ? fetchedWearingItems["프로필 배경"].image : '');
+      setSelectedFrame(fetchedWearingItems.프레임 ? fetchedWearingItems.프레임.image : '');
+      setSelectedWallpaper(fetchedWearingItems.벽지 ? fetchedWearingItems.벽지.image : '');
     }
   };
 

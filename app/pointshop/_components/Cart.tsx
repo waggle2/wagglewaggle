@@ -19,7 +19,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
     const selectedTab = useRecoilValue(selectedTabState);
     const [isMovedUp, setIsMovedUp] = useState(false);
 
-    const itemTypeOrder = ['emoji', 'background', 'frame', 'wallpaper'];
+    const itemTypeOrder = ['이모지', '프로필 배경', '프레임', '벽지'];
 
     const [containerHeight, setContainerHeight] = useState(0);
 
@@ -30,7 +30,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
             setContainerHeight(cartRef.current.offsetHeight);
         }
 
-        console.log(containerHeight)
+        // console.log(containerHeight)
     }, [cartItems]);
 
 
@@ -70,7 +70,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                             sortedCartItems.map((item, index) => (
                                 <li key={index} className={style.item} onClick={() => handleRemoveItemClick(item.id)} >
                                     <div className={style.selectedImageBox}>
-                                        <img className={item.itemType === 'emoji' ? style.emojiImg : ''} src={item.image} alt="" />
+                                        <img className={item.itemType === '이모지' ? style.emojiImg : ''} src={item.image} alt="" />
                                     </div>
                                     <div className={style.priceCoin}>
                                         <PointIcon animal={selectedTab} /> {item.price}
