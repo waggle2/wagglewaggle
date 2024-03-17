@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation'
 import VoteContainer from './VoteContainer'
 import BottomSheet from './BottomSheet'
 import Modal from '@/app/_components/common/modal/Modal'
-import { voteState } from '@/app/_recoil/atoms/voteState'
+import { contentState, voteState } from '@/app/_recoil/atoms/voteState'
 import { useRecoilState } from 'recoil'
 import {
   useAddVotes,
@@ -56,6 +56,7 @@ export default function Content({
   const [isAnonymous, setIsAnonymous] = useState(false)
   const imageUrls: string[] = []
   const [voteItems, setVoteItems] = useRecoilState(voteState)
+  const [contentItems, setContentItems] = useRecoilState(contentState)
   const [isVote, setIsVote] = useState(voteItems.title !== '' || editVote)
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
@@ -73,6 +74,14 @@ export default function Content({
           endedDate: formatDate(editVote.endedAt),
         })
       }
+    }
+    if (contentItems.title !== '') {
+      console.log(contentItems)
+      setTitle(contentItems.title)
+      setContent(contentItems.content)
+      setSelectedCategory(contentItems.category)
+      setSelectedTag(contentItems.tag)
+      setIsAnonymous(contentItems.isAnonymous)
     }
   }, [])
   const handleImageUrls = (htmlString: string) => {
@@ -174,7 +183,9 @@ export default function Content({
         setSelectedCategory={setSelectedCategory}
         selectedTag={selectedTag}
         setSelectedTag={setSelectedTag}
-        editIsAnonymous={editIsAnonymous}
+        editIsAnonymous={
+          !contentItems.isAnonymous ? editIsAnonymous : contentItems.isAnonymous
+        }
         setIsAnonymous={setIsAnonymous}
       />
       <div className={styles.boldLine} />
@@ -182,7 +193,20 @@ export default function Content({
         {!isVote && (
           <div
             className={styles.navButton}
-            onClick={() => router.push('/vote')}
+            onClick={() => {
+              if (postId) {
+                router.push(`/vote?postId=${postId}`)
+              } else {
+                router.push('/vote')
+              }
+              setContentItems({
+                title: title,
+                content: content,
+                category: selectedCategory,
+                tag: selectedTag,
+                isAnonymous: isAnonymous,
+              })
+            }}
           >
             <SquarePlus />
             투표받기
@@ -196,10 +220,25 @@ export default function Content({
         />
         {isVote && <VoteContainer setIsVoteClick={setIsVoteClick} />}
         <div className={styles.contentBox}>
-          <Editor initialContent={editContent} setContent={setContent} />
+          <Editor
+            initialContent={
+              contentItems.content === '' ? editContent : contentItems.content
+            }
+            setContent={setContent}
+          />
         </div>
       </div>
-      {isVoteClick && <BottomSheet setIsModal={setIsModal} />}
+      {isVoteClick && (
+        <BottomSheet
+          title={title}
+          content={content}
+          category={selectedCategory}
+          tag={selectedTag}
+          isAnonymous={isAnonymous}
+          postId={postId}
+          setIsModal={setIsModal}
+        />
+      )}
     </div>
   )
 }

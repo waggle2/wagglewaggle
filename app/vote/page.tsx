@@ -9,7 +9,7 @@ import CirclePlus from '/public/assets/circlePlus.svg'
 import SchedulePicker from './_components/SchedulePicker'
 import { useRecoilState } from 'recoil'
 import { voteState } from '../_recoil/atoms/voteState'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import { formatDate } from '../_lib/formatDate'
 
@@ -38,6 +38,8 @@ export default function Vote() {
   const [voteItems, setVoteItems] = useRecoilState(voteState)
   const [date, setDate] = useState('')
   const router = useRouter()
+  const params = useSearchParams()
+  const postId = params.get('postId')
   useEffect(() => {
     if (voteItems.title !== '') {
       setTitle(voteItems.title)
@@ -61,7 +63,11 @@ export default function Vote() {
                     ? formatDate(dayjs().toString())
                     : voteItems.endedDate,
               })
-              router.push('/write')
+              if (postId) {
+                router.push(`/write/${postId}`)
+              } else {
+                router.push('/write')
+              }
             }}
           />,
         ]}
