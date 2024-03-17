@@ -18,9 +18,18 @@ const addVotes = async (
   })
   return response
 }
+const deleteVotes = async (postId: number): Promise<{ message: string }> => {
+  const response = await api.delete(`/polls/${postId}`)
+  return response
+}
 export function useAddVotes() {
   return useMutation({
     mutationFn: ({ title, items, endedDate, postId }: IVote) =>
       addVotes(postId, title, items, endedDate),
+  })
+}
+export function useDeleteVotes() {
+  return useMutation({
+    mutationFn: (postId: number) => deleteVotes(postId),
   })
 }

@@ -19,7 +19,10 @@ import BottomSheet from './BottomSheet'
 import Modal from '@/app/_components/common/modal/Modal'
 import { voteState } from '@/app/_recoil/atoms/voteState'
 import { useRecoilState } from 'recoil'
-import { useAddVotes } from '@/app/_hooks/services/mutations/votes'
+import {
+  useAddVotes,
+  useDeleteVotes,
+} from '@/app/_hooks/services/mutations/votes'
 import { formatDate } from '@/app/_lib/formatDate'
 
 interface ContentProps {
@@ -43,6 +46,7 @@ export default function Content({
   const { mutate } = usePostWrite()
   const { mutate: postModify } = usePostModify(postId as number)
   const { mutate: addVotes } = useAddVotes()
+  const { mutate: deleteVotes } = useDeleteVotes()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const category = ['짝사랑', '썸', '연애', '이별', '19']
@@ -83,6 +87,17 @@ export default function Content({
   const modalContent =
     '투표를 삭제하시겠어요?\n 삭제된 투표는 복구할 수 없어요.'
   const router = useRouter()
+  const handleVoteDelete = () => {
+    setVoteItems({
+      title: '',
+      items: [{ content: '' }, { content: '' }],
+      endedDate: '',
+    })
+    setIsVote(false)
+    if (editVote) {
+      deleteVotes(editVote.id)
+    }
+  }
   return (
     <div
       className={styles.container}
@@ -102,7 +117,9 @@ export default function Content({
           buttons={[
             <div className={styles.modalFooter}>
               <div>취소</div>
-              <div style={{ color: '#ff184f' }}>삭제하기</div>
+              <div style={{ color: '#ff184f' }} onClick={handleVoteDelete}>
+                삭제하기
+              </div>
             </div>,
           ]}
         />
