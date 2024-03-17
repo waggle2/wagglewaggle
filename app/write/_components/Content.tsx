@@ -19,6 +19,7 @@ import BottomSheet from './BottomSheet'
 import Modal from '@/app/_components/common/modal/Modal'
 import { voteState } from '@/app/_recoil/atoms/voteState'
 import { useRecoilState } from 'recoil'
+import { useAddVotes } from '@/app/_hooks/services/mutations/votes'
 
 interface ContentProps {
   postId?: number
@@ -38,6 +39,7 @@ export default function Content({
 }: ContentProps) {
   const { mutate } = usePostWrite()
   const { mutate: postModify } = usePostModify(postId as number)
+  const { mutate: addVotes } = useAddVotes()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const category = ['짝사랑', '썸', '연애', '이별', '19']
@@ -47,7 +49,7 @@ export default function Content({
   const [isAnonymous, setIsAnonymous] = useState(false)
   const imageUrls: string[] = []
   const [voteItems, setVoteItems] = useRecoilState(voteState)
-  const [isVote, setIsVote] = useState(voteItems.items.length !== 0)
+  const [isVote, setIsVote] = useState(voteItems.title !== '')
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
   useEffect(() => {
@@ -114,7 +116,25 @@ export default function Content({
               if (postId) {
                 postModify(writeData)
               } else {
-                mutate(writeData)
+                if (voteItems.items.length !== 0) {
+                  mutate(writeData, {
+                    onSuccess: (response) => {
+                      addVotes({
+                        postId: response.data.id,
+                        title: voteItems.title,
+                        items: voteItems.items,
+                        endedDate: voteItems.endedDate,
+                      })
+                      setVoteItems({
+                        title: '',
+                        items: [{ content: '' }, { content: '' }],
+                        endedDate: '',
+                      })
+                    },
+                  })
+                } else {
+                  mutate(writeData)
+                }
               }
             }}
           />,

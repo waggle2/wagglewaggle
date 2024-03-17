@@ -4,7 +4,12 @@ export const voteState = atom({
   key: 'voteItems',
   default: {
     title: '',
-    items: ['', ''],
+    items: [
+      {
+        content: '',
+      },
+      { content: '' },
+    ],
     endedDate: '',
   },
 })

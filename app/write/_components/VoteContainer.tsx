@@ -1,8 +1,6 @@
 'use client'
-import { Dispatch, SetStateAction, useState } from 'react'
-import Xmark from '/public/assets/xmark.svg'
+import { Dispatch, SetStateAction } from 'react'
 import styles from '../styles/voteContainer.module.scss'
-import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
 import { voteState } from '@/app/_recoil/atoms/voteState'
 import dayjs from 'dayjs'
@@ -28,7 +26,7 @@ export default function VoteContainer({ setIsVoteClick }: VoteContainerProps) {
         {voteItems.items.map((item, idx) => {
           return (
             <div className={styles.question} key={idx}>
-              {item}
+              {item.content}
             </div>
           )
         })}

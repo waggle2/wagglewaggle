@@ -10,13 +10,18 @@ import SchedulePicker from './_components/SchedulePicker'
 import { useRecoilState } from 'recoil'
 import { voteState } from '../_recoil/atoms/voteState'
 import { useRouter } from 'next/navigation'
+import dayjs from 'dayjs'
+import { formatDate } from '../_lib/formatDate'
 
 export default function Vote() {
-  const [question, setQuestion] = useState<string[]>(['', ''])
+  const [question, setQuestion] = useState<{ content: string }[]>([
+    { content: '' },
+    { content: '' },
+  ])
   const [title, setTitle] = useState('')
   const handleAddQuestion = () => {
     const newQuestion = [...question]
-    newQuestion.push('')
+    newQuestion.push({ content: '' })
     setQuestion(newQuestion)
   }
   const handleDeleteQuestion = (idx: number) => {
@@ -27,7 +32,7 @@ export default function Vote() {
   }
   const handleChangeQustion = (idx: number, value: string) => {
     const newQuestion = [...question]
-    newQuestion[idx] = value
+    newQuestion[idx] = { content: value }
     setQuestion(newQuestion)
   }
   const [voteItems, setVoteItems] = useRecoilState(voteState)
@@ -51,7 +56,10 @@ export default function Vote() {
               setVoteItems({
                 title: title,
                 items: question,
-                endedDate: voteItems.endedDate,
+                endedDate:
+                  voteItems.endedDate === ''
+                    ? formatDate(dayjs().toString())
+                    : voteItems.endedDate,
               })
               router.push('/write')
             }}
@@ -77,7 +85,7 @@ export default function Vote() {
                 className={styles.question}
                 placeholder={`질문 ${idx + 1}`}
                 onChange={(e) => handleChangeQustion(idx, e.target.value)}
-                value={item}
+                value={item.content}
               />
             </div>
           )
