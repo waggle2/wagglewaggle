@@ -63,8 +63,17 @@ export default function ItemSelection({
                 >
 
                     <div className={style.imageWrap}>
-                        <img className={selectedTab === '댕댕이' ? style.dogFoxItemImage : style.itemImage} src={item.image} alt={item.name} />
-                    </div>
+                        <img
+                            className={
+                                selectedTab === '댕댕이'
+                                    ? style.dogItemImage
+                                    : selectedTab === '폭스'
+                                        ? style.foxItemImage
+                                        : style.itemImage
+                            }
+                            src={item.image}
+                            alt={item.name}
+                        />                    </div>
                     <div className={style.priceCoin}>
                         {!isOwned ? (<>
                             <PointIcon animal={selectedTab} /> {item.price}

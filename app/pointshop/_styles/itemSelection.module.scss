@@ -106,9 +106,15 @@
         width: 70%;
       }
 
-      > .dogFoxItemImage {
+      > .dogItemImage {
         position: absolute;
         width: 90%;
+        top: 17px;
+      }
+
+      > .foxItemImage {
+        position: absolute;
+        width: 80%;
         top: 17px;
       }
     }
