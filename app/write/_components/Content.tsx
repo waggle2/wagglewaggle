@@ -17,6 +17,8 @@ import { useRouter } from 'next/navigation'
 import VoteContainer from './VoteContainer'
 import BottomSheet from './BottomSheet'
 import Modal from '@/app/_components/common/modal/Modal'
+import { voteState } from '@/app/_recoil/atoms/voteState'
+import { useRecoilState } from 'recoil'
 
 interface ContentProps {
   postId?: number
@@ -44,7 +46,8 @@ export default function Content({
   const [selectedTag, setSelectedTag] = useState(0)
   const [isAnonymous, setIsAnonymous] = useState(false)
   const imageUrls: string[] = []
-  const [isVote, setIsVote] = useState(true)
+  const [voteItems, setVoteItems] = useRecoilState(voteState)
+  const [isVote, setIsVote] = useState(voteItems.items.length !== 0)
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
   useEffect(() => {

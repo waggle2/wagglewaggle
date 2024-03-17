@@ -1,5 +1,5 @@
 'use client'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './styles/page.module.scss'
 import Header from '../_components/common/header/Header'
 import LeftArrow from '/public/assets/leftArrow.svg'
@@ -7,9 +7,13 @@ import SubmitText from '/public/assets/submitText.svg'
 import CircleMinus from '/public/assets/circleMinus.svg'
 import CirclePlus from '/public/assets/circlePlus.svg'
 import SchedulePicker from './_components/SchedulePicker'
+import { useRecoilState } from 'recoil'
+import { voteState } from '../_recoil/atoms/voteState'
+import { useRouter } from 'next/navigation'
 
 export default function Vote() {
   const [question, setQuestion] = useState<string[]>(['', ''])
+  const [title, setTitle] = useState('')
   const handleAddQuestion = () => {
     const newQuestion = [...question]
     newQuestion.push('')
@@ -26,16 +30,41 @@ export default function Vote() {
     newQuestion[idx] = value
     setQuestion(newQuestion)
   }
-  const [count, setCount] = useState(1)
+  const [voteItems, setVoteItems] = useRecoilState(voteState)
+  const [date, setDate] = useState('')
+  const router = useRouter()
+  useEffect(() => {
+    if (voteItems.items.length !== 0) {
+      setTitle(voteItems.title)
+      setQuestion(voteItems.items)
+      setDate(voteItems.endedDate)
+    }
+  }, [])
   return (
     <div>
       <Header
         leftSection={<LeftArrow />}
         title={'투표받기'}
-        rightSection={[<SubmitText />]}
+        rightSection={[
+          <SubmitText
+            onClick={() => {
+              setVoteItems({
+                title: title,
+                items: question,
+                endedDate: date,
+              })
+              router.push('/write')
+            }}
+          />,
+        ]}
       />
       <div className={styles.container}>
-        <input className={styles.title} placeholder="투표 제목을 입력하세요." />
+        <input
+          className={styles.title}
+          defaultValue={title}
+          placeholder="투표 제목을 입력하세요."
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <div className={styles.line} />
         {question.map((item, idx) => {
           return (
@@ -55,7 +84,7 @@ export default function Vote() {
         })}
         <div
           className={styles.addButton}
-          onClick={() => question.length < 8 && handleAddQuestion()}
+          onClick={() => question.length < 5 && handleAddQuestion()}
         >
           <CirclePlus style={{ cursor: 'pointer' }} fill="#2FD714" />
           항목 추가
@@ -64,21 +93,6 @@ export default function Vote() {
         <div className={styles.buttonSection}>
           <div>마감기한</div>
           <SchedulePicker />
-          <div className={styles.countSection}>
-            <span>답변수</span>
-            <div className={styles.count}>
-              <CircleMinus
-                style={{ cursor: 'pointer' }}
-                onClick={() => count > 1 && setCount(count - 1)}
-              />
-              {count}
-              <CirclePlus
-                style={{ cursor: 'pointer' }}
-                onClick={() => count < 3 && setCount(count + 1)}
-                fill="#1a1a1a"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>

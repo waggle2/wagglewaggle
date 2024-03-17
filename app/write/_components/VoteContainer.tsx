@@ -3,13 +3,14 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import Xmark from '/public/assets/xmark.svg'
 import styles from '../styles/voteContainer.module.scss'
 import { useRouter } from 'next/navigation'
+import { useRecoilState } from 'recoil'
+import { voteState } from '@/app/_recoil/atoms/voteState'
 
 interface VoteContainerProps {
   setIsVoteClick: Dispatch<SetStateAction<boolean>>
 }
 export default function VoteContainer({ setIsVoteClick }: VoteContainerProps) {
-  const [question, setQuestion] = useState<string[]>(['질문 1', '질문 2'])
-  const router = useRouter()
+  const [voteItems, setVoteItems] = useRecoilState(voteState)
   return (
     <div className={styles.container} onClick={() => setIsVoteClick(true)}>
       <div className={styles.statusSection}>
@@ -17,9 +18,9 @@ export default function VoteContainer({ setIsVoteClick }: VoteContainerProps) {
         <span>2024-12-03 ~ 2024-12-05</span>
       </div>
       <div className={styles.voteContainer}>
-        <div className={styles.title}>투표를 받아볼까요?</div>
+        <div className={styles.title}>{voteItems.title}</div>
         <div className={styles.subText}>1개 선택</div>
-        {question.map((item, idx) => {
+        {voteItems.items.map((item, idx) => {
           return (
             <div className={styles.question} key={idx}>
               {item}
