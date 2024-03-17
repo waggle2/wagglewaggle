@@ -5,17 +5,22 @@ import styles from '../styles/voteContainer.module.scss'
 import { useRouter } from 'next/navigation'
 import { useRecoilState } from 'recoil'
 import { voteState } from '@/app/_recoil/atoms/voteState'
+import dayjs from 'dayjs'
+import { formatDate } from '@/app/_lib/formatDate'
 
 interface VoteContainerProps {
   setIsVoteClick: Dispatch<SetStateAction<boolean>>
 }
 export default function VoteContainer({ setIsVoteClick }: VoteContainerProps) {
   const [voteItems, setVoteItems] = useRecoilState(voteState)
+  const today = dayjs()
   return (
     <div className={styles.container} onClick={() => setIsVoteClick(true)}>
       <div className={styles.statusSection}>
         <span style={{ fontWeight: '600' }}>투표 진행 중</span>
-        <span>2024-12-03 ~ 2024-12-05</span>
+        <span>
+          {formatDate(today.toString())} ~ {voteItems.endedDate}
+        </span>
       </div>
       <div className={styles.voteContainer}>
         <div className={styles.title}>{voteItems.title}</div>

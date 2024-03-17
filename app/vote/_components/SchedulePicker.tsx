@@ -5,13 +5,12 @@ import { DatePicker } from 'antd'
 import React from 'react'
 import style from '../styles/schedulePicker.module.scss'
 import { formatDate } from '@/app/_lib/formatDate'
-const { RangePicker } = DatePicker
-
-type RangeValue = [Dayjs | null, Dayjs | null] | null
+import { useRecoilState } from 'recoil'
+import { voteState } from '@/app/_recoil/atoms/voteState'
 
 export default function SchedulePicker() {
-  const [dates, setDates] = useState<RangeValue>(null)
-  const [value, setValue] = useState<RangeValue>(null)
+  const [dates, setDates] = useState<Dayjs | null>(null)
+  const [voteItems, setVoteItems] = useRecoilState(voteState)
 
   const disabledDate = (current: Dayjs) => {
     const today = dayjs()
@@ -22,11 +21,12 @@ export default function SchedulePicker() {
     return !!tooOld
   }
 
-  const onOpenChange = (open: boolean) => {
-    if (open) {
-      setDates([null, null])
-    } else {
-      setDates(null)
+  const onChange = (date: Dayjs | null, dateString: string) => {
+    if (date) {
+      setVoteItems({
+        ...voteItems,
+        endedDate: dateString,
+      })
     }
   }
   const today = new Date()
@@ -38,6 +38,10 @@ export default function SchedulePicker() {
         disabledDate={disabledDate}
         variant="borderless"
         placeholder={formatDate(todayString)}
+        defaultValue={
+          voteItems.endedDate === '' ? dayjs(today) : dayjs(voteItems.endedDate)
+        }
+        onChange={onChange}
       />
     </div>
   )

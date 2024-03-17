@@ -51,7 +51,7 @@ export default function Vote() {
               setVoteItems({
                 title: title,
                 items: question,
-                endedDate: date,
+                endedDate: voteItems.endedDate,
               })
               router.push('/write')
             }}
