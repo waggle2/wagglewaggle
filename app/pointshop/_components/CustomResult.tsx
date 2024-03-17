@@ -45,7 +45,6 @@ export default function CustomResult({
 
   const confirmModalToggle = () => setConfirmModal(!confirmModal);
   const handleCategoryClick = (itemType: string) => setSelectedItemType(itemType);
-
   //구매 확인 모달 열려있을때 스크롤 방지
   useEffect(() => {
     if (confirmModal) {
@@ -63,17 +62,17 @@ export default function CustomResult({
     const fetchedWearingItems = await fetchWearingItems(selectedTab);
 
     if (fetchedWearingItems) {
-      if (fetchedWearingItems.emoji) setSelectedEmoji(fetchedWearingItems.emoji.image || selectedEmoji);
+      if (fetchedWearingItems.emoji) setSelectedEmoji(fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : selectedEmoji);
       if (fetchedWearingItems.background) setSelectedProfileBg(fetchedWearingItems.background.image || selectedProfileBg);
       if (fetchedWearingItems.frame) setSelectedFrame(fetchedWearingItems.frame.image || selectedFrame);
       if (fetchedWearingItems.wallpaper) setSelectedWallpaper(fetchedWearingItems.wallpaper.image || selectedWallpaper);
     }
 
     setWearingItems({
-      이모지: fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
-      "프로필 배경": fetchedWearingItems.background.id ? fetchedWearingItems.background.id : null,
-      프레임: fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
-      벽지: fetchedWearingItems.wallpaper.id ? fetchedWearingItems.wallpaper.id : null,
+      이모지: fetchedWearingItems.emoji && fetchedWearingItems.emoji.id ? fetchedWearingItems.emoji.id : null,
+      "프로필 배경": fetchedWearingItems.background && fetchedWearingItems.background.id ? fetchedWearingItems.background.id : null,
+      프레임: fetchedWearingItems.frame && fetchedWearingItems.frame.id ? fetchedWearingItems.frame.id : null,
+      벽지: fetchedWearingItems.wallpaper && fetchedWearingItems.wallpaper.id ? fetchedWearingItems.wallpaper.id : null,
     });
 
     // console.log(`${selectedTab}`, fetchedWearingItems)
@@ -83,8 +82,8 @@ export default function CustomResult({
 
 
   const getPossessionItems = async () => {
-    const fetchedossessionItems = await fetchPossessionItems(selectedTab, selectedItemType);
-    setPossessionItems(fetchedossessionItems)
+    const fetchedPossessionItems = await fetchPossessionItems(selectedTab, selectedItemType);
+    setPossessionItems(fetchedPossessionItems)
   }
 
   const fetchItemData = async () => {
@@ -133,6 +132,10 @@ export default function CustomResult({
   };
 
   useEffect(() => {
+    // setSelectedEmoji(`/assets/point_shop/emoji/${selectedTab}_default.svg`)
+    // setSelectedProfileBg(``)
+    // setSelectedFrame(``)
+    // setSelectedWallpaper(``)
     loadWearingItems();
     getCartData();
     // console.log(`${selectedTab} 장바구니:`, cartData.cartItems)

@@ -49,7 +49,7 @@ export default function ItemSelection({
         items.filter(item => item.itemType === selectedItemType).reverse().map(item => {
             const isOwned = possessionItems.some(possessionItem => possessionItem.id === item.id);
             const isSelected = selectedItems.some(selectedItem => selectedItem.id === item.id);
-
+            { console.log(selectedTab) }
             return (
                 <li
                     key={item.id}
@@ -63,7 +63,7 @@ export default function ItemSelection({
                 >
 
                     <div className={style.imageWrap}>
-                        <img className={style.itemImage} src={item.image} alt={item.name} />
+                        <img className={selectedTab === '댕댕이' ? style.dogFoxItemImage : style.itemImage} src={item.image} alt={item.name} />
                     </div>
                     <div className={style.priceCoin}>
                         {!isOwned ? (<>
