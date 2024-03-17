@@ -25,8 +25,7 @@
     "react-dom": "^18",
     "react-quill": "^2.0.0",
     "react-spring": "^9.7.3",
-    "recoil": "^0.7.7",
-    "recoil-persist": "^5.1.0"
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.1.2",
