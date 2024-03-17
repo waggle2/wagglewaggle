@@ -39,7 +39,7 @@ export default function Vote() {
   const [date, setDate] = useState('')
   const router = useRouter()
   useEffect(() => {
-    if (voteItems.items.length !== 0) {
+    if (voteItems.title !== '') {
       setTitle(voteItems.title)
       setQuestion(voteItems.items)
       setDate(voteItems.endedDate)

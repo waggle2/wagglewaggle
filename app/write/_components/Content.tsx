@@ -20,6 +20,7 @@ import Modal from '@/app/_components/common/modal/Modal'
 import { voteState } from '@/app/_recoil/atoms/voteState'
 import { useRecoilState } from 'recoil'
 import { useAddVotes } from '@/app/_hooks/services/mutations/votes'
+import { formatDate } from '@/app/_lib/formatDate'
 
 interface ContentProps {
   postId?: number
@@ -28,6 +29,7 @@ interface ContentProps {
   editCategory?: string
   editTag?: string
   editIsAnonymous?: boolean
+  editVote?: any
 }
 export default function Content({
   postId,
@@ -36,6 +38,7 @@ export default function Content({
   editCategory,
   editTag,
   editIsAnonymous,
+  editVote,
 }: ContentProps) {
   const { mutate } = usePostWrite()
   const { mutate: postModify } = usePostModify(postId as number)
@@ -49,7 +52,7 @@ export default function Content({
   const [isAnonymous, setIsAnonymous] = useState(false)
   const imageUrls: string[] = []
   const [voteItems, setVoteItems] = useRecoilState(voteState)
-  const [isVote, setIsVote] = useState(voteItems.title !== '')
+  const [isVote, setIsVote] = useState(voteItems.title !== '' || editVote)
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
   useEffect(() => {
@@ -59,6 +62,13 @@ export default function Content({
       setSelectedCategory(category.indexOf(editCategory as string))
       setSelectedTag(tag.indexOf(editTag as string))
       setIsAnonymous(editIsAnonymous as boolean)
+      if (editVote) {
+        setVoteItems({
+          title: editVote.title,
+          items: editVote.pollItems,
+          endedDate: formatDate(editVote.endedAt),
+        })
+      }
     }
   }, [])
   const handleImageUrls = (htmlString: string) => {
