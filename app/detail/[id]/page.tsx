@@ -29,6 +29,7 @@ export default async function Detail({ params }: PageProps) {
         category={data.category}
         date={formatDate(data.createdAt)}
         views={data.views}
+        vote={data.poll}
       />
       <div className={styles.boldLine}></div>
       <Comment postId={params.id} />

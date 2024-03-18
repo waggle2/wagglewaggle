@@ -4,6 +4,7 @@ import View from '/public/assets/view.svg'
 import styles from '../styles/content.module.scss'
 import DOMPurify from 'isomorphic-dompurify'
 import LikeSection from './LikeSection'
+import VoteComponent from './VoteComponent'
 
 interface ContentProps {
   postId: number
@@ -14,6 +15,15 @@ interface ContentProps {
   category: string
   date: string
   views: number
+  vote: {
+    title: string
+    endedAt: string
+    pollItems: {
+      content: string
+      id: number
+      userIds: string[]
+    }[]
+  } | null
 }
 export default function Content({
   postId,
@@ -23,7 +33,7 @@ export default function Content({
   tag,
   category,
   date,
-
+  vote,
   views,
 }: ContentProps) {
   return (
@@ -42,6 +52,13 @@ export default function Content({
         </div>
       </div>
       <div className={styles.line}></div>
+      {vote && (
+        <VoteComponent
+          title={vote.title}
+          items={vote.pollItems}
+          endedDate={vote.endedAt}
+        />
+      )}
       {typeof window ? (
         <div
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
