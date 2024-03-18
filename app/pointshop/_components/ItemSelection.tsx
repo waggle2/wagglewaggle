@@ -49,11 +49,10 @@ export default function ItemSelection({
         items.filter(item => item.itemType === selectedItemType).reverse().map(item => {
             const isOwned = possessionItems.some(possessionItem => possessionItem.id === item.id);
             const isSelected = selectedItems.some(selectedItem => selectedItem.id === item.id);
-            { console.log(selectedTab) }
             return (
                 <li
                     key={item.id}
-                    className={`${selectedItemType === '이모지' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
+                    className={`${selectedItemType === '이모지' || selectedItemType === '프로필 배경' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
                     onClick={() => {
                         if (!isOwned) {
                             isSelected ? handleRemoveItemClick(item.id) : handleItemClick(item);
@@ -63,17 +62,41 @@ export default function ItemSelection({
                 >
 
                     <div className={style.imageWrap}>
-                        <img
-                            className={
-                                selectedTab === '댕댕이'
-                                    ? style.dogItemImage
-                                    : selectedTab === '폭스'
-                                        ? style.foxItemImage
-                                        : style.itemImage
-                            }
-                            src={item.image}
-                            alt={item.name}
-                        />                    </div>
+                        <div className={`${selectedItemType === '프로필 배경' ? style.backgroundWrap : ''}`}>
+                            {selectedItemType === '프로필 배경' && (
+                                <img
+                                    className={`${style.defaultEmoji} ${selectedItemType === '프로필 배경'
+                                        ? selectedTab === '고냥이'
+                                            ? style.catDefault
+                                            : selectedTab === '곰돌이'
+                                                ? style.bearDefault
+                                                : selectedTab === '댕댕이'
+                                                    ? style.dogDefault
+                                                    : selectedTab === '폭스'
+                                                        ? style.foxDefault
+                                                        : ''
+                                        : ''
+                                        }`}
+                                    src={`/assets/point_shop/emoji/${selectedTab}_default.svg`}
+                                    alt=""
+                                />
+                            )}
+
+                            <img
+                                className={
+                                    selectedItemType === '프로필 배경'
+                                        ? style.backgroundItemImage
+                                        : selectedItemType === '이모지' && selectedTab === '댕댕이'
+                                            ? style.dogItemImage
+                                            : selectedTab === '폭스'
+                                                ? style.foxItemImage
+                                                : style.itemImage
+                                }
+                                src={item.image}
+                                alt={item.name}
+                            />
+                        </div>
+                    </div>
                     <div className={style.priceCoin}>
                         {!isOwned ? (<>
                             <PointIcon animal={selectedTab} /> {item.price}
@@ -107,7 +130,7 @@ export default function ItemSelection({
                     </div>
                 ) : (
                     <ul className={style.itemContainer}>
-                        <li className={selectedItemType === '이모지' ? style.item : style.bigItem}
+                        <li className={selectedItemType === '이모지' || selectedItemType === '프로필 배경' ? style.item : style.bigItem}
                             onClick={handleRemoveItemByType}
                         >
                             <div className={style.imageWrap}>

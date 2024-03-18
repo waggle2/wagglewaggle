@@ -237,13 +237,12 @@ export default function CustomResult({
     await removeAllItemsMutation.mutateAsync(selectedTab);
     const fetchedWearingItems = await fetchWearingItems(selectedTab);
     if (fetchedWearingItems) {
-      setSelectedEmoji(fetchedWearingItems.이모지 ? fetchedWearingItems.이모지.image : '');
-      setSelectedProfileBg(fetchedWearingItems["프로필 배경"] ? fetchedWearingItems["프로필 배경"].image : '');
-      setSelectedFrame(fetchedWearingItems.프레임 ? fetchedWearingItems.프레임.image : '');
-      setSelectedWallpaper(fetchedWearingItems.벽지 ? fetchedWearingItems.벽지.image : '');
+      setSelectedEmoji(fetchedWearingItems.emoji ? fetchedWearingItems.emoji.image : '');
+      setSelectedProfileBg(fetchedWearingItems.background ? fetchedWearingItems.background.image : '');
+      setSelectedFrame(fetchedWearingItems.frame ? fetchedWearingItems.frame.image : '');
+      setSelectedWallpaper(fetchedWearingItems.wallpaper ? fetchedWearingItems.wallpaper.image : '');
     }
   };
-
 
 
 

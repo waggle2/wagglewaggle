@@ -106,7 +106,7 @@ export default function ConfirmChange({ cartItems, pointDifference, confirmModal
                                 <div className={style.textBox}>
                                     <h4>구매 완료</h4>
                                     <span>
-                                        구매가 완료되었습니다. 잔여 고냥이포인트 : {pointDifference}
+                                        구매가 완료되었습니다. 잔여 {selectedTab}포인트 : {pointDifference}
                                     </span>
                                 </div>
                                 <div className={style.buttonBox}>
