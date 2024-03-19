@@ -18,6 +18,14 @@ export default function CustomPreview({
   selectedWallpaper,
 }: CustomPreviewProps) {
   //TODO:img태그 수정
+  console.log(
+    animal,
+    selectedEmoji,
+    selectedProfileBg,
+    selectedFrame,
+    selectedWallpaper,
+    '확인',
+  )
   return (
     <>
       {/* 선택된 동물 꾸미기 미리보기 */}
@@ -32,7 +40,7 @@ export default function CustomPreview({
                     src={
                       selectedEmoji
                         ? selectedEmoji.image
-                        : `/assets/point_shop/emoji/${animal}/${animal}_default.svg`
+                        : `/assets/point_shop/emoji/${animal}_default.svg`
                     }
                     alt={'selectedEmoji'}
                   />

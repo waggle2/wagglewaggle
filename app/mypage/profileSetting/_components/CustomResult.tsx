@@ -27,12 +27,13 @@ export default function CustomResult({
     <>
       <CustomPreview
         animal={selectedTab}
-        selectedEmoji={wearingItem?.이모지}
-        selectedProfileBg={wearingItem?.['프로필 배경']}
-        selectedFrame={wearingItem?.프레임}
-        selectedWallpaper={wearingItem?.벽지}
+        selectedEmoji={wearingItem?.emoji}
+        selectedProfileBg={wearingItem?.background}
+        selectedFrame={wearingItem?.frame}
+        selectedWallpaper={wearingItem?.wallpaper}
       />
       <ItemSelection
+        animal={selectedTab}
         wearingItem={wearingItem}
         itemList={itemList}
         setWearingItem={setWearingItem}

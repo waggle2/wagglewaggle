@@ -85,15 +85,15 @@
       border-radius: 8px;
       border: 1px solid #eff0f0;
       overflow: hidden;
+
       &.selected {
         border: 2px solid #7ee36e;
       }
 
       > .itemUnset {
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 57%;
+        width: 70%;
+        transform: translateY(-60px);
 
         .unsetImg {
           width: 100%;
@@ -102,8 +102,8 @@
       }
       > .itemImage {
         position: absolute;
-        top: 17px;
         width: 70%;
+        transform: translateY(-30%);
       }
     }
   }
@@ -157,4 +157,26 @@
       }
     }
   }
+}
+.backgroundWrapper {
+  position: absolute;
+  width: 86.5%;
+  height: 86.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #eff0f0;
+  border-radius: 50%;
+  overflow: hidden;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+.EmojiPrev {
+  width: 60%;
+  transform: translateY(30%);
+  position: absolute;
+  z-index: 50;
+}
+.backgroundPrev {
+  width: 100%;
 }
