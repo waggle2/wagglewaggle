@@ -14,16 +14,16 @@ type props = {
 export default function ItemSelection({
   itemList = [],
   wearingItem = {
-    emoji: null,
-    background: null,
-    frame: null,
-    wallpaper: null,
+    이모지: null,
+    '프로필 배경': null,
+    프레임: null,
+    벽지: null,
   },
   setWearingItem,
 }: props) {
   const cx = cs.bind(style)
-  const [selectedItemType, setSelectedItemType] = useState('emoji')
-  const ITEMTYPE = ['emoji', 'background', 'frame', 'wallpaper']
+  const [selectedItemType, setSelectedItemType] = useState('이모지')
+  const ITEMTYPE = ['이모지', '프로필 배경', '프레임', '벽지']
   const handleChangeCategory = (category: string) => {
     setSelectedItemType(category)
   }
@@ -58,7 +58,7 @@ export default function ItemSelection({
       <div className={style.itemWrapper}>
         <ul className={style.itemContainer}>
           <li
-            className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
+            className={`${selectedItemType === '이모지' ? style.item : style.bigItem} }`}
           >
             <div
               className={cx(
@@ -80,7 +80,7 @@ export default function ItemSelection({
               return (
                 <li
                   key={item.id}
-                  className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
+                  className={`${selectedItemType === '이모지' ? style.item : style.bigItem} }`}
                   onClick={() => {
                     handleWearingItem(item)
                   }}

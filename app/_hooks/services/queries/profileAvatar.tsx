@@ -46,18 +46,18 @@ export default function useGetProfileAvatar(
     } else {
       setWearingItem(() => {
         return {
-          emoji: undefined,
-          background: undefined,
-          frame: undefined,
-          wallpaper: undefined,
+          이모지: undefined,
+          '프로필 배경': undefined,
+          프레임: undefined,
+          벽지: undefined,
         }
       })
       setInitWearingItem(() => {
         return {
-          emoji: undefined,
-          background: undefined,
-          frame: undefined,
-          wallpaper: undefined,
+          이모지: undefined,
+          '프로필 배경': undefined,
+          프레임: undefined,
+          벽지: undefined,
         }
       })
     }

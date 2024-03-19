@@ -18,8 +18,8 @@ export type wearingItem = {
   user?: {
     id: string
   }
-  emoji?: avatarItem | null
-  background?: avatarItem | null
-  frame?: avatarItem | null
-  wallpaper?: avatarItem | null
+  이모지?: avatarItem | null
+  '프로필 배경'?: avatarItem | null
+  프레임?: avatarItem | null
+  벽지?: avatarItem | null
 }

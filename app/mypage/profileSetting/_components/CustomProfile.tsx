@@ -16,16 +16,16 @@ export default function CustomProfile() {
   const [selectedTab, setSelectedTab] = useState<string | null>(defaultAnimal)
   const [itemList, setItemList] = useState<avatarItemList>([])
   const [wearingItem, setWearingItem] = useState<wearingItem>({
-    emoji: undefined,
-    background: undefined,
-    frame: undefined,
-    wallpaper: undefined,
+    이모지: undefined,
+    '프로필 배경': undefined,
+    프레임: undefined,
+    벽지: undefined,
   })
   const [initWearingItem, setInitWearingItem] = useState<wearingItem>({
-    emoji: undefined,
-    background: undefined,
-    frame: undefined,
-    wallpaper: undefined,
+    이모지: undefined,
+    '프로필 배경': undefined,
+    프레임: undefined,
+    벽지: undefined,
   })
   const ANIMALTYPE = ['고냥이', '곰돌이', '댕댕이', '폭스']
 
