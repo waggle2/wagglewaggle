@@ -1,4 +1,4 @@
-import Button from '@/app/_components/button/Button'
+import ModalButton from '@/app/_components/button/ModalButton'
 import style from '../styles/confirmBox.module.scss'
 
 interface Props {
@@ -16,9 +16,9 @@ export default function ConfirmBox({
   description,
   description2,
   buttonType,
-  changeState = () => {},
-  closeModal = () => {},
-  actionFunction = () => {},
+  changeState = () => { },
+  closeModal = () => { },
+  actionFunction = () => { },
 }: Props) {
   return (
     <div className={style.container}>
@@ -28,22 +28,21 @@ export default function ConfirmBox({
       <div className={style.buttonWrapper}>
         {buttonType === 'choice' ? (
           <>
-            <Button text="차단하지 않기" mainColor="grey" action={closeModal} />
-            <Button
+            <ModalButton text="취소" mainColor="grey" action={closeModal} />
+            <ModalButton
               text="차단하기"
-              mainColor="green"
+              mainColor="red"
               action={() => {
                 actionFunction()
               }}
             />
           </>
         ) : (
-          <Button
+          <ModalButton
             text="확인"
             mainColor="green"
             action={() => {
               closeModal()
-              actionFunction()
             }}
           />
         )}

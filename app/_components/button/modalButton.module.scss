@@ -1,0 +1,36 @@
+.button {
+  cursor: pointer;
+  border-radius: 6px;
+  padding-block: 16px;
+  width: 100%;
+  text-align: center;
+  font-weight: var(--fw-medium);
+  &.green {
+    color: #2fd714;
+  }
+  &.grey {
+    color: #8c8c8c;
+  }
+  &.red {
+    color: #ff184f;
+  }
+  &.white {
+    // background: #fff;
+    // color: #8c8c8c;
+    // border: 1px solid #eff0f0;
+  }
+}
+.topContainer {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  > .topWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background: #eaeaea;
+  }
+}
