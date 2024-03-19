@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import cs from 'classnames/bind'
 import Check from '/public/assets/check_green.svg'
+import { useAddUserVotes } from '@/app/_hooks/services/mutations/votes'
 import useGetVotes from '@/app/_hooks/services/queries/votes'
 
 const cx = cs.bind(styles)
@@ -17,6 +18,10 @@ export default function VoteComponent({ postId }: VoteComponentProps) {
   const [selectedIdx, setSelectedIdx] = useState(0)
   const [voteItemIdx, setVoteItemIdx] = useState('')
   const { data, isLoading } = useGetVotes(postId)
+  const { mutate } = useAddUserVotes()
+  const calculatePercent = (length: number) => {
+    return Math.floor((length / data.participantCount) * 100)
+  }
   return (
     <>
       {!isLoading && data && (
@@ -56,19 +61,25 @@ export default function VoteComponent({ postId }: VoteComponentProps) {
                     {item.content}
                     {isVoted && (
                       <div className={styles.progressBox}>
-                        <div>80% / {item.userIds.length}표</div>
+                        <div>
+                          {calculatePercent(item.userIds.length)}% /{' '}
+                          {item.userIds.length}표
+                        </div>
                         <div className={cx('progress')}>
-                          {selectedIdx === idx ? (
-                            <div
-                              className={cx('progress', { selected: true })}
-                            />
-                          ) : (
-                            <div
-                              className={cx('progress', {
-                                notSelected: true,
-                              })}
-                            />
-                          )}
+                          <div
+                            style={{
+                              width: `${calculatePercent(item.userIds.length)}%`,
+                            }}
+                            className={cx(
+                              'progress',
+                              selectedIdx === idx
+                                ? { selected: true }
+                                : { notSelected: true },
+                              calculatePercent(item.userIds.length) === 100
+                                ? { isFull: true }
+                                : { isFull: false },
+                            )}
+                          />
                         </div>
                       </div>
                     )}
@@ -92,6 +103,7 @@ export default function VoteComponent({ postId }: VoteComponentProps) {
               className={cx('voteButton', { isClicked: itemClick })}
               onClick={() => {
                 setIsVoted(true)
+                mutate(voteItemIdx)
               }}
             >
               투표하기

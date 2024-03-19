@@ -72,15 +72,17 @@
   border-radius: 10px;
   margin-top: 4px;
   &.selected {
-    width: 30%;
     background-color: #2fd714;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   &.notSelected {
-    width: 30%;
     background-color: #b2b2b2;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+  &.isFull {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 }
