@@ -6,8 +6,8 @@ export const fetchWearingItems = async (selectedTab: AnimalTab) => {
   const endpoint = `/items/profile?animal=${encodeURIComponent(selectedTab)}`;
   try {
     const data = await api.get(endpoint);
-    console.log(data.message)
-    console.log(data.data)
+    // console.log(data.message)
+    // console.log(data.data)
 
     if (data.data === null) {
       return {
@@ -44,7 +44,7 @@ export const fetchItems = async (selectedTab: AnimalTab, selectedItemType: strin
   const endpoint = `/items/animals?animal=${encodeURIComponent(selectedTab)}&itemType=${encodeURIComponent(selectedItemType)}`;
   try {
     const data = await api.get(endpoint);
-    console.log(data.message)
+    // console.log(data.message)
     return data.data.items;
   } catch (error) {
     console.error('아이템 데이터를 가져오는 중 오류 발생:', error);
@@ -65,7 +65,7 @@ export const fetchAnimalCoin = async (selectedTab: AnimalTab) => {
   try {
     const data = await api.get(endpoint);
     const animalCoinKey = animalKeyMap[selectedTab];
-    console.log(data.message)
+    // console.log(data.message)
 
     return data.data[animalCoinKey];
 
@@ -81,7 +81,7 @@ export const fetchCartItems = async (selectedTab: AnimalTab) => {
   const endpoint = `/items/cart?animal=${encodeURIComponent(selectedTab)}`;
   try {
     const data = await api.get(endpoint);
-    console.log(data.message)
+    // console.log(data.message)
 
     return {
       cartItems: data.data.items,
@@ -100,7 +100,7 @@ export const checkoutAnimalCartItems = async (selectedTab: AnimalTab, cartItems:
 
   try {
     const data = await api.patch(endpoint, cartItems);
-    console.log(data.message);
+    // console.log(data.message);
     return data;
   } catch (error) {
     console.log(error);
@@ -125,7 +125,7 @@ export const updateProfileItems = async (animal: AnimalTab, itemIds: number[][])
       },
     });
 
-    console.log(data.message);
+    // console.log(data.message);
     return data;
   } catch (error) {
     console.error('프로필 아이템 업데이트 중 오류 발생:', error);

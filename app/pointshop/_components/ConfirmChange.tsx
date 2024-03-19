@@ -12,10 +12,10 @@ type Props = {
     pointDifference: number,
     confirmModalToggle: () => void,
     wearingItems: {
-        emoji: number,
-        background: number,
-        frame: number,
-        wallpaper: number,
+        '이모지': number,
+        '프로필 배경': number,
+        '프레임': number,
+        '벽지': number,
     }
 }
 
@@ -49,10 +49,10 @@ export default function ConfirmChange({ cartItems, pointDifference, confirmModal
             }, {});
 
             const finalItemIds: number[] = [
-                purchasedItems.emoji || wearingItems.emoji,
-                purchasedItems.background || wearingItems.background,
-                purchasedItems.frame || wearingItems.frame,
-                purchasedItems.wallpaper || wearingItems.wallpaper,
+                purchasedItems.이모지 || wearingItems.이모지,
+                purchasedItems["프로필 배경"] || wearingItems["프로필 배경"],
+                purchasedItems.프레임 || wearingItems.프레임,
+                purchasedItems.벽지 || wearingItems.벽지,
             ].filter(id => id !== undefined);
 
             if (finalItemIds.length > 0) {
@@ -106,7 +106,7 @@ export default function ConfirmChange({ cartItems, pointDifference, confirmModal
                                 <div className={style.textBox}>
                                     <h4>구매 완료</h4>
                                     <span>
-                                        구매가 완료되었습니다. 잔여 고냥이포인트 : {pointDifference}
+                                        구매가 완료되었습니다. 잔여 {selectedTab}포인트 : {pointDifference}
                                     </span>
                                 </div>
                                 <div className={style.buttonBox}>

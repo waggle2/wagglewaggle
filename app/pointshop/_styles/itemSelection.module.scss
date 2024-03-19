@@ -89,7 +89,7 @@
       border: 1px solid #eff0f0;
       overflow: hidden;
 
-      > .itemUnset {
+      .itemUnset {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -100,10 +100,64 @@
           height: auto;
         }
       }
-      > .itemImage {
+      .itemImage {
         position: absolute;
         top: 17px;
         width: 70%;
+        transform: translateX(-50%);
+      }
+
+      .backgroundItemImage {
+        width: 100%;
+      }
+
+      .dogItemImage {
+        position: absolute;
+        width: 90%;
+        top: 17px;
+        transform: translateX(-50%);
+      }
+
+      .foxItemImage {
+        position: absolute;
+        width: 80%;
+        top: 17px;
+        transform: translateX(-50%);
+      }
+      //프로필 배경
+      .backgroundWrap {
+        position: absolute;
+        width: 86.5%;
+        height: 86.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #eff0f0;
+        border-radius: 50%;
+        overflow: hidden;
+        bottom: 50%;
+        transform: translateY(50%);
+
+        .defaultEmoji {
+          position: absolute;
+          z-index: 50;
+        }
+        .catDefault {
+          width: 57%;
+          top: 23%;
+        }
+        .bearDefault {
+          width: 60%;
+          top: 23%;
+        }
+        .dogDefault {
+          width: 70%;
+          top: 23%;
+        }
+        .foxDefault {
+          width: 67%;
+          top: 23%;
+        }
       }
     }
   }
@@ -135,7 +189,7 @@
       border: 1px solid #eff0f0;
       overflow: hidden;
 
-      > .itemUnset {
+      .itemUnset {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -147,10 +201,10 @@
         }
       }
 
-      > .itemImage {
+      .itemImage {
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%) translateX(-50%);
         width: 70%;
       }
     }
