@@ -5,6 +5,8 @@ import styles from '../styles/content.module.scss'
 import DOMPurify from 'isomorphic-dompurify'
 import LikeSection from './LikeSection'
 import VoteComponent from './VoteComponent'
+import { formatDate } from '@/app/_lib/formatDate'
+import dayjs from 'dayjs'
 
 interface ContentProps {
   postId: number
@@ -20,7 +22,7 @@ interface ContentProps {
     endedAt: string
     pollItems: {
       content: string
-      id: number
+      id: string
       userIds: string[]
     }[]
   } | null
@@ -36,6 +38,7 @@ export default function Content({
   vote,
   views,
 }: ContentProps) {
+  const today = dayjs()
   return (
     <div className={styles.titleSection}>
       <h4>{title}</h4>
@@ -53,11 +56,18 @@ export default function Content({
       </div>
       <div className={styles.line}></div>
       {vote && (
-        <VoteComponent
-          title={vote.title}
-          items={vote.pollItems}
-          endedDate={vote.endedAt}
-        />
+        <div className={styles.voteBox}>
+          <div className={styles.statusSection}>
+            <span style={{ fontWeight: '600' }}>투표 진행 중</span>
+            <span>
+              {formatDate(today.toString())} ~ {formatDate(vote.endedAt)}
+            </span>
+          </div>
+          <div className={styles.voteContainer}>
+            <div className={styles.voteTitle}>{vote.title}</div>
+            <VoteComponent postId={postId} />
+          </div>
+        </div>
       )}
       {typeof window ? (
         <div

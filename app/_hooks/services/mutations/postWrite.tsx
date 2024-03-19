@@ -2,7 +2,6 @@
 import api from '@/app/_api/commonApi'
 import { IPost } from '@/app/_types/postTypes'
 import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
 
 const postWrite = async (
   writeData: IPost,
@@ -19,23 +18,12 @@ const postModify = async (
   return response
 }
 export function usePostWrite() {
-  const router = useRouter()
   return useMutation({
     mutationFn: (writeData: IPost) => postWrite(writeData),
-    onSuccess: (response) => {
-      alert(response.message)
-      router.push(`/detail/${response.data.id}`)
-    },
   })
 }
 export function usePostModify(postId: number) {
-  const router = useRouter()
   return useMutation({
     mutationFn: (writeData: IPost) => postModify(writeData, postId),
-    onSuccess: (response) => {
-      alert(response.message)
-      router.push(`/detail/${response.data.id}`)
-      router.refresh()
-    },
   })
 }

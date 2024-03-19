@@ -15,7 +15,7 @@ export default async function Write({ params }: PageProps) {
         editCategory={data.category}
         editTag={data.tag}
         editIsAnonymous={data.isAnonymous}
-        editVote={data.poll === null ? null : data.poll}
+        editVote={data.poll}
       />
     </div>
   )

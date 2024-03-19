@@ -61,7 +61,13 @@ export default function Content({
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
   useEffect(() => {
-    if (postId) {
+    if (contentItems.title !== '') {
+      setTitle(contentItems.title)
+      setContent(contentItems.content)
+      setSelectedCategory(contentItems.category)
+      setSelectedTag(contentItems.tag)
+      setIsAnonymous(contentItems.isAnonymous)
+    } else if (postId) {
       setTitle(editTitle as string)
       setContent(editContent as string)
       setSelectedCategory(category.indexOf(editCategory as string))
@@ -74,14 +80,6 @@ export default function Content({
           endedDate: formatDate(editVote.endedAt),
         })
       }
-    }
-    if (contentItems.title !== '') {
-      console.log(contentItems)
-      setTitle(contentItems.title)
-      setContent(contentItems.content)
-      setSelectedCategory(contentItems.category)
-      setSelectedTag(contentItems.tag)
-      setIsAnonymous(contentItems.isAnonymous)
     }
   }, [])
   const handleImageUrls = (htmlString: string) => {
@@ -106,6 +104,35 @@ export default function Content({
     if (editVote) {
       deleteVotes(editVote.id)
     }
+  }
+  const handleVoteChange = (postId: number, message: string) => {
+    addVotes(
+      {
+        postId: postId,
+        title: voteItems.title,
+        items: voteItems.items,
+        endedDate: voteItems.endedDate,
+      },
+      {
+        onSuccess: () => {
+          alert(message)
+          router.push(`/detail/${postId}`)
+          router.refresh()
+          setVoteItems({
+            title: '',
+            items: [{ content: '' }, { content: '' }],
+            endedDate: '',
+          })
+          setContentItems({
+            title: '',
+            content: '',
+            category: 0,
+            tag: 0,
+            isAnonymous: false,
+          })
+        },
+      },
+    )
   }
   return (
     <div
@@ -150,27 +177,37 @@ export default function Content({
                 image_urls: imageUrls,
               }
               if (postId) {
-                postModify(writeData)
+                postModify(writeData, {
+                  onSuccess: (response) => {
+                    if (voteItems.title !== '') {
+                      if (editVote) {
+                        deleteVotes(editVote.id, {
+                          onSuccess: () => {
+                            handleVoteChange(response.data.id, response.message)
+                          },
+                        })
+                      } else {
+                        handleVoteChange(response.data.id, response.message)
+                      }
+                    } else {
+                      alert(response.message)
+                      router.push(`/detail/${response.data.id}`)
+                      router.refresh()
+                    }
+                  },
+                })
               } else {
-                if (voteItems.items.length !== 0) {
-                  mutate(writeData, {
-                    onSuccess: (response) => {
-                      addVotes({
-                        postId: response.data.id,
-                        title: voteItems.title,
-                        items: voteItems.items,
-                        endedDate: voteItems.endedDate,
-                      })
-                      setVoteItems({
-                        title: '',
-                        items: [{ content: '' }, { content: '' }],
-                        endedDate: '',
-                      })
-                    },
-                  })
-                } else {
-                  mutate(writeData)
-                }
+                mutate(writeData, {
+                  onSuccess: (response) => {
+                    if (voteItems.title !== '') {
+                      handleVoteChange(response.data.id, response.message)
+                    } else {
+                      alert(response.message)
+                      router.push(`/detail/${response.data.id}`)
+                      router.refresh()
+                    }
+                  },
+                })
               }
             }}
           />,
