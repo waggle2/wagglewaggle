@@ -35,11 +35,11 @@ export default function MyPage() {
       try {
         const { data } = await api.get('/users')
         console.log(data, 'mypage')
-        const wearing = data.profileItems.filter((profileItems: any) => {
+        const wearingItem = data.profileItems.filter((profileItems: any) => {
           return data.profileAnimal === profileItems.animal
         })
         setUserInfo(() => data)
-        setWearingItem(wearing[0])
+        setWearingItem(wearingItem[0])
       } catch (e: any) {
         if (e.code === 404) router.replace('/')
         console.error(e, 'mypageError')
@@ -47,7 +47,7 @@ export default function MyPage() {
     }
     fetchData()
   }, [])
-  console.log(wearingItem, 'wearingItem')
+
   return (
     <>
       <Header
@@ -59,10 +59,10 @@ export default function MyPage() {
           <CustomPreview
             animal={userInfo?.profileAnimal}
             isSetting={true}
-            selectedEmoji={wearingItem.emoji}
-            selectedProfileBg={wearingItem.background}
-            selectedFrame={wearingItem.frame}
-            selectedWallpaper={wearingItem.wallpaper}
+            selectedEmoji={wearingItem?.emoji}
+            selectedProfileBg={wearingItem?.background}
+            selectedFrame={wearingItem?.frame}
+            selectedWallpaper={wearingItem?.wallpaper}
           />
           <MyType
             nickName={userInfo?.credential.nickname}

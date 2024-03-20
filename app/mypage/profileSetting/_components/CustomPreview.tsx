@@ -21,14 +21,7 @@ export default function CustomPreview({
   selectedWallpaper,
 }: CustomPreviewProps) {
   //TODO:img태그 수정
-  console.log(
-    animal,
-    selectedEmoji,
-    selectedProfileBg,
-    selectedFrame,
-    selectedWallpaper,
-    '확인',
-  )
+
   return (
     <>
       {/* 선택된 동물 꾸미기 미리보기 */}

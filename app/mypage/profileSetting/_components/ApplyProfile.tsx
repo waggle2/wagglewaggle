@@ -7,7 +7,10 @@ type props = {
   handleApplyClick: () => void
 }
 
-export default function Apply({ handleResetClick, handleApplyClick }: props) {
+export default function ApplyProfile({
+  handleResetClick,
+  handleApplyClick,
+}: props) {
   return (
     <div className={style.applyContainer}>
       <button className={style.resetBtn} onClick={handleResetClick}>

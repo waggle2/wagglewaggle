@@ -4,7 +4,7 @@ import { avatarItemList, wearingItem } from './types/responseType'
 
 import CustomPreview from './CustomPreview'
 import ItemSelection from './ItemSelection'
-import Apply from './Apply'
+import ApplyProfile from './ApplyProfile'
 import style from './styles/pointShop.module.scss'
 type Props = {
   selectedTab: string | undefined | null
@@ -40,7 +40,7 @@ export default function CustomResult({
         itemList={itemList}
         setWearingItem={setWearingItem}
       />
-      <Apply
+      <ApplyProfile
         handleResetClick={handleResetClick}
         handleApplyClick={handleApplyClick}
       />

@@ -1,9 +1,9 @@
 import style from './styles/myType.module.scss'
 import Type from './Type'
-import Cat from '@/public/assets/cat.svg'
-import Bear from '@/public/assets/bear.svg'
-import Dog from '@/public/assets/dog.svg'
-import Fox from '@/public/assets/fox.svg'
+import Cat from '@/public/assets/mypage/고냥이.svg'
+import Bear from '@/public/assets/mypage/곰돌이.svg'
+import Dog from '@/public/assets/mypage/댕댕이.svg'
+import Fox from '@/public/assets/mypage/폭스.svg'
 
 type props = {
   nickName?: string
