@@ -54,38 +54,42 @@ export default function MyPage() {
         leftSection={<Title title={'MY'} />}
         rightSection={[<Search />, <Bell />]}
       />
-      <div className={style.paddingContainer}>
-        <CustomPreview
-          animal={userInfo?.profileAnimal}
-          isSetting={true}
-          selectedEmoji={wearingItem.emoji}
-          selectedProfileBg={wearingItem.background}
-          selectedFrame={wearingItem.frame}
-          selectedWallpaper={wearingItem.wallpaper}
-        />
-        <MyType
-          nickName={userInfo?.credential.nickname}
-          primaryAnimal={userInfo?.primaryAnimal}
-          cat={userInfo?.catCoins}
-          bear={userInfo?.bearCoins}
-          dog={userInfo?.dogCoins}
-          fox={userInfo?.foxCoins}
-        />
-        <SettingNav
-          nickName={userInfo?.credential.nickname}
-          href={'/mypage/nickNameModify'}
-          title={'닉네임 변경'}
-        />
-        <SettingNav href={'/mypage/postHistory'} title={'내가 작성한 글'} />
-        <SettingNav href={'/mypage/commentHistory'} title={'내가 댓글 단 글'} />
+      <div className={style.container}>
+        <div className={style.paddingContainer}>
+          <CustomPreview
+            animal={userInfo?.profileAnimal}
+            isSetting={true}
+            selectedEmoji={wearingItem.emoji}
+            selectedProfileBg={wearingItem.background}
+            selectedFrame={wearingItem.frame}
+            selectedWallpaper={wearingItem.wallpaper}
+          />
+          <MyType
+            nickName={userInfo?.credential.nickname}
+            primaryAnimal={userInfo?.primaryAnimal}
+            cat={userInfo?.catCoins}
+            bear={userInfo?.bearCoins}
+            dog={userInfo?.dogCoins}
+            fox={userInfo?.foxCoins}
+          />
+          <SettingNav
+            nickName={userInfo?.credential.nickname}
+            href={'/mypage/nickNameModify'}
+            title={'닉네임 변경'}
+          />
+          <SettingNav href={'/mypage/postHistory'} title={'내가 작성한 글'} />
+          <SettingNav
+            href={'/mypage/commentHistory'}
+            title={'내가 댓글 단 글'}
+          />
+        </div>
+        <div className={style.separationBar} />
+        <div className={style.settingContainer}>
+          <SettingNav href={'/mypage/feedback'} title={'건의사항'} />
+          <SettingNav href={'/mypage/accountSetting'} title={'계정 설정'} />
+          <SettingNav href={'/mypage/logout'} title={'로그아웃'} />
+        </div>
       </div>
-      <div className={style.separationBar} />
-      <div className={style.settingContainer}>
-        <SettingNav href={'/mypage/feedback'} title={'건의사항'} />
-        <SettingNav href={'/mypage/accountSetting'} title={'계정 설정'} />
-        <SettingNav href={'/mypage/logout'} title={'로그아웃'} />
-      </div>
-
       <Footer />
     </>
   )

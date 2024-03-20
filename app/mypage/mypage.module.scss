@@ -1,7 +1,6 @@
 .paddingContainer {
   width: 100%;
   padding: 8px 16px;
-  height: 100vh;
 }
 .settingContainer {
   width: 100%;
@@ -10,4 +9,7 @@
 }
 .separationBar {
   border-bottom: 8px solid #f6f6f6;
+}
+.container {
+  height: 100vh;
 }
