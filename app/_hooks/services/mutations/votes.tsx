@@ -30,6 +30,14 @@ const addUserVotes = async (
   const response = await api.post(`/polls/poll-items/${pollItemId}`, {})
   return response
 }
+const modifyUserVotes = async (
+  pollItemId: string,
+): Promise<{
+  message: string
+}> => {
+  const response = await api.patch(`/polls/poll-items/${pollItemId}`, {})
+  return response
+}
 export function useAddVotes() {
   return useMutation({
     mutationFn: ({ title, items, endedDate, postId }: IVote) =>
@@ -46,6 +54,15 @@ export function useAddUserVotes() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (pollItemId: string) => addUserVotes(pollItemId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['get-votes'] })
+    },
+  })
+}
+export function useModifyUserVotes() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (pollItemId: string) => modifyUserVotes(pollItemId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-votes'] })
     },

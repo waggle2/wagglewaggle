@@ -1,27 +1,45 @@
 'use client'
 import styles from '../styles/voteComponent.module.scss'
 import dayjs from 'dayjs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import cs from 'classnames/bind'
 import Check from '/public/assets/check_green.svg'
-import { useAddUserVotes } from '@/app/_hooks/services/mutations/votes'
+import {
+  useAddUserVotes,
+  useModifyUserVotes,
+} from '@/app/_hooks/services/mutations/votes'
 import useGetVotes from '@/app/_hooks/services/queries/votes'
 
 const cx = cs.bind(styles)
 
 interface VoteComponentProps {
   postId: number
+  userId: string
 }
-export default function VoteComponent({ postId }: VoteComponentProps) {
+export default function VoteComponent({ postId, userId }: VoteComponentProps) {
   const [itemClick, setItemClick] = useState(false)
   const [isVoted, setIsVoted] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState(0)
   const [voteItemIdx, setVoteItemIdx] = useState('')
+  const [isAlreadyVoted, setIsAlreadyVoted] = useState(false)
   const { data, isLoading } = useGetVotes(postId)
   const { mutate } = useAddUserVotes()
+  const { mutate: modifyUserVotes } = useModifyUserVotes()
   const calculatePercent = (length: number) => {
     return Math.floor((length / data.participantCount) * 100)
   }
+  useEffect(() => {
+    if (data) {
+      data.pollItems.forEach((item: any, idx: number) => {
+        if (item.userIds.includes(userId)) {
+          setIsAlreadyVoted(true)
+          setSelectedIdx(idx)
+          setIsVoted(true)
+          setItemClick(true)
+        }
+      })
+    }
+  }, [data])
   return (
     <>
       {!isLoading && data && (
@@ -52,7 +70,7 @@ export default function VoteComponent({ postId }: VoteComponentProps) {
                     }
                   }}
                 >
-                  {itemClick && selectedIdx === idx && <Check />}
+                  {(itemClick || isVoted) && selectedIdx === idx && <Check />}
                   <div
                     className={cx('content', {
                       notSelected: selectedIdx !== idx || !itemClick,
@@ -102,8 +120,14 @@ export default function VoteComponent({ postId }: VoteComponentProps) {
             <div
               className={cx('voteButton', { isClicked: itemClick })}
               onClick={() => {
-                setIsVoted(true)
-                mutate(voteItemIdx)
+                if (itemClick) {
+                  if (isAlreadyVoted || isVoted) {
+                    modifyUserVotes(voteItemIdx)
+                  } else {
+                    mutate(voteItemIdx)
+                  }
+                  setIsVoted(true)
+                }
               }}
             >
               투표하기

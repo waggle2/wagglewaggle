@@ -26,6 +26,7 @@ interface ContentProps {
       userIds: string[]
     }[]
   } | null
+  userId: string
 }
 export default function Content({
   postId,
@@ -37,6 +38,7 @@ export default function Content({
   date,
   vote,
   views,
+  userId,
 }: ContentProps) {
   const today = dayjs()
   return (
@@ -58,14 +60,16 @@ export default function Content({
       {vote && (
         <div className={styles.voteBox}>
           <div className={styles.statusSection}>
-            <span style={{ fontWeight: '600' }}>투표 진행 중</span>
+            <span style={{ fontWeight: '600' }}>
+              {today >= dayjs(vote.endedAt) ? '마감된 투표' : '투표 진행 중'}
+            </span>
             <span>
               {formatDate(today.toString())} ~ {formatDate(vote.endedAt)}
             </span>
           </div>
           <div className={styles.voteContainer}>
             <div className={styles.voteTitle}>{vote.title}</div>
-            <VoteComponent postId={postId} />
+            <VoteComponent postId={postId} userId={userId} />
           </div>
         </div>
       )}
