@@ -10,24 +10,36 @@ import api from '../_api/commonApi'
 
 import Header from '../_components/common/header/Header'
 import Title from '../_components/common/header/_components/Title'
-import MyProfile from './_components/MyProfile'
+// import MyProfile from './_components/MyProfile'
 import MyType from './_components/MyType'
 import SettingNav from './_components/SettingNav'
 import Search from '../_components/common/header/_components/Search'
 import Bell from '../_components/common/header/_components/Bell'
 import Footer from '../_components/common/footer/Footer'
+import CustomPreview from './profileSetting/_components/CustomPreview'
+import { wearingItem } from './profileSetting/_components/types/responseType'
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<userResponseData>()
+  const [wearingItem, setWearingItem] = useState<wearingItem>({
+    emoji: null,
+    background: null,
+    frame: null,
+    wallpaper: null,
+  })
+
   const router = useRouter()
-  //useGetLogin 사용하기에는 리엑트 쿼리에 stale이 걸려있지 않아 컴포넌트라 렌더링 될 때마다 계속 서버로 요청을 보내는 이슈가 있음
-  //staleTime을 걸면 해당 시간동안 변경된 데이터가 적용되지 않는 이슈(닉네임 변경 등)가 있어 사용x
+  //TODO: useGetLogin useEffect로 수정
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await api.get('/users')
         console.log(data, 'mypage')
-        setUserInfo(data)
+        const wearing = data.profileItems.filter((profileItems: any) => {
+          return data.profileAnimal === profileItems.animal
+        })
+        setUserInfo(() => data)
+        setWearingItem(wearing[0])
       } catch (e: any) {
         if (e.code === 404) router.replace('/')
         console.error(e, 'mypageError')
@@ -35,7 +47,7 @@ export default function MyPage() {
     }
     fetchData()
   }, [])
-
+  console.log(wearingItem, 'wearingItem')
   return (
     <>
       <Header
@@ -43,9 +55,13 @@ export default function MyPage() {
         rightSection={[<Search />, <Bell />]}
       />
       <div className={style.paddingContainer}>
-        <MyProfile
-          profileAnimal={userInfo?.profileAnimal}
-          profileItems={userInfo?.profileItems}
+        <CustomPreview
+          animal={userInfo?.profileAnimal}
+          isSetting={true}
+          selectedEmoji={wearingItem.emoji}
+          selectedProfileBg={wearingItem.background}
+          selectedFrame={wearingItem.frame}
+          selectedWallpaper={wearingItem.wallpaper}
         />
         <MyType
           nickName={userInfo?.credential.nickname}

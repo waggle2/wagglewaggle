@@ -1,3 +1,4 @@
+import Link from '@/node_modules/next/link'
 import style from './styles/pointShop.module.scss'
 
 import { avatarItem } from './types/responseType'
@@ -8,9 +9,11 @@ type CustomPreviewProps = {
   selectedProfileBg?: avatarItem | undefined | null
   selectedFrame?: avatarItem | undefined | null
   selectedWallpaper?: avatarItem | undefined | null
+  isSetting?: boolean
 }
 
 export default function CustomPreview({
+  isSetting = false,
   animal,
   selectedEmoji,
   selectedProfileBg,
@@ -32,6 +35,20 @@ export default function CustomPreview({
       <div className={style.customContainer}>
         <div className={style.customBackground}>
           <div className={style.profilePreview}>
+            {isSetting && (
+              <Link
+                href={{
+                  pathname: '/mypage/profileSetting',
+                  query: { defaultAnimal: `${animal}` },
+                }}
+                className={style.setting}
+              >
+                <img
+                  src="/assets/setting.svg"
+                  alt="navigation profile setting"
+                />
+              </Link>
+            )}
             <div className={style.imageContainer}>
               <div className={style.imageBox}>
                 <div className={style.profileWrapper}>

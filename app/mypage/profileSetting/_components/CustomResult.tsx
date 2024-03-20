@@ -5,7 +5,7 @@ import { avatarItemList, wearingItem } from './types/responseType'
 import CustomPreview from './CustomPreview'
 import ItemSelection from './ItemSelection'
 import Apply from './Apply'
-
+import style from './styles/pointShop.module.scss'
 type Props = {
   selectedTab: string | undefined | null
   wearingItem: wearingItem
@@ -25,13 +25,15 @@ export default function CustomResult({
 }: Props) {
   return (
     <>
-      <CustomPreview
-        animal={selectedTab}
-        selectedEmoji={wearingItem?.emoji}
-        selectedProfileBg={wearingItem?.background}
-        selectedFrame={wearingItem?.frame}
-        selectedWallpaper={wearingItem?.wallpaper}
-      />
+      <div className={style.paddingContainer}>
+        <CustomPreview
+          animal={selectedTab}
+          selectedEmoji={wearingItem?.emoji}
+          selectedProfileBg={wearingItem?.background}
+          selectedFrame={wearingItem?.frame}
+          selectedWallpaper={wearingItem?.wallpaper}
+        />
+      </div>
       <ItemSelection
         animal={selectedTab}
         wearingItem={wearingItem}
