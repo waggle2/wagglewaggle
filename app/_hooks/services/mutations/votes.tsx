@@ -18,8 +18,23 @@ const addVotes = async (
   })
   return response
 }
-const deleteVotes = async (postId: number): Promise<{ message: string }> => {
-  const response = await api.delete(`/polls/${postId}`)
+const deleteVotes = async (voteId: number): Promise<{ message: string }> => {
+  const response = await api.delete(`/polls/${voteId}`)
+  return response
+}
+const modifyVotes = async (
+  voteId: number,
+  title: string,
+  endedAt: string,
+  createPollItemDtos: { content: string }[],
+  deletePollItemIds: number[],
+): Promise<{ message: string }> => {
+  const response = await api.patch(`/polls/${voteId}`, {
+    title: title,
+    endedAt: endedAt,
+    createPollItemDtos: createPollItemDtos,
+    deletePollItemIds: deletePollItemIds,
+  })
   return response
 }
 const addUserVotes = async (
@@ -46,7 +61,25 @@ export function useAddVotes() {
 }
 export function useDeleteVotes() {
   return useMutation({
-    mutationFn: (postId: number) => deleteVotes(postId),
+    mutationFn: (voteId: number) => deleteVotes(voteId),
+  })
+}
+export function useModifyVotes() {
+  return useMutation({
+    mutationFn: ({
+      voteId,
+      title,
+      endedAt,
+      createPollItemDtos,
+      deletePollItemIds,
+    }: IModifyVote) =>
+      modifyVotes(
+        voteId,
+        title,
+        endedAt,
+        createPollItemDtos,
+        deletePollItemIds,
+      ),
   })
 }
 
