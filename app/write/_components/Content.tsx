@@ -17,11 +17,17 @@ import { useRouter } from 'next/navigation'
 import VoteContainer from './VoteContainer'
 import BottomSheet from './BottomSheet'
 import Modal from '@/app/_components/common/modal/Modal'
-import { contentState, voteState } from '@/app/_recoil/atoms/voteState'
+import {
+  contentState,
+  deleteVoteState,
+  newVoteState,
+  voteState,
+} from '@/app/_recoil/atoms/voteState'
 import { useRecoilState } from 'recoil'
 import {
   useAddVotes,
   useDeleteVotes,
+  useModifyVotes,
 } from '@/app/_hooks/services/mutations/votes'
 import { formatDate } from '@/app/_lib/formatDate'
 
@@ -47,6 +53,7 @@ export default function Content({
   const { mutate: postModify } = usePostModify(postId as number)
   const { mutate: addVotes } = useAddVotes()
   const { mutate: deleteVotes } = useDeleteVotes()
+  const { mutate: modifyVote } = useModifyVotes()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const category = ['짝사랑', '썸', '연애', '이별', '19']
@@ -60,6 +67,8 @@ export default function Content({
   const [isVote, setIsVote] = useState(voteItems.title !== '' || editVote)
   const [isVoteClick, setIsVoteClick] = useState(false)
   const [isModal, setIsModal] = useState(false)
+  const [newItems, setNewItems] = useRecoilState(newVoteState)
+  const [deleteItems, setDeleteItems] = useRecoilState(deleteVoteState)
   useEffect(() => {
     if (contentItems.title !== '') {
       setTitle(contentItems.title)
@@ -97,42 +106,16 @@ export default function Content({
   const handleVoteDelete = () => {
     setVoteItems({
       title: '',
-      items: [{ content: '' }, { content: '' }],
+      items: [
+        { id: null, content: '', isNew: true },
+        { id: null, content: '', isNew: true },
+      ],
       endedDate: '',
     })
     setIsVote(false)
     if (editVote) {
       deleteVotes(editVote.id)
     }
-  }
-  const handleVoteChange = (postId: number, message: string) => {
-    addVotes(
-      {
-        postId: postId,
-        title: voteItems.title,
-        items: voteItems.items,
-        endedDate: voteItems.endedDate,
-      },
-      {
-        onSuccess: () => {
-          alert(message)
-          router.push(`/detail/${postId}`)
-          router.refresh()
-          setVoteItems({
-            title: '',
-            items: [{ content: '' }, { content: '' }],
-            endedDate: '',
-          })
-          setContentItems({
-            title: '',
-            content: '',
-            category: 0,
-            tag: 0,
-            isAnonymous: false,
-          })
-        },
-      },
-    )
   }
   return (
     <div
@@ -180,35 +163,53 @@ export default function Content({
                 postModify(writeData, {
                   onSuccess: (response) => {
                     if (voteItems.title !== '') {
-                      if (editVote) {
-                        deleteVotes(editVote.id, {
-                          onSuccess: () => {
-                            handleVoteChange(response.data.id, response.message)
-                          },
-                        })
-                      } else {
-                        handleVoteChange(response.data.id, response.message)
-                      }
-                    } else {
-                      alert(response.message)
-                      router.push(`/detail/${response.data.id}`)
-                      router.refresh()
+                      modifyVote({
+                        voteId: editVote.id,
+                        title: voteItems.title,
+                        createPollItemDtos: newItems,
+                        deletePollItemIds: deleteItems,
+                        endedAt: voteItems.endedDate,
+                      })
+                      setDeleteItems([])
+                      setNewItems([])
                     }
+                    alert(response.message)
+                    router.push(`/detail/${response.data.id}`)
+                    router.refresh()
                   },
                 })
               } else {
                 mutate(writeData, {
                   onSuccess: (response) => {
                     if (voteItems.title !== '') {
-                      handleVoteChange(response.data.id, response.message)
-                    } else {
-                      alert(response.message)
-                      router.push(`/detail/${response.data.id}`)
-                      router.refresh()
+                      addVotes({
+                        postId: response.data.id,
+                        title: voteItems.title,
+                        items: voteItems.items,
+                        endedDate: voteItems.endedDate,
+                      })
                     }
+                    alert(response.message)
+                    router.push(`/detail/${response.data.id}`)
+                    router.refresh()
                   },
                 })
               }
+              setVoteItems({
+                title: '',
+                items: [
+                  { id: null, content: '', isNew: true },
+                  { id: null, content: '', isNew: true },
+                ],
+                endedDate: '',
+              })
+              setContentItems({
+                title: '',
+                content: '',
+                category: 0,
+                tag: 0,
+                isAnonymous: false,
+              })
             }}
           />,
         ]}

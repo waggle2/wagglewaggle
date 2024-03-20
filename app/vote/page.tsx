@@ -8,31 +8,46 @@ import CircleMinus from '/public/assets/circleMinus.svg'
 import CirclePlus from '/public/assets/circlePlus.svg'
 import SchedulePicker from './_components/SchedulePicker'
 import { useRecoilState } from 'recoil'
-import { voteState } from '../_recoil/atoms/voteState'
+import {
+  deleteVoteState,
+  newVoteState,
+  voteState,
+} from '../_recoil/atoms/voteState'
 import { useRouter, useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import { formatDate } from '../_lib/formatDate'
 
 export default function Vote() {
-  const [question, setQuestion] = useState<{ content: string }[]>([
-    { content: '' },
-    { content: '' },
+  const [question, setQuestion] = useState<
+    { id: null | number; content: string; isNew: boolean }[]
+  >([
+    { id: null, content: '', isNew: true },
+    { id: null, content: '', isNew: true },
   ])
   const [title, setTitle] = useState('')
+  const [deleteItems, setDeleteItems] = useRecoilState(deleteVoteState)
+  const [newItems, setNewItems] = useRecoilState(newVoteState)
   const handleAddQuestion = () => {
     const newQuestion = [...question]
-    newQuestion.push({ content: '' })
+    newQuestion.push({
+      id: (newQuestion[newQuestion.length - 1].id as number) + 1,
+      content: '',
+      isNew: true,
+    })
     setQuestion(newQuestion)
   }
   const handleDeleteQuestion = (idx: number) => {
     const newQuestion = [...question]
-    console.log(newQuestion)
     newQuestion.splice(idx, 1)
     setQuestion(newQuestion)
   }
   const handleChangeQustion = (idx: number, value: string) => {
     const newQuestion = [...question]
-    newQuestion[idx] = { content: value }
+    newQuestion[idx] = {
+      id: newQuestion[idx].id,
+      content: value,
+      isNew: newQuestion[idx].isNew,
+    }
     setQuestion(newQuestion)
   }
   const [voteItems, setVoteItems] = useRecoilState(voteState)
@@ -65,6 +80,7 @@ export default function Vote() {
               })
               if (postId) {
                 router.push(`/write/${postId}`)
+                setNewItems(question.filter((item) => item.isNew === true))
               } else {
                 router.push('/write')
               }
@@ -85,11 +101,21 @@ export default function Vote() {
             <div className={styles.questionWrapper} key={idx}>
               <CircleMinus
                 style={{ cursor: 'pointer' }}
-                onClick={() => question.length > 2 && handleDeleteQuestion(idx)}
+                onClick={() => {
+                  if (question.length > 2) {
+                    handleDeleteQuestion(idx)
+                    if (item.isNew !== true) {
+                      const newDeleteItems = [...deleteItems]
+                      newDeleteItems.push(item.id as number)
+                      setDeleteItems(newDeleteItems)
+                    }
+                  }
+                }}
               />
               <input
                 className={styles.question}
                 placeholder={`질문 ${idx + 1}`}
+                readOnly={item.isNew !== true}
                 onChange={(e) => handleChangeQustion(idx, e.target.value)}
                 value={item.content}
               />

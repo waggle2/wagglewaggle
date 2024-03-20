@@ -6,3 +6,12 @@ interface IVote {
   }[]
   endedDate: string
 }
+interface IModifyVote {
+  voteId: number
+  title: string
+  endedAt: string
+  createPollItemDtos: {
+    content: string
+  }[]
+  deletePollItemIds: number[]
+}
