@@ -14,7 +14,8 @@ export default function SchedulePicker() {
 
   const disabledDate = (current: Dayjs) => {
     const today = dayjs()
-    const tooOld = current.isBefore(today, 'day')
+    const tomorrow = today.add(1, 'day')
+    const tooOld = current.isBefore(tomorrow, 'day')
     if (!dates) {
       return tooOld
     }
@@ -39,7 +40,9 @@ export default function SchedulePicker() {
         variant="borderless"
         placeholder={formatDate(todayString)}
         defaultValue={
-          voteItems.endedDate === '' ? dayjs(today) : dayjs(voteItems.endedDate)
+          voteItems.endedDate === ''
+            ? dayjs(today).add(1, 'day')
+            : dayjs(voteItems.endedDate)
         }
         onChange={onChange}
       />

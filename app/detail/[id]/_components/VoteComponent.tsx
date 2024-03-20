@@ -19,15 +19,17 @@ interface VoteComponentProps {
 export default function VoteComponent({ postId, userId }: VoteComponentProps) {
   const [itemClick, setItemClick] = useState(false)
   const [isVoted, setIsVoted] = useState(false)
-  const [selectedIdx, setSelectedIdx] = useState(0)
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(0)
   const [voteItemIdx, setVoteItemIdx] = useState('')
   const [isAlreadyVoted, setIsAlreadyVoted] = useState(false)
+  const [isExpired, setIsExpired] = useState(false)
   const { data, isLoading } = useGetVotes(postId)
   const { mutate } = useAddUserVotes()
   const { mutate: modifyUserVotes } = useModifyUserVotes()
   const calculatePercent = (length: number) => {
     return Math.floor((length / data.participantCount) * 100)
   }
+  const today = dayjs()
   useEffect(() => {
     if (data) {
       data.pollItems.forEach((item: any, idx: number) => {
@@ -38,6 +40,12 @@ export default function VoteComponent({ postId, userId }: VoteComponentProps) {
           setItemClick(true)
         }
       })
+      if (today >= dayjs(data.endedAt)) {
+        setSelectedIdx(null)
+        setIsExpired(true)
+        setIsVoted(true)
+        setItemClick(true)
+      }
     }
   }, [data])
   return (
@@ -80,8 +88,9 @@ export default function VoteComponent({ postId, userId }: VoteComponentProps) {
                     {isVoted && (
                       <div className={styles.progressBox}>
                         <div>
-                          {calculatePercent(item.userIds.length)}% /{' '}
-                          {item.userIds.length}표
+                          {data.participantCount === 0
+                            ? '0% / 0표'
+                            : `${calculatePercent(item.userIds.length)}% / ${item.userIds.length}표`}
                         </div>
                         <div className={cx('progress')}>
                           <div
@@ -93,7 +102,8 @@ export default function VoteComponent({ postId, userId }: VoteComponentProps) {
                               selectedIdx === idx
                                 ? { selected: true }
                                 : { notSelected: true },
-                              calculatePercent(item.userIds.length) === 100
+                              calculatePercent(item.userIds.length) === 100 ||
+                                data.participantCount === 0
                                 ? { isFull: true }
                                 : { isFull: false },
                             )}
@@ -106,33 +116,34 @@ export default function VoteComponent({ postId, userId }: VoteComponentProps) {
               )
             },
           )}
-          {isVoted ? (
-            <div
-              className={cx('voteButton', { isVoted })}
-              onClick={() => {
-                setIsVoted(false)
-                setItemClick(false)
-              }}
-            >
-              다시 투표하기
-            </div>
-          ) : (
-            <div
-              className={cx('voteButton', { isClicked: itemClick })}
-              onClick={() => {
-                if (itemClick) {
-                  if (isAlreadyVoted || isVoted) {
-                    modifyUserVotes(voteItemIdx)
-                  } else {
-                    mutate(voteItemIdx)
+          {!isExpired &&
+            (isVoted ? (
+              <div
+                className={cx('voteButton', { isVoted })}
+                onClick={() => {
+                  setIsVoted(false)
+                  setItemClick(false)
+                }}
+              >
+                다시 투표하기
+              </div>
+            ) : (
+              <div
+                className={cx('voteButton', { isClicked: itemClick })}
+                onClick={() => {
+                  if (itemClick) {
+                    if (isAlreadyVoted || isVoted) {
+                      modifyUserVotes(voteItemIdx)
+                    } else {
+                      mutate(voteItemIdx)
+                    }
+                    setIsVoted(true)
                   }
-                  setIsVoted(true)
-                }
-              }}
-            >
-              투표하기
-            </div>
-          )}
+                }}
+              >
+                투표하기
+              </div>
+            ))}
         </>
       )}
     </>

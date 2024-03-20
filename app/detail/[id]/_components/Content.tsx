@@ -19,6 +19,7 @@ interface ContentProps {
   views: number
   vote: {
     title: string
+    createdAt: string
     endedAt: string
     pollItems: {
       content: string
@@ -64,7 +65,7 @@ export default function Content({
               {today >= dayjs(vote.endedAt) ? '마감된 투표' : '투표 진행 중'}
             </span>
             <span>
-              {formatDate(today.toString())} ~ {formatDate(vote.endedAt)}
+              {formatDate(vote.createdAt)} ~ {formatDate(vote.endedAt)}
             </span>
           </div>
           <div className={styles.voteContainer}>
