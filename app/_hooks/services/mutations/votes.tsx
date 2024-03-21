@@ -57,11 +57,17 @@ export function useAddVotes() {
   return useMutation({
     mutationFn: ({ title, items, endedDate, postId }: IVote) =>
       addVotes(postId, title, items, endedDate),
+    onError: (error) => {
+      alert(error.message)
+    },
   })
 }
 export function useDeleteVotes() {
   return useMutation({
     mutationFn: (voteId: number) => deleteVotes(voteId),
+    onError: (error) => {
+      alert(error)
+    },
   })
 }
 export function useModifyVotes() {
@@ -80,6 +86,9 @@ export function useModifyVotes() {
         createPollItemDtos,
         deletePollItemIds,
       ),
+    onError: (error) => {
+      alert(error.message)
+    },
   })
 }
 
@@ -90,6 +99,9 @@ export function useAddUserVotes() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-votes'] })
     },
+    onError: (error) => {
+      alert(error.message)
+    },
   })
 }
 export function useModifyUserVotes() {
@@ -98,6 +110,9 @@ export function useModifyUserVotes() {
     mutationFn: (pollItemId: string) => modifyUserVotes(pollItemId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-votes'] })
+    },
+    onError: (error) => {
+      alert(error.message)
     },
   })
 }
