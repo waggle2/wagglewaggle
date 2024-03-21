@@ -46,9 +46,9 @@ export default function CustomPreview({
                             </div>
                             <div className={style.profilePreview}>
                                 <div className={style.imageContainer}>
+                                    <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
                                     <div className={style.imageBox}>
                                         <img className={style.emoji} src={selectedEmoji} alt={`${selectedEmoji}`} />
-                                        <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
                                         {/* <img className={style.animalBody} src={`/assets/point_shop/animal_body/${selectedTab}_body.svg`} /> */}
                                         <img className={style.profileBg} src={selectedProfileBg} alt={selectedProfileBg} />
                                     </div>
