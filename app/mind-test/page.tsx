@@ -5,9 +5,11 @@ import LeftArrow from '/public/assets/leftArrow.svg'
 
 export default function MindTest() {
   return (
-    <div className={styles.container}>
+    <>
       <Header leftSection={<LeftArrow />} title="나의 연애 성향은?" />
-      <Content />
-    </div>
+      <div className={styles.container}>
+        <Content />
+      </div>
+    </>
   )
 }

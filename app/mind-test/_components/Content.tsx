@@ -4,12 +4,19 @@ import styles from '../styles/content.module.scss'
 import Question from './Question'
 import { useTrail, animated } from 'react-spring'
 import { useState, useEffect } from 'react'
+import { titles } from '../questions'
+import { useRouter } from 'next/navigation'
 export default function Content() {
   const [toggle, setToggle] = useState(false)
   const config = { mass: 8, tension: 4000, friction: 500 }
+  const [questionIdx, setQuestionIdx] = useState(0)
+  const router = useRouter()
   useEffect(() => {
     setToggle(!toggle)
-  }, [])
+    if (questionIdx > 10) {
+      router.push('/mind-result')
+    }
+  }, [questionIdx])
   const items = [
     {
       element: (
@@ -24,13 +31,14 @@ export default function Content() {
     {
       element: (
         <div className={styles.title}>
-          <span className={styles.question}>Q.</span> 술을 마셨는데 필름이
-          끊겼다. 일어나보니 내게 일어난 일은?
+          <span className={styles.question}>Q.</span> {titles[questionIdx]}
         </div>
       ),
     },
     {
-      element: <Question />,
+      element: (
+        <Question questionIdx={questionIdx} setQuestionIdx={setQuestionIdx} />
+      ),
     },
   ]
   const trail = useTrail(items.length, {
@@ -41,11 +49,12 @@ export default function Content() {
   })
   return (
     <>
-      {trail.map((styles, idx) => (
-        <animated.div key={idx} style={styles}>
-          <animated.div>{items[idx].element}</animated.div>
-        </animated.div>
-      ))}
+      {questionIdx <= 10 &&
+        trail.map((styles, idx) => (
+          <animated.div key={idx} style={styles}>
+            <animated.div>{items[idx].element}</animated.div>
+          </animated.div>
+        ))}
     </>
   )
 }
