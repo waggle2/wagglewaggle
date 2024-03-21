@@ -7,10 +7,14 @@ import ImageBox from './ImageBox'
 import { useTrail, animated } from 'react-spring'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useRecoilState } from 'recoil'
+import { mindTestState } from '@/app/_recoil/atoms/mindTestState'
+import { result } from '../result'
 
 export default function Content() {
   const [toggle, setToggle] = useState(false)
   const config = { mass: 8, tension: 2000, friction: 400 }
+  const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
   useEffect(() => {
     setToggle(!toggle)
   }, [])
@@ -22,21 +26,11 @@ export default function Content() {
     {
       element: (
         <Description
-          title={['댕댕이는 말이야...', '이런건 조심해!']}
-          content={[
-            '보기만 해도 기분 좋아지는 똥꼬발랄한 댕댕이는 첫눈에 잘 반하는 스타일입니다. 마음을 자유롭게 표현하고 사랑에 매우 열정적인 스타일인 당신!',
-            '마음의 타오르는 열정만큼 연락 빈도가 무척 중요하고 상대도 나만큼 사랑을 주길 바라는 댕댕이들.. 그래서 가끔은 강한 질투를 보이기도 한답니다. 조심해요! 심해지면 집착하고 의존하는 것처럼 보일 수도 있으니까요.',
+          title={[
+            `${result[mindTestResult].name}는 말이야...`,
+            '이런건 조심해!',
           ]}
-        />
-      ),
-    },
-    {
-      element: (
-        <Description
-          title={['마음 속에 곰을 숨겨둔 당신']}
-          content={[
-            '보기만 해도 기분 좋아지는 똥꼬발랄한 댕댕이는 첫눈에 잘 반하는 스타일입니다. 마음을 자유롭게 표현하고 사랑에 매우 열정적인 스타일인 당신!',
-          ]}
+          content={result[mindTestResult].description}
         />
       ),
     },

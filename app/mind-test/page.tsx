@@ -6,7 +6,11 @@ import LeftArrow from '/public/assets/leftArrow.svg'
 export default function MindTest() {
   return (
     <>
-      <Header leftSection={<LeftArrow />} title="나의 연애 성향은?" />
+      <Header
+        leftSection={<LeftArrow />}
+        title="나의 연애 성향은?"
+        rightSection={[<div style={{ padding: '12px' }} />]}
+      />
       <div className={styles.container}>
         <Content />
       </div>
