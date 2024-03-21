@@ -6,14 +6,25 @@ import { useTrail, animated } from 'react-spring'
 import { useState, useEffect } from 'react'
 import { titles } from '../questions'
 import { useRouter } from 'next/navigation'
+import { useRecoilState } from 'recoil'
+import { mindTestState } from '@/app/_recoil/atoms/mindTestState'
 export default function Content() {
   const [toggle, setToggle] = useState(false)
   const config = { mass: 8, tension: 4000, friction: 500 }
   const [questionIdx, setQuestionIdx] = useState(0)
+  const [twoCount, setTwoCount] = useState([0, 0, 0, 0])
+  const [fourCount, setFourCount] = useState([0, 0, 0, 0])
+  const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
   const router = useRouter()
   useEffect(() => {
     setToggle(!toggle)
     if (questionIdx > 10) {
+      const maxIdx = twoCount.indexOf(Math.max(...twoCount))
+      const newFourCount = [...fourCount]
+      newFourCount[maxIdx] += 2.5
+      setFourCount(newFourCount)
+      const resultIdx = fourCount.indexOf(Math.max(...fourCount))
+      setMindTestResult(resultIdx)
       router.push('/mind-result')
     }
   }, [questionIdx])
@@ -21,7 +32,11 @@ export default function Content() {
     {
       element: (
         <>
-          <progress className={styles.progress} value="10" max="100"></progress>
+          <progress
+            className={styles.progress}
+            value={10 * questionIdx}
+            max="100"
+          ></progress>
           <div className={styles.image}>
             <TestImage />
           </div>
@@ -37,7 +52,14 @@ export default function Content() {
     },
     {
       element: (
-        <Question questionIdx={questionIdx} setQuestionIdx={setQuestionIdx} />
+        <Question
+          questionIdx={questionIdx}
+          setQuestionIdx={setQuestionIdx}
+          twoCount={twoCount}
+          fourCount={fourCount}
+          setTwoCount={setTwoCount}
+          setFourCount={setFourCount}
+        />
       ),
     },
   ]

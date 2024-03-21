@@ -5,6 +5,7 @@ import style from './_styles/layout.module.scss'
 import QueryProvider from './_components/reactQuery/QueryProvider'
 import LoginCheckProvider from './_api/LoginCheckProvider'
 import Script from 'next/script'
+import RecoilProvider from './_recoil/RecoilProvider'
 
 const pretendard = localFont({
   src: [
@@ -49,7 +50,9 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <div className={style.container}>
           <QueryProvider>
-            <LoginCheckProvider>{children}</LoginCheckProvider>
+            <RecoilProvider>
+              <LoginCheckProvider>{children}</LoginCheckProvider>
+            </RecoilProvider>
           </QueryProvider>
         </div>
         {modal}
