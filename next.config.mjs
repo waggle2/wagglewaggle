@@ -21,7 +21,7 @@ const nextConfig = {
     missingSuspenseWithCSRBailout: false,
   },
 
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),
     )
@@ -44,21 +44,11 @@ const nextConfig = {
     //     generateStatsFile: true,
     //   }),
     // )
-    // if (!isServer) {
-    //   config.mode = 'production' // 웹팩 모드 설정 추가
-    // }
-    // TerserPlugin 추가
 
+    // TerserPlugin 추가
     config.optimization = {
       minimize: true,
       minimizer: [
-        // new TerserPlugin({
-        //   terserOptions: {
-        //     format: {
-        //       comments: false,
-        //     },
-        //   },
-        // }),
         new TerserPlugin({
           minify: TerserPlugin.terserMinify,
           terserOptions: {
@@ -70,10 +60,6 @@ const nextConfig = {
         new CssMinimizerPlugin(),
       ],
       splitChunks: {
-        // chunks(chunk) {
-        //   // exclude `my-excluded-chunk`
-        //   return chunk.name !== 'my-excluded-chunk'
-        // },
         chunks: 'all',
         minSize: 20000,
         minRemainingSize: 0,
