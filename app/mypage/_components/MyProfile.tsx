@@ -12,37 +12,25 @@ export default function MyProfile({
   isSetting = true,
 }: CustomPreviewProps) {
   const defaultBackground = {
-    frame: '/assets/point_shop/frame/프레임샘플.png',
-    backGround: '/assets/프로필배경_테스트.svg',
-    wallPaper: '/assets/point_shop/wallpaper/벽지샘플.png',
+    frame: '/assets/point_shop/frame/frame_default.svg',
+    backGround: `/assets/point_shop/profile_background/background_white.svg`,
+    wallPaper: '/assets/point_shop/wallpaper/wallpaper_default.svg',
   }
-  let type
-  switch (profileAnimal) {
-    case '고냥이':
-      type = 'Cat'
-      break
-    case '댕댕이':
-      type = 'Dog'
-      break
-    case '폭스':
-      type = 'Fox'
-      break
-    case '곰돌이':
-      type = 'Bear'
-      break
+  console.log(profileAnimal, 'profileAnimal')
+  const defaultProfile = `/assets/point_shop/emoji/${profileAnimal}_default.svg`
 
-    default:
-      type = ''
-      break
-  }
-  const defaultProfile = `/assets/default${type}Emoji.svg`
-  const test = `/assets/point_shop/emoji/cat_smile.svg`
   return (
     <div className={style.customContainer}>
       <div className={style.customBackground}>
         <div className={style.customFnc}>
           {isSetting && (
-            <Link href={'/mypage/profileSetting'} className={style.setting}>
+            <Link
+              href={{
+                pathname: '/mypage/profileSetting',
+                query: { defaultAnimal: `${profileAnimal}` },
+              }}
+              className={style.setting}
+            >
               <img src="/assets/setting.svg" alt="navigation profile setting" />
             </Link>
           )}
