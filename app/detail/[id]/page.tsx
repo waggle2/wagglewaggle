@@ -12,23 +12,22 @@ export default async function Detail({ params }: PageProps) {
   const data = response.data
   return (
     <div className={styles.container}>
-      <Navigation
-        postId={params.id}
-        authorNickname={data.author.credential.nickname}
-      />
+      <Navigation postId={params.id} authorNickname={data.author.nickname} />
       <Content
         postId={params.id}
         title={data.title}
         nickName={
           data.isAnonymous
             ? `익명의 ${data.animalOfAuthor}`
-            : data.author.credential.nickname
+            : data.author.nickname
         }
         content={data.content}
         tag={data.tag}
         category={data.category}
         date={formatDate(data.createdAt)}
         views={data.views}
+        vote={data.poll}
+        userId={data.author.id}
       />
       <div className={styles.boldLine}></div>
       <Comment postId={params.id} />

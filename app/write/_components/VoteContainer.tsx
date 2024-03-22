@@ -1,42 +1,35 @@
 'use client'
-import { Dispatch, SetStateAction, useState } from 'react'
-import Xmark from '/public/assets/xmark.svg'
+import { Dispatch, SetStateAction } from 'react'
 import styles from '../styles/voteContainer.module.scss'
+import { useRecoilState } from 'recoil'
+import { voteState } from '@/app/_recoil/atoms/voteState'
+import dayjs from 'dayjs'
+import { formatDate } from '@/app/_lib/formatDate'
+
 interface VoteContainerProps {
-  setIsVote: Dispatch<SetStateAction<boolean>>
+  setIsVoteClick: Dispatch<SetStateAction<boolean>>
 }
-export default function VoteContainer({ setIsVote }: VoteContainerProps) {
-  const [question, setQuestion] = useState<string[]>(['', ''])
-  const handleAddQuestion = () => {
-    const newQuestion = [...question]
-    newQuestion.push('')
-    setQuestion(newQuestion)
-  }
-  const handleChangeQustion = (idx: number, value: string) => {
-    const newQuestion = [...question]
-    newQuestion[idx] = value
-    setQuestion(newQuestion)
-  }
+export default function VoteContainer({ setIsVoteClick }: VoteContainerProps) {
+  const [voteItems, setVoteItems] = useRecoilState(voteState)
+  const today = dayjs()
   return (
-    <div className={styles.container}>
-      <div className={styles.closeButton}>
-        <Xmark width="16" height="16" onClick={() => setIsVote(false)} />
+    <div className={styles.container} onClick={() => setIsVoteClick(true)}>
+      <div className={styles.statusSection}>
+        <span style={{ fontWeight: '600' }}>투표 진행 중</span>
+        <span>
+          {formatDate(today.toString())} ~ {voteItems.endedDate}
+        </span>
       </div>
-      <div className={styles.title}>투표를 받아볼까요?</div>
-      {question.map((item, idx) => {
-        return (
-          <input
-            className={styles.question}
-            placeholder={`질문 ${idx + 1}`}
-            onChange={(e) => handleChangeQustion(idx, e.target.value)}
-          />
-        )
-      })}
-      <div
-        className={`${styles.question} ${styles.dashed}`}
-        onClick={() => handleAddQuestion()}
-      >
-        질문 추가
+      <div className={styles.voteContainer}>
+        <div className={styles.title}>{voteItems.title}</div>
+        <div className={styles.subText}>1개 선택</div>
+        {voteItems.items.map((item, idx) => {
+          return (
+            <div className={styles.question} key={idx}>
+              {item.content}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

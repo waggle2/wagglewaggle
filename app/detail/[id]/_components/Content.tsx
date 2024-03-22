@@ -4,6 +4,9 @@ import View from '/public/assets/view.svg'
 import styles from '../styles/content.module.scss'
 import DOMPurify from 'isomorphic-dompurify'
 import LikeSection from './LikeSection'
+import VoteComponent from './VoteComponent'
+import { formatDate } from '@/app/_lib/formatDate'
+import dayjs from 'dayjs'
 
 interface ContentProps {
   postId: number
@@ -14,6 +17,17 @@ interface ContentProps {
   category: string
   date: string
   views: number
+  vote: {
+    title: string
+    createdAt: string
+    endedAt: string
+    pollItems: {
+      content: string
+      id: string
+      userIds: string[]
+    }[]
+  } | null
+  userId: string
 }
 export default function Content({
   postId,
@@ -23,9 +37,11 @@ export default function Content({
   tag,
   category,
   date,
-
+  vote,
   views,
+  userId,
 }: ContentProps) {
+  const today = dayjs()
   return (
     <div className={styles.titleSection}>
       <h4>{title}</h4>
@@ -42,6 +58,22 @@ export default function Content({
         </div>
       </div>
       <div className={styles.line}></div>
+      {vote && (
+        <div className={styles.voteBox}>
+          <div className={styles.statusSection}>
+            <span style={{ fontWeight: '600' }}>
+              {today >= dayjs(vote.endedAt) ? '마감된 투표' : '투표 진행 중'}
+            </span>
+            <span>
+              {formatDate(vote.createdAt)} ~ {formatDate(vote.endedAt)}
+            </span>
+          </div>
+          <div className={styles.voteContainer}>
+            <div className={styles.voteTitle}>{vote.title}</div>
+            <VoteComponent postId={postId} userId={userId} />
+          </div>
+        </div>
+      )}
       {typeof window ? (
         <div
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
