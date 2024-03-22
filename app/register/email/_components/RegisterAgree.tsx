@@ -13,6 +13,9 @@ import {
 import { IErrors, IInputFileds, SignUpData } from '@/app/_types/userFormTypes'
 import { useSignUpUser } from '@/app/_hooks/services/mutations/userRegister'
 import { useSearchParams } from 'next/navigation'
+import { useRecoilState } from 'recoil'
+import { mindTestState } from '@/app/_recoil/atoms/mindTestState'
+import { result } from '@/app/mind-result/result'
 
 interface Props {
   inputFields: IInputFileds
@@ -29,6 +32,7 @@ export default function RegisterAgree({ inputFields, setInputFields }: Props) {
   const searchParams = useSearchParams()
   const snsName = searchParams.get('social')
   const socialId = searchParams.get('socialId')
+  const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
 
   useEffect(() => {
     if (socialId) {
@@ -76,7 +80,7 @@ export default function RegisterAgree({ inputFields, setInputFields }: Props) {
         nickname,
         birthYear: Number(birthYear) ?? DEFAULT_BIRTH_YEAR,
         gender,
-        primaryAnimal: '곰돌이',
+        primaryAnimal: result[mindTestResult].name,
       }
       mutation.mutate(body)
     } catch (error) {

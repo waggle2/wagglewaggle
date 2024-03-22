@@ -8,7 +8,7 @@ export interface SignUpData {
   nickname: string
   birthYear: number
   gender: '남성' | '여성'
-  primaryAnimal: '곰돌이' | '폭스' | '댕댕이' | '고냥이'
+  primaryAnimal: string
 }
 
 export interface SignUpResponse {
