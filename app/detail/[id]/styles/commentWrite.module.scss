@@ -1,19 +1,21 @@
 .container {
-  text-align: center;
-  padding: 16px;
+  width: 100%;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  position: absolute;
+  top: 95%;
+  border-top: 1px solid #ebebeb;
+  padding: 16px;
+  background: #fff;
 }
 .profileSection {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 4px;
-  justify-content: center;
 }
 .profileCircle {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #ffe138;
   border-radius: 50px;
   display: flex;
@@ -27,27 +29,29 @@
   position: relative;
 }
 .comment {
+  margin: 0 auto;
   width: 100%;
-  height: 60px;
-  border: 1px solid #ebebeb;
-  border-radius: 8px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: none;
+  border: none;
+  background-color: #f5f5f5;
+  border-radius: 6px;
   resize: none;
   padding: 8px;
   &:focus {
     outline: none;
   }
+  font-size: 13px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+.comment::-webkit-scrollbar {
+  display: none;
+}
+
 .commentSubmit {
-  width: 100%;
-  padding: 8px;
+  padding: 3.5px 11px;
   background: #2fd714;
   color: #fff;
-  border-radius: 8px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 50px;
   cursor: pointer;
 }
 .toggle {
@@ -55,7 +59,6 @@
   display: inline-block;
   width: 30px;
   height: 18px;
-  margin-top: 2px;
 }
 .toggle input {
   opacity: 0;
@@ -101,11 +104,13 @@ input:checked + .slider:before {
   font-weight: normal;
   font-size: 11px;
   color: #6b6b6b;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
-.cancleButton {
-  position: absolute;
-  width: 20px;
-  left: 93%;
-  top: 4px;
-  opacity: 50%;
+.buttonSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
 }

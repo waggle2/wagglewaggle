@@ -1,12 +1,11 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import styles from '../styles/commentWrite.module.scss'
 import Profile from '/public/assets/profile.svg'
 import {
   useCommentModify,
   useCommentWrite,
 } from '@/app/_hooks/services/mutations/commentWrite'
-import XmarkIcon from '@/public/assets/xmark.svg'
 
 interface CommentWriteProps {
   commentId?: number
@@ -30,36 +29,41 @@ export default function CommentWrite({
   )
   const { mutate } = useCommentWrite(postId)
   const { mutate: commentModify } = useCommentModify(commentId as number)
+  const textarea = useRef<any>()
+
+  const handleResizeHeight = () => {
+    if (textarea.current) {
+      textarea.current.style.height = 'auto' //height 초기화
+      textarea.current.style.height = textarea.current.scrollHeight + 'px'
+    }
+  }
   return (
     <div className={styles.container}>
-      <div className={styles.profileSection}>
-        <div className={styles.profileCircle}>
-          <Profile width="26" height="23" />
-        </div>
-        <div className={styles.toggleBox}>
-          <span>익명</span>
-          <label className={styles.toggle}>
-            <input
-              type="checkbox"
-              defaultChecked={initialAnonymous ? initialAnonymous : false}
-              onClick={() => setIsAnonymous(!isAnonymous)}
-            />
-            <span className={styles.slider}></span>
-          </label>
-        </div>
-      </div>
-      <div className={styles.commentWrapper}>
-        {isEdit && setEditIdx && (
-          <div className={styles.cancleButton}>
-            <XmarkIcon onClick={() => setEditIdx(null)} />
+      <textarea
+        rows={1}
+        onChange={(e) => {
+          handleResizeHeight()
+          setContent(e.target.value)
+        }}
+        className={styles.comment}
+      />
+      <div className={styles.buttonSection}>
+        <div className={styles.profileSection}>
+          <div className={styles.profileCircle}>
+            <Profile width="26" height="23" />
           </div>
-        )}
-
-        <textarea
-          value={content}
-          className={styles.comment}
-          onChange={(e) => setContent(e.target.value)}
-        />
+          <div className={styles.toggleBox}>
+            <span>익명</span>
+            <label className={styles.toggle}>
+              <input
+                type="checkbox"
+                defaultChecked={initialAnonymous ? initialAnonymous : false}
+                onClick={() => setIsAnonymous(!isAnonymous)}
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </div>
+        </div>
         <div
           className={styles.commentSubmit}
           onClick={() => {

@@ -35,17 +35,19 @@ export default function Navigation({
         <Header
           leftSection={<Back />}
           rightSection={[
-            <Heart
-              isClicked={likeInfo?.likes.includes(userInfo.id)}
-              clickEvent={() => {
-                if (likeInfo?.likes.includes(userInfo.id)) {
-                  deletePostLike(postId)
-                } else {
-                  addPostLike(postId)
-                }
-              }}
-            />,
-            userInfo.credential.nickname === authorNickname && (
+            userInfo && (
+              <Heart
+                isClicked={likeInfo?.likes.includes(userInfo.id)}
+                clickEvent={() => {
+                  if (likeInfo?.likes.includes(userInfo.id)) {
+                    deletePostLike(postId)
+                  } else {
+                    addPostLike(postId)
+                  }
+                }}
+              />
+            ),
+            userInfo && userInfo.credential.nickname === authorNickname && (
               <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />
             ),
           ]}
