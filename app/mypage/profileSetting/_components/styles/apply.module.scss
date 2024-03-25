@@ -1,0 +1,39 @@
+.applyContainer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 101px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  .resetBtn {
+    border: 1px solid #eff0f0;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > .refreshIcon {
+      transform: rotate(45deg);
+    }
+  }
+
+  .toggleBtn {
+    background-color: #2fd714;
+    border: 1px solid #2fd714;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    color: #fff;
+    border-radius: 30px;
+  }
+}

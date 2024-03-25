@@ -5,9 +5,15 @@ import Header from '../_components/common/header/Header'
 
 export default function MindResult() {
   return (
-    <div className={styles.container}>
-      <Header leftSection={<LeftArrow />} title="나의 연애 성향은?" />
-      <Content />
-    </div>
+    <>
+      <Header
+        leftSection={<LeftArrow />}
+        title="나의 연애 성향은?"
+        rightSection={[<div style={{ padding: '12px' }} />]}
+      />
+      <div className={styles.container}>
+        <Content />
+      </div>
+    </>
   )
 }

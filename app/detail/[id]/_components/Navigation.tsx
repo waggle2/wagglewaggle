@@ -53,7 +53,9 @@ export default function Navigation({
       )}
       {isToggle && (
         <div className={style.dropdown}>
-          <div onClick={() => router.push(`/write/${postId}`)}>게시글 수정</div>
+          <div onClick={() => router.replace(`/write/${postId}`)}>
+            게시글 수정
+          </div>
           <div className={style.line}></div>
           <div onClick={() => postDelete(postId)}>게시글 삭제</div>
         </div>

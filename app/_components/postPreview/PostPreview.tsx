@@ -23,11 +23,11 @@ export default async function PostPreview({ title, href, icon }: Props) {
         `/posts?page=1&pageSize=2`,
       )
 
-      console.log(data, title, 'post data')
+      // console.log(data, title, 'post data')
 
       return data
     } catch (err) {
-      console.error(err, 'post error')
+      // console.error(err, 'post error')
     }
   }
   const postData = await fetchData()

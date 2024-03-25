@@ -1,9 +1,9 @@
 import style from './styles/myType.module.scss'
 import Type from './Type'
-import Cat from '@/public/assets/cat.svg'
-import Bear from '@/public/assets/bear.svg'
-import Dog from '@/public/assets/dog.svg'
-import Fox from '@/public/assets/fox.svg'
+import Cat from '@/public/assets/mypage/고냥이.svg'
+import Bear from '@/public/assets/mypage/곰돌이.svg'
+import Dog from '@/public/assets/mypage/댕댕이.svg'
+import Fox from '@/public/assets/mypage/폭스.svg'
 
 type props = {
   nickName?: string
@@ -17,11 +17,17 @@ type props = {
 export default function MyType({
   nickName,
   primaryAnimal,
-  cat,
-  bear,
-  dog,
-  fox,
+  cat = 0,
+  bear = 0,
+  dog = 0,
+  fox = 0,
 }: props) {
+  const findMax = (number: number, type: string) => {
+    if (number === Math.max(cat, bear, dog, fox)) {
+      return type
+    }
+  }
+
   return (
     <>
       <article className={style.container}>
@@ -31,25 +37,25 @@ export default function MyType({
             svg={<Cat />}
             title={'고냥이'}
             count={cat}
-            active={primaryAnimal === '고냥이'}
+            active={findMax(cat, '고냥이')}
           />
           <Type
             svg={<Bear />}
             title={'곰돌이'}
             count={bear}
-            active={primaryAnimal === '곰돌이'}
+            active={findMax(bear, '곰돌이')}
           />
           <Type
             svg={<Dog />}
             title={'댕댕이'}
             count={dog}
-            active={primaryAnimal === '댕댕이'}
+            active={findMax(dog, '댕댕이')}
           />
           <Type
             svg={<Fox />}
             title={'폭스'}
             count={fox}
-            active={primaryAnimal === '폭스'}
+            active={findMax(fox, '폭스')}
           />
         </div>
       </article>

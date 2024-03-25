@@ -26,11 +26,11 @@ export default function AnimalPostPreview() {
           `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
         )
         const posts = await res.data
-        console.log(posts, 'animal')
+        // console.log(posts, 'animal')
 
         setPosts(posts)
       } catch (err) {
-        console.error(err)
+        // console.error(err)
       }
     }
     fetchData()
@@ -98,6 +98,7 @@ export default function AnimalPostPreview() {
             <Post
               key={index}
               profile={{
+                id: postData.author?.id,
                 image: postData.author?.profileItems,
                 name: postData.author?.credential.nickname, //TODO: 02.26 회의 후 탈퇴한 회원 정보 처리
                 animal: postData.animalOfAuthor,

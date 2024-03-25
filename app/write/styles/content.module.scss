@@ -12,6 +12,9 @@
     @content;
   }
 }
+.container {
+  position: relative;
+}
 .titleInput {
   width: 100%;
   font-size: 20px;
@@ -28,6 +31,7 @@
 }
 .contentBox {
   min-height: 317px;
+  z-index: -1;
 }
 .contentInput {
   display: block;
@@ -53,4 +57,30 @@
 }
 .inputContainer {
   padding: 16px;
+}
+.navButton {
+  display: flex;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 17px;
+}
+.modalFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #d9d9d9;
+  padding: 20px 0;
+  color: #8c8c8c;
+  div {
+    cursor: pointer;
+  }
+}
+.modalContent {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: pre-line;
+  margin-top: 12px;
+  margin-bottom: 18px;
 }

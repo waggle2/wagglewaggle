@@ -1,18 +1,43 @@
+import { useRecoilState } from 'recoil'
 import styles from '../styles/imageBox.module.scss'
 import Upload from '/public/assets/upload.svg'
+import { mindTestState } from '@/app/_recoil/atoms/mindTestState'
+import { result } from '../result'
+import TestResult_0 from '@/public/assets/testResult_0.svg'
+import TestResult_1 from '@/public/assets/testResult_1.svg'
+import TestResult_2 from '@/public/assets/testResult_2.svg'
+import TestResult_3 from '@/public/assets/testResult_3.svg'
 
 export default function ImageBox() {
-  const tag = ['# 똥꼬발랄', '# 나만 바라봐', '# 로맨티스트']
+  const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
+  const Image = () => {
+    switch (mindTestResult) {
+      case 0: {
+        return <TestResult_0 />
+      }
+      case 1: {
+        return <TestResult_1 />
+      }
+      case 2: {
+        return <TestResult_2 />
+      }
+      default: {
+        return <TestResult_3 />
+      }
+    }
+  }
   return (
     <div className={styles.imageBox}>
       <div className={styles.upload}>
         <Upload width="28" height="28" />
       </div>
-      <span className={styles.title}>댕댕이</span>
-      <span>열렬히 사랑하는 당신은 댕댕이!</span>
-      <div className={styles.image}>임시</div>
+      <span className={styles.title}>{result[mindTestResult].name}</span>
+      <span>{result[mindTestResult].script}</span>
+      <div className={styles.image}>
+        <Image />
+      </div>
       <div className={styles.tagBox}>
-        {tag.map((item, idx) => (
+        {result[mindTestResult].tag.map((item, idx) => (
           <div className={styles.tag} key={idx}>
             {item}
           </div>

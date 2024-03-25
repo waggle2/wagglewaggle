@@ -1,164 +1,130 @@
-import style from './styles/profileSetting.module.scss'
+import style from './styles/itemSelection.module.scss'
 
-type Item = {
-  id: number
-  src: string
-  price: number
-  category: 'emoji' | 'profileBg' | 'frame' | 'wallpaper'
-}
+import { avatarItemList, wearingItem, avatarItem } from './types/responseType'
+import { useState } from 'react'
+import CategoryButton from './view/CategoryButton'
 
-type ItemSelectionProps = {
-  itemCategoryTab: string
-  handleCategoryClick: (category: string) => void
-  tabCategoryButtonStyle: (category: string) => string
-  products: Item[]
-  handleItemClick: (item: Item) => void
-  selectedItems: Item[]
+import cs from 'classnames/bind'
+import BackgroundPrev from './BackgroundPrev'
+type props = {
+  animal?: string | null
+  itemList: avatarItemList
+  wearingItem: wearingItem
+  setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>
 }
 
 export default function ItemSelection({
-  itemCategoryTab,
-  handleCategoryClick,
-  tabCategoryButtonStyle,
-  products,
-  handleItemClick,
-  selectedItems,
-}: ItemSelectionProps) {
+  animal,
+  itemList = [],
+  wearingItem = {
+    emoji: null,
+    background: null,
+    frame: null,
+    wallpaper: null,
+  },
+  setWearingItem,
+}: props) {
+  const cx = cs.bind(style)
+  const [selectedItemType, setSelectedItemType] = useState('emoji')
+  const ITEMTYPE = ['emoji', 'background', 'frame', 'wallpaper']
+  const handleChangeCategory = (category: string) => {
+    setSelectedItemType(category)
+  }
+  const handleUnsetWearing = () => {
+    setWearingItem((prev) => {
+      return { ...prev, [selectedItemType]: null }
+    })
+  }
+  console.log(itemList, 'itemList')
+  const handleWearingItem = (item: avatarItem) => {
+    setWearingItem((prev) => {
+      return { ...prev, [selectedItemType]: item }
+    })
+  }
+
   return (
-    <div>
-      {/* 아이템 선택 */}
-      <div className={style.categoryTabContainer}>
-        <button
-          className={tabCategoryButtonStyle('이모지')}
-          onClick={() => handleCategoryClick('이모지')}
-        >
-          이모지
-        </button>
-        <button
-          className={tabCategoryButtonStyle('프로필 배경')}
-          onClick={() => handleCategoryClick('프로필 배경')}
-        >
-          프로필 배경
-        </button>
-        <button
-          className={tabCategoryButtonStyle('프레임')}
-          onClick={() => handleCategoryClick('프레임')}
-        >
-          프레임
-        </button>
-        <button
-          className={tabCategoryButtonStyle('벽지')}
-          onClick={() => handleCategoryClick('벽지')}
-        >
-          벽지
-        </button>
+    <>
+      <div className={style.itemSelectionWrapper}>
+        <div className={style.categoryTabContainer}>
+          {ITEMTYPE.map((category) => (
+            <CategoryButton
+              key={category}
+              selectedTab={selectedItemType}
+              category={category}
+              handleTabClick={() => {
+                handleChangeCategory(category)
+              }}
+            />
+          ))}
+        </div>
       </div>
+      <div className={style.itemWrapper}>
+        <ul className={style.itemContainer}>
+          <li
+            className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
+          >
+            <div
+              className={cx(
+                'imageWrap',
+                !wearingItem[`${selectedItemType}`]?.id && 'selected',
+              )}
+            >
+              <img
+                className={style.itemUnset}
+                src={'/assets/point_shop/item_unset.svg'}
+                alt={'unsetIcon'}
+                onClick={handleUnsetWearing}
+              />
+            </div>
+          </li>
+          {itemList
+            .filter((itemList) => {
+              switch (selectedItemType) {
+                case 'emoji':
+                  return itemList.itemType === '이모지'
 
-      <ul className={style.itemContainer}>
-        {itemCategoryTab === '이모지' &&
-          products
-            .filter((item) => item.category === 'emoji')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.item}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
+                case 'background':
+                  return itemList.itemType === '프로필 배경'
 
-        {itemCategoryTab === '프로필 배경' &&
-          products
-            .filter((item) => item.category === 'profileBg')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
+                case 'frame':
+                  return itemList.itemType === '프레임'
 
-        {itemCategoryTab === '프레임' &&
-          products
-            .filter((item) => item.category === 'frame')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
+                case 'wallpaper':
+                  return itemList.itemType === '벽지'
+              }
+            })
+            .map((item) => {
+              return (
+                <li
+                  key={item.id}
+                  className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
+                  onClick={() => {
+                    handleWearingItem(item)
+                  }}
                 >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
-
-        {itemCategoryTab === '벽지' &&
-          products
-            .filter((item) => item.category === 'wallpaper')
-            .map((item) => (
-              <li
-                key={item.id}
-                className={style.bigItem}
-                onClick={() => handleItemClick(item)}
-              >
-                <div
-                  className={style.imageWrap}
-                  style={
-                    selectedItems.some(
-                      (selectedItem) =>
-                        selectedItem.id === item.id &&
-                        selectedItem.category === item.category,
-                    )
-                      ? { border: '2px solid #7EE36E' }
-                      : {}
-                  }
-                >
-                  <img src={item.src} alt={item.src} />
-                </div>
-              </li>
-            ))}
-      </ul>
-    </div>
+                  <div
+                    className={cx(
+                      'imageWrap',
+                      wearingItem[`${selectedItemType}`] &&
+                        wearingItem[`${selectedItemType}`].id === item.id &&
+                        'selected',
+                    )}
+                  >
+                    {selectedItemType === 'background' ? (
+                      <BackgroundPrev animal={animal} src={item.image} />
+                    ) : (
+                      <img
+                        className={style.itemImage}
+                        src={item.image}
+                        alt={item.name}
+                      />
+                    )}
+                  </div>
+                </li>
+              )
+            })}
+        </ul>
+      </div>
+    </>
   )
 }
