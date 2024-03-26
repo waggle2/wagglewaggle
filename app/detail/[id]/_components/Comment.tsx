@@ -4,15 +4,23 @@ import CommentInfo from './CommentInfo'
 import CommentWrite from './CommentWrite'
 import useGetComments from '@/app/_hooks/services/queries/comments'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { formatDate } from '@/app/_lib/formatDate'
+import BottomSheet from './BottomSheet'
 interface CommentProps {
   postId: number
+  isToggle: boolean
+  setIsToggle: Dispatch<SetStateAction<boolean>>
 }
-export default function Comment({ postId }: CommentProps) {
+export default function Comment({
+  postId,
+  isToggle,
+  setIsToggle,
+}: CommentProps) {
   const { data, isLoading } = useGetComments(postId)
   const { data: userInfo, isLoading: isUserLoading } = useGetUserInfo()
   const [editIdx, setEditIdx] = useState<number | null>(null)
+  const [isSubmit, setIsSubmit] = useState(false)
   return (
     <>
       {!isLoading && !isUserLoading && (
@@ -42,10 +50,17 @@ export default function Comment({ postId }: CommentProps) {
                 setEditIdx={setEditIdx}
                 stickers={item.stickers}
                 userId={userInfo.id}
+                isToggle={isToggle}
+                setIsToggle={setIsToggle}
+                isSubmit={isSubmit}
               />
             )
           })}
-          <CommentWrite postId={postId} isEdit={false} />
+          <CommentWrite
+            postId={postId}
+            isEdit={false}
+            setIsSubmit={setIsSubmit}
+          />
         </>
       )}
     </>

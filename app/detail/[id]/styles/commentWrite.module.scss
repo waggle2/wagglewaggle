@@ -1,9 +1,9 @@
 .container {
-  width: 100%;
+  width: 430px;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 95%;
+  position: fixed;
+  bottom: 0;
   border-top: 1px solid #ebebeb;
   padding: 16px;
   background: #fff;

@@ -14,6 +14,7 @@ interface CommentWriteProps {
   setEditIdx?: Dispatch<SetStateAction<number | null>>
   initialContent?: string
   initialAnonymous?: boolean
+  setIsSubmit: Dispatch<SetStateAction<boolean>>
 }
 export default function CommentWrite({
   commentId,
@@ -22,6 +23,7 @@ export default function CommentWrite({
   setEditIdx,
   initialContent,
   initialAnonymous,
+  setIsSubmit,
 }: CommentWriteProps) {
   const [content, setContent] = useState(initialContent ? initialContent : '')
   const [isAnonymous, setIsAnonymous] = useState(
@@ -41,6 +43,7 @@ export default function CommentWrite({
     <div className={styles.container}>
       <textarea
         rows={1}
+        value={content}
         onChange={(e) => {
           handleResizeHeight()
           setContent(e.target.value)
@@ -84,6 +87,7 @@ export default function CommentWrite({
               })
             }
             setContent('')
+            setIsSubmit(true)
           }}
         >
           확인

@@ -2,8 +2,9 @@ import styles from '../styles/commentInfo.module.scss'
 import Profile from '/public/assets/profile.svg'
 import EmpathyButton from './EmpathyButton'
 import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
+import BottomSheet from './BottomSheet'
 
 interface CommentInfoProps {
   commentId: number
@@ -19,6 +20,9 @@ interface CommentInfoProps {
     userId: string
   }[]
   userId: string
+  isToggle: boolean
+  setIsToggle: Dispatch<SetStateAction<boolean>>
+  isSubmit: boolean
 }
 export default function CommentInfo({
   commentId,
@@ -30,43 +34,43 @@ export default function CommentInfo({
   setEditIdx,
   stickers,
   userId,
+  isToggle,
+  setIsToggle,
+  isSubmit,
 }: CommentInfoProps) {
-  const [isToggle, setIsToggle] = useState(false)
   const { mutate } = useCommentDelete(commentId)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (scrollRef.current && isSubmit) {
+      scrollRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  }, [isSubmit])
   return (
-    <div className={styles.container}>
-      <div className={styles.profile}>
-        <div className={styles.profileCircle}>
-          <Profile width="26" height="23" />
-        </div>
-        <div className={styles.author}>
-          <div>
-            <h5>{nickName}</h5>
-            <span>{date}</span>
+    <>
+      <div className={styles.container} ref={scrollRef}>
+        <div className={styles.profile}>
+          <div className={styles.profileCircle}>
+            <Profile width="26" height="23" />
           </div>
-          {isEditable && <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />}
-        </div>
-        {isToggle && (
-          <div className={styles.dropdown}>
-            <div onClick={() => setEditIdx(idx)}>댓글 수정</div>
-            <div className={styles.line}></div>
-            <div
-              onClick={() => {
-                mutate()
-                setIsToggle(!isToggle)
-              }}
-            >
-              댓글 삭제
+          <div className={styles.author}>
+            <div>
+              <h5>{nickName}</h5>
+              <span>{date}</span>
             </div>
+            {isEditable && (
+              <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />
+            )}
           </div>
-        )}
+        </div>
+        <span>{content}</span>
+        <EmpathyButton
+          commentId={commentId}
+          stickers={stickers}
+          userId={userId}
+        />
       </div>
-      <span>{content}</span>
-      <EmpathyButton
-        commentId={commentId}
-        stickers={stickers}
-        userId={userId}
-      />
-    </div>
+    </>
   )
 }
