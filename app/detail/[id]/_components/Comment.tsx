@@ -3,10 +3,8 @@ import styles from '../styles/comment.module.scss'
 import CommentInfo from './CommentInfo'
 import CommentWrite from './CommentWrite'
 import useGetComments from '@/app/_hooks/services/queries/comments'
-import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { formatDate } from '@/app/_lib/formatDate'
-import BottomSheet from './BottomSheet'
 interface CommentProps {
   postId: number
   isToggle: boolean

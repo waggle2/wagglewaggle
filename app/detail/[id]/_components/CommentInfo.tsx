@@ -3,8 +3,6 @@ import Profile from '/public/assets/profile.svg'
 import EmpathyButton from './EmpathyButton'
 import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
-import BottomSheet from './BottomSheet'
 import { useRecoilState } from 'recoil'
 import { commentState } from '@/app/_recoil/atoms/commentState'
 

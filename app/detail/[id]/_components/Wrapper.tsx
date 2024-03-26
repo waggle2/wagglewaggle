@@ -13,6 +13,8 @@ import {
 import { useRecoilState } from 'recoil'
 import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
 import useGetUserInfo from '@/app/_hooks/services/queries/userInfo'
+import { useDeletePost } from '@/app/_hooks/services/mutations/deletePost'
+import { useRouter } from 'next/navigation'
 
 interface WrapperProps {
   postId: number
@@ -52,9 +54,11 @@ export default function Wrapper({
   const [isEdit, setIsEdit] = useRecoilState(commentEditState)
   const [comment, setComment] = useRecoilState(commentState)
   const { mutate: commentDelete } = useCommentDelete()
+  const { mutate: postDelete } = useDeletePost()
   const [isPostEditable, setIsPostEditable] = useState(false)
   const [isCommentEditable, setIsCommentEditable] = useState(false)
   const { data, isLoading } = useGetUserInfo()
+  const router = useRouter()
   useEffect(() => {
     if (!isLoading) {
       if (data.credential.nickname === nickName) {
@@ -117,8 +121,15 @@ export default function Wrapper({
               <BottomSheet
                 setIsToggle={setIsNavigateToggle}
                 items={[
-                  <div style={{ color: 'red' }}>삭제하기</div>,
-                  <div>수정하기</div>,
+                  <div
+                    style={{ color: 'red' }}
+                    onClick={() => postDelete(postId)}
+                  >
+                    삭제하기
+                  </div>,
+                  <div onClick={() => router.replace(`/write/${postId}`)}>
+                    수정하기
+                  </div>,
                 ]}
               />
             ) : (
@@ -134,7 +145,6 @@ export default function Wrapper({
             ))}
           <Navigation
             postId={postId}
-            authorNickname={nickName}
             isToggle={isNavigateToggle}
             setIsToggle={setIsNavigateToggle}
           />
