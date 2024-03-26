@@ -6,8 +6,12 @@ import Comment from './Comment'
 import styles from '../styles/wrapper.module.scss'
 import { useEffect, useRef, useState } from 'react'
 import BottomSheet from './BottomSheet'
-import { commentEditState } from '@/app/_recoil/atoms/commentState'
+import {
+  commentEditState,
+  commentState,
+} from '@/app/_recoil/atoms/commentState'
 import { useRecoilState } from 'recoil'
+import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
 
 interface WrapperProps {
   postId: number
@@ -44,15 +48,25 @@ export default function Wrapper({
 }: WrapperProps) {
   const [isToggle, setIsToggle] = useState(false)
   const [isNavigateToggle, setIsNavigateToggle] = useState(false)
-  const [commentEdit, setCommentEdit] = useRecoilState(commentEditState)
+  const [isEdit, setIsEdit] = useRecoilState(commentEditState)
+  const [comment, setComment] = useRecoilState(commentState)
+  const { mutate: commentDelete } = useCommentDelete()
   return (
     <>
       {isToggle && (
         <BottomSheet
           setIsToggle={setIsToggle}
           items={[
-            <div onClick={() => setCommentEdit(true)}>수정하기</div>,
-            <div style={{ color: 'red' }}>삭제하기</div>,
+            <div onClick={() => setIsEdit(true)}>수정하기</div>,
+            <div
+              onClick={() => {
+                commentDelete(comment.commentId as number)
+                setComment({ comment: '', commentId: null, isAnonymous: false })
+              }}
+              style={{ color: 'red' }}
+            >
+              삭제하기
+            </div>,
           ]}
         />
       )}
