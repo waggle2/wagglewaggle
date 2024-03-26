@@ -31,10 +31,11 @@ export default function CommentWrite({
   const { mutate: commentModify } = useCommentModify()
   const textarea = useRef<any>()
   useEffect(() => {
-    if (isEdit && comment.comment) {
+    if (isEdit) {
       setContent(comment.comment)
       setIsAnonymous(comment.isAnonymous)
       setCommentId(comment.commentId)
+      console.log(comment.isAnonymous)
     }
   }, [isEdit, comment])
   const handleResizeHeight = () => {
@@ -64,9 +65,7 @@ export default function CommentWrite({
             <label className={styles.toggle}>
               <input
                 type="checkbox"
-                defaultChecked={
-                  comment.isAnonymous ? comment.isAnonymous : false
-                }
+                checked={isAnonymous}
                 onClick={() => setIsAnonymous(!isAnonymous)}
               />
               <span className={styles.slider}></span>
@@ -78,8 +77,14 @@ export default function CommentWrite({
             <div
               className={cx('button', { isCancle: true })}
               onClick={() => {
-                setComment({ comment: '', commentId: null, isAnonymous: false })
+                setComment({
+                  comment: '',
+                  commentId: null,
+                  isAnonymous: false,
+                  authorId: '',
+                })
                 setIsEdit(false)
+                setIsAnonymous(false)
                 setContent('')
               }}
             >
@@ -96,11 +101,6 @@ export default function CommentWrite({
                     content: content,
                     isAnonymous: isAnonymous as boolean,
                   })
-                  setComment({
-                    comment: '',
-                    commentId: null,
-                    isAnonymous: false,
-                  })
                   setIsEdit(false)
                 } else {
                   mutate({
@@ -110,6 +110,13 @@ export default function CommentWrite({
                 }
                 setContent('')
                 setIsSubmit(true)
+                setIsAnonymous(false)
+                setComment({
+                  comment: '',
+                  commentId: null,
+                  isAnonymous: false,
+                  authorId: '',
+                })
               }
             }}
           >

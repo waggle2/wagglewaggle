@@ -11,19 +11,19 @@ interface CommentProps {
   postId: number
   isToggle: boolean
   setIsToggle: Dispatch<SetStateAction<boolean>>
+  userId: string
 }
 export default function Comment({
   postId,
   isToggle,
   setIsToggle,
+  userId,
 }: CommentProps) {
   const { data, isLoading } = useGetComments(postId)
-  const { data: userInfo, isLoading: isUserLoading } = useGetUserInfo()
-  const [editIdx, setEditIdx] = useState<number | null>(null)
   const [isSubmit, setIsSubmit] = useState(false)
   return (
     <>
-      {!isLoading && !isUserLoading && (
+      {!isLoading && (
         <>
           <div className={styles.commentInfo}>
             <div>
@@ -35,21 +35,17 @@ export default function Comment({
             return (
               <CommentInfo
                 commentId={item.id}
+                isAnonymous={item.isAnonymous}
                 nickName={
                   item.isAnonymous
                     ? `익명의 ${item.author.profileAnimal}`
                     : item.author.credential.nickname
                 }
+                authorId={item.author.id}
                 content={item.content}
                 date={formatDate(item.updatedAt)}
-                isEditable={
-                  userInfo.credential.nickname ===
-                  item.author.credential.nickname
-                }
-                idx={idx}
-                setEditIdx={setEditIdx}
                 stickers={item.stickers}
-                userId={userInfo.id}
+                userId={userId}
                 isToggle={isToggle}
                 setIsToggle={setIsToggle}
                 isSubmit={isSubmit}

@@ -51,9 +51,7 @@ export default function Navigation({
                 }}
               />
             ),
-            userInfo && userInfo.credential.nickname === authorNickname && (
-              <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />
-            ),
+            <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />,
           ]}
         />
       )}

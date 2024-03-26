@@ -10,12 +10,11 @@ import { commentState } from '@/app/_recoil/atoms/commentState'
 
 interface CommentInfoProps {
   commentId: number
+  isAnonymous: boolean
   nickName: string
+  authorId: string
   date: string
   content: string
-  isEditable: boolean
-  idx: number
-  setEditIdx: Dispatch<SetStateAction<number | null>>
   stickers: {
     id: number
     animal: string
@@ -28,19 +27,17 @@ interface CommentInfoProps {
 }
 export default function CommentInfo({
   commentId,
+  isAnonymous,
   nickName,
+  authorId,
   date,
   content,
-  isEditable,
-  idx,
-  setEditIdx,
   stickers,
   userId,
   isToggle,
   setIsToggle,
   isSubmit,
 }: CommentInfoProps) {
-  const { mutate } = useCommentDelete(commentId)
   const [comment, setComment] = useRecoilState(commentState)
   const scrollRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -62,18 +59,17 @@ export default function CommentInfo({
               <h5>{nickName}</h5>
               <span>{date}</span>
             </div>
-            {isEditable && (
-              <MoreMenu
-                clickEvent={() => {
-                  setIsToggle(!isToggle)
-                  setComment({
-                    commentId: commentId,
-                    comment: content,
-                    isAnonymous: false,
-                  })
-                }}
-              />
-            )}
+            <MoreMenu
+              clickEvent={() => {
+                setIsToggle(!isToggle)
+                setComment({
+                  commentId: commentId,
+                  comment: content,
+                  isAnonymous: isAnonymous,
+                  authorId: authorId,
+                })
+              }}
+            />
           </div>
         </div>
         <span>{content}</span>
