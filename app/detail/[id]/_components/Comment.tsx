@@ -56,11 +56,7 @@ export default function Comment({
               />
             )
           })}
-          <CommentWrite
-            postId={postId}
-            isEdit={false}
-            setIsSubmit={setIsSubmit}
-          />
+          <CommentWrite postId={postId} setIsSubmit={setIsSubmit} />
         </>
       )}
     </>

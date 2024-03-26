@@ -6,6 +6,8 @@ import Comment from './Comment'
 import styles from '../styles/wrapper.module.scss'
 import { useEffect, useRef, useState } from 'react'
 import BottomSheet from './BottomSheet'
+import { commentEditState } from '@/app/_recoil/atoms/commentState'
+import { useRecoilState } from 'recoil'
 
 interface WrapperProps {
   postId: number
@@ -42,13 +44,14 @@ export default function Wrapper({
 }: WrapperProps) {
   const [isToggle, setIsToggle] = useState(false)
   const [isNavigateToggle, setIsNavigateToggle] = useState(false)
+  const [commentEdit, setCommentEdit] = useRecoilState(commentEditState)
   return (
     <>
       {isToggle && (
         <BottomSheet
           setIsToggle={setIsToggle}
           items={[
-            <div>수정하기</div>,
+            <div onClick={() => setCommentEdit(true)}>수정하기</div>,
             <div style={{ color: 'red' }}>삭제하기</div>,
           ]}
         />

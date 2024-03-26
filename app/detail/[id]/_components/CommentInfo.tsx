@@ -5,6 +5,8 @@ import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
 import BottomSheet from './BottomSheet'
+import { useRecoilState } from 'recoil'
+import { commentState } from '@/app/_recoil/atoms/commentState'
 
 interface CommentInfoProps {
   commentId: number
@@ -39,6 +41,7 @@ export default function CommentInfo({
   isSubmit,
 }: CommentInfoProps) {
   const { mutate } = useCommentDelete(commentId)
+  const [comment, setComment] = useRecoilState(commentState)
   const scrollRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (scrollRef.current && isSubmit) {
@@ -60,7 +63,16 @@ export default function CommentInfo({
               <span>{date}</span>
             </div>
             {isEditable && (
-              <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />
+              <MoreMenu
+                clickEvent={() => {
+                  setIsToggle(!isToggle)
+                  setComment({
+                    commentId: commentId,
+                    comment: content,
+                    isAnonymous: false,
+                  })
+                }}
+              />
             )}
           </div>
         </div>
