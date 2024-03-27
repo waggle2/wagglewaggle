@@ -7,10 +7,10 @@ const commentDelete = async (
   const response = await api.delete(`/comments/${commentId}`, {})
   return response.message
 }
-export function useCommentDelete(commentId: number) {
+export function useCommentDelete() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: () => commentDelete(commentId),
+    mutationFn: (commentId: number) => commentDelete(commentId),
     onSuccess: (response) => {
       alert(response)
       queryClient.invalidateQueries({ queryKey: ['get-comments'] })
