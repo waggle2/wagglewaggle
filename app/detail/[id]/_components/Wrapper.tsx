@@ -61,7 +61,7 @@ export default function Wrapper({
   const router = useRouter()
   useEffect(() => {
     if (!isLoading) {
-      if (data.credential.nickname === nickName) {
+      if (data.id === userId) {
         setIsPostEditable(true)
       } else {
         setIsPostEditable(false)
@@ -127,7 +127,7 @@ export default function Wrapper({
                   >
                     삭제하기
                   </div>,
-                  <div onClick={() => router.replace(`/write/${postId}`)}>
+                  <div onClick={() => router.push(`/write/${postId}`)}>
                     수정하기
                   </div>,
                 ]}
