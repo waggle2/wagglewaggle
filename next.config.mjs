@@ -42,6 +42,8 @@ const nextConfig = {
     // config.plugins.push(
     //   new BundleAnalyzerPlugin({
     //     generateStatsFile: true,
+    //     analyzerMode: 'static',
+    //     reportFileName: 'bundle-report.html',
     //   }),
     // )
 
@@ -53,13 +55,17 @@ const nextConfig = {
           minify: TerserPlugin.terserMinify,
           terserOptions: {
             format: {
-              comments: false,
+              comments: false, //주석제거
+            },
+            compress: {
+              drop_console: true, //콘솔제거
             },
           },
         }),
         new CssMinimizerPlugin(),
       ],
       splitChunks: {
+        //코드 스플리팅 옵션
         chunks: 'all',
         minSize: 20000,
         minRemainingSize: 0,
