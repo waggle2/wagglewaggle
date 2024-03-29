@@ -15,6 +15,7 @@ import V from '@/public/assets/v.svg'
 import BoardFooter from './_components/BoardFooter'
 import SearchBoard from './_components/SearchBoard'
 import { postData, meta } from '../_components/postPreview/_types/responseType'
+import SortModal from './_components/SortModal'
 
 export default function BulletinBoard() {
   const categoryParams = useSearchParams().get('category')
@@ -22,8 +23,9 @@ export default function BulletinBoard() {
 
   const [posts, setPosts] = useState<postData[]>()
   const [meta, setMeta] = useState<meta>()
-  const [sort, setSort] = useState<string>('최신순')
+  const [sort, setSort] = useState<'최신순' | '인기순'>('최신순')
   const [searchModal, setSearchModal] = useState(false)
+  const [sortModal, setSortModal] = useState(false)
   const [emptyResult, setEmptyResult] = useState<string>('')
   const [keyword, setKeyword] = useState<string>('')
 
@@ -84,8 +86,51 @@ export default function BulletinBoard() {
   const handleCloseSearchModal = () => {
     setSearchModal(false)
   }
+
+  const handleSortModalView = () => {
+    setSortModal(true)
+  }
+  const handleSortModalClose = () => {
+    setSortModal(false)
+  }
+
   const handleChangeKeyword = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(() => event.target.value)
+  }
+  const handleSort = (sort: string) => {
+    switch (sort) {
+      case '최신순':
+        const recent = posts?.sort((a, b) => {
+          if (a.createdAt > b.createdAt) {
+            return 1
+          }
+          if (a.createdAt < b.createdAt) {
+            return -1
+          }
+          return 0
+        })
+        console.log(recent)
+        setPosts(() => recent)
+        setSortModal(() => false)
+        setSort(() => '최신순')
+        break
+      case '인기순':
+        const popular = posts?.sort((a, b) => {
+          if (a.views > b.views) {
+            return -1
+          }
+          if (a.views < b.views) {
+            return 1
+          }
+          return 0
+        })
+        setPosts(() => popular)
+        setSortModal(() => false)
+        setSort(() => '인기순')
+        break
+      default:
+        break
+    }
   }
   return (
     <>
@@ -93,7 +138,7 @@ export default function BulletinBoard() {
       <section className={style.container}>
         <div className={style.postInfoContainer}>
           <span className={style.postCount}>글 {meta?.total}</span>
-          <span className={style.sort}>
+          <span className={style.sort} onClick={handleSortModalView}>
             {sort} <V />
           </span>
         </div>
@@ -137,6 +182,12 @@ export default function BulletinBoard() {
           closeModal={handleCloseSearchModal}
           emptyResult={emptyResult}
           setEmptyResult={setEmptyResult}
+        />
+      )}
+      {sortModal && (
+        <SortModal
+          handleSort={handleSort}
+          handleCloseModal={handleSortModalClose}
         />
       )}
       <BoardFooter handleSearch={handleViewSearchModal} />
