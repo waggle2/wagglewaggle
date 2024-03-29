@@ -45,7 +45,17 @@ export default function Home() {
         {/* @ts-expect-error Async Server Component */}
         <PopularPreview />
         {/* @ts-expect-error Async Server Component */}
-        <PostPreview title={'따끈따끈 최신글'} href={''} icon={<Recent />} />
+        <PostPreview
+          title={'따끈따끈 최신글'}
+          href={{
+            pathname: '/bulletin-board',
+            query: {
+              category: '연애',
+              title: '따끈따끈 최신글',
+            },
+          }}
+          icon={<Recent />}
+        />
         <LazyPostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
         <NavEvent href={'./'} img={<TestAD />} />
         <LazyAnimalPost />

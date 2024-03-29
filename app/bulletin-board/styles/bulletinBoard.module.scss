@@ -1,0 +1,27 @@
+.container {
+  padding: 16px;
+  background-color: #f6f6f6;
+}
+
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.postInfoContainer {
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+.postCount {
+  color: #8c8c8c;
+}
+.sort {
+  color: #1a1a1a;
+  > svg {
+    width: 13px;
+    height: 13px;
+  }
+}

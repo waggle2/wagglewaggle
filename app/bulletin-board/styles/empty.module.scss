@@ -1,0 +1,23 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  > .svgContainer {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #ececec;
+    > svg {
+      width: 30px;
+      height: 30px;
+      transform: translate(0, 50%);
+    }
+  }
+}
+.empty {
+  font-size: 16px;
+}
