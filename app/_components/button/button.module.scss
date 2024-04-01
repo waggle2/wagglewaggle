@@ -23,6 +23,12 @@
     color: #8c8c8c;
     border: 1px solid #eff0f0;
   }
+
+  &.none {
+    background: none;
+    color: #1a1a1a;
+    border: 1px solid #eaeaea;
+  }
 }
 .topContainer {
   width: 100%;

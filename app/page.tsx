@@ -21,10 +21,6 @@ import PostPreview from './_components/postPreview/PostPreview'
 import PopularPreview from './_components/popularPreview/PopularPreview'
 
 export default function Home() {
-  const LazyPopularPost = dynamic(
-    async () => await import('./_components/popularPreview/PopularPreview'),
-    { ssr: false },
-  )
   const LazyPostPreview = dynamic(
     async () => await import('./_components/postPreview/PostPreview'),
     { ssr: false },
@@ -50,13 +46,22 @@ export default function Home() {
           href={{
             pathname: '/bulletin-board',
             query: {
-              category: '연애',
               title: '따끈따끈 최신글',
             },
           }}
           icon={<Recent />}
         />
-        <LazyPostPreview title={'연애 TIP'} href={''} icon={<Lips />} />
+        <LazyPostPreview
+          title={'연애 TIP'}
+          href={{
+            pathname: '/bulletin-board',
+            query: {
+              category: '연애',
+              title: '연애',
+            },
+          }}
+          icon={<Lips />}
+        />
         <NavEvent href={'./'} img={<TestAD />} />
         <LazyAnimalPost />
         <TopButton />

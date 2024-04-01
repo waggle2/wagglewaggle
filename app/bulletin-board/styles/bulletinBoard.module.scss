@@ -1,9 +1,21 @@
 .container {
+  height: 100vh;
+  overflow: scroll;
   padding: 16px;
   background-color: #f6f6f6;
 }
-
+.animalContainer {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  padding-bottom: 16px;
+  > button {
+    width: max-content;
+    padding: 8px 12px;
+  }
+}
 .postContainer {
+  padding-bottom: 64px;
   display: flex;
   flex-direction: column;
   gap: 8px;
