@@ -16,8 +16,10 @@ import BoardFooter from './_components/BoardFooter'
 import SearchBoard from './_components/SearchBoard'
 import { postData, meta } from '../_components/postPreview/_types/responseType'
 import SortModal from './_components/SortModal'
+import Button from '../_components/button/Button'
 
 export default function BulletinBoard() {
+  const animalParams = useSearchParams().get('animal')
   const categoryParams = useSearchParams().get('category')
   const titleParams = useSearchParams().get('title')
 
@@ -28,20 +30,29 @@ export default function BulletinBoard() {
   const [sortModal, setSortModal] = useState(false)
   const [emptyResult, setEmptyResult] = useState<string>('')
   const [keyword, setKeyword] = useState<string>('')
+  const [animal, setAnimal] = useState<string | null>(animalParams)
 
   useEffect(() => {
-    const category = categoryParams ? `?category=${categoryParams}` : ''
+    const category = categoryParams ? `category=${categoryParams}` : ''
+    const selectAnimal = animal === '전체' || '' ? '' : `animal=${animal}`
+
     const fetchData = async () => {
       const { data, meta } = await api.get(
-        `posts${category}&page=1&pageSize=10`,
+        `posts?${category}${selectAnimal}&page=1&pageSize=10`,
+        console.log(`posts?${category}${selectAnimal}&page=1&pageSize=10`),
       )
       setPosts(() => data)
       setMeta(() => meta)
     }
     fetchData()
-  }, [])
+  }, [animal])
+
+  const handleAnimalSelect = (animal: string) => {
+    setAnimal(() => animal)
+  }
   const handleSearch = async (keyword: string) => {
-    const category = categoryParams ? `?category=${categoryParams}&` : ''
+    const category = categoryParams ? `category=${categoryParams}&` : ''
+    const selectAnimal = animal === '전체' || '' ? '' : `animal=${animal}`
     if (!keyword.trim()) {
       alert('검색어를 입력하세요')
       return
@@ -51,7 +62,7 @@ export default function BulletinBoard() {
     }
     try {
       const { data, meta } = await api.get(
-        `posts${category}text=${keyword}&page=1&pageSize=10`,
+        `posts?${category}${selectAnimal}text=${keyword}&page=1&pageSize=10`,
       )
 
       if (localStorage.getItem('isLogin')) {
@@ -79,6 +90,9 @@ export default function BulletinBoard() {
     } catch (err) {
       console.error(err)
     }
+  }
+  const handleSearchOnFocus = () => {
+    setEmptyResult(() => '')
   }
   const handleViewSearchModal = () => {
     setSearchModal(true)
@@ -136,12 +150,58 @@ export default function BulletinBoard() {
     <>
       <Header leftSection={<Back />} title={titleParams ? titleParams : ''} />
       <section className={style.container}>
-        <div className={style.postInfoContainer}>
-          <span className={style.postCount}>글 {meta?.total}</span>
-          <span className={style.sort} onClick={handleSortModalView}>
-            {sort} <V />
-          </span>
-        </div>
+        {categoryParams && (
+          <div className={style.postInfoContainer}>
+            <span className={style.postCount}>글 {meta?.total}</span>
+            <span className={style.sort} onClick={handleSortModalView}>
+              {sort} <V />
+            </span>
+          </div>
+        )}
+        {animal && (
+          <div className={style.animalContainer}>
+            <Button
+              text={'전체'}
+              mainColor={animal === '전체' ? 'green' : 'none'}
+              borderRadius={'30px'}
+              action={() => {
+                handleAnimalSelect('전체')
+              }}
+            />
+            <Button
+              text={'고냥이'}
+              mainColor={animal === '고냥이' ? 'green' : 'none'}
+              borderRadius={'30px'}
+              action={() => {
+                handleAnimalSelect('고냥이')
+              }}
+            />
+            <Button
+              text={'곰돌이'}
+              mainColor={animal === '곰돌이' ? 'green' : 'none'}
+              borderRadius={'30px'}
+              action={() => {
+                handleAnimalSelect('곰돌이')
+              }}
+            />
+            <Button
+              text={'댕댕이'}
+              mainColor={animal === '댕댕이' ? 'green' : 'none'}
+              borderRadius={'30px'}
+              action={() => {
+                handleAnimalSelect('댕댕이')
+              }}
+            />
+            <Button
+              text={'폭스'}
+              mainColor={animal === '폭스' ? 'green' : 'none'}
+              borderRadius={'30px'}
+              action={() => {
+                handleAnimalSelect('폭스')
+              }}
+            />
+          </div>
+        )}
         <div className={style.postContainer}>
           {posts ? (
             posts.map((postData: postData, index: number) => {
@@ -181,7 +241,7 @@ export default function BulletinBoard() {
           searchEvent={handleSearch}
           closeModal={handleCloseSearchModal}
           emptyResult={emptyResult}
-          setEmptyResult={setEmptyResult}
+          handleSearchOnFocus={handleSearchOnFocus}
         />
       )}
       {sortModal && (

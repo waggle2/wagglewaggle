@@ -16,14 +16,14 @@ import api from '@/app/_api/commonApi'
 import { postData } from './_types/responseType'
 
 export default function AnimalPostPreview() {
-  const [selectedAnimal, setSelectedAnimal] = useState('')
+  const [selectedAnimal, setSelectedAnimal] = useState('전체')
   const [posts, setPosts] = useState<Array<postData>>()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await api.get(
-          `/posts?${selectedAnimal !== '' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
+          `/posts?${selectedAnimal !== '전체' ? 'animal=' + selectedAnimal + '&' : ''}page=1&pageSize=3`,
         )
         const posts = await res.data
         // console.log(posts, 'animal')
@@ -46,17 +46,25 @@ export default function AnimalPostPreview() {
           <Town />
           <label className={style.title}>{'다양한 동물들 소식'}</label>
         </div>
-        <Link href={'./'}>
+        <Link
+          href={{
+            pathname: '/bulletin-board',
+            query: {
+              animal: `${selectedAnimal}`,
+              title: '다양한 동물들 소식',
+            },
+          }}
+        >
           <Next />
         </Link>
       </div>
       <div className={style.animalContainer}>
         <Button
           text={'전체'}
-          mainColor={selectedAnimal === '' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '전체' ? 'green' : 'grey'}
           borderRadius={'30px'}
           action={() => {
-            handleAnimalSelect('')
+            handleAnimalSelect('전체')
           }}
         />
         <Button

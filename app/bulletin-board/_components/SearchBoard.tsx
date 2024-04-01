@@ -16,7 +16,7 @@ type Props = {
   searchEvent: (keyword: string) => void
   closeModal: () => void
   emptyResult: string
-  setEmptyResult: React.Dispatch<React.SetStateAction<string>>
+  handleSearchOnFocus: () => void
 }
 
 export default function SearchBoard({
@@ -25,9 +25,10 @@ export default function SearchBoard({
   searchEvent,
   closeModal,
   emptyResult,
-  setEmptyResult,
+  handleSearchOnFocus,
 }: Props) {
   console.log('view')
+  //TODO: get,patch 요청 리액트 쿼리 사용
   const [histories, setHistories] = useState<
     Array<{ id: number; keyword: string }>
   >([])
@@ -56,7 +57,7 @@ export default function SearchBoard({
             placeholder="검색어 입력"
             value={keyword}
             onChange={keywordChange}
-            onFocus={() => setEmptyResult('')}
+            onFocus={handleSearchOnFocus}
             onKeyDown={(event) => event.key === 'Enter' && searchEvent(keyword)}
           />
           <SearchIcon onClick={() => searchEvent(keyword)} />
