@@ -11,9 +11,11 @@ const commentWrite = async (
 }
 const commentModify = async (
   commentData: IComment,
-  commentId: number,
 ): Promise<{ data: { id: number }; message: string }> => {
-  const response = await api.patch(`/comments/${commentId}`, commentData)
+  const response = await api.patch(
+    `/comments/${commentData.commentId}`,
+    commentData,
+  )
   return response
 }
 export function useCommentWrite(postId: number) {
@@ -28,11 +30,10 @@ export function useCommentWrite(postId: number) {
     },
   })
 }
-export function useCommentModify(commentId: number) {
+export function useCommentModify() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (commentData: IComment) =>
-      commentModify(commentData, commentId),
+    mutationFn: (commentData: IComment) => commentModify(commentData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-comments'] })
     },

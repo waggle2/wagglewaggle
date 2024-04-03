@@ -11,7 +11,7 @@ export default function MoreMenu({ clickEvent }: Props) {
   const router = useRouter()
 
   return (
-    <span onClick={clickEvent}>
+    <span onClick={clickEvent} style={{ cursor: 'pointer' }}>
       <MoreMenuIcon />
     </span>
   )
