@@ -5,6 +5,8 @@ import MoreMenu from '@/app/_components/common/header/_components/MoreMenu'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { commentState } from '@/app/_recoil/atoms/commentState'
+import cs from 'classnames/bind'
+const cx = cs.bind(styles)
 
 interface CommentInfoProps {
   commentId: number
@@ -22,6 +24,7 @@ interface CommentInfoProps {
   isToggle: boolean
   setIsToggle: Dispatch<SetStateAction<boolean>>
   isSubmit: boolean
+  isReply: boolean
 }
 export default function CommentInfo({
   commentId,
@@ -35,6 +38,7 @@ export default function CommentInfo({
   isToggle,
   setIsToggle,
   isSubmit,
+  isReply,
 }: CommentInfoProps) {
   const [comment, setComment] = useRecoilState(commentState)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -47,7 +51,7 @@ export default function CommentInfo({
   }, [isSubmit])
   return (
     <>
-      <div className={styles.container} ref={scrollRef}>
+      <div className={cx('container', { isReply: isReply })} ref={scrollRef}>
         <div className={styles.profile}>
           <div className={styles.profileCircle}>
             <Profile width="26" height="23" />
