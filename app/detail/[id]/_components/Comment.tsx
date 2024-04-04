@@ -26,7 +26,13 @@ export default function Comment({
           <div className={styles.commentInfo}>
             <div>
               <span>댓글</span>
-              <span>{data.length}</span>
+              <span>
+                {data.reduce(
+                  (sum: number, item: { replies: string[] }) =>
+                    sum + item.replies.length,
+                  0,
+                ) + data.length}
+              </span>
             </div>
           </div>
           {data.map((item: any, idx: number) => {
