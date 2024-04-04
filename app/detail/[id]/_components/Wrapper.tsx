@@ -9,6 +9,7 @@ import BottomSheet from './BottomSheet'
 import {
   commentEditState,
   commentState,
+  isReplyState,
 } from '@/app/_recoil/atoms/commentState'
 import { useRecoilState } from 'recoil'
 import { useCommentDelete } from '@/app/_hooks/services/mutations/commentDelete'
@@ -52,6 +53,7 @@ export default function Wrapper({
   const [isToggle, setIsToggle] = useState(false)
   const [isNavigateToggle, setIsNavigateToggle] = useState(false)
   const [isEdit, setIsEdit] = useRecoilState(commentEditState)
+  const [isReply, setIsReply] = useRecoilState(isReplyState)
   const [comment, setComment] = useRecoilState(commentState)
   const { mutate: commentDelete } = useCommentDelete()
   const { mutate: postDelete } = useDeletePost()
@@ -92,6 +94,7 @@ export default function Wrapper({
                       setComment({
                         comment: '',
                         commentId: null,
+                        parentId: null,
                         isAnonymous: false,
                         authorId: '',
                       })
@@ -100,8 +103,26 @@ export default function Wrapper({
                   >
                     삭제하기
                   </div>,
-                  <div onClick={() => setIsEdit(true)}>수정하기</div>,
-                  <div>대댓글 달기</div>,
+                  <div
+                    onClick={() => {
+                      setIsEdit(true)
+                      if (isReply) {
+                        setIsReply(false)
+                      }
+                    }}
+                  >
+                    수정하기
+                  </div>,
+                  <div
+                    onClick={() => {
+                      setIsReply(true)
+                      if (isEdit) {
+                        setIsEdit(false)
+                      }
+                    }}
+                  >
+                    대댓글 달기
+                  </div>,
                 ]}
               />
             ) : (
@@ -112,7 +133,16 @@ export default function Wrapper({
                   <div style={{ color: 'red' }}>신고하기</div>,
                   <div>쪽지 보내기</div>,
                   <div>프로필 보기</div>,
-                  <div>대댓글 달기</div>,
+                  <div
+                    onClick={() => {
+                      setIsReply(true)
+                      if (isEdit) {
+                        setIsEdit(false)
+                      }
+                    }}
+                  >
+                    대댓글 달기
+                  </div>,
                 ]} // TODO: 차단/신고/쪽지보내기/프로필보기 기능 연결 필요
               />
             ))}

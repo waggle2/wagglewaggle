@@ -35,6 +35,7 @@ export default function Comment({
                 <CommentInfo
                   key={idx}
                   commentId={item.id}
+                  parentId={item.parentId}
                   isAnonymous={item.isAnonymous}
                   nickName={
                     item.isAnonymous
@@ -57,6 +58,7 @@ export default function Comment({
                       <CommentInfo
                         key={idx}
                         commentId={reply.id}
+                        parentId={reply.parentId}
                         isAnonymous={reply.isAnonymous}
                         nickName={
                           reply.isAnonymous

@@ -10,6 +10,7 @@ const cx = cs.bind(styles)
 
 interface CommentInfoProps {
   commentId: number
+  parentId: number | null
   isAnonymous: boolean
   nickName: string
   authorId: string
@@ -28,6 +29,7 @@ interface CommentInfoProps {
 }
 export default function CommentInfo({
   commentId,
+  parentId,
   isAnonymous,
   nickName,
   authorId,
@@ -66,6 +68,7 @@ export default function CommentInfo({
                 setIsToggle(!isToggle)
                 setComment({
                   commentId: commentId,
+                  parentId: parentId,
                   comment: content,
                   isAnonymous: isAnonymous,
                   authorId: authorId,
