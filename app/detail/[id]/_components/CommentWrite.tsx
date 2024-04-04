@@ -57,6 +57,8 @@ export default function CommentWrite({
   }
   return (
     <div className={styles.container}>
+      {isReply && <div className={styles.status}>대댓글 작성 중</div>}
+      {isEdit && <div className={styles.status}>댓글 수정 중</div>}
       <textarea
         rows={1}
         value={content}
