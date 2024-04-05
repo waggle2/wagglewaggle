@@ -34,7 +34,8 @@ export default function BulletinBoard() {
 
   useEffect(() => {
     const category = categoryParams ? `category=${categoryParams}` : ''
-    const selectAnimal = animal === '전체' || '' ? '' : `animal=${animal}`
+    const selectAnimal =
+      animal === '전체' || animal === null ? '' : `animal=${animal}`
 
     const fetchData = async () => {
       const { data, meta } = await api.get(
@@ -52,7 +53,8 @@ export default function BulletinBoard() {
   }
   const handleSearch = async (keyword: string) => {
     const category = categoryParams ? `category=${categoryParams}&` : ''
-    const selectAnimal = animal === '전체' || '' ? '' : `animal=${animal}`
+    const selectAnimal =
+      animal === '전체' || animal === null ? '' : `animal=${animal}`
     if (!keyword.trim()) {
       alert('검색어를 입력하세요')
       return

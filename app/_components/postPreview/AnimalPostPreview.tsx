@@ -61,7 +61,7 @@ export default function AnimalPostPreview() {
       <div className={style.animalContainer}>
         <Button
           text={'전체'}
-          mainColor={selectedAnimal === '전체' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '전체' ? 'green' : 'none'}
           borderRadius={'30px'}
           action={() => {
             handleAnimalSelect('전체')
@@ -69,7 +69,7 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'고냥이'}
-          mainColor={selectedAnimal === '고냥이' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '고냥이' ? 'green' : 'none'}
           borderRadius={'30px'}
           action={() => {
             handleAnimalSelect('고냥이')
@@ -77,7 +77,7 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'곰돌이'}
-          mainColor={selectedAnimal === '곰돌이' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '곰돌이' ? 'green' : 'none'}
           borderRadius={'30px'}
           action={() => {
             handleAnimalSelect('곰돌이')
@@ -85,7 +85,7 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'댕댕이'}
-          mainColor={selectedAnimal === '댕댕이' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '댕댕이' ? 'green' : 'none'}
           borderRadius={'30px'}
           action={() => {
             handleAnimalSelect('댕댕이')
@@ -93,7 +93,7 @@ export default function AnimalPostPreview() {
         />
         <Button
           text={'폭스'}
-          mainColor={selectedAnimal === '폭스' ? 'green' : 'grey'}
+          mainColor={selectedAnimal === '폭스' ? 'green' : 'none'}
           borderRadius={'30px'}
           action={() => {
             handleAnimalSelect('폭스')
