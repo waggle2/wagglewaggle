@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from '@/node_modules/next/navigation'
+import { useRouter, useSearchParams } from '@/node_modules/next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import style from './styles/bulletinBoard.module.scss'
@@ -34,6 +34,7 @@ export default function BulletinBoard() {
   const [animal, setAnimal] = useState<string | null>(animalParams)
   const [isLoaded, setIsLoaded] = useState(false)
   let timerId: NodeJS.Timeout | undefined
+  const router = useRouter()
 
   const onIntersect: IntersectionObserverCallback = async (
     [entry],
@@ -102,13 +103,22 @@ export default function BulletinBoard() {
         setPosts(() => data)
         setMetaData(() => meta)
       } else {
-        const { data, meta } = await api.get(
-          `posts?${category}${selectAnimal}&page=1&pageSize=10`,
-        )
-        setPosts(() => data)
-        setMetaData(() => meta)
+        try {
+          const { data, meta } = await api.get(
+            `posts?${category}${selectAnimal}&page=1&pageSize=10`,
+          )
+          setPosts(() => data)
+          setMetaData(() => meta)
+        } catch (err: any) {
+          if (err.code === 403) {
+            alert('성인 인증이 필요합니다.')
+            router.back()
+          }
+          console.error(err.code)
+        }
       }
     }
+
     fetchData()
   }, [animal])
   console.log(metaData, 'meta')
