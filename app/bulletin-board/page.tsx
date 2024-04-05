@@ -51,21 +51,29 @@ export default function BulletinBoard() {
 
       setIsLoaded(() => true)
       try {
-        //TODO:keyword
-        const category = categoryParams ? `category=${categoryParams}&` : ''
-        const selectAnimal =
-          animal === '전체' || animal === null ? '' : `animal=${animal}&`
-        const keywordText = keyword ? `text=${keyword}` : ''
+        if (categoryParams === '인기글') {
+          const { data, meta } = await api.get(
+            `posts/hot-posts?page=1&pageSize=${metaData && metaData.pageSize + 10}`,
+          )
+          setPosts(() => data)
+          setMetaData(() => meta)
+          setIsLoaded(() => false)
+        } else {
+          const category = categoryParams ? `category=${categoryParams}&` : ''
+          const selectAnimal =
+            animal === '전체' || animal === null ? '' : `animal=${animal}&`
+          const keywordText = keyword ? `text=${keyword}` : ''
 
-        const { data, meta } = await api.get(
-          `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
-          console.log(
+          const { data, meta } = await api.get(
             `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
-          ),
-        )
-        setPosts(() => data)
-        setMetaData(() => meta)
-        setIsLoaded(() => false)
+            console.log(
+              `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
+            ),
+          )
+          setPosts(() => data)
+          setMetaData(() => meta)
+          setIsLoaded(() => false)
+        }
       } catch (err) {
         setIsLoaded(() => false)
       }
@@ -87,11 +95,19 @@ export default function BulletinBoard() {
       animal === '전체' || animal === null ? '' : `animal=${animal}`
 
     const fetchData = async () => {
-      const { data, meta } = await api.get(
-        `posts?${category}${selectAnimal}&page=1&pageSize=10`,
-      )
-      setPosts(() => data)
-      setMetaData(() => meta)
+      if (categoryParams === '인기글') {
+        const { data, meta } = await api.get(
+          `posts/hot-posts?page=1&pageSize=10`,
+        )
+        setPosts(() => data)
+        setMetaData(() => meta)
+      } else {
+        const { data, meta } = await api.get(
+          `posts?${category}${selectAnimal}&page=1&pageSize=10`,
+        )
+        setPosts(() => data)
+        setMetaData(() => meta)
+      }
     }
     fetchData()
   }, [animal])
@@ -201,7 +217,7 @@ export default function BulletinBoard() {
     <>
       <Header leftSection={<Back />} title={titleParams ? titleParams : ''} />
       <section className={style.container}>
-        {categoryParams && (
+        {categoryParams && categoryParams !== '인기글' && (
           <div className={style.postInfoContainer}>
             <span className={style.postCount}>글 {metaData?.total}</span>
             <span className={style.sort} onClick={handleSortModalView}>
