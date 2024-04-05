@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from '@/node_modules/next/navigation'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import style from './styles/bulletinBoard.module.scss'
 
@@ -17,6 +17,7 @@ import SearchBoard from './_components/SearchBoard'
 import { postData, meta } from '../_components/postPreview/_types/responseType'
 import SortModal from './_components/SortModal'
 import Button from '../_components/button/Button'
+import useIntersectionObserver from '../_hooks/useIntersectionObserver'
 
 export default function BulletinBoard() {
   const animalParams = useSearchParams().get('animal')
@@ -24,13 +25,59 @@ export default function BulletinBoard() {
   const titleParams = useSearchParams().get('title')
 
   const [posts, setPosts] = useState<postData[]>()
-  const [meta, setMeta] = useState<meta>()
+  const [metaData, setMetaData] = useState<meta>()
   const [sort, setSort] = useState<'최신순' | '인기순'>('최신순')
   const [searchModal, setSearchModal] = useState(false)
   const [sortModal, setSortModal] = useState(false)
   const [emptyResult, setEmptyResult] = useState<string>('')
   const [keyword, setKeyword] = useState<string>('')
   const [animal, setAnimal] = useState<string | null>(animalParams)
+  const [isLoaded, setIsLoaded] = useState(false)
+  let timerId: NodeJS.Timeout | undefined
+
+  const onIntersect: IntersectionObserverCallback = async (
+    [entry],
+    observer,
+  ) => {
+    if (!!timerId) {
+      return
+    }
+    timerId = setTimeout(() => {
+      timerId = undefined
+    }, 500)
+
+    if (entry.isIntersecting && !isLoaded) {
+      observer.unobserve(entry.target)
+
+      setIsLoaded(() => true)
+      try {
+        const category = categoryParams ? `category=${categoryParams}` : ''
+        const selectAnimal =
+          animal === '전체' || animal === null ? '' : `animal=${animal}`
+
+        const { data, meta } = await api.get(
+          `posts?${category}${selectAnimal}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
+          console.log(
+            `posts?${category}${selectAnimal}&page=1&pageSize=${metaData?.pageSize}`,
+          ),
+        )
+        setPosts(() => data)
+        setMetaData(() => meta)
+        setIsLoaded(() => false)
+      } catch (err) {
+        setIsLoaded(() => false)
+      }
+
+      observer.observe(entry.target)
+    }
+  }
+
+  const { setTarget } = useIntersectionObserver({
+    root: null,
+    rootMargin: '0px',
+    threshold: 1,
+    onIntersect,
+  })
 
   useEffect(() => {
     const category = categoryParams ? `category=${categoryParams}` : ''
@@ -39,15 +86,15 @@ export default function BulletinBoard() {
 
     const fetchData = async () => {
       const { data, meta } = await api.get(
-        `posts?${category}${selectAnimal}&page=1&pageSize=10`,
+        `posts?${category}${selectAnimal}&page=1&pageSize=20`,
         console.log(`posts?${category}${selectAnimal}&page=1&pageSize=10`),
       )
       setPosts(() => data)
-      setMeta(() => meta)
+      setMetaData(() => meta)
     }
     fetchData()
   }, [animal])
-
+  console.log(metaData, 'meta')
   const handleAnimalSelect = (animal: string) => {
     setAnimal(() => animal)
   }
@@ -85,7 +132,7 @@ export default function BulletinBoard() {
         setEmptyResult(keyword)
       } else {
         setPosts(() => data)
-        setMeta(() => meta)
+        setMetaData(() => meta)
         setEmptyResult(() => '')
         setSearchModal(() => false)
       }
@@ -154,7 +201,7 @@ export default function BulletinBoard() {
       <section className={style.container}>
         {categoryParams && (
           <div className={style.postInfoContainer}>
-            <span className={style.postCount}>글 {meta?.total}</span>
+            <span className={style.postCount}>글 {metaData?.total}</span>
             <span className={style.sort} onClick={handleSortModalView}>
               {sort} <V />
             </span>
@@ -234,6 +281,7 @@ export default function BulletinBoard() {
           ) : (
             <div>empty</div>
           )}
+          {metaData?.hasNextPage && <div ref={setTarget}></div>}
         </div>
       </section>
       {searchModal && (
