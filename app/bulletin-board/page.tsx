@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from '@/node_modules/next/navigation'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import style from './styles/bulletinBoard.module.scss'
 
@@ -51,14 +51,16 @@ export default function BulletinBoard() {
 
       setIsLoaded(() => true)
       try {
-        const category = categoryParams ? `category=${categoryParams}` : ''
+        //TODO:keyword
+        const category = categoryParams ? `category=${categoryParams}&` : ''
         const selectAnimal =
-          animal === '전체' || animal === null ? '' : `animal=${animal}`
+          animal === '전체' || animal === null ? '' : `animal=${animal}&`
+        const keywordText = keyword ? `text=${keyword}` : ''
 
         const { data, meta } = await api.get(
-          `posts?${category}${selectAnimal}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
+          `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
           console.log(
-            `posts?${category}${selectAnimal}&page=1&pageSize=${metaData?.pageSize}`,
+            `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
           ),
         )
         setPosts(() => data)
@@ -86,8 +88,7 @@ export default function BulletinBoard() {
 
     const fetchData = async () => {
       const { data, meta } = await api.get(
-        `posts?${category}${selectAnimal}&page=1&pageSize=20`,
-        console.log(`posts?${category}${selectAnimal}&page=1&pageSize=10`),
+        `posts?${category}${selectAnimal}&page=1&pageSize=10`,
       )
       setPosts(() => data)
       setMetaData(() => meta)
@@ -101,7 +102,7 @@ export default function BulletinBoard() {
   const handleSearch = async (keyword: string) => {
     const category = categoryParams ? `category=${categoryParams}&` : ''
     const selectAnimal =
-      animal === '전체' || animal === null ? '' : `animal=${animal}`
+      animal === '전체' || animal === null ? '' : `animal=${animal}&`
     if (!keyword.trim()) {
       alert('검색어를 입력하세요')
       return
@@ -110,6 +111,7 @@ export default function BulletinBoard() {
       return
     }
     try {
+      setKeyword(() => keyword)
       const { data, meta } = await api.get(
         `posts?${category}${selectAnimal}text=${keyword}&page=1&pageSize=10`,
       )
