@@ -18,6 +18,7 @@ import { postData, meta } from '../_components/postPreview/_types/responseType'
 import SortModal from './_components/SortModal'
 import Button from '../_components/button/Button'
 import useIntersectionObserver from '../_hooks/useIntersectionObserver'
+import EmptyPost from '../_components/emptyPost/EmptyPost'
 
 export default function BulletinBoard() {
   const animalParams = useSearchParams().get('animal')
@@ -112,7 +113,7 @@ export default function BulletinBoard() {
         } catch (err: any) {
           if (err.code === 403) {
             alert('성인 인증이 필요합니다.')
-            router.back()
+            // router.back()
           }
           console.error(err.code)
         }
@@ -307,7 +308,7 @@ export default function BulletinBoard() {
               )
             })
           ) : (
-            <div>empty</div>
+            <EmptyPost />
           )}
           {metaData?.hasNextPage && <div ref={setTarget}></div>}
         </div>
