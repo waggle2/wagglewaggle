@@ -1,4 +1,5 @@
 import SearchIcon from '@/public/assets/ico_search-outline.svg'
+import Image from 'next/image'
 import style from '../styles/empty.module.scss'
 
 export default function Empty({ keyword }: { keyword?: string }) {
@@ -6,7 +7,13 @@ export default function Empty({ keyword }: { keyword?: string }) {
   return (
     <div className={style.container}>
       <div className={style.svgContainer}>
-        <SearchIcon />
+        {/* <SearchIcon /> */}
+        <Image
+          src="/assets/ico_search-outline.svg"
+          alt="search icon"
+          width={30}
+          height={30}
+        />
       </div>
       {keyword ? (
         <div className={style.empty}>

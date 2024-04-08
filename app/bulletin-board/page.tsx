@@ -101,6 +101,7 @@ export default function BulletinBoard() {
         const { data, meta } = await api.get(
           `posts/hot-posts?page=1&pageSize=10`,
         )
+        console.log(data, 'data')
         setPosts(() => data)
         setMetaData(() => meta)
       } else {
@@ -281,7 +282,7 @@ export default function BulletinBoard() {
           </div>
         )}
         <div className={style.postContainer}>
-          {posts ? (
+          {posts?.length ? (
             posts.map((postData: postData, index: number) => {
               return (
                 <Post

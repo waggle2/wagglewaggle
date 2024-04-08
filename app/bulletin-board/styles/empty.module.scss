@@ -11,10 +11,8 @@
     height: 56px;
     border-radius: 50%;
     background-color: #ececec;
-    > svg {
-      width: 30px;
-      height: 30px;
-      transform: translate(0, 50%);
+    > img {
+      transform: translate(0, 40%);
     }
   }
 }
