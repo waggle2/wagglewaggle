@@ -11,6 +11,7 @@ type Props = {
     name: string
     animal: string
     isAnonymous: boolean
+    isWithDraw: boolean
     id: string
   }
   post: {
@@ -40,13 +41,18 @@ export default function Post({ profile, post }: Props) {
         >
           <Profile
             isAnonymous={profile.isAnonymous}
+            isWithDraw={profile.isWithDraw}
             animal={profile?.animal}
             image={profile?.image}
           />
 
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>
-              {profile.isAnonymous ? '익명의' + profile.animal : profile.name}
+              {profile.name
+                ? profile.isAnonymous
+                  ? '익명의' + profile.animal
+                  : profile.name
+                : '탈퇴한 사용자'}
             </div>
             <div
               className={style.category}

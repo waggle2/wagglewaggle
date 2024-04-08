@@ -42,7 +42,7 @@ export default function PopularPost({ profile, post }: postProps) {
       <div className={style.postInfoContainer}>
         <div className={style.infoContainer}>
           <div className={style.name}>
-            {profile.name ? profile.name : '탈퇴한 회원'}
+            {profile.name ? profile.name : '탈퇴한 사용자'}
           </div>
           <div className={style.time}>2024-12-01</div>
           <div className={style.infoWrapper}>

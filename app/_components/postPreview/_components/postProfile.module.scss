@@ -29,6 +29,9 @@
       height: 80%;
       left: 50%;
       z-index: 4;
+      &.withDraw {
+        height: 54%;
+      }
     }
 
     .frame {

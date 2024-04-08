@@ -50,6 +50,7 @@ export default async function PostPreview({ title, href, icon }: Props) {
             <Post
               key={index}
               profile={{
+                isWithDraw: postData.author ? true : false,
                 image: wearingItem,
                 name: postData.author?.credential.nickname,
                 animal: postData.animalOfAuthor,

@@ -108,6 +108,7 @@ export default function AnimalPostPreview() {
                 name: postData.author?.credential.nickname, //TODO: 02.26 회의 후 탈퇴한 회원 정보 처리
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,
+                isWithDraw: postData.author ? true : false,
               }}
               post={{
                 id: postData.id,
