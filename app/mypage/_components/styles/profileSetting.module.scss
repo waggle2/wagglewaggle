@@ -59,13 +59,15 @@
 
 // 선택 아이템 착용 미리보기
 .customContainer {
+  width: 100%;
+  height: 215px;
 }
 
 .customBackground {
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 215px;
+  height: 100%;
   border-radius: 12px;
 
   .profileResult {

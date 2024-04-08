@@ -29,7 +29,7 @@ type author = {
   dogCoins: number
   foxCoins: number
   currentRefreshToken: string
-  profileItems: any[]
+  profileItems?: profileItems
   createdAt: string
   updatedAt: string
   deletedAt: string | null
@@ -42,3 +42,41 @@ type credential = {
   id: number
   nickname: string
 }
+export type profileItems = {
+  emoji?: {
+    id: number
+    animal: string
+    itemType: string
+    name: string
+    price: number
+    image: string
+    purchasedCount: number
+    createdAt: string
+    updatedAt: string
+    deletedAt: string
+  } | null
+  frame?: {
+    id: number
+    animal: string
+    itemType: string
+    name: string
+    price: number
+    image: string
+    purchasedCount: number
+    createdAt: string
+    updatedAt: string
+    deletedAt: string
+  } | null
+  background?: {
+    id: number
+    animal: string
+    itemType: string
+    name: string
+    price: number
+    image: string
+    purchasedCount: number
+    createdAt: string
+    updatedAt: string
+    deletedAt: string
+  } | null
+}[]

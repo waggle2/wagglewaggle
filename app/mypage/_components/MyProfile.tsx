@@ -18,7 +18,7 @@ export default function MyProfile({
   }
   console.log(profileAnimal, 'profileAnimal')
   const defaultProfile = `/assets/point_shop/emoji/${profileAnimal}_default.svg`
-
+  //사용 x
   return (
     <div className={style.customContainer}>
       <div className={style.customBackground}>
