@@ -46,11 +46,8 @@ export default function Profile({ params }: { params: { id: string } }) {
         <div className={style.contentWrapper}>
           <MyProfile isSetting={false} />
           <MyType
-            primaryAnimal={
-              userInfo?.primaryAnimal
-                ? userInfo.primaryAnimal
-                : userInfo?.secondAnimal
-            }
+            primaryAnimal={userInfo?.primaryAnimal}
+            secondAnimal={userInfo?.secondAnimal}
             cat={userInfo?.userStickers.catStickers}
             bear={userInfo?.userStickers.bearStickers}
             dog={userInfo?.userStickers.dogStickers}

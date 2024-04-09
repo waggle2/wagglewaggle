@@ -67,6 +67,7 @@ export default function MyPage() {
           <MyType
             nickName={userInfo?.credential.nickname}
             primaryAnimal={userInfo?.primaryAnimal}
+            secondAnimal={userInfo?.secondAnimal}
             cat={userInfo?.catCoins}
             bear={userInfo?.bearCoins}
             dog={userInfo?.dogCoins}
