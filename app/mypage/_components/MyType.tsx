@@ -35,7 +35,7 @@ export default function MyType({
   return (
     <>
       <article className={style.container}>
-        <div className={style.point}>획득한 포인트</div>
+        <div className={style.point}>받은 동물 스티커</div>
         <div className={style.animalWrapper}>
           <Type
             svg={<Cat />}
