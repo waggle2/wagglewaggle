@@ -7,15 +7,24 @@ import Modal from '@/app/_components/common/modal/Modal'
 import style from './profile.module.scss'
 import Button from '@/app/_components/button/Button'
 import MyType from '@/app/mypage/_components/MyType'
-import MyProfile from '@/app/mypage/_components/MyProfile'
+
 import Link from '@/node_modules/next/link'
 import api from '@/app/_api/commonApi'
 import { useEffect, useState } from 'react'
 import { profileData } from './profileDataTypes'
+import CustomPreview from '@/app/mypage/profileSetting/_components/CustomPreview'
+import { wearingItem } from '@app/mypage/profileSetting/_components/types/responseType'
 
 export default function Profile({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [userInfo, setUserInfo] = useState<profileData>()
+  const [wearingItem, setWearingItem] = useState<wearingItem>({
+    emoji: null,
+    background: null,
+    frame: null,
+    wallpaper: null,
+  })
+
   //TODO: 탈퇴한 유저 & 유저 프로필,메세지 이동 처리
   useEffect(() => {
     const fetchData = async () => {
@@ -23,8 +32,16 @@ export default function Profile({ params }: { params: { id: string } }) {
         const { data } = await api.get(`/users/profile/${params.id}`)
         console.log(data, 'data')
         setUserInfo(data)
-      } catch (err) {
-        console.log(err, 'err')
+        const filteringWearingItem = await data.profileItems?.filter(
+          (profileItems: any) => {
+            return data.profileAnimal === profileItems.animal
+          },
+        )
+        console.log(filteringWearingItem, 'filteringWearingItem')
+        setWearingItem(filteringWearingItem)
+      } catch (err: any) {
+        alert('탈퇴한 유저입니다.')
+        router.back()
       }
     }
     fetchData()
@@ -44,7 +61,14 @@ export default function Profile({ params }: { params: { id: string } }) {
       }
       content={
         <div className={style.contentWrapper}>
-          <MyProfile isSetting={false} />
+          <CustomPreview
+            animal={userInfo?.profileAnimal}
+            isSetting={false}
+            selectedEmoji={wearingItem[0]?.emoji}
+            selectedProfileBg={wearingItem[0]?.background}
+            selectedFrame={wearingItem[0]?.frame}
+            selectedWallpaper={wearingItem[0]?.wallpaper}
+          />
           <MyType
             primaryAnimal={userInfo?.primaryAnimal}
             secondAnimal={userInfo?.secondAnimal}
@@ -56,12 +80,6 @@ export default function Profile({ params }: { params: { id: string } }) {
         </div>
       }
       buttons={[
-        <Button
-          text={'닫기'}
-          mainColor={'grey'}
-          key="close"
-          action={handleClose}
-        />,
         <Link href={'/send-msg/1'} style={{ width: '100%' }} key="sendMessage">
           <Button text={'쪽지 보내기'} mainColor={'green'} key="msg" />
         </Link>,

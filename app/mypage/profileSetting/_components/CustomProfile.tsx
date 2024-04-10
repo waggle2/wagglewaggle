@@ -48,6 +48,7 @@ export default function CustomProfile() {
 
     try {
       // console.log(itemIds, 'ides')
+      //TODO: reactQuery로 변경
       const res = await api.patch('/items/profile', {
         animal: selectedTab,
         itemIds,

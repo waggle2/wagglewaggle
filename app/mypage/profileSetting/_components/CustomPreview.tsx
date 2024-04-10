@@ -51,7 +51,6 @@ export default function CustomPreview({
                   }
                   alt={'selectedEmoji'}
                 />
-
                 <img
                   className={style.profileBg}
                   src={
