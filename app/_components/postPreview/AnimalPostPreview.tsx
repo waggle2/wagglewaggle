@@ -102,15 +102,21 @@ export default function AnimalPostPreview() {
       </div>
       <div className={style.animalPostContainer}>
         {posts?.map((postData: postData, index: number) => {
+          const wearingItem = postData.author?.profileItems?.filter(
+            (profileItems: any) => {
+              return postData.animalOfAuthor === profileItems.animal
+            },
+          )
           return (
             <Post
               key={index}
               profile={{
                 id: postData.author?.id,
-                image: postData.author?.profileItems,
+                image: wearingItem,
                 name: postData.author?.credential.nickname, //TODO: 02.26 회의 후 탈퇴한 회원 정보 처리
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,
+                isWithDraw: postData.author ? true : false,
               }}
               post={{
                 id: postData.id,

@@ -3,13 +3,15 @@ import Link from '@/node_modules/next/link'
 import { formatDate } from '@/app/_lib/formatDate'
 import Profile from './Profile'
 import PostDetail from './PostDetail'
+import { profileItems } from '../_types/responseType'
 
 type Props = {
   profile: {
-    image?: any[]
+    image?: profileItems
     name: string
     animal: string
     isAnonymous: boolean
+    isWithDraw: boolean
     id: string
   }
   post: {
@@ -37,11 +39,20 @@ export default function Post({ profile, post }: Props) {
           scroll={false}
           className={style.profileWrapper}
         >
-          <Profile isAnonymous={profile.isAnonymous} animal={profile?.animal} />
+          <Profile
+            isAnonymous={profile.isAnonymous}
+            isWithDraw={profile.isWithDraw}
+            animal={profile?.animal}
+            image={profile?.image}
+          />
 
           <div className={style.profileInfoWrapper}>
             <div className={style.name}>
-              {profile.isAnonymous ? '익명의' + profile.animal : profile.name}
+              {profile.name
+                ? profile.isAnonymous
+                  ? '익명의' + profile.animal
+                  : profile.name
+                : '탈퇴한 사용자'}
             </div>
             <div
               className={style.category}
