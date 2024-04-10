@@ -96,6 +96,9 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .content {
   max-width: 178px;

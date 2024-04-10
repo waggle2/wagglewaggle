@@ -42,3 +42,11 @@ type credential = {
   id: number
   nickname: string
 }
+export type meta = {
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  page: number
+  pageCount: number
+  pageSize: number
+  total: number
+}

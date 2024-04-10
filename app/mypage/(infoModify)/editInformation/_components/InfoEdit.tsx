@@ -39,7 +39,7 @@ export default function InfoEdit() {
       }
     }
     fetchData()
-  }, [userInfo])
+  }, [])
 
   const userVerified = () => {
     userVerify()

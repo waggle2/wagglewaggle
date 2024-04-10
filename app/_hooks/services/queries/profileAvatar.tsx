@@ -30,10 +30,10 @@ export default function useGetProfileAvatar(
   setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>,
   setInitWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>,
 ) {
-  const { loading, error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ['get-profile-avatar', animal],
     queryFn: () => getProfileAvatar(animal),
-    staleTime: 10 * 60 * 1000, //10분이 지나기 전에는 해당 요청을 캐싱해서 재요청이 발생하지 않음
+    staleTime: 10 * 1000, //10초가 지나기 전에는 해당 요청을 캐싱해서 재요청이 발생하지 않음
     enabled: !!animal, //animal이 undefined일 때 실행하지 않는 코드
   })
 
@@ -46,18 +46,18 @@ export default function useGetProfileAvatar(
     } else {
       setWearingItem(() => {
         return {
-          이모지: undefined,
-          '프로필 배경': undefined,
-          프레임: undefined,
-          벽지: undefined,
+          emoji: undefined,
+          background: undefined,
+          frame: undefined,
+          wallpaper: undefined,
         }
       })
       setInitWearingItem(() => {
         return {
-          이모지: undefined,
-          '프로필 배경': undefined,
-          프레임: undefined,
-          벽지: undefined,
+          emoji: undefined,
+          background: undefined,
+          frame: undefined,
+          wallpaper: undefined,
         }
       })
     }
