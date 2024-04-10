@@ -71,6 +71,7 @@ export default function Profile({ params }: { params: { id: string } }) {
           />
           <MyType
             primaryAnimal={userInfo?.primaryAnimal}
+            secondAnimal={userInfo?.secondAnimal}
             cat={userInfo?.userStickers.catStickers}
             bear={userInfo?.userStickers.bearStickers}
             dog={userInfo?.userStickers.dogStickers}
