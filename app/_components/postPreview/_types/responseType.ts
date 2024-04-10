@@ -42,6 +42,7 @@ type credential = {
   id: number
   nickname: string
 }
+
 export type profileItems = {
   emoji?: {
     id: number
@@ -80,3 +81,13 @@ export type profileItems = {
     deletedAt: string
   } | null
 }[]
+
+export type meta = {
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  page: number
+  pageCount: number
+  pageSize: number
+  total: number
+}
+

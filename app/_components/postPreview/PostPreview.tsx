@@ -11,7 +11,9 @@ import Post from './_components/Post'
 
 type Props = {
   title: string
-  href: string
+  href:
+    | string
+    | { pathname: string; query?: { category?: string; title: string } }
   icon?: ReactNode
 }
 
@@ -34,7 +36,7 @@ export default async function PostPreview({ title, href, icon }: Props) {
           {icon}
           <label className={style.title}>{title}</label>
         </div>
-        <Link href={href}>
+        <Link href={href} scroll={false}>
           <Next />
         </Link>
       </div>

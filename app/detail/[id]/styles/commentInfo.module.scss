@@ -1,6 +1,10 @@
 .container {
   padding: 16px;
   position: relative;
+  &.isReply {
+    padding-left: 46px;
+    background: #f6f6f6;
+  }
 }
 .profile {
   display: flex;

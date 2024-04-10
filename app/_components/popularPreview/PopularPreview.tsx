@@ -28,7 +28,15 @@ export default async function PopularPreview() {
           <Popular />
           <label className={style.title}>{'바글바글 인기글'}</label>
         </div>
-        <Link href={''}>
+        <Link
+          href={{
+            pathname: '/bulletin-board',
+            query: {
+              category: '인기글',
+              title: '인기글',
+            },
+          }}
+        >
           <Next />
         </Link>
       </div>
