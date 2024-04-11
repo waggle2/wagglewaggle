@@ -63,7 +63,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                 <div ref={cartRef} className={style.selectedContainer} style={dynamicStyle}>
                     <div className={style.header}>
                         <h3>장바구니</h3>
-                        <CloseIcon onClick={handleCartUp} />
+                        <CloseIcon onClick={handleCartUp} className={style.closeBtn} />
                     </div>
                     <ul className={style.selectedItems}>
                         {isCartItem ? (

@@ -1,6 +1,6 @@
-import style from '../_styles/pointShop.module.scss'
+import style from '../_styles/customPreview.module.scss'
 import PointIcon from './PointIcon';
-import CheckIcon from '@/public/assets/ico_check_green.svg'
+// import CheckIcon from '@/public/assets/ico_check_green.svg'
 import { useRecoilValue } from 'recoil'
 import { selectedTabState } from '@/app/_recoil/atoms/pointshopState'
 
@@ -48,8 +48,15 @@ export default function CustomPreview({
                                 <div className={style.imageContainer}>
                                     <img className={style.frame} src={selectedFrame} alt={selectedFrame} />
                                     <div className={style.imageBox}>
-                                        <img className={style.emoji} src={selectedEmoji} alt={`${selectedEmoji}`} />
-                                        {/* <img className={style.animalBody} src={`/assets/point_shop/animal_body/${selectedTab}_body.svg`} /> */}
+                                        <img
+                                            className={`${style.emoji} ${selectedTab === '고냥이' ? style.cat :
+                                                selectedTab === '곰돌이' ? style.bear :
+                                                    selectedTab === '댕댕이' ? style.dog :
+                                                        selectedTab === '폭스' ? style.fox :
+                                                            ''}`}
+                                            src={selectedEmoji}
+                                            alt={`${selectedEmoji}`}
+                                        />                                        {/* <img className={style.animalBody} src={`/assets/point_shop/animal_body/${selectedTab}_body.svg`} /> */}
                                         <img className={style.profileBg} src={selectedProfileBg} alt={selectedProfileBg} />
                                     </div>
                                 </div>
