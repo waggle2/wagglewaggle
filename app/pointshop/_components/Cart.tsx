@@ -63,6 +63,7 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                 <div ref={cartRef} className={style.selectedContainer} style={dynamicStyle}>
                     <div className={style.header}>
                         <h3>장바구니</h3>
+
                         <CloseIcon onClick={handleCartUp} className={style.closeBtn} />
                     </div>
                     <ul className={style.selectedItems}>
@@ -70,7 +71,44 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                             sortedCartItems.map((item, index) => (
                                 <li key={index} className={style.item} onClick={() => handleRemoveItemClick(item.id)} >
                                     <div className={style.selectedImageBox}>
-                                        <img className={item.itemType === '이모지' ? style.emojiImg : ''} src={item.image} alt="" />
+                                        <img
+                                            className={
+                                                item.itemType === '이모지' ? style.emoji :
+                                                    item.itemType === '프로필 배경' ? style.profileBackground :
+                                                        item.itemType === '프레임' ? style.frame :
+                                                            item.itemType === '벽지' ? style.wallpaper : ''
+                                            }
+                                            src={item.image}
+                                            alt=""
+                                        />
+                                        {item.itemType === '프로필 배경' && (
+                                            <div className={style.emojiOver}>
+                                                <img
+                                                    className={
+                                                        selectedTab === '고냥이' ? style.catClass :
+                                                            selectedTab === '곰돌이' ? style.bearClass :
+                                                                selectedTab === '댕댕이' ? style.dogClass :
+                                                                    selectedTab === '폭스' ? style.foxClass : ''
+                                                    }
+                                                    src={`/assets/point_shop/emoji/${selectedTab}_default.svg`}
+                                                    alt=""
+                                                />                                            </div>
+                                        )}
+                                        {item.itemType === '프레임' && (
+                                            <div className={style.emojiOver}>
+                                                <img
+                                                    className={
+                                                        selectedTab === '고냥이' ? style.catClass :
+                                                            selectedTab === '곰돌이' ? style.bearClass :
+                                                                selectedTab === '댕댕이' ? style.dogClass :
+                                                                    selectedTab === '폭스' ? style.foxClass : ''
+                                                    }
+                                                    src={`/assets/point_shop/emoji/${selectedTab}_default.svg`}
+                                                    alt=""
+                                                />
+                                            </div>
+                                        )}
+
                                     </div>
                                     <div className={style.priceCoin}>
                                         <PointIcon animal={selectedTab} /> {item.price}
