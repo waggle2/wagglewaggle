@@ -13,17 +13,12 @@ import api from '@/app/_api/commonApi'
 import { useEffect, useState } from 'react'
 import { profileData } from './profileDataTypes'
 import CustomPreview from '@/app/mypage/profileSetting/_components/CustomPreview'
-import { wearingItem } from '@app/mypage/profileSetting/_components/types/responseType'
+import { wearingItem } from '@/app/mypage/profileSetting/_components/types/responseType'
 
 export default function Profile({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [userInfo, setUserInfo] = useState<profileData>()
-  const [wearingItem, setWearingItem] = useState<wearingItem>({
-    emoji: null,
-    background: null,
-    frame: null,
-    wallpaper: null,
-  })
+  const [wearingItem, setWearingItem] = useState<wearingItem[]>([])
 
   //TODO: 탈퇴한 유저 & 유저 프로필,메세지 이동 처리
   useEffect(() => {

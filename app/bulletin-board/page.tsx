@@ -68,9 +68,6 @@ export default function BulletinBoard() {
 
           const { data, meta } = await api.get(
             `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
-            console.log(
-              `posts?${category}${selectAnimal}${keywordText}&page=1&pageSize=${metaData && metaData.pageSize + 10}`,
-            ),
           )
           setPosts(() => data)
           setMetaData(() => meta)

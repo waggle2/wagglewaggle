@@ -16,7 +16,7 @@ export type postData = {
   author: author
 }
 type author = {
-  id: string
+  id: number
   authenticationProvider: string
   socialId: string
   isVerified: boolean
@@ -90,4 +90,3 @@ export type meta = {
   pageSize: number
   total: number
 }
-

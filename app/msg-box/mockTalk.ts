@@ -3,8 +3,14 @@ import { IMessageRooms } from '../_types/messageTypes'
 export const messageRooms: IMessageRooms[] = [
   {
     id: 1,
-    firstUser: '김민수',
-    secondUser: '은하수',
+    firstUser: {
+      nickname: '김민수',
+      profileAnimal: '곰돌이',
+    },
+    secondUser: {
+      nickname: '은하수',
+      profileAnimal: '곰돌이',
+    },
     messages: [
       {
         id: 101,
@@ -163,8 +169,14 @@ export const messageRooms: IMessageRooms[] = [
   },
   {
     id: 2,
-    firstUser: '이지은',
-    secondUser: '박준혁',
+    firstUser: {
+      nickname: '이지은',
+      profileAnimal: '곰돌이',
+    },
+    secondUser: {
+      nickname: '박준혁',
+      profileAnimal: '곰돌이',
+    },
     messages: [
       {
         id: 103,
@@ -204,8 +216,14 @@ export const messageRooms: IMessageRooms[] = [
   },
   {
     id: 3,
-    firstUser: '김민수',
-    secondUser: '은하수',
+    firstUser: {
+      nickname: '김민수',
+      profileAnimal: '곰돌이',
+    },
+    secondUser: {
+      nickname: '은하수',
+      profileAnimal: '곰돌이',
+    },
     messages: [
       {
         id: 105,

@@ -8,7 +8,7 @@ type CustomPreviewProps = {
   selectedEmoji?: avatarItem | undefined | null
   selectedProfileBg?: avatarItem | undefined | null
   selectedFrame?: avatarItem | undefined | null
-  isWithDraw: boolean
+  isWithDraw?: boolean
 }
 
 export default function PostProfile({

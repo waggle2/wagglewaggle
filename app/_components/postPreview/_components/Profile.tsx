@@ -6,7 +6,7 @@ import PostProfile from './PostProfile'
 
 type props = {
   isAnonymous: boolean
-  isWithDraw: boolean
+  isWithDraw?: boolean
   image?: profileItems
   animal: string
 }
