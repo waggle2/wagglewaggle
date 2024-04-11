@@ -11,7 +11,9 @@ import Post from './_components/Post'
 
 type Props = {
   title: string
-  href: string
+  href:
+    | string
+    | { pathname: string; query?: { category?: string; title: string } }
   icon?: ReactNode
 }
 
@@ -19,16 +21,11 @@ export default async function PostPreview({ title, href, icon }: Props) {
   const fetchData = async () => {
     try {
       const { data } = await api.get(
-        // `/posts?page=1&pageSize=2${title === '연애 TIP' ? '&category=연애' : ''}`,
-        `/posts?page=1&pageSize=2`,
+        `/posts?page=1&pageSize=2${title === '연애 TIP' ? '&category=연애' : ''}`,
       )
 
-      // console.log(data, title, 'post data')
-
       return data
-    } catch (err) {
-      // console.error(err, 'post error')
-    }
+    } catch (err) {}
   }
   const postData = await fetchData()
 
@@ -39,17 +36,24 @@ export default async function PostPreview({ title, href, icon }: Props) {
           {icon}
           <label className={style.title}>{title}</label>
         </div>
-        <Link href={href}>
+        <Link href={href} scroll={false}>
           <Next />
         </Link>
       </div>
       <div className={style.postContainer}>
         {postData?.map((postData: postData, index: number) => {
+          const wearingItem = postData.author.profileItems?.filter(
+            (profileItems: any) => {
+              return postData.animalOfAuthor === profileItems.animal
+            },
+          )
+
           return (
             <Post
               key={index}
               profile={{
-                image: postData.author?.profileItems,
+                isWithDraw: postData.author ? true : false,
+                image: wearingItem,
                 name: postData.author?.credential.nickname,
                 animal: postData.animalOfAuthor,
                 isAnonymous: postData.isAnonymous,

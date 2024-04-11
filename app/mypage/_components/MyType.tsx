@@ -8,6 +8,7 @@ import Fox from '@/public/assets/mypage/폭스.svg'
 type props = {
   nickName?: string
   primaryAnimal?: string
+  secondAnimal?: string
   cat?: number
   bear?: number
   dog?: number
@@ -17,6 +18,7 @@ type props = {
 export default function MyType({
   nickName,
   primaryAnimal,
+  secondAnimal,
   cat = 0,
   bear = 0,
   dog = 0,
@@ -24,14 +26,16 @@ export default function MyType({
 }: props) {
   const findMax = (number: number, type: string) => {
     if (number === Math.max(cat, bear, dog, fox)) {
-      return type
+      if (primaryAnimal === type || secondAnimal === type) {
+        return type
+      }
     }
   }
 
   return (
     <>
       <article className={style.container}>
-        <div className={style.point}>획득한 포인트</div>
+        <div className={style.point}>받은 동물 스티커</div>
         <div className={style.animalWrapper}>
           <Type
             svg={<Cat />}
