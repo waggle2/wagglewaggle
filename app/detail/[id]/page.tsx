@@ -1,7 +1,7 @@
-import { PageProps } from '@/.next/types/app/layout'
 import api from '@/app/_api/commonApi'
 import { formatDate } from '@/app/_lib/formatDate'
 import Wrapper from './_components/Wrapper'
+import { PageProps } from '@/.next/types/app/detail/[id]/page'
 
 export default async function Detail({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)

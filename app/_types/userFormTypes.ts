@@ -89,7 +89,9 @@ export type ISocialLoginResponse = {
     nickname: string
   }
 }
-
+export type IErrorResponse = {
+  message: string
+}
 export type IFormProps = {
   inputFields: IInputFileds
   setInputFields: Dispatch<SetStateAction<IInputFileds>>

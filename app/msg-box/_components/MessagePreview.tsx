@@ -11,7 +11,7 @@ import Cat from '/public/assets/cat_default.svg'
 interface Props {
   sender: string
   content: string
-  time: Date
+  time: string
   receiver: string
   firstUser: MessageUser
   secondUser: MessageUser
@@ -32,7 +32,9 @@ export default function MessagePreview({
   unreadMessageCount = 0,
   userId = '',
 }: Props) {
-  const profileAnimal = {
+  const profileAnimal: {
+    [key: string]: JSX.Element
+  } = {
     곰돌이: <Bear />,
     폭스: <Fox />,
     댕댕이: <Dog />,
