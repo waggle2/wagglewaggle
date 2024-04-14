@@ -27,7 +27,7 @@ export default function ItemSelection({
 }: ItemSelectionProps) {
     const selectedTab = useRecoilValue(selectedTabState)
     const selectedItemType = useRecoilValue(selectedItemTypeState)
-
+    console.log(items)
     const handleRemoveItemByType = () => {
         const item = selectedItems.find(item => item.itemType === selectedItemType);
         if (item) {
@@ -52,7 +52,7 @@ export default function ItemSelection({
             return (
                 <li
                     key={item.id}
-                    className={`${selectedItemType === '이모지' || selectedItemType === '프로필 배경' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
+                    className={`${selectedItemType !== '벽지' ? style.item : style.bigItem} ${isOwned ? style.owned : ''}`}
                     onClick={() => {
                         if (!isOwned) {
                             isSelected ? handleRemoveItemClick(item.id) : handleItemClick(item);
@@ -130,7 +130,7 @@ export default function ItemSelection({
                     </div>
                 ) : (
                     <ul className={style.itemContainer}>
-                        <li className={selectedItemType === '이모지' || selectedItemType === '프로필 배경' ? style.item : style.bigItem}
+                        <li className={selectedItemType !== '벽지' ? style.item : style.bigItem}
                             onClick={handleRemoveItemByType}
                         >
                             <div className={style.imageWrap}>
