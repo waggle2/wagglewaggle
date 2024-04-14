@@ -1,0 +1,28 @@
+@import './variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+body {
+  background-color: lightgrey;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  all: unset;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}

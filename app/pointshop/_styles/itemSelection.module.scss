@@ -1,0 +1,212 @@
+// 아이템 선택부분
+.itemSelectionWrapper {
+  position: relative;
+  background-color: #f0f0f0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryTabContainer {
+  display: none;
+  min-height: 48px;
+  background-color: #fff;
+  padding: 8px 20px;
+  display: flex;
+  gap: 4px;
+
+  > button {
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-size: 13px;
+  }
+  > .tabButton {
+    border: 1px solid #eaeaea;
+  }
+
+  > .active {
+    background-color: #2fd714;
+    border: none;
+    color: #fff;
+    font-weight: var(--fw-semiBold);
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  color: #878787;
+}
+.itemWrapper {
+  height: 100vh;
+  padding-bottom: 77px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.itemContainer {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0px 16px 85px 16px;
+
+  .item,
+  .bigItem {
+    border: 2px solid transparent;
+  }
+
+  > .item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: calc(33% - 4px);
+    height: auto;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+
+    .imageWrap {
+      position: relative;
+      border: 2px solid transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 0;
+      padding-top: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      border: 1px solid #eff0f0;
+      overflow: hidden;
+
+      .itemUnset {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 57%;
+
+        .unsetImg {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .itemImage {
+        position: absolute;
+        top: 17px;
+        width: 70%;
+        transform: translateX(-50%);
+      }
+
+      .backgroundItemImage {
+        width: 100%;
+      }
+
+      .dogItemImage {
+        position: absolute;
+        width: 90%;
+        top: 17px;
+        transform: translateX(-50%);
+      }
+
+      .foxItemImage {
+        position: absolute;
+        width: 80%;
+        top: 17px;
+        transform: translateX(-50%);
+      }
+      //프로필 배경
+      .backgroundWrap {
+        position: absolute;
+        width: 86.5%;
+        height: 86.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #eff0f0;
+        border-radius: 50%;
+        overflow: hidden;
+        bottom: 50%;
+        transform: translateY(50%);
+
+        .defaultEmoji {
+          position: absolute;
+          z-index: 50;
+        }
+        .catDefault {
+          width: 57%;
+          top: 23%;
+        }
+        .bearDefault {
+          width: 60%;
+          top: 23%;
+        }
+        .dogDefault {
+          width: 70%;
+          top: 23%;
+        }
+        .foxDefault {
+          width: 67%;
+          top: 23%;
+        }
+      }
+    }
+  }
+  .owned {
+    filter: grayscale(1);
+  }
+
+  > .bigItem {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 50%;
+    height: auto;
+    padding-bottom: 8px;
+
+    .imageWrap {
+      position: relative;
+      border: 2px solid transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 0;
+      padding-top: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      border: 1px solid #eff0f0;
+      overflow: hidden;
+
+      .itemUnset {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 57%;
+
+        .unsetImg {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .itemImage {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        width: 70%;
+      }
+    }
+  }
+}

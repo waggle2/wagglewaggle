@@ -1,0 +1,50 @@
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+.container {
+  border: 1px solid #d9d9d9;
+  text-align: left;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.title {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+.question {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  @include placeholder {
+    color: #d9d9d9;
+  }
+}
+.subText {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+.statusSection {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  background-color: #f2f2f2;
+  padding: 16px 12px;
+}
+.voteContainer {
+  padding: 16px;
+}

@@ -1,0 +1,56 @@
+.container {
+  padding: 16px;
+  position: relative;
+  &.isReply {
+    padding-left: 46px;
+    background: #f6f6f6;
+  }
+}
+.profile {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  h5 {
+    margin: 0;
+  }
+  span {
+    color: #8c8c8c;
+  }
+  margin-bottom: 12px;
+}
+.author {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profileCircle {
+  width: 40px;
+  height: 40px;
+  background-color: #ffe138;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropdown {
+  width: 100px;
+  height: 80px;
+  position: absolute;
+  left: 75%;
+  top: 50px;
+  background: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.line {
+  width: 100%;
+  height: 0px;
+  border: 1px solid #ebebeb;
+  margin: 11px 0;
+}

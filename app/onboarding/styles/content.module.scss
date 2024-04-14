@@ -1,0 +1,57 @@
+.startButton {
+  width: 398px;
+  border-radius: 6px;
+  background-color: #2fd714;
+  color: #fff;
+  font-size: 15px;
+  font-weight: normal;
+  padding: 15px 0;
+  cursor: pointer;
+  margin-bottom: 19px;
+}
+.title {
+  font-size: 24px;
+  margin-top: 100px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  white-space: pre-line;
+}
+.content {
+  font-size: 16px;
+  font-weight: normal;
+  color: #444444;
+  white-space: pre-line;
+}
+.image {
+  padding: 200px 0;
+  cursor: pointer;
+}
+@mixin circle {
+  width: 4px;
+  height: 4px;
+  border-radius: 50px;
+  background-color: #b3b3b4;
+  margin-bottom: 19px;
+}
+.circle {
+  @include circle;
+}
+.currentCircle {
+  @include circle;
+  background-color: #2fd714;
+}
+.circleContainer {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.navText {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-weight: normal;
+  .login {
+    color: #2a9418;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,45 @@
+.container {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  text-decoration-line: none;
+  align-items: center;
+}
+.svgContainer {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e4e4e4;
+  &.고냥이 {
+    background-color: #fab8ff;
+  }
+  &.댕댕이 {
+    background-color: #ffd859;
+  }
+  &.곰돌이 {
+    background-color: #8fd6ff;
+  }
+  &.폭스 {
+    background-color: #ff9f69;
+  }
+}
+
+.title {
+  color: #444;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.17px;
+}
+
+.count {
+  color: #8c8c8c;
+}

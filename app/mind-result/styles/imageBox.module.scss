@@ -1,0 +1,44 @@
+.imageBox {
+  padding: 20px;
+  font-size: 13px;
+  background-color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  border-radius: 10px;
+}
+.upload {
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  border: 1px solid #eaeaea;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.title {
+  color: #222222;
+  font-size: 22px;
+  font-weight: 700;
+}
+.image {
+  width: 100%;
+  padding: 20px 0;
+}
+.tagBox {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+}
+.tag {
+  padding: 8px 12px;
+  background-color: #f7f7f7;
+  border: 1px solid #eaeaea;
+  border-radius: 30px;
+}

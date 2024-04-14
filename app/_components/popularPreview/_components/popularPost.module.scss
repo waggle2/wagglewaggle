@@ -1,0 +1,169 @@
+.container {
+  padding: 16px;
+  width: 210px;
+  height: 240px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+
+  &.곰돌이 {
+    background: #e0f4ff;
+  }
+  &.고냥이 {
+    background: #fbebff;
+  }
+  &.폭스 {
+    background: #ffe1c4;
+  }
+  &.댕댕이 {
+    background: #fce7c0;
+  }
+}
+.categoryWrapper {
+  display: flex;
+  gap: 4px;
+}
+.category {
+  width: max-content;
+  padding: 4px 6px;
+  color: #000;
+
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  display: flex;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.32);
+  &.곰돌이 {
+    border: 1px solid #8ad4ff;
+  }
+  &.고냥이 {
+    border: 1px solid #eebfff;
+  }
+  &.폭스 {
+    border: 1px solid #ff9f69;
+  }
+  &.댕댕이 {
+    border: 1px solid #f0be6b;
+  }
+}
+.tag {
+  width: max-content;
+  display: flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  &.곰돌이 {
+    background: #8ad4ff;
+  }
+  &.고냥이 {
+    background: #eebfff;
+  }
+  &.폭스 {
+    background: #ff9f69;
+  }
+  &.댕댕이 {
+    background: #f0be6b;
+  }
+}
+.postWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.title {
+  color: rgba(0, 0, 0, 0.9);
+  font-family: 'Pretendard Variable';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.content {
+  max-width: 178px;
+
+  color: rgba(0, 0, 0, 0.85);
+  font-family: 'Pretendard Variable';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 138.462% */
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.postInfoContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  justify-content: flex-end;
+  align-items: center;
+}
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.name {
+  color: #000;
+  font-family: 'Pretendard Variable';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px; /* 138.462% */
+}
+
+.info {
+  display: flex;
+  gap: 4px;
+  color: #000;
+  font-family: 'Pretendard Variable';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+}
+.infoWrapper {
+  display: flex;
+  gap: 8px;
+}
+.time {
+  color: #1a1a1a;
+  font-family: 'Pretendard Variable';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.bgAnimal {
+  position: absolute;
+  bottom: 0;
+}

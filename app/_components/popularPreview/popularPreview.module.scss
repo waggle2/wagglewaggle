@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  margin: 32px 0;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+.titleWrapper {
+  display: flex;
+  gap: 4px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.postContainer {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  white-space: nowrap;
+  position: relative;
+}

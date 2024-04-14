@@ -1,0 +1,29 @@
+.section {
+  background: #f5f5f5;
+  height: 100dvh;
+  padding-inline: 16px;
+  padding-top: 65px;
+}
+
+.hrDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  height: 20px;
+  color: #dddddd;
+  hr {
+    background: #dddddd;
+    height: 1px;
+    border: 0;
+  }
+  span {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    display: block;
+    padding-inline: 9px 10px;
+    background: #f5f5f5;
+  }
+}

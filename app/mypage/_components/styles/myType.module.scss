@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  padding: 16px;
+  padding-bottom: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.point {
+  color: #000;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 117.647% */
+}
+
+.animalWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.typeWrapper {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  color: #8c8c8c;
+  text-align: center;
+}
+.type {
+  color: #1a1a1a;
+  display: inline-block;
+  font-weight: 700;
+}

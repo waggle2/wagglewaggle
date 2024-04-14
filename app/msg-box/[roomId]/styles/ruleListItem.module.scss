@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  cursor: pointer;
+  label {
+    display: block;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    padding-block: 16px;
+    font-size: 15px;
+    border-color: #eaeaea;
+    font-weight: var(--fw-medium);
+    color: #444444;
+    text-align: center;
+  }
+  input {
+    display: none;
+  }
+  input:checked ~ label {
+    border-color: #2fd714;
+    color: #2fd714;
+  }
+}
+
+.etcLabel {
+  width: 100%;
+  cursor: pointer;
+  display: block;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  padding: 12px 19px 12px 16px;
+  input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-weight: var(--fw-medium);
+    color: rgb(26, 26, 26, 0.6);
+    &::placeholder {
+      font-size: 12px;
+    }
+  }
+}

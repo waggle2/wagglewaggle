@@ -1,0 +1,17 @@
+.hTitle {
+  margin-block: 32px 24px;
+  line-height: 30px;
+  color: #222;
+  font-size: 20px;
+  font-weight: var(--fw-semiBold);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.buttonDiv {
+  margin-top: 16px;
+}

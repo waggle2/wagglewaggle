@@ -1,0 +1,86 @@
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+.container {
+  position: relative;
+}
+.titleInput {
+  width: 100%;
+  font-size: 20px;
+  border: 0;
+  padding: 8px 0;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #f9f9f9;
+  @include placeholder {
+    color: #d9d9d9;
+  }
+}
+.editor {
+  text-align: left;
+}
+.contentBox {
+  min-height: 317px;
+  z-index: -1;
+}
+.contentInput {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  margin: 22px 0;
+  line-height: 20px;
+  letter-spacing: normal;
+  @include placeholder {
+    color: #d9d9d9;
+  }
+  &:focus {
+    outline: none;
+  }
+  text-align: left;
+}
+.boldLine {
+  height: 0px;
+  border: 6px solid #f6f6f6;
+}
+.inputContainer {
+  padding: 16px;
+}
+.navButton {
+  display: flex;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 17px;
+}
+.modalFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #d9d9d9;
+  padding: 20px 0;
+  color: #8c8c8c;
+  div {
+    cursor: pointer;
+  }
+}
+.modalContent {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: pre-line;
+  margin-top: 12px;
+  margin-bottom: 18px;
+}

@@ -1,0 +1,14 @@
+.headerDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoTextSpan {
+  margin-bottom: 16px;
+}
+.subTitle {
+  font-weight: var(--fw-regular);
+  color: #444444;
+}

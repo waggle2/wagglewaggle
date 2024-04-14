@@ -1,0 +1,38 @@
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  button {
+    cursor: pointer;
+  }
+}
+
+.buttonDiv {
+  position: relative;
+  border-radius: 12px;
+  padding: 19px 20px;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  text-align: center;
+  &.kakao {
+    background: #ffe613;
+    color: #121212;
+  }
+  &.naver {
+    background: #1ec800;
+    color: white;
+  }
+  &.google {
+    background: #f6f7f9;
+    color: #121212;
+  }
+  &.email {
+    border: 1px solid #eff0f0;
+    color: #121212;
+  }
+}
+
+.iconSpan {
+  position: absolute;
+  left: 16px;
+}

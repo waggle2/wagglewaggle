@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100dvh;
+}
+
+.mainSection {
+  padding: 8px;
+  padding-inline: 16px;
+  height: calc(100dvh - 141px);
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  background-color: #e8e8e8;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
