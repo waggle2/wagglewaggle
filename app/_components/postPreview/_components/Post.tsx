@@ -11,8 +11,8 @@ type Props = {
     name: string
     animal: string
     isAnonymous: boolean
-    isWithDraw: boolean
-    id: string
+    isWithDraw?: boolean
+    id?: number
   }
   post: {
     id: number

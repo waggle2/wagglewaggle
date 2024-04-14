@@ -22,11 +22,11 @@ export default function SchedulePicker() {
     return !!tooOld
   }
 
-  const onChange = (date: Dayjs | null, dateString: string) => {
+  const onChange = (date: Dayjs | null, dateString: string | string[]) => {
     if (date) {
       setVoteItems({
         ...voteItems,
-        endedDate: dateString,
+        endedDate: dateString as string,
       })
     }
   }

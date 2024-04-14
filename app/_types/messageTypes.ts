@@ -1,30 +1,32 @@
 export interface IMessageRooms {
   id: number
-  leaveRoom: Array<string>
   firstUser: MessageUser
   secondUser: MessageUser
   messages: Messages[]
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
-  unreadMessageCount: number
-  isBlockedUser: boolean
+  createdAt: string
+  updatedAt: string
+  deletedAt: string | null
+  unreadMessageCount?: number
+  isBlockedUser?: boolean
+  leaveRoom?: string[]
 }
 
 export type Messages = {
-  id: string
+  id: number
+  messageRoomId: number
   sender: string
   receiver: string
   content: string
   isRead: boolean
-  createdAt: Date
+  createdAt: string
+  deletedAt: string | null
 }
 
 export type MessageUser = {
-  id: string
+  id?: string
   nickname: string
-  profileAnimal: '곰돌이'
-  profileItems: Array<any>
+  profileAnimal: string
+  profileItems?: Array<any>
 }
 
 export type IPostMessage = {

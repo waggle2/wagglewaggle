@@ -1,7 +1,9 @@
+import { profileItems } from '../../postPreview/_types/responseType'
+
 export type postProps = {
   profile: {
     isAnonymous: boolean
-    image: any[]
+    image: profileItems | undefined
     name: string
     category: string
     tag: string

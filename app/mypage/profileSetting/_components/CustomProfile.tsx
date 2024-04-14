@@ -40,7 +40,7 @@ export default function CustomProfile() {
   const handleApplyClick = async () => {
     const itemIds: number[] = []
 
-    Object.values(wearingItem).map((info) => {
+    Object.values(wearingItem).map((info: any) => {
       if (info?.id) {
         itemIds.push(info.id)
       }

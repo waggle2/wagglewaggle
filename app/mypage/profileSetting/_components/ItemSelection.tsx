@@ -9,7 +9,7 @@ import BackgroundPrev from './BackgroundPrev'
 type props = {
   animal?: string | null
   itemList: avatarItemList
-  wearingItem: wearingItem
+  wearingItem: any
   setWearingItem: React.Dispatch<React.SetStateAction<wearingItem>>
 }
 

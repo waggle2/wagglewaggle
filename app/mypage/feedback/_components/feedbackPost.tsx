@@ -1,5 +1,5 @@
 import style from './_styles/feedbackPost.module.scss'
-import formatDate from '@/app/_lib/formatDate'
+import { formatDate } from '@/app/_lib/formatDate'
 import { feedbackResData } from '../_types/feedbackResType'
 
 export default function FeedbackPost(feedbackData: feedbackResData) {

@@ -15,6 +15,6 @@ export const formatDate = (time: string) => {
   )
 }
 
-export const dateAndTime = (time: Date) => {
+export const dateAndTime = (time: string | Date) => {
   return format(time, 'yyyy-MM-dd HH:mm')
 }

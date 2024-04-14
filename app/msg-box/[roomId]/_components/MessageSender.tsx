@@ -26,7 +26,7 @@ export default function MessageSender({ messageRoom, loginUserType }: Props) {
 
   const fireMutation = () => {
     mutation.mutate(
-      { receiver: receiver, content: text },
+      { receiver: receiver as string, content: text },
       {
         onSuccess: () => {
           setText('')

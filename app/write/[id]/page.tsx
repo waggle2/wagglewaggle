@@ -1,7 +1,7 @@
 import api from '@/app/_api/commonApi'
 import Content from '../_components/Content'
 import styles from '../styles/page.module.scss'
-import { PageProps } from '@/.next/types/app/layout'
+import { PageProps } from '@/.next/types/app/write/page'
 
 export default async function Write({ params }: PageProps) {
   const response = await api.get(`/posts/${params.id}`)
