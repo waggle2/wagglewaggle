@@ -1,8 +1,8 @@
 import styles from './styles/page.module.scss'
-import Content from './_components/Content'
 import LeftArrow from '/public/assets/leftArrow.svg'
 import Header from '../_components/common/header/Header'
-
+import dynamic from 'next/dynamic'
+const Content = dynamic(() => import('./_components/Content'), { ssr: false })
 export default function MindResult() {
   return (
     <>

@@ -6,7 +6,7 @@ import styles from '../styles/content.module.scss'
 import ImageBox from './ImageBox'
 import { useTrail, animated } from 'react-spring'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useRecoilState } from 'recoil'
 import { mindTestState } from '@/app/_recoil/atoms/mindTestState'
 import { result } from '../result'
@@ -15,10 +15,22 @@ export default function Content() {
   const [toggle, setToggle] = useState(false)
   const config = { mass: 8, tension: 2000, friction: 400 }
   const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
+  const params = useSearchParams()
+  const resultParams = params.get('result')
   useEffect(() => {
     setToggle(!toggle)
+    if (resultParams) {
+      setMindTestResult(Number(resultParams))
+    }
   }, [])
   const router = useRouter()
+  const handleShareToKakao = () => {
+    if (window.Kakao) {
+      window.Kakao.Share.sendScrap({
+        requestUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+      })
+    }
+  }
   const items = [
     {
       element: <ImageBox />,
@@ -42,7 +54,7 @@ export default function Content() {
               className={styles.button}
               onClick={() => router.push('/mind-test')}
             >
-              테스트 다시하기
+              {resultParams ? '나도 테스트하기' : '테스트 다시하기'}
             </div>
             <div className={styles.startButton}>와글와글 시작하기</div>
           </div>
@@ -55,7 +67,7 @@ export default function Content() {
         <div className={styles.share}>
           테스트 결과, 함께 공유해요!
           <div className={styles.shareButton}>
-            <Kakao />
+            <Kakao onClick={handleShareToKakao} />
             <Upload width="48" height="48" />
           </div>
         </div>
