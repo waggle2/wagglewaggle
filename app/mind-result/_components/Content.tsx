@@ -26,8 +26,27 @@ export default function Content() {
   const router = useRouter()
   const handleShareToKakao = () => {
     if (window.Kakao) {
-      window.Kakao.Share.sendScrap({
-        requestUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+      const kakao = window.Kakao
+      kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: result[mindTestResult].shareMessage,
+          description: '나의 동물 성향은 어떨까?\n동물로 보는 내 연애 성향',
+          imageUrl: result[mindTestResult].imageUrl,
+          link: {
+            mobileWebUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+            webUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+          },
+        },
+        buttons: [
+          {
+            title: '내 연애 성향 알아보기',
+            link: {
+              mobileWebUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+              webUrl: `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+            },
+          },
+        ],
       })
     }
   }
