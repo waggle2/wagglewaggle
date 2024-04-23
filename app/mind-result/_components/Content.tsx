@@ -85,7 +85,12 @@ export default function Content() {
             >
               {resultParams ? '나도 테스트하기' : '테스트 다시하기'}
             </div>
-            <div className={styles.startButton}>와글와글 시작하기</div>
+            <div
+              className={styles.startButton}
+              onClick={() => router.push('/login')}
+            >
+              와글와글 시작하기
+            </div>
           </div>
           <div className={styles.line} />
         </>
