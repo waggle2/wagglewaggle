@@ -50,9 +50,19 @@ export default function Content() {
       })
     }
   }
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `https://wagglewaggle.vercel.app/mind-result?result=${mindTestResult}`,
+      )
+      alert('클립보드에 복사되었습니다.')
+    } catch (err) {
+      alert('클립보드 복사 실패')
+    }
+  }
   const items = [
     {
-      element: <ImageBox />,
+      element: <ImageBox copyToClipboard={copyToClipboard} />,
     },
     {
       element: (
@@ -86,8 +96,13 @@ export default function Content() {
         <div className={styles.share}>
           테스트 결과, 함께 공유해요!
           <div className={styles.shareButton}>
-            <Kakao onClick={handleShareToKakao} />
-            <Upload width="48" height="48" />
+            <Kakao style={{ cursor: 'pointer' }} onClick={handleShareToKakao} />
+            <Upload
+              style={{ cursor: 'pointer' }}
+              onClick={copyToClipboard}
+              width="48"
+              height="48"
+            />
           </div>
         </div>
       ),
