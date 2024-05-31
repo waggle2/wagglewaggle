@@ -1,21 +1,22 @@
 .container {
-  position: fixed !important;
+  position: fixed;
   width: 100%;
   max-width: 430px;
   height: 85px;
   max-width: 430px;
   bottom: 0;
   gap: 32px;
-  display: flex !important;
+  display: flex;
   align-items: center;
   border-top: 1px solid #f6f6f6;
   padding: 8px 22px 18px 22px;
   background: #fff;
-  z-index: 9999;
+  z-index: 9900;
 }
 
 .messageDiv {
   position: relative;
+  width: 100%;
 }
 
 .alarm {
