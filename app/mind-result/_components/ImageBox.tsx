@@ -8,7 +8,10 @@ import TestResult_1 from '@/public/assets/testResult_1.svg'
 import TestResult_2 from '@/public/assets/testResult_2.svg'
 import TestResult_3 from '@/public/assets/testResult_3.svg'
 
-export default function ImageBox() {
+interface ImageBoxProps {
+  copyToClipboard: () => void
+}
+export default function ImageBox({ copyToClipboard }: ImageBoxProps) {
   const [mindTestResult, setMindTestResult] = useRecoilState(mindTestState)
   const Image = () => {
     switch (mindTestResult) {
@@ -29,7 +32,7 @@ export default function ImageBox() {
   return (
     <div className={styles.imageBox}>
       <div className={styles.upload}>
-        <Upload width="28" height="28" />
+        <Upload width="28" height="28" onClick={copyToClipboard} />
       </div>
       <span className={styles.title}>{result[mindTestResult].name}</span>
       <span>{result[mindTestResult].script}</span>
