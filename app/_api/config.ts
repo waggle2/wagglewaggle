@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const SERVER_URL = 'https://www.wagglewaggle.site/api/v1'
+const SERVER_URL = 'https://www.waggleapi.shop/api/v1'
 
 const customAxios = axios.create({
   baseURL: SERVER_URL,
