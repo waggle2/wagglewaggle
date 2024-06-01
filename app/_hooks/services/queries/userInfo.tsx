@@ -6,7 +6,7 @@ const getUserInfo = async () => {
   return response.data
 }
 
-export default function useGetUserInfo(isLogin: string) {
+export default function useGetUserInfo(isLogin?: string) {
   return useQuery({
     queryKey: ['get-user-info'],
     queryFn: () => getUserInfo(),
