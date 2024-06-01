@@ -5,9 +5,15 @@
   gap: 8px;
   justify-content: space-between;
   text-decoration-line: none;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 }
 
 .background {
+  cursor: pointer;
   width: 100%;
   height: 100%;
   border-radius: 12px;
@@ -15,6 +21,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .title {
   color: #000;
   text-align: center;
