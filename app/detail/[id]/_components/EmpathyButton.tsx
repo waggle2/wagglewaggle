@@ -35,7 +35,10 @@ export default function EmpathyButton({
   const { mutate: addStikers } = useAddStikers(commentId)
   const { mutate: modifyStickers } = useModifyStikers()
   const { mutate: deleteStickers } = useDeleteStikers()
+  const isLogin =
+    typeof window !== 'undefined' && window.localStorage.getItem('isLogin')
   const queryClient = useQueryClient()
+
   const handleEmpathy = (type: string) => {
     if (type === animal) {
       deleteStickers(stickerId)
@@ -43,6 +46,10 @@ export default function EmpathyButton({
       setIsEmpathy(false)
     } else {
       setAnimal(type)
+      if (isLogin !== 'true') {
+        alert('로그인 이후 사용 가능합니다.')
+        return
+      }
       if (isEmpathy) {
         modifyStickers({ id: stickerId, animal: type })
       } else {

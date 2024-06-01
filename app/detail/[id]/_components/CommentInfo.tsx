@@ -44,6 +44,8 @@ export default function CommentInfo({
 }: CommentInfoProps) {
   const [comment, setComment] = useRecoilState(commentState)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const isLogin =
+    typeof window !== 'undefined' && window.localStorage.getItem('isLogin')
   useEffect(() => {
     if (scrollRef.current && isSubmit) {
       scrollRef.current.scrollIntoView({
@@ -63,18 +65,20 @@ export default function CommentInfo({
               <h5>{nickName}</h5>
               <span>{date}</span>
             </div>
-            <MoreMenu
-              clickEvent={() => {
-                setIsToggle(!isToggle)
-                setComment({
-                  commentId: commentId,
-                  parentId: parentId,
-                  comment: content,
-                  isAnonymous: isAnonymous,
-                  authorId: authorId,
-                })
-              }}
-            />
+            {isLogin === 'true' && (
+              <MoreMenu
+                clickEvent={() => {
+                  setIsToggle(!isToggle)
+                  setComment({
+                    commentId: commentId,
+                    parentId: parentId,
+                    comment: content,
+                    isAnonymous: isAnonymous,
+                    authorId: authorId,
+                  })
+                }}
+              />
+            )}
           </div>
         </div>
         <span>{content}</span>
