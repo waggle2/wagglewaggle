@@ -4,7 +4,7 @@ import Content from './Content'
 import Navigation from './Navigation'
 import Comment from './Comment'
 import styles from '../styles/wrapper.module.scss'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import BottomSheet from './BottomSheet'
 import {
   commentEditState,
@@ -59,26 +59,28 @@ export default function Wrapper({
   const { mutate: postDelete } = useDeletePost()
   const [isPostEditable, setIsPostEditable] = useState(false)
   const [isCommentEditable, setIsCommentEditable] = useState(false)
-  const { data, isLoading } = useGetUserInfo()
+  const isLogin =
+    typeof window !== 'undefined' && window.localStorage.getItem('isLogin')
+  const { data, isLoading } = useGetUserInfo(isLogin as string)
   const router = useRouter()
   useEffect(() => {
     if (!isLoading) {
-      if (data.id === userId) {
+      if (data && data.id === userId) {
         setIsPostEditable(true)
       } else {
         setIsPostEditable(false)
       }
     }
-  }, [data])
+  }, [])
   useEffect(() => {
     if (!isLoading) {
-      if (data.id === comment.authorId) {
+      if (data && data.id === comment.authorId) {
         setIsCommentEditable(true)
       } else {
         setIsCommentEditable(false)
       }
     }
-  }, [data, comment])
+  }, [])
   return (
     <>
       {!isLoading && (
