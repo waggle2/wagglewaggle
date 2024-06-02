@@ -19,6 +19,8 @@ export default function Comment({
 }: CommentProps) {
   const { data, isLoading } = useGetComments(postId)
   const [isSubmit, setIsSubmit] = useState(false)
+  const isLogin =
+    typeof window !== 'undefined' && window.localStorage.getItem('isLogin')
   return (
     <>
       {!isLoading && (
@@ -86,7 +88,9 @@ export default function Comment({
               </>
             )
           })}
-          <CommentWrite postId={postId} setIsSubmit={setIsSubmit} />
+          {isLogin === 'true' && (
+            <CommentWrite postId={postId} setIsSubmit={setIsSubmit} />
+          )}
         </>
       )}
     </>
