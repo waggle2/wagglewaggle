@@ -18,7 +18,7 @@ export default function PointShop({ path }: props) {
           path.includes('/pointshop') ? style.activeTitle : style.title
         }
       >
-        포인트샵
+        아이템샵
       </div>
     </Link>
   )

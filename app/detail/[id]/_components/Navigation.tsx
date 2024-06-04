@@ -26,7 +26,9 @@ export default function Navigation({
 }: NavigationProps) {
   const { mutate: addPostLike } = useAddPostLike()
   const { mutate: deletePostLike } = useDeletePostLike()
-  const { data: userInfo, isLoading } = useGetUserInfo()
+  const isLogin =
+    typeof window !== 'undefined' && window.localStorage.getItem('isLogin')
+  const { data: userInfo, isLoading } = useGetUserInfo(isLogin as string)
   const { data: likeInfo, isLoading: isLikeLoading } = useGetPostLike(postId)
   return (
     <div className={style.container}>
@@ -46,7 +48,9 @@ export default function Navigation({
                 }}
               />
             ),
-            <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />,
+            isLogin === 'true' && (
+              <MoreMenu clickEvent={() => setIsToggle(!isToggle)} />
+            ),
           ]}
         />
       )}

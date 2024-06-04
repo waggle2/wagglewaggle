@@ -1,52 +1,33 @@
 'use client'
-
-import { useEffect, useRef } from 'react'
+import { Carousel } from 'antd'
 import style from './swipeEvent.module.scss'
+import { useState } from 'react'
+import Image from 'next/image'
 
 export default function SwipeEvent() {
-  const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  const divRef = useRef<HTMLDivElement>(null)
-  const navRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const div = divRef.current
-    const nav = navRef.current
-    // console.log('scrollwidth', divRef.current?.scrollWidth)
-    // console.log('scrollreft', divRef.current?.scrollLeft)
-    // console.log('offsetwidth', divRef.current?.offsetLeft)
-    // console.log('children', divRef.current?.children)
-    if (!div || !nav) return
+  const testArray = [
+    '/assets/banner_cat.jpg',
+    '/assets/banner_bear.jpg',
+    '/assets/banner_dog.jpg',
+    '/assets/banner_fox.jpg',
+  ]
+  const [currentPage, setCurrentPage] = useState(1)
 
-    const updateSort = (element: HTMLDivElement) => {
-      const scrollWidth = element.scrollWidth
-      const scrollLeft = element.scrollLeft
-      const width = element.offsetWidth
-      const items = element.children
+  const handleChange = (current: number) => {
+    setCurrentPage(current + 1)
+  }
 
-      // console.log(element, 'element')
-
-      if (scrollLeft <= width) {
-        element.prepend(items[items.length - 1])
-        element.scrollLeft = scrollLeft + width
-      }
-      if (scrollWidth - scrollLeft <= width) {
-        element.append(items[0])
-        element.scrollLeft = scrollLeft - width
-      }
-    }
-    updateSort(div)
-  }, [])
   return (
     <div className={style.containerWrapper}>
-      <div className={style.container} ref={divRef}>
-        {testArray.map((info, index) => {
-          return (
-            <div className={style.item} key={index}>
-              {info}
-            </div>
-          )
-        })}
-      </div>
-      <div className={style.currentPage}>1/10</div>
+      <Carousel afterChange={handleChange} draggable autoplay autoplaySpeed={5000} dots={false}>
+        {testArray.map((info, index) => (
+          <div className={style.item} key={index}>
+            <Image src={info} alt='배너이미지' width={398} height={180} />
+            {info}
+          </div>
+        ))}
+      </Carousel>
+      <div className={style.currentPage}>{currentPage}/{testArray.length}</div>
     </div>
   )
 }

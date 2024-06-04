@@ -10,6 +10,7 @@ type CustomPreviewProps = {
   selectedFrame?: avatarItem | undefined | null
   selectedWallpaper?: avatarItem | undefined | null
   isSetting?: boolean
+  selectedTab?: string
 }
 
 export default function CustomPreview({
@@ -40,16 +41,27 @@ export default function CustomPreview({
             </Link>
           )}
           <div className={style.imageContainer}>
+            <img
+              className={style.frame}
+              src={
+                selectedFrame
+                  ? selectedFrame.image
+                  : '/assets/point_shop/frame/frame_default.svg'
+              }
+              alt={'selectedFrame'}
+            />
             <div className={style.imageBox}>
               <div className={style.profileWrapper}>
                 <img
-                  className={style.emoji}
-                  src={
-                    selectedEmoji
-                      ? selectedEmoji.image
-                      : `/assets/point_shop/emoji/${animal}_default.svg`
-                  }
-                  alt={'selectedEmoji'}
+                  className={`${style.emoji} ${animal === '고냥이' ? style.cat :
+                    animal === '곰돌이' ? style.bear :
+                      animal === '댕댕이' ? style.dog :
+                        animal === '폭스' ? style.fox :
+                          ''}`}
+                  src={selectedEmoji
+                    ? selectedEmoji.image
+                    : `/assets/point_shop/emoji/${animal}_default.svg`}
+                  alt={`${selectedEmoji}`}
                 />
                 <img
                   className={style.profileBg}
@@ -61,15 +73,6 @@ export default function CustomPreview({
                   alt={'selectedProfileBg'}
                 />
               </div>
-              <img
-                className={style.frame}
-                src={
-                  selectedFrame
-                    ? selectedFrame.image
-                    : '/assets/point_shop/frame/frame_default.svg'
-                }
-                alt={'selectedFrame'}
-              />
             </div>
           </div>
           <img
