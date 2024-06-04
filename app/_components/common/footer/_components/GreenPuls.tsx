@@ -5,7 +5,7 @@ import GreenPulsIcon from '@/public/assets/greenPlus.svg'
 
 export default function GreenPuls() {
   return (
-    <Link href={''} className={style.container}>
+    <Link href={'/write'} className={style.container}>
       <div className={style.background}>
         <GreenPulsIcon />
       </div>

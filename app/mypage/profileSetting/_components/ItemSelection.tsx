@@ -45,6 +45,7 @@ export default function ItemSelection({
   return (
     <>
       <div className={style.itemSelectionWrapper}>
+        {/* 카테고리 탭 */}
         <div className={style.categoryTabContainer}>
           {ITEMTYPE.map((category) => (
             <CategoryButton
@@ -58,11 +59,10 @@ export default function ItemSelection({
           ))}
         </div>
       </div>
+      {/* 아이템 렌더링 */}
       <div className={style.itemWrapper}>
         <ul className={style.itemContainer}>
-          <li
-            className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
-          >
+          <li className={selectedItemType === 'wallpaper' ? style.bigItem : style.item}>
             <div
               className={cx(
                 'imageWrap',
@@ -97,7 +97,7 @@ export default function ItemSelection({
               return (
                 <li
                   key={item.id}
-                  className={`${selectedItemType === 'emoji' ? style.item : style.bigItem} }`}
+                  className={`${selectedItemType === 'wallpaper' ? style.bigItem : style.item} }`}
                   onClick={() => {
                     handleWearingItem(item)
                   }}
@@ -106,19 +106,51 @@ export default function ItemSelection({
                     className={cx(
                       'imageWrap',
                       wearingItem[`${selectedItemType}`] &&
-                        wearingItem[`${selectedItemType}`].id === item.id &&
-                        'selected',
+                      wearingItem[`${selectedItemType}`].id === item.id &&
+                      'selected',
                     )}
                   >
-                    {selectedItemType === 'background' ? (
-                      <BackgroundPrev animal={animal} src={item.image} />
-                    ) : (
+                    <div className={`${selectedItemType === 'background' ? style.backgroundWrap : ''}`}>
+                      {selectedItemType === 'background' && (
+                        // ? (
+                        //   <BackgroundPrev animal={animal} src={item.image} />
+                        // ) : (
+                        //   // <img
+                        //   //   className={style.itemImage}
+                        //   //   src={item.image}
+                        //   //   alt={item.name}
+                        //   //   />
+                        <img
+                          className={`${style.defaultEmoji} ${selectedItemType === 'background'
+                            ? animal === '고냥이'
+                              ? style.catDefault
+                              : animal === '곰돌이'
+                                ? style.bearDefault
+                                : animal === '댕댕이'
+                                  ? style.dogDefault
+                                  : animal === '폭스'
+                                    ? style.foxDefault
+                                    : ''
+                            : ''
+                            }`}
+                          src={`/assets/point_shop/emoji/${animal}_default.svg`}
+                          alt=""
+                        />
+                      )}
                       <img
-                        className={style.itemImage}
+                        className={
+                          selectedItemType === 'background'
+                            ? style.backgroundItemImage
+                            : selectedItemType === '이모지' && animal === '댕댕이'
+                              ? style.dogItemImage
+                              : animal === '폭스'
+                                ? style.foxItemImage
+                                : style.itemImage
+                        }
                         src={item.image}
                         alt={item.name}
                       />
-                    )}
+                    </div>
                   </div>
                 </li>
               )
