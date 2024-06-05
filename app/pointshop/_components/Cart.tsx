@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useRef, useEffect } from 'react';
 import style from '../_styles/cart.module.scss';
 import PointIcon from './PointIcon';
@@ -7,6 +8,7 @@ import { selectedTabState } from '@/app/_recoil/atoms/pointshopState';
 import RefreshIcon from '@/public/assets/ico_refresh.svg';
 import CloseIcon from '@/public/assets/point_shop/close.svg'
 import EmptyIcon from '@/public/assets/point_shop/selected_empty.svg'
+
 type CartProps = {
     cartItems: ItemData[];
     totalItemPrice: number;
@@ -15,7 +17,7 @@ type CartProps = {
     confirmModalToggle: () => void;
 };
 
-export default function Cart({ cartItems, totalItemPrice, handleResetClick, handleRemoveItemClick, confirmModalToggle }: CartProps) {
+export default function Cart({ cartItems = [], totalItemPrice, handleResetClick, handleRemoveItemClick, confirmModalToggle }: CartProps) {
     const selectedTab = useRecoilValue(selectedTabState);
     const [isMovedUp, setIsMovedUp] = useState(false);
 
@@ -29,12 +31,9 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
         if (cartRef.current) {
             setContainerHeight(cartRef.current.offsetHeight);
         }
-
-        // console.log(containerHeight)
     }, [cartItems]);
 
-
-    const sortedCartItems = cartItems.sort((a, b) => {
+    const sortedCartItems = cartItems.filter(item => item).sort((a, b) => {
         const orderA = itemTypeOrder.indexOf(a.itemType);
         const orderB = itemTypeOrder.indexOf(b.itemType);
         return orderA - orderB;
@@ -48,7 +47,6 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
 
     const dynamicStyle = isMovedUp ? { transform: `translateY(calc(-${containerHeight}px + 1px))` } : {};
 
-
     return (
         <div className={`${isMovedUp ? style.modalBackground : ''}`}>
             <div className={style.cartToggleContainer}>
@@ -59,11 +57,9 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
             </div>
 
             <div className={style.cartWrapper}>
-                {/* 장바구니 */}
                 <div ref={cartRef} className={style.selectedContainer} style={dynamicStyle}>
                     <div className={style.header}>
                         <h3>장바구니</h3>
-
                         <CloseIcon onClick={handleCartUp} className={style.closeBtn} />
                     </div>
                     <ul className={style.selectedItems}>
@@ -92,7 +88,8 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                                                     }
                                                     src={`/assets/point_shop/emoji/${selectedTab}_default.svg`}
                                                     alt=""
-                                                />                                            </div>
+                                                />
+                                            </div>
                                         )}
                                         {item.itemType === '프레임' && (
                                             <div className={style.emojiOver}>
@@ -108,7 +105,6 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                                                 />
                                             </div>
                                         )}
-
                                     </div>
                                     <div className={style.priceCoin}>
                                         <PointIcon animal={selectedTab} /> {item.price}
@@ -122,7 +118,6 @@ export default function Cart({ cartItems, totalItemPrice, handleResetClick, hand
                             </li>
                         )}
                     </ul>
-
                     <div className={style.purchaseContainer}>
                         <div className={style.totalPurchase}>
                             <span>선택 아이템 합계</span>
