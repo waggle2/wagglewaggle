@@ -4,8 +4,8 @@ import { ReactNode } from 'react'
 
 type Props = {
   href:
-    | string
-    | { pathname: string; query?: { category?: string; title: string } }
+  | string
+  | { pathname: string; query?: { category?: string; title: string } }
   svg: ReactNode
   title: string
   bgColor?: string
