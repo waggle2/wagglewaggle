@@ -46,7 +46,7 @@ export default function CustomResult({
   )
 
   const [animalCoins, setAnimalCoins] = useState(0) // 동물별 보유 코인
-  const [items, setItems] = useState([]) // 동물별 아이템 리스트
+  const [items, setItems] = useState<ItemData[]>([]) // 동물별 아이템 리스트
   const [cartData, setCartData] = useState<CartData>({
     cartItems: [],
     totalCoins: 0,
@@ -54,10 +54,10 @@ export default function CustomResult({
   const pointDifference = animalCoins - cartData.totalCoins
 
   //착용 미리보기 이미지
-  const [selectedEmoji, setSelectedEmoji] = useState('')
-  const [selectedProfileBg, setSelectedProfileBg] = useState('')
-  const [selectedFrame, setSelectedFrame] = useState('')
-  const [selectedWallpaper, setSelectedWallpaper] = useState('')
+  const [selectedEmoji, setSelectedEmoji] = useState(`/assets/point_shop/emoji/${selectedTab}/${selectedTab}_default.svg`)
+  const [selectedProfileBg, setSelectedProfileBg] = useState(`/assets/point_shop/profile_background/${selectedTab}_background_default.svg`)
+  const [selectedFrame, setSelectedFrame] = useState(`/assets/point_shop/frame/frame_default.svg`)
+  const [selectedWallpaper, setSelectedWallpaper] = useState(`/assets/point_shop/wallpaper/wallpaper_default.svg`)
 
   const confirmModalToggle = () => setConfirmModal(!confirmModal)
   const handleCategoryClick = (itemType: string) =>
@@ -149,7 +149,7 @@ export default function CustomResult({
 
   const updateSelectedItemImages = (updatedCartItems: ItemData[]) => {
     // 카트 아이템에 따라 이미지 업데이트
-    updatedCartItems.forEach((item) => {
+    updatedCartItems.filter(item => item).forEach((item) => {
       switch (item.itemType) {
         case '이모지':
           setSelectedEmoji(item.image)
@@ -170,22 +170,14 @@ export default function CustomResult({
   }
 
   useEffect(() => {
-    // setSelectedEmoji(`/assets/point_shop/emoji/${selectedTab}_default.svg`)
-    // setSelectedProfileBg(``)
-    // setSelectedFrame(``)
-    // setSelectedWallpaper(``)
     loadWearingItems()
     getCartData()
-    // console.log(`${selectedTab} 장바구니:`, cartData.cartItems)
     updateSelectedItemImages(cartData.cartItems)
   }, [selectedTab])
 
   useEffect(() => {
     fetchItemData()
-    // console.log(`${selectedTab} ${selectedItemType} 아이템:`, items)
-
     getPossessionItems()
-    // console.log(`${selectedTab} ${selectedItemType} 보유 아이템:`, possessionItems)
   }, [selectedTab, selectedItemType])
 
   const addItemMutation = useMutation({
@@ -197,15 +189,12 @@ export default function CustomResult({
       animal: string
     }) => {
       const endpoint = `/items/cart/${itemId}?animal=${animal}`
-
       await api.patch(endpoint, {})
     },
     onSuccess: async () => {
-      // console.log('Item added successfully');
       const updatedCartData = await fetchCartItems(selectedTab)
       setCartData(updatedCartData)
       updateSelectedItemImages(updatedCartData.cartItems)
-
       getCartData()
     },
   })
@@ -222,11 +211,9 @@ export default function CustomResult({
       await api.delete(endpoint)
     },
     onSuccess: async () => {
-      // console.log('Item removed successfully');
       const updatedCartData = await fetchCartItems(selectedTab)
       setCartData(updatedCartData)
       updateSelectedItemImages(updatedCartData.cartItems)
-
       getCartData()
     },
   })
@@ -240,13 +227,12 @@ export default function CustomResult({
       console.log('All items removed successfully')
       const updatedCartData = await fetchCartItems(selectedTab)
       setCartData(updatedCartData)
-
       getCartData()
     },
   })
 
   const handleItemClick = async (item: ItemData) => {
-    const existingItem = cartData.cartItems.find(
+    const existingItem = cartData.cartItems.filter(cartItem => cartItem).find(
       (cartItem) => cartItem.itemType === item.itemType,
     )
     if (existingItem) {
@@ -260,7 +246,7 @@ export default function CustomResult({
 
   const handleRemoveItemClick = async (itemId: number) => {
     const fetchedWearingItems = await fetchWearingItems(selectedTab)
-    const itemToRemove = cartData.cartItems.find((item) => item.id === itemId)
+    const itemToRemove = cartData.cartItems.filter(item => item).find((item) => item.id === itemId)
     await removeItemMutation.mutateAsync({ itemId, animal: selectedTab })
 
     if (itemToRemove) {
@@ -335,13 +321,13 @@ export default function CustomResult({
         items={items}
         handleItemClick={handleItemClick}
         handleRemoveItemClick={handleRemoveItemClick}
-        selectedItems={cartData.cartItems}
+        selectedItems={cartData.cartItems.filter(item => item)}
         isLoading={isLoading}
         possessionItems={possessionItems}
       />
 
       <Cart
-        cartItems={cartData.cartItems}
+        cartItems={cartData.cartItems.filter(item => item)}
         totalItemPrice={cartData.totalCoins}
         handleResetClick={handleResetClick}
         handleRemoveItemClick={handleRemoveItemClick}

@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import style from '../_styles/confirmChange.module.scss'
 import { AnimalTab, ItemData } from '@/app/_recoil/atoms/pointshopState'
@@ -52,7 +53,8 @@ export default function ConfirmChange({
 
   const updateProfileHandler = async () => {
     try {
-      const purchasedItems = cartItems.reduce<PurchasedItemsType>(
+      const validCartItems = cartItems.filter(item => item !== null)
+      const purchasedItems = validCartItems.reduce<PurchasedItemsType>(
         (acc, item) => {
           acc[item.itemType] = item.id
           return acc
